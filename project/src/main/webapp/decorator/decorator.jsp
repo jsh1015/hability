@@ -173,8 +173,9 @@
 						<li class="gnb gnb-favorite" style="display: list-item;">
 							<a href="/mypage.html?m=favorite&amp;s=class" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
 						</li>
+						<!-- #login 모달창 찾기!!!!!!!!!!!!! -->
 						<li class="gnb gnb-mypage">
-							<a href="#login" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+							<a href="${path}/user/mypage.shop" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
@@ -211,7 +212,7 @@
 		</div>
 	</header>
 
-<decorator:body />
+	<decorator:body />
 
 	<footer class="footer-wrap">
 		<div class="f-menu-wrap">
@@ -248,8 +249,6 @@
 	<div class="layer-wrap login-wrap" id="login-wrap">
 		<div class="bg-layer-wrap a-close"></div>
 		<!-- 로그인 모달창 -->
-		
-		
 	</div>
 </div>
 
@@ -293,20 +292,6 @@
 	HF.DATA.params = {};
 	</script>
 	<script type="text/javascript" src="${path}/jquery/js/HF._init.js"></script>
-	<!-- Page Load -->
-	<script id="mainSlideTemplate" type="text/x-jsrender-template" data-jsv-tmpl="jsvTmpl">
-{{for list}}
-<li class="swiper-slide hf-tracker-item" style="background:{{:hb_bgcolor}}" data-tracker-id="{{:hb_idx}}">
-{{if hb_link}}<a href="{{:hb_link}}" title="{{:hb_title}}">{{/if}}
-<picture>
-<source media="(max-width: 970px)" srcset="{{:img_url_mobile}}" alt="{{:hb_title}}">
-<img src="{{:img_url_pc}}" alt="{{:hb_title}}">
-</picture>
-{{if hb_link}}</a>{{/if}}
-</li>
-{{/for}}
-	</script>
-	<script type="text/javascript" src="${path}/jquery/js/page/main.js"></script>
 	
 	<script>
 	window.fbAsyncInit = function() {
@@ -389,6 +374,7 @@
 	</div><script type="text/javascript" id src="https://wcs.naver.net/wcslog.js"></script> 
 	<script type="text/javascript" id src="//wcs.naver.net/wcslog.js"></script>
 	<script type="text/javascript" id charset="UTF-8" src="//t1.daumcdn.net/adfit/static/kp.js"></script>
+	
 	<div id="wp_tg_cts" style="display:none;">
 	<script id="wp_id_script_1577448271230" src="//altg.widerplanet.com/delivery/wp.js"></script>
 	<script id="wp_tag_script_1577448271665" src="https://astg.widerplanet.com/delivery/wpc.php?v=1&amp;ver=4.0&amp;r=1&amp;md=bs&amp;ga=1evheg6-juv68j-3-1&amp;eid=4-9aabed0fe57727741be1d13b7b055fd886e0376cd2a27af580273af4b573462dff9d7530aa73fcfac2f1ae0fd08d480fab7fc76170dda909f9b452265d96d9f57fc92cc71dd9ca451d050d8581fb2884&amp;ty=Home&amp;ti=45752&amp;device=web&amp;charset=UTF-8&amp;tc=1577448271665&amp;ref=https%3A%2F%2Fhobbyful.co.kr%2Fwrite-order.html%3Fdirectbuy%3DY&amp;loc=https%3A%2F%2Fhobbyful.co.kr%2F"></script></div>

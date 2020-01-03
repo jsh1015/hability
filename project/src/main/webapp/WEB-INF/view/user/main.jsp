@@ -2089,10 +2089,21 @@
 	</div>
 </div>
 
-
+<script type="text/javascript" src="${path}/jquery/js/page/main.js"></script>
 
 <!-- footer있던 자리 -->
-
+<script id="mainSlideTemplate" type="text/x-jsrender-template" data-jsv-tmpl="jsvTmpl">
+{{for list}}
+<li class="swiper-slide hf-tracker-item" style="background:{{:hb_bgcolor}}" data-tracker-id="{{:hb_idx}}">
+{{if hb_link}}<a href="{{:hb_link}}" title="{{:hb_title}}">{{/if}}
+<picture>
+<source media="(max-width: 970px)" srcset="{{:img_url_mobile}}" alt="{{:hb_title}}">
+<img src="{{:img_url_pc}}" alt="{{:hb_title}}">
+</picture>
+{{if hb_link}}</a>{{/if}}
+</li>
+{{/for}}
+	</script>
 
 </body>
 </html>
