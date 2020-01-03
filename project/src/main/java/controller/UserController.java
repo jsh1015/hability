@@ -90,9 +90,8 @@ public class UserController {
 	
 	//로그인 검증, (로그인 정보 != 파라미터정보 접근 불가, admin은 가능)
 	@RequestMapping("mypage")
-	public ModelAndView page(String id,HttpSession session) {
+	public ModelAndView checkpage(String id,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		/*
 		User user = service.getUser(id); //loginuser를 쓸 수 없음 admin인경우 파라미터에 해당하는 id 조회
 		//사용자가 주문한 모든 주문내역 조회
 		List<Sale> salelist = service.salelist(id);
@@ -109,7 +108,6 @@ public class UserController {
 		}
 		mav.addObject("user",user);
 		mav.addObject("salelist",salelist);
-		 */
 		return mav;
 	}
 	
