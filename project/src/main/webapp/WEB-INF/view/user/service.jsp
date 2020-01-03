@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
 <title>늘:솜씨</title>
 </head>
-<body>
+<body class="">
+<div class="wrap" id="wrap">
 		<div class="container">
 		<div class="service-wrap">
 		<div class="service-cont">
@@ -85,5 +86,22 @@
 		</div>
 		</div>
 		</div>
-
+	</div>
+	<script>
+		window.fbAsyncInit = function() {
+		FB.init({
+		appId      : '388145468250973',
+		xfbml      : true,
+		version    : 'v3.2'
+		});
+		FB.AppEvents.logPageView();
+		};
+		(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 </html>
