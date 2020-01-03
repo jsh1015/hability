@@ -20,6 +20,7 @@
 		<td><a href="detail.shop?id=${item.id}">${item.name}</a></td>
 		<td>${item.price}</td>
 		<td><img src="img/${item.pictureUrl}" width="50"/></td>
+		<td><img src="img/${item.pictureUrl}" width="50"/></td>
 	</tr>
 </c:forEach>
 </table>
