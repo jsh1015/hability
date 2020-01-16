@@ -2,56 +2,58 @@ package logic;
 
 import java.util.Date;
 
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class User {
-	@Size(min=3,max=10,message="아이디는 3자이상 10자이하로 입력하세요")
-	private String userid;
-	@Size(min=3,max=10,message="비밀번호는 3자이상 10자이하로 입력하세요")
-	private String password;
-	@NotEmpty(message="사용자 이름은 필수 입력입니다.")
-	private String username;
-	private String phoneno;
-	private String postcode;
+	private String emailid;
+	private String pass;
+	private String name;
+	private String nickname;
+	private Date birth;
+	private String phone;
+	private int mileage;
 	private String address;
-	private String email;
-	@Past(message="생일은 과거 날짜만 가능합니다.")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date birthday;
-	
-	public String getUserid() {
-		return userid;
+	private String grade;
+	private String userimg;
+	public String getEmailid() {
+		return emailid;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
-	public String getPassword() {
-		return password;
+	public String getPass() {
+		return pass;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getPhoneno() {
-		return phoneno;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setPhoneno(String phoneno) {
-		this.phoneno = phoneno;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	public String getPostcode() {
-		return postcode;
+	public Date getBirth() {
+		return birth;
 	}
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public int getMileage() {
+		return mileage;
+	}
+	public void setMileage(int mileage) {
+		this.mileage = mileage;
 	}
 	public String getAddress() {
 		return address;
@@ -59,22 +61,23 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getEmail() {
-		return email;
+	public String getGrade() {
+		return grade;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
-	public Date getBirthday() {
-		return birthday;
+	public String getUserimg() {
+		return userimg;
 	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setUserimg(String userimg) {
+		this.userimg = userimg;
 	}
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", password=" + password + ", username=" + username + ", phoneno=" + phoneno
-				+ ", postcode=" + postcode + ", address=" + address + ", email=" + email + ", birthday=" + birthday
-				+ "]";
+		return "User [emailid=" + emailid + ", pass=" + pass + ", name=" + name + ", nickname=" + nickname + ", birth="
+				+ birth + ", phone=" + phone + ", mileage=" + mileage + ", address=" + address + ", grade=" + grade
+				+ ", userimg=" + userimg + "]";
 	}
+	
 }

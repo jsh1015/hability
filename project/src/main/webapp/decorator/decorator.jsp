@@ -143,7 +143,7 @@
 					</div>
 					<ul class="menu-list">
 						<li class="menu">
-							<a href="${path}/list/class.shop" class="btn-menu menu-class">취미 클래스<em class="menu-txt -w">CLASS</em></a>
+							<a href="${path}/list/hobbyClass.shop" class="btn-menu menu-class">취미 클래스<em class="menu-txt -w">CLASS</em></a>
 						</li>
 						<li class="menu">
 							<a href="${path}/list/diystore.shop" class="btn-menu menu-class">DIY 스토어<em class="menu-txt -w">DIY STORE</em></a>
