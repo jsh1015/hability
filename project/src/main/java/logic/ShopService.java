@@ -88,7 +88,7 @@ public class ShopService {
 		Sale sale = new Sale();
 		sale.setSaleid(saleDao.getMaxSaleId()); //saleid값 + 1
 		sale.setUser(loginUser); //구매자 정보(로그인정보)
-		sale.setUserid(loginUser.getUserid()); //구매자 id값만
+		//sale.setUserid(loginUser.getUserid()); //구매자 id값만
 		sale.setUpdatetime(new Date());//주문시간
 		saleDao.insert(sale);
 		//주문상품정보를 cart에서 조회

@@ -1,4 +1,5 @@
-/dao/
-/exception/
+/aop/
+/controller/
 /logic/
+/dao/
 /config/
