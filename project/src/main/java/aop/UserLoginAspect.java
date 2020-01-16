@@ -35,7 +35,7 @@ public class UserLoginAspect {
 		if(loginUser == null) {
 			throw new LoginException("2. 로그인 후 거래하세요","login.shop");
 		}
-		if(!loginUser.getEmailid().equals("admin") && !loginUser.getEmailid().equals(id)) {
+		if(!loginUser.getUserid().equals("admin") && !loginUser.getUserid().equals(id)) {
 			throw new LoginException("본인의 계정만 조회가 가능합니다.","main.shop");
 		}
 		Object ret = joinPoint.proceed();
