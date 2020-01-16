@@ -62,8 +62,8 @@ public class UserController {
 			return mav;
 		}
 		try {
-			User dbUser = service.getUser(user.getUserid());
-			if(!dbUser.getPassword().equals(user.getPassword())) {
+			User dbUser = service.getUser(user.getEmailid());
+			if(!dbUser.getPass().equals(user.getPass())) {
 				bresult.reject("error.login.password");
 				return mav;
 			}else {
@@ -133,14 +133,14 @@ public class UserController {
 		// 일치:update
 		// 불일치:메세지를 유효성출력으로 화면에 출력
 		User loginUser = (User)session.getAttribute("loginUser");//admin인지 확인하기 위해
-		if(!user.getPassword().equals(loginUser.getPassword())){
+		if(!user.getPass().equals(loginUser.getPass())){
 			bresult.reject("error.login.password");
 			return mav;
 		}
 		try{
 			service.userupdate(user);
-			mav.setViewName("redirect:mypage.shop?id="+user.getUserid());
-			if(!loginUser.getUserid().equals("admin")) {
+			mav.setViewName("redirect:mypage.shop?id="+user.getEmailid());
+			if(!loginUser.getEmailid().equals("admin")) {
 				session.setAttribute("loginUser", user); //업데이트 했을때 login정보도 바꿔줌
 			}
 		}catch(Exception e) {
@@ -155,22 +155,22 @@ public class UserController {
 	public ModelAndView checkdelete(User user , HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
-		if(!user.getPassword().equals(loginUser.getPassword())){
-			throw new LoginException("비밀번호가 틀립니다.","delete.shop?id="+user.getUserid());
+		if(!user.getPass().equals(loginUser.getPass())){
+			throw new LoginException("비밀번호가 틀립니다.","delete.shop?id="+user.getEmailid());
 		}
 		try {
-			service.userDelete(user.getUserid());
-			if(loginUser.getUserid().equals("admin")) {
+			service.userDelete(user.getEmailid());
+			if(loginUser.getEmailid().equals("admin")) {
 				mav.setViewName("redirect:/admin/list.shop");
 			}else {
 				session.invalidate();
-				mav.addObject("msg",user.getUserid()+"회원님. 탈퇴 되었습니다.");
+				mav.addObject("msg",user.getEmailid()+"회원님. 탈퇴 되었습니다.");
 				mav.addObject("url","login.shop");
 				mav.setViewName("alert");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
-			throw new LoginException("회원 탈퇴시 오류가 발생했습니다. 전산부 연락 요망","delete.shop?id="+user.getUserid());
+			throw new LoginException("회원 탈퇴시 오류가 발생했습니다. 전산부 연락 요망","delete.shop?id="+user.getEmailid());
 		}
 		return mav;
 	}
