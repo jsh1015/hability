@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<meta name="description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 취미 배달, 취미 정기구독">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -265,7 +266,7 @@
 	})();
 	}
 	</script>
-	<script type="text/javascript" src="${path}/jquery/dist/jquery.min.js"></script>
+	<%-- <script type="text/javascript" src="${path}/jquery/dist/jquery.min.js"></script> --%>
 	<script type="text/javascript" src="${path}/jsrender/jsrender.min.js"></script>
 	<script type="text/javascript" src="${path}/jquery/dist/lodash.min.js"></script>
 	<script type="text/javascript" src="${path}/jquery/moment/moment.min.js"></script>
