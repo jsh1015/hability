@@ -3,13 +3,77 @@
  */
 /**
  Mypage화면 Script File
- @namespace Mypage
- @author nalrarang@gmail.com
- @logs 20170404:Nalrarang update
 
  */
+function mymenu(str){
+	$(".btn-mymenu-on").removeClass("btn-mymenu-on")
+	$("."+str).addClass("btn-mymenu-on") //큰메뉴클릭시
+	
+	$(".btn-mymenu-sub-on").removeClass("btn-mymenu-sub-on")
+	$(".mymenu-"+str).addClass("btn-mymenu-sub-on") //작은 메뉴나타내기(스타일적용)
+	$(".list-order,.list-address,.list-newaddress,.list-history,.list-review," +
+			".list-qna,.list-mileage,.list-coupon,.list-myinfo,.list-password," +
+			".list-exit,.list-favorite,.list-magazine").hide()
+	$(".list-"+str).show()
+	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-class").css("display","none")
+	$(".mymenu-sub-"+str).css("display","list-item")
+}
+function favorite(){
+	$(".btn-mymenu-sub-on").removeClass("btn-mymenu-sub-on")
+	$(".mymenu-favorite").addClass("btn-mymenu-sub-on")//빨간밑줄
+	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-favorite").css("display","none")
+	$(".mymenu-sub-favorite").css("display","list-item") //세부탭 보여지게하는 부분
+	$(".list-order,.list-address,.list-newaddress,.list-history,.list-review," +
+			".list-qna,.list-mileage,.list-coupon,.list-myinfo,.list-password," +
+			".list-exit,.list-favorite,.list-magazine").hide()
+	$(".list-favorite").show()
+}
+function submymenu(str){
+	if(str=="review"){
+		$(".sub-tab-wrap-review").addClass("block")//구매후기 탭
+		$(".cont-review").css("display","")//review 리뷰 주의사항
+		$(".sub-tab-wrap-history").removeClass("block")	//나의활동 탭	
+		$(".list-qna").removeClass("block") //1:1문의내역 탭
+		$(".cont-history").css("display","none")
+	}else if(str=="history"){
+		$(".sub-tab-wrap-history").addClass("block")
+		$(".sub-tab-wrap-review").removeClass("block")
+		$(".cont-history").css("display","none")
+		$(".cont-review").css("display","none")
+		$(".list-qna").removeClass("block")
+	}else if(str=="qna"){
+		$(".cont-review").css("display","none")
+		$(".list-qna").addClass("block")
+		$(".cont-history").css("display","")
+		$(".sub-tab-wrap-review").removeClass("block")
+		$(".sub-tab-wrap-history").removeClass("block")
+	}else{
+		$(".cont-history").css("display","none")
+		$(".list-qna").removeClass("block")
+		$(".sub-tab-wrap-review").removeClass("block")
+		$(".sub-tab-wrap-history").removeClass("block")
+		$(".cont-review").css("display","none")
+	}
+	$(".btn-mymenu-sub-on").removeClass("btn-mymenu-sub-on")
+	$(".mymenu-"+str).addClass("btn-mymenu-sub-on")
+	
+	$(".order-list-wrap").hide()
+	$(".delivery-list-wrap").hide()
+	$(".edit-delivery-wrap").hide()
+	$(".view-reply-wrap").hide()
+	$(".reply-class-wrap").hide()
+	$(".mymenu-sub-tab-wrap").hide() //세부탭
+	$(".mileage-wrap").hide() //마일리지
+	$(".coupon-wrap").hide() //쿠폰
+	$(".reply-class-wrap").hide() //구매후기
+	$(".direct-ask-wrap").hide() //1:1문의
+	$(".edit-membership-wrap").hide()
+	$(".change-pw-wrap").hide()
+	$(".quit-membership-wrap").hide()
+	$(".list-"+str).show()
+}
 
-var Mypage = (function () {
+/*var Mypage = (function () {
     var MyProfile = {};
     var IMG_URL = null; //'https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/';
     var myMenu = '';
@@ -489,7 +553,7 @@ var Mypage = (function () {
                 html += '</div>';
                 html += '</div>';
             });
-            /* Paging */
+             Paging 
             var totalPage = Math.ceil(orderTotal / orderAmount);
             html += '<div class="paging-num-wrap">';
             for (var i = 1; i <= totalPage; i++) {
@@ -816,10 +880,10 @@ var Mypage = (function () {
         });
 
         $('.change-address').off('click').on('click', function () {
-            /*deliveryAmount = 3; deliveryPage = 1;
+            deliveryAmount = 3; deliveryPage = 1;
             var order_idx = $(this).attr('data-order-idx');
             getAddressList(order_idx);
-            */
+            
             Popup.confirm("배송지 정보 변경", "배송지 변경이 필요하세요?<br>1:1 문의를 남겨주세요.", "취소", "확인", function () {
                 Popup.hide();
             }, function () {
@@ -833,7 +897,7 @@ var Mypage = (function () {
         });
     };
 
-    /* 주문취소 팝업 */
+     주문취소 팝업 
     var drawOrderCancelPopup = function (classList, order, arr_idx, data) {
         $('#cancel-wrap').remove();
         var returnPrice = 0;
@@ -976,7 +1040,7 @@ var Mypage = (function () {
         });
 
     };
-    /* 교환신청 팝업 */
+     교환신청 팝업 
     var drawOrderChangePopup = function (classList, order, arr_idx) {
         $('#change-wrap').remove();
         $('#return-wrap').remove();
@@ -1123,7 +1187,7 @@ var Mypage = (function () {
         $('.input-change-reason').off('keyup').on('keyup', function (event) {
             var currentString = $(".input-change-reason").val();
             $('.change-reason-txt-count').html(currentString.length + "/300");
-            if (currentString.length <= 300) {  /*or whatever your number is*/
+            if (currentString.length <= 300) {  or whatever your number is
                 //do some css with your div
             } else {
                 //do some different stuff with your div
@@ -1247,7 +1311,7 @@ var Mypage = (function () {
         html += '</div>';
 
 
-        /* Paging */
+         Paging 
         var totalPage = Math.ceil(deliveryTotal / deliveryAmount);
         html += '<div class="paging-num-wrap">';
         for (var i = 1; i <= totalPage; i++) {
@@ -1294,7 +1358,7 @@ var Mypage = (function () {
         });
     };
 
-    /* 반품신청 팝업 */
+     반품신청 팝업 
     var drawOrderReturnPopup = function (res, arr_idx, oc_idx) {
         $('#change-wrap').remove();
         $('#return-wrap').remove();
@@ -1459,7 +1523,7 @@ var Mypage = (function () {
         $('.input-change-reason').off('keyup').on('keyup', function (event) {
             var currentString = $(".input-change-reason").val();
             $('.change-reason-txt-count').html(currentString.length + "/300");
-            if (currentString.length <= 300) {  /*or whatever your number is*/
+            if (currentString.length <= 300) {  or whatever your number is
                 //do some css with your div
             } else {
                 //do some different stuff with your div
@@ -1595,7 +1659,7 @@ var Mypage = (function () {
                 html += '</div>';
                 html += '</div>';
             });
-            /* Paging */
+             Paging 
             var totalPage = Math.ceil(orderTotal / orderAmount);
             html += '<div class="paging-num-wrap">';
             for (var i = 1; i <= totalPage; i++) {
@@ -2408,7 +2472,7 @@ var Mypage = (function () {
     };
 
     var getSubscriptList = function () {
-        /* Ajax Data */
+         Ajax Data 
         ApiRequest.get('/subscript', {
             "amount": subScriptAmount,
             "page": subScriptPage
@@ -2524,7 +2588,7 @@ var Mypage = (function () {
             html += '</div>';
         });
 
-        /* Paging */
+         Paging 
         var totalPage = Math.ceil(subScriptTotal / subScriptAmount);
         html += '<div class="paging-num-wrap">';
         for (var i = 1; i <= totalPage; i++) {
@@ -2891,7 +2955,7 @@ var Mypage = (function () {
             html += '<a href="#payment" title="삭제" class="btn-payment-edit del-payment-card">삭제</a>';
             html += '</div>';
             html += '</div>';
-            /*html += '<div class="edit-payment-area edit-payment-area-phone edit-payment-off">';
+            html += '<div class="edit-payment-area edit-payment-area-phone edit-payment-off">';
             html += '<div class="edit-payment-type-wrap">';
             html += '<input type="radio" name="edit-payment" class="edit-payment-radio" id="edit-payment-phone" disabled />';
             html += '<label for="edit-payment-phone" class="edit-payment-type edit-payment-phone">';
@@ -2908,7 +2972,7 @@ var Mypage = (function () {
             html += '<div class="payment-edit-btn">';
             html += '<a href="#payment" title="결제 수단 등록" class="btn-payment-edit register-payment-phone">결제 수단 등록</a>';
             html += '</div>';
-            html += '</div>';*/
+            html += '</div>';
             html += '<div class="edit-payment-btn">';
             html += '<a href="#payment" title="결제 수단 적용" class="btn-edit-payment apply-payment-btn">결제 수단 적용</a>';
             html += '</div>';
@@ -2935,7 +2999,7 @@ var Mypage = (function () {
             html += '<a href="#payment" title="결제 수단 등록" class="btn-payment-edit register-payment-card">결제 수단 등록</a>';
             html += '</div>';
             html += '</div>';
-            /*html += '<div class="edit-payment-area edit-payment-area-phone edit-payment-off">';
+            html += '<div class="edit-payment-area edit-payment-area-phone edit-payment-off">';
             html += '<div class="edit-payment-type-wrap">';
             html += '<input type="radio" name="edit-payment" class="edit-payment-radio" id="edit-payment-phone" disabled />';
             html += '<label for="edit-payment-phone" class="edit-payment-type edit-payment-phone">';
@@ -2952,7 +3016,7 @@ var Mypage = (function () {
             html += '<div class="payment-edit-btn">';
             html += '<a href="#payment" title="결제 수단 등록" class="btn-payment-edit register-payment-phone">결제 수단 등록</a>';
             html += '</div>';
-            html += '</div>';*/
+            html += '</div>';
             html += '<div class="edit-payment-btn">';
             html += '<a href="#payment" title="결제 수단 적용" class="btn-edit-payment apply-payment-btn">결제 수단 적용</a>';
             html += '</div>';
@@ -3542,7 +3606,7 @@ var Mypage = (function () {
             });
         }
 
-        /* Paging */
+         Paging 
         var totalPage = Math.ceil(commentTotal / commentAmount);
         html += '<div class="paging-num-wrap">';
         for (var i = 1; i <= totalPage; i++) {
@@ -3711,7 +3775,7 @@ var Mypage = (function () {
                 html += '</div>';
                 html += '</div>';
             });
-            /* Paging */
+             Paging 
             var totalPage = Math.ceil(reviewTotal / reviewAmount);
             html += '<div class="paging-num-wrap">';
             for (var i = 1; i <= totalPage; i++) {
@@ -3928,7 +3992,7 @@ var Mypage = (function () {
         $('.input-reply').off('keyup').on('keyup', function (event) {
             var currentString = $(".input-reply").val();
             $('.change-reason-txt-count').html(currentString.length + "/300");
-            if (currentString.length <= 300) {  /*or whatever your number is*/
+            if (currentString.length <= 300) {  or whatever your number is
                 //do some css with your div
             } else {
                 //do some different stuff with your div
@@ -4132,7 +4196,7 @@ var Mypage = (function () {
                 $('body').scrollTop(0);
                 showWriteClassReview(class_idx, 'edit', idx);
                 $('#wrap').addClass('layer-on write-reply-on');
-                /* 수정 시나리오 */
+                 수정 시나리오 
             });
         });
 
@@ -4468,7 +4532,7 @@ var Mypage = (function () {
         $('.input-qna-contents').off('keyup').on('keyup', function (event) {
             var currentString = $(".input-qna-contents").val();
             $('.change-reason-txt-count').html(currentString.length + "/300");
-            if (currentString.length <= 300) {  /*or whatever your number is*/
+            if (currentString.length <= 300) {  or whatever your number is
                 //do some css with your div
             } else {
                 //do some different stuff with your div
@@ -4616,7 +4680,7 @@ var Mypage = (function () {
         $('.mileage_list_wrap').append(html);
         var pageHtml = '';
 
-        /* Paging */
+         Paging 
         var totalPage = Math.ceil(mileageTotal / mileageAmount);
         pageHtml += '<div class="paging-num-wrap">';
         for (var i = 1; i <= totalPage; i++) {
@@ -4828,7 +4892,7 @@ var Mypage = (function () {
         $('.coupon-list-wrap').append(html);
         var pageHtml = '';
 
-        /* Paging */
+         Paging 
         var totalPage = Math.ceil(couponTotal / couponAmount);
         pageHtml += '<div class="paging-num-wrap">';
         for (var i = 1; i <= totalPage; i++) {
@@ -5591,7 +5655,7 @@ var Mypage = (function () {
 
             var pageHtml = '';
 
-            /* Paging */
+             Paging 
             var totalPage = Math.ceil(favoriteTotal / favoriteAmount);
             pageHtml += '<div class="paging-num-wrap">';
             for (var i = 1; i <= totalPage; i++) {
@@ -5646,7 +5710,7 @@ var Mypage = (function () {
             $('.favorite-wrap').append(html);
             var pageHtml = '';
 
-            /* Paging */
+             Paging 
             var totalPage = Math.ceil(favoriteTotal / favoriteAmount);
             pageHtml += '<div class="paging-num-wrap">';
             for (var i = 1; i <= totalPage; i++) {
@@ -5738,12 +5802,12 @@ var Mypage = (function () {
             }
         });
 
-        /*
+        
                 $('.btn-profile-thumb').off('click').on('click', function(){
                     // $('#wrap').addClass('layer-on photo-on');
                     $('.profile-upload').trigger('click');
                 });
-        */
+        
         $(".profile-upload").change(function () {
             profileReadURL(this);
         });
@@ -5814,4 +5878,4 @@ var Mypage = (function () {
 
 HF.ready(function () {
     Mypage.init();
-});
+});*/
