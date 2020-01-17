@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
+import dao.ListDao;
 import dao.ItemDao;
 import dao.SaleDao;
 import dao.SaleItemDao;
@@ -28,6 +29,8 @@ public class ShopService {
 	private SaleItemDao saleItemDao;
 	@Autowired
 	private BoardDao boardDao;
+	@Autowired
+	private ListDao listDao;
 
 	public List<Item> getItemList() {
 		return itemDao.list();
@@ -146,5 +149,9 @@ public class ShopService {
 			boardDao.readcntadd(num);
 		}
 		return boardDao.selectOne(num);
+	}
+
+	public List<Class> classList() {
+		return listDao.list();
 	}
 }

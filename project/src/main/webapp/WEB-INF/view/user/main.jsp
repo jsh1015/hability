@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <html>
 <head lang="ko" id="hobbyful">
-	<title>늘:솜씨</title>
+	<title>hability</title>
 </head>
 <body class="">
 <div class="container" id="top">
