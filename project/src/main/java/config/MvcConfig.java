@@ -20,6 +20,8 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.test.tst.NaverLoginBO;
+
 @Configuration	//스프링 환경설정 클래스. xml 대체하는 클래스
 @ComponentScan(basePackages= {"controller","logic","dao","aop"}) 
 @EnableAspectJAutoProxy //AOP설정
@@ -60,5 +62,12 @@ public class MvcConfig implements WebMvcConfigurer{
 		pr.put("exception.BoardException","exception");
 		ser.setExceptionMappings(pr);
 		return ser;
+	}
+	@Bean
+	public NaverLoginBO naverLoginBO()
+	{
+		NaverLoginBO nbo = new NaverLoginBO();
+		return nbo;
+		
 	}
 }
