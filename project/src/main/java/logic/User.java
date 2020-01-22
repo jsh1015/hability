@@ -13,7 +13,6 @@ public class User {
 	private String address;
 	private String grade;
 	private String userimg;
-	
 	public String getEmailid() {
 		return emailid;
 	}

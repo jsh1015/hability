@@ -1,6 +1,6 @@
 package logic;
 
-public class Basket {
+public class Myclass {
 	private int cl_num;
 	private String emailid;
 	public int getCl_num() {
@@ -17,7 +17,7 @@ public class Basket {
 	}
 	@Override
 	public String toString() {
-		return "Basket [cl_num=" + cl_num + ", emailid=" + emailid + "]";
+		return "Myclass [cl_num=" + cl_num + ", emailid=" + emailid + "]";
 	}
 	
 }

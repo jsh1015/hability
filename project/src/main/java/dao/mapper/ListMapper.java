@@ -9,8 +9,7 @@ import logic.Class;
 
 public interface ListMapper {
 
-	@Select({"<script>select * from class ",
-			 "<if test='cl_num != null'> where cl_num=#{cl_num} </if></script>"})
+	@Select("select * from class")
 	List<Class> list(Map<String,Object> param);
 
 }

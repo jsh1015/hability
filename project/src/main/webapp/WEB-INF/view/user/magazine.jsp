@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head lang="ko" id="hobbyful">
-<title>Magazine:)</title>
+<title>늘:솜씨</title>
 </head>
 <body>
 	<div class="container">

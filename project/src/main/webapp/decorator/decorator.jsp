@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<meta name="description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 취미 배달, 취미 정기구독">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -27,17 +28,12 @@
 	<meta property="og:title" content="하비풀 - 취미를 만나 일상이 아름다워지다.">
 	<meta property="og:description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 하비풀은 당신과 취미를 만나게 합니다.">
 	<meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/hobbyful_concept01.jpg">
-	<!-- css3-mediaqueries.js for IE less than 9 -->
-	<!--[if lt IE 9]>
-	<script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-	<![endif]-->
+	
 	<link rel="shortcut icon" href="${path}/img/favicon.png">
 	<link rel="apple-touch-icon" href="${path}/img/m_favicon.png">
 	
-	
 	<!-- Log Rocket -->
 	
-	<script type="text/javascript" async src="https://cdn.channel.io/plugin/ch-plugin-web.js" charset="UTF-8"></script>
 	<script type="text/javascript" async src="https://www.google-analytics.com/analytics.js"></script>
 	<script type="text/javascript" async src="https://www.google-analytics.com/gtm/js?id=GTM-NLKP5J5&amp;t=gtm15&amp;cid=670013715.1576581638"></script>
 	<script type="text/javascript" async src="https://www.google-analytics.com/plugins/ua/ec.js"></script>
@@ -49,11 +45,11 @@
 	<script src="https://connect.facebook.net/en_US/sdk.js?hash=927b38b25c16e73f6a875ac2cb4403d5&amp;ua=modern_es6" async crossorigin="anonymous"></script>
 	<script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js"></script>
 	<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KJXG8SF"></script>
-	<script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
+	<!-- <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.logrocket.io/logger.min.js" async></script>
 	<script>
 		window.LogRocket && window.LogRocket.init('1xyhws/hobbyful');
-	</script>
+	</script> -->
 	
 	<!-- End of Log Rocket -->
 	
@@ -132,7 +128,7 @@
 						<ul class="hf-func-list">
 							<li class="hf-func s-empty">
 								<span class="i-count txt-cart-count"></span>
-								<a href="/cart.html" title="취미바구니" class="btn-func func-box">취미바구니</a>
+								<a href="${path}/order/cartList.shop" title="취미바구니" class="btn-func func-box">취미바구니</a>
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">
@@ -151,16 +147,12 @@
 						<li class="menu">
 							<a href="${path}/user/magazine.shop" class="btn-menu menu-magazine">매거진<em class="menu-txt -w">MAGAZINE</em></a>
 						</li>
-						<!--<li class="menu">-->
-						<!--<a href="/award.html" class="btn-menu menu-award">취미 어워드<em class="menu-txt -w">AWARD</em></a>-->
-						<!--</li>-->
 						<li class="menu">
 							<a href="${path}/user/service.shop" class="btn-menu menu-service">하비풀 소개<em class="menu-txt -w">ABOUT</em></a>
 						</li>
 					</ul>
 				</div>
 				<div class="gnb-wrap">
-					<div class="gnb-info -m">지금 주문하시면 12월 30일(D-3)부터 취미 배송이 시작됩니다.</div>
 					<ul class="gnb-list">
 						<li class="gnb gnb-login" style="display: none;">
 							<a href="#login" title="로그인" class="btn-gnb header_login">로그인</a>
@@ -180,9 +172,6 @@
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
-						</li>
-						<li class="gnb gnb-customer">
-							<a href="${path}/admin/admain.shop" title="관리자페이지" class="btn-gnb">관리자페이지</a>
 						</li>
 					</ul>
 					<div class="hobbyful-txt -w">You're hobbyfull!</div>
@@ -257,7 +246,7 @@
 </div>
 
 	<!-- Javascript Library Load -->
-	<script>
+	<!-- <script>
 	if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
 	(function () {
 	var s = document.createElement('script');
@@ -268,7 +257,7 @@
 	x.parentNode.insertBefore(s, x);
 	})();
 	}
-	</script>
+	</script> -->
 	<%-- <script type="text/javascript" src="${path}/jquery/dist/jquery.min.js"></script> --%>
 	<script type="text/javascript" src="${path}/jsrender/jsrender.min.js"></script>
 	<script type="text/javascript" src="${path}/jquery/dist/lodash.min.js"></script>

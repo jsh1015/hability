@@ -16,6 +16,7 @@ public class ListController {
 	@Autowired
 	private ShopService service;
 	
+	// 취미 클래스 리스트
 	@RequestMapping("hobbyClass")
 	public ModelAndView list() {
 		ModelAndView mav = new ModelAndView();
@@ -27,21 +28,11 @@ public class ListController {
 	@RequestMapping("diystore")
 	public ModelAndView list(Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
-		List<Class> classList = service.classList();
-		mav.addObject("classList",classList);
 		return mav;
 	}
 	@RequestMapping("detail")
 	public ModelAndView detail() {
 		ModelAndView mav = new ModelAndView();
-		List<Class> classList = service.classList();
-		mav.addObject("classList",classList);
 		return mav;
-	}
-	
-	@GetMapping("*")
-	public String hobbyClass() 
-	{
-		return "list/hobbyClass";
 	}
 }
