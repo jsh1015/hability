@@ -1,15 +1,15 @@
 package logic;
 
-public class Basket {
-	private String emailid;
+public class Orderlist {
+	private int od_num;
 	private int cl_num;
 	private int kit_num;
 	private int count;
-	public String getEmailid() {
-		return emailid;
+	public int getOd_num() {
+		return od_num;
 	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
+	public void setOd_num(int od_num) {
+		this.od_num = od_num;
 	}
 	public int getCl_num() {
 		return cl_num;
@@ -32,7 +32,7 @@ public class Basket {
 	
 	@Override
 	public String toString() {
-		return "Basket [emailid=" + emailid + ", cl_num=" + cl_num + ", kit_num=" + kit_num + ", count=" + count + "]";
+		return "orderlist [od_num=" + od_num + ", cl_num=" + cl_num + ", kit_num=" + kit_num + ", count=" + count + "]";
 	}
-
+	
 }

@@ -181,6 +181,9 @@
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
 						</li>
+						<li class="gnb gnb-customer">
+							<a href="${path}/admin/admain.shop" title="관리자페이지" class="btn-gnb">관리자페이지</a>
+						</li>
 					</ul>
 					<div class="hobbyful-txt -w">You're hobbyfull!</div>
 				</div>

@@ -17,7 +17,16 @@ public class ListDao {
 	private SqlSessionTemplate sqlSession;
 	private Map<String,Object> param = new HashMap<>();
 	
+	//취미클래스,DIY,매거진 게시물 목록 => select
 	public List<Class> list(){
 		return sqlSession.getMapper(ListMapper.class).list(null);
+	}
+	
+	//각 게시물 detail=>select
+	public Class selectcl(Integer cl_num) {
+		param.clear();
+		param.put("cl_num", cl_num);
+		return sqlSession.getMapper(ListMapper.class).list(param).get(0);
+		
 	}
 }

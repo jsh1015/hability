@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>hability</title>
+<title>hability-detail</title>
 </head>
 <body>
+<c:forEach items="${classList}" var="list">
 <div class="container">
 	<div class="vod-wrap">
 		<div class="vod-cont vimeohelper-92950 vimeohelper"
@@ -19,19 +21,18 @@
 		</div>
 			<div class="vod-info-wrap">
 				<div class="vod-info-tit view-class-title">
-					<span class="i-lecturer">[정규 클래스] 노플랜 프로젝트 작가님</span> 노플랜 프로젝트의 내방
-					소품 라탄 클래스
+					<span class="i-lecturer">${list.teacher}</span> ${list.cl_title}
 				</div>
 				<div class="vod-info-price-discount">
-					<span class="i-percent view-class-discount-percent">10%</span> <span
-						class="i-price view-class-discount-price">189,000원</span> <s
-						class="i-regularPrice view-class-discount-regularPrice">210,000원</s>
+					<!-- <span class="i-percent view-class-discount-percent">10%</span> 
+					<span class="i-price view-class-discount-price">189,000원</span>  -->
+						<span class="i-regularPrice view-class-discount-regularPrice">${list.cl_price}</span>
 				</div>
-				<div class="vod-info-price">
+<!-- 				<div class="vod-info-price">
 					<span class="i-won">월</span><span
 						class="vod-info-price-number view-class-price">37,800</span><span
 						class="i-won">원</span> <span class="i-desc">(5개월 무이자 할부 시)</span>
-				</div>
+				</div> -->
 				<ul class="vod-info-list">
 					<!--li class="vod-info">
 <span class="vod-info-list-tit"></span>
@@ -127,8 +128,9 @@
 		</div>
 		<div class="class-detail-wrap block" id="detail-explain">
 			<div class="detail-explain-wrap c-editor s-classintro">
-				<p style="text-align: center;">&nbsp;</p>
-
+				<p style="text-align: center;">${list.cl_info}</p>
+				<!-- <p style="text-align: center;">&nbsp;</p>
+				
 				<p style="text-align: center;">
 					<img alt="" height="2500"
 						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578628773790_5028889.jpeg"
@@ -151,16 +153,17 @@
 
 				<p style="text-align: center;">&nbsp;</p>
 
-				<p style="text-align: center;">&nbsp;</p>
+				<p style="text-align: center;">&nbsp;</p> -->
 			</div>
 			<!-- 클래스일 경우, s-classintro 추가됨 -->
 		</div>
 		<div class="class-detail-wrap block" id="detail-intro">
 			<div class="detail-explain-lecture-wrap">
 				<p style="text-align: center">
-					<img style="max-width: 750px; width: 100%;"
+					<!-- <img style="max-width: 750px; width: 100%;"
 						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/contents/52d5e3c0-dce9-11e8-b590-238f99ca8336-resize.png"
-						alt="">
+						alt=""> -->
+						${list.cl_story}
 				</p>
 			</div>
 			<!--<div class="class-intro-wrap">
@@ -720,5 +723,6 @@
 		<!--	</div>-->
 		<!--</div>-->
 	</div>
+</c:forEach>
 </body>
 </html>

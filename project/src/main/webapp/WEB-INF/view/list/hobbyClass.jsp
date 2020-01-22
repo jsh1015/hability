@@ -13,8 +13,7 @@
 <div class="container">
 	<div class="class-wrap">
 		<div class="layout-wrap">
-		</div>
-		
+	</div>
 		<div class="layout-wrap">
 			<!-- 광고 슬라이드 3개 -->
 			<div class="img-slide-wrap img-slide-wrap01" id="img-slide-wrap">
@@ -133,7 +132,7 @@
  				<!--정규 클래스-->
 				<li class="class-list hf-tracker-item" data-tracker-id="DW-R-0005">
 					<c:forEach items="${classList}" var="list">
-						<a href="detail.shop">
+						<a href="detail.shop?cl_num=${list.cl_num}">
 						<div class="class-list-thumb">
 							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/42649440-218b-11ea-9cb3-c70fccd5674e-resize.jpg" alt="" class="thumb-class-list">
 						</div>

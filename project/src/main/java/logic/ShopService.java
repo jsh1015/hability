@@ -154,4 +154,5 @@ public class ShopService {
 	public List<Class> classList() {
 		return listDao.list();
 	}
+
 }
