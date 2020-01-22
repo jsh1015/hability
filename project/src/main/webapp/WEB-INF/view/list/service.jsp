@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>늘:솜씨</title>
+<title>Intro:)</title>
 </head>
 <body class="">
 <div class="wrap" id="wrap">

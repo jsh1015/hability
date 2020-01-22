@@ -13,26 +13,40 @@ import logic.ShopService;
 @Controller
 @RequestMapping("list")
 public class ListController {
-	@Autowired
-	private ShopService service;
-	
-	// 취미 클래스 리스트
-	@RequestMapping("hobbyClass")
-	public ModelAndView list() {
-		ModelAndView mav = new ModelAndView();
-		List<Class> classList = service.classList();
-		mav.addObject("classList",classList); 
-		return mav;
-	}
-	
-	@RequestMapping("diystore")
-	public ModelAndView list(Integer pageNum) {
-		ModelAndView mav = new ModelAndView();
-		return mav;
-	}
-	@RequestMapping("detail")
-	public ModelAndView detail() {
-		ModelAndView mav = new ModelAndView();
-		return mav;
-	}
+   @Autowired
+   private ShopService service;
+   
+   @RequestMapping("hobbyClass")
+   public ModelAndView list() {
+      ModelAndView mav = new ModelAndView();
+      List<Class> classList = service.classList();
+      mav.addObject("classList",classList); 
+      return mav;
+   }
+   
+   @RequestMapping("diystore")
+   public ModelAndView list(Integer pageNum) {
+      ModelAndView mav = new ModelAndView();
+      List<Class> classList = service.classList();
+      mav.addObject("classList",classList);
+      return mav;
+   }
+   @RequestMapping("detail")
+   public ModelAndView detail() {
+      ModelAndView mav = new ModelAndView();
+      List<Class> classList = service.classList();
+      mav.addObject("classList",classList);
+      return mav;
+   }
+   
+   @RequestMapping("magazine")
+   public String magazine() {
+      return "list/magazine";
+   }
+   
+   @GetMapping("*")
+   public String hobbyClass() 
+   {
+      return "list/hobbyClass";
+   }
 }

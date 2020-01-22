@@ -203,7 +203,7 @@ z-index 정리
 	.delivery-info-txt { font-size:16px; }
 
 /* main : 서비스 이용안내 */
-.hf-info-wrap { float:left; width:67%; height:auto; margin-top:60px; padding:0; }
+.hf-info-wrap { float:left; width:100%; height:auto; margin-top:60px; padding:0; }
 	.hf-info-cont { height:108px; padding:18px 30px; background-size:70px 70px; background-position:30px 19px; }
 	.hf-info-cont:after { content:"."; display:block; clear:both; height:0; visibility:hidden; }
 	.hf-info-txt { width:75%; min-height:70px; padding-left:110px; font-size:16px; line-height:1.6; letter-spacing:-1px; }

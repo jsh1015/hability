@@ -32,44 +32,6 @@
 	<link rel="shortcut icon" href="${path}/img/favicon.png">
 	<link rel="apple-touch-icon" href="${path}/img/m_favicon.png">
 	
-	<!-- Log Rocket -->
-	
-	<script type="text/javascript" async src="https://www.google-analytics.com/analytics.js"></script>
-	<script type="text/javascript" async src="https://www.google-analytics.com/gtm/js?id=GTM-NLKP5J5&amp;t=gtm15&amp;cid=670013715.1576581638"></script>
-	<script type="text/javascript" async src="https://www.google-analytics.com/plugins/ua/ec.js"></script>
-	<script src="https://connect.facebook.net/signals/config/299353887143885?v=2.9.15&amp;r=stable" async></script>
-	<script async src="https://connect.facebook.net/en_US/fbevents.js"></script>
-	<script type="text/javascript" async src="//www.googleadservices.com/pagead/conversion_async.js"></script>
-	<script type="text/javascript" async src="//www.googleadservices.com/pagead/conversion_async.js"></script>
-	<script type="text/javascript" async src="https://www.google-analytics.com/analytics.js"></script>
-	<script src="https://connect.facebook.net/en_US/sdk.js?hash=927b38b25c16e73f6a875ac2cb4403d5&amp;ua=modern_es6" async crossorigin="anonymous"></script>
-	<script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js"></script>
-	<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KJXG8SF"></script>
-	<!-- <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
-	<script src="https://cdn.logrocket.io/logger.min.js" async></script>
-	<script>
-		window.LogRocket && window.LogRocket.init('1xyhws/hobbyful');
-	</script> -->
-	
-	<!-- End of Log Rocket -->
-	
-	<!-- Google Tag Manager -->
-	<script>
-		(function(w,d,s,l,i){
-			w[l]=w[l]||[];w[l].push({
-				'gtm.start':new Date().getTime(),
-				event:'gtm.js'
-			});
-			var f=d.getElementsByTagName(s)[0],
-			j=d.createElement(s),
-			dl=l!='dataLayer'?'&l='+l:'';
-			j.async=true;
-			j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-KJXG8SF');</script>
-	<!-- End Google Tag Manager -->
-	
-	<script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/698770618/?random=1577448270773&amp;cv=9&amp;fst=1577448270773&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=864&amp;u_w=1536&amp;u_ah=824&amp;u_aw=1536&amp;u_cd=24&amp;u_his=23&amp;u_tz=540&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2wgc61&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fhobbyful.co.kr%2F&amp;ref=https%3A%2F%2Fhobbyful.co.kr%2Fwrite-order.html%3Fdirectbuy%3DY&amp;tiba=%ED%95%98%EB%B9%84%ED%92%80%20-%20%EC%B7%A8%EB%AF%B8%EB%A5%BC%20%EB%A7%8C%EB%82%98%20%EC%9D%BC%EC%83%81%EC%9D%B4%20%EC%95%84%EB%A6%84%EB%8B%A4%EC%9B%8C%EC%A7%80%EB%8B%A4.&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
-	<script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/854065095/?random=1577448270781&amp;cv=9&amp;fst=1577448270781&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=864&amp;u_w=1536&amp;u_ah=824&amp;u_aw=1536&amp;u_cd=24&amp;u_his=23&amp;u_tz=540&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2wgc61&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fhobbyful.co.kr%2F&amp;ref=https%3A%2F%2Fhobbyful.co.kr%2Fwrite-order.html%3Fdirectbuy%3DY&amp;tiba=%ED%95%98%EB%B9%84%ED%92%80%20-%20%EC%B7%A8%EB%AF%B8%EB%A5%BC%20%EB%A7%8C%EB%82%98%20%EC%9D%BC%EC%83%81%EC%9D%B4%20%EC%95%84%EB%A6%84%EB%8B%A4%EC%9B%8C%EC%A7%80%EB%8B%A4.&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
 	<style type="text/css">
 		.fb_hidden{position:absolute;top:-10000px;z-index:10001}
 		.fb_reposition{overflow:hidden;position:relative}
@@ -145,10 +107,10 @@
 							<a href="${path}/list/diystore.shop" class="btn-menu menu-class">DIY 스토어<em class="menu-txt -w">DIY STORE</em></a>
 						</li>
 						<li class="menu">
-							<a href="${path}/user/magazine.shop" class="btn-menu menu-magazine">매거진<em class="menu-txt -w">MAGAZINE</em></a>
+							<a href="${path}/list/magazine.shop" class="btn-menu menu-magazine">매거진<em class="menu-txt -w">MAGAZINE</em></a>
 						</li>
 						<li class="menu">
-							<a href="${path}/user/service.shop" class="btn-menu menu-service">하비풀 소개<em class="menu-txt -w">ABOUT</em></a>
+							<a href="${path}/list/service.shop" class="btn-menu menu-service">하비풀 소개<em class="menu-txt -w">ABOUT</em></a>
 						</li>
 					</ul>
 				</div>
@@ -165,6 +127,9 @@
 						</li>
 						<li class="gnb gnb-favorite" style="display: list-item;">
 							<a href="/mypage.html?m=favorite&amp;s=class" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
+						</li>
+						<li class="gnb gnb-admin" style="display: list-item;">
+							<a href="../admin/admain.shop" title="관리자 페이지" class="btn-gnb header_admin">관리자 페이지</a>
 						</li>
 						<!-- #login 모달창 찾기!!!!!!!!!!!!! -->
 						<li class="gnb gnb-mypage">
@@ -244,175 +209,13 @@
 		<!-- 로그인 모달창 -->
 	</div>
 </div>
-
-	<!-- Javascript Library Load -->
-	<!-- <script>
-	if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-	(function () {
-	var s = document.createElement('script');
-	s.type = 'text/javascript';
-	s.async = true;
-	s.src = 'https://cdn.polyfill.io/v2/polyfill.min.js?features=HTMLPictureElement';
-	var x = document.getElementsByTagName('script')[0];
-	x.parentNode.insertBefore(s, x);
-	})();
-	}
-	</script> -->
-	<%-- <script type="text/javascript" src="${path}/jquery/dist/jquery.min.js"></script> --%>
-	<script type="text/javascript" src="${path}/jsrender/jsrender.min.js"></script>
-	<script type="text/javascript" src="${path}/jquery/dist/lodash.min.js"></script>
-	<script type="text/javascript" src="${path}/jquery/moment/moment.min.js"></script>
-	<script type="text/javascript" src="${path}/jquery/src/js.cookie.js"></script>
-	<script type="text/javascript" src="${path}/awesomplete/awesomplete.min.js"></script>
-	
-	<script type="text/javascript" src="${path}/jquery/swiper.min.js"></script>
-	<script type="text/javascript" src="${path}/jquery/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="${path}/jquery/messages_ko.js"></script>
-	<!--<script type="text/javascript" src="/bower_components/mobile-detect/mobile-detect.min.js"></script>-->
-	<script type="text/javascript" src="${path}/jquery/jqueryBizDateCalculator.js"></script>
-	<!-- 공통 Module Load -->
-	<script type="text/javascript" src="${path}/jquery/js/jqueryHF.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/HF.tracker.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/HF.brick.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/utils.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/request.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/popup.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/user.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/menu.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/search.js"></script>
-	<script type="text/javascript" src="${path}/jquery/js/cart.js"></script>
-	<script>
-	HF.DATA.params = {};
-	</script>
-	<script type="text/javascript" src="${path}/jquery/js/HF._init.js"></script>
-	
-	<script>
-	window.fbAsyncInit = function() {
-	FB.init({
-	appId      : '388145468250973',
-	xfbml      : true,
-	version    : 'v3.2'
-	});
-	FB.AppEvents.logPageView();
-	};
-	(function(d, s, id){
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) {return;}
-	js = d.createElement(s); js.id = id;
-	js.src = "https://connect.facebook.net/en_US/sdk.js";
-	fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-	</script>
-	
-	
-	<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script type="text/javascript">
-	//<![CDATA[
-	// 사용할 앱의 JavaScript 키를 설정해 주세요.
-	Kakao.init('b3ee6434ce06e64bc905b50b4d9190ca');
-	//]]>
-	</script>
-	
-	
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
-	
-	
-	<script>
-	HF.ready(function() {
-	window.channelPluginSettings = HF.DATA.channelPluginSettings;
-	var w = window;
-	if (w.ChannelIO) {
-	return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
-	}
-	var d = window.document;
-	var ch = function() {
-	ch.c(arguments);
-	};
-	ch.q = [];
-	ch.c = function(args) {
-	ch.q.push(args);
-	};
-	w.ChannelIO = ch;
-	function l() {
-	if (w.ChannelIOInitialized) {
-	return;
-	}
-	w.ChannelIOInitialized = true;
-	var s = document.createElement('script');
-	s.type = 'text/javascript';
-	s.async = true;
-	s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-	s.charset = 'UTF-8';
-	var x = document.getElementsByTagName('script')[0];
-	x.parentNode.insertBefore(s, x);
-	}
-	if (document.readyState === 'complete') {
-	l();
-	} else if (window.attachEvent) {
-	window.attachEvent('onload', l);
-	} else {
-	window.addEventListener('DOMContentLoaded', l, false);
-	window.addEventListener('load', l, false);
-	}
-	});
-	</script>
-	
-	<script type="text/javascript" src="https://s3.ap-northeast-2.amazonaws.com/adpick.co.kr/apis/apTracker.v3.js"></script>
-	
-	
-	<style>.async-hide { opacity: 0 !important} </style>
-	<script type="text/javascript" id>(function(c,a,d,e,g,b,f,h,k){a.className+=" "+d;b.end=f=function(){a.className=a.className.replace(RegExp(" ?"+d),"")};(c[e]=c[e]||[]).hide=b;setTimeout(function(){f();b.end=null},g)})(window,document.documentElement,"async-hide","dataLayer",4E3,{"GTM-KJXG8SF":!0});</script><div style="display: none; visibility: hidden;">
-	<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","299353887143885");fbq("set","agent","tmgoogletagmanager","299353887143885");fbq("track","PageView");</script>
-	<noscript></noscript>
-	</div><script type="text/javascript" id src="https://wcs.naver.net/wcslog.js"></script> 
-	<script type="text/javascript" id src="//wcs.naver.net/wcslog.js"></script>
-	<script type="text/javascript" id charset="UTF-8" src="//t1.daumcdn.net/adfit/static/kp.js"></script>
-	
-	<div id="wp_tg_cts" style="display:none;">
-	<script id="wp_id_script_1577448271230" src="//altg.widerplanet.com/delivery/wp.js"></script>
-	<script id="wp_tag_script_1577448271665" src="https://astg.widerplanet.com/delivery/wpc.php?v=1&amp;ver=4.0&amp;r=1&amp;md=bs&amp;ga=1evheg6-juv68j-3-1&amp;eid=4-9aabed0fe57727741be1d13b7b055fd886e0376cd2a27af580273af4b573462dff9d7530aa73fcfac2f1ae0fd08d480fab7fc76170dda909f9b452265d96d9f57fc92cc71dd9ca451d050d8581fb2884&amp;ty=Home&amp;ti=45752&amp;device=web&amp;charset=UTF-8&amp;tc=1577448271665&amp;ref=https%3A%2F%2Fhobbyful.co.kr%2Fwrite-order.html%3Fdirectbuy%3DY&amp;loc=https%3A%2F%2Fhobbyful.co.kr%2F"></script></div>
-	<script type="text/javascript" id>
-		var wptg_tagscript_vars=wptg_tagscript_vars||[];
-		wptg_tagscript_vars.push(function(){
-			return{
-				wp_hcuid:"",ti:"45752",ty:"Home",device:"web"
-			}
-		});
-	</script>
-	<script type="text/javascript" id src="//cdn-aitg.widerplanet.com/js/wp_astg_4.0.js"></script>
-	<div id="fb-root" class=" fb_reset">
-		<div style="position: absolute; top: -10000px; width: 0px; height: 0px;">
-		<div>
-			<iframe name="fb_xdm_frame_https" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://staticxx.facebook.com/connect/xd_arbiter.php?version=44#channel=f24c7061dddcdd&amp;origin=https%3A%2F%2Fhobbyful.co.kr" style="border: none;"></iframe>
-		</div>
-		<div></div>
-		</div>
-	</div>
-	<script type="text/javascript" id>
-		if(!wcs_add)
-			var wcs_add={};
-		wcs_add.wa="6bf8dd6c3518c8";
-		wcs_do();
-	</script> 
-	<script type="text/javascript" id>
-		if(!wcs_add)
-			var wcs_add={};
-		wcs_add.wa="s_3dfbd0909345";
-		if(!_nasa)
-			var _nasa={};
-		wcs.inflow();
-		wcs_do(_nasa);
-	</script>
-	<script type="text/javascript" id>kakaoPixel("3085303044582687524").pageView();</script>
 	<div id="ch-plugin">
 		<div id="ch-plugin-script" style="display: none">
 			<iframe id="ch-plugin-script-iframe"
 				style="position: relative !important; height: 100% !important; width: 100% !important; border: none !important;"></iframe>
 		</div>
 		<div id="ch-plugin-core">
-		<style data-styled="" data-styled-version="4.3.2"></style>
-		<style data-styled="" data-styled-version="4.3.2"></style>
-		<div hidden="" class="sc-erNlkL hhoMbs sc-RbTVP hrWefY">
+
 		<div class="sc-eNNmBn cXBieY">
 			<div name="push-exit" width="45" height="45" size="24" class="sc-dnqmqq sc-cBrjTV iByMcc"></div>
 			<div class="sc-jUpvKA ccOxya">
@@ -427,7 +230,6 @@
 			</div>
 		</div>
 		</div>
-		<div hidden="" class="sc-kEmuub LrWLn sc-RbTVP hrWefY">
 		<div class="sc-eNNmBn cXBieY">
 		<div name="push-exit" width="45" height="45" size="24" class="sc-dnqmqq sc-cBrjTV iByMcc"></div>
 		<div class="sc-jUpvKA ccOxya"><div size="34" class="sc-kGXeez kGMzSU"></div>
@@ -439,15 +241,6 @@
 		<span class=""></span>
 		</div>
 		</div></div></div>
-		<%--
-		<style data-styled="" data-styled-version="4.3.2"></style>
-		<div size="300" class="sc-bwzfXH hMnCjf"></div><div class="sc-bxivhb fdmBti">
-		<div class="sc-ifAKCX ccgoiG">
-		<div class="textLauncherContent sc-EHOje iuJdHe">채팅 문의하기</div>
-		<div class="textLauncherIcon sc-bZQynM ebmtqw">
-		<div hidden="" class="sc-htpNat sc-htoDjs jiXddj">0</div></div></div></div></div></div>
-		<style data-styled="" data-styled-version="4.3.2"></style>
-		 --%>
 </div>
 </body>
 </html>

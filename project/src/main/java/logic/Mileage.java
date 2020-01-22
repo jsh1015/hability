@@ -3,16 +3,30 @@ package logic;
 import java.util.Date;
 
 public class Mileage {
+	private int mi_num;
 	private String emailid;
+	private int mi_type;
 	private String mi_content;
 	private int mi_point;
 	private Date mi_date;
 	private Date mi_end;
+	public int getMi_num() {
+		return mi_num;
+	}
+	public void setMi_num(int mi_num) {
+		this.mi_num = mi_num;
+	}
 	public String getEmailid() {
 		return emailid;
 	}
 	public void setEmailid(String emailid) {
 		this.emailid = emailid;
+	}
+	public int getMi_type() {
+		return mi_type;
+	}
+	public void setMi_type(int mi_type) {
+		this.mi_type = mi_type;
 	}
 	public String getMi_content() {
 		return mi_content;
@@ -40,8 +54,9 @@ public class Mileage {
 	}
 	@Override
 	public String toString() {
-		return "Mileage [emailid=" + emailid + ", mi_content=" + mi_content + ", mi_point=" + mi_point + ", mi_date="
-				+ mi_date + ", mi_end=" + mi_end + "]";
+		return "Mileage [mi_num=" + mi_num + ", emailid=" + emailid + ", mi_type=" + mi_type + ", mi_content="
+				+ mi_content + ", mi_point=" + mi_point + ", mi_date=" + mi_date + ", mi_end=" + mi_end + "]";
 	}
-
+	
+	
 }
