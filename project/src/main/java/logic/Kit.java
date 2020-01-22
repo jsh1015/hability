@@ -6,7 +6,6 @@ public class Kit {
 	private String kit_name;
 	private String kti_box;
 	private int kit_price;
-	
 	public int getKit_num() {
 		return kit_num;
 	}

@@ -2,13 +2,12 @@ package logic;
 
 public class Postaddr {
 	private int po_num;
-	private String  emailid;
+	private String emailid;
 	private String po_name;
 	private String po_client;
 	private String po_phone;
 	private String po_phone2;
 	private String po_addr;
-	
 	public int getPo_num() {
 		return po_num;
 	}
