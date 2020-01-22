@@ -1,62 +1,55 @@
 package dao;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import dao.mapper.UserMapper;
-import exception.LoginException;
 import logic.User;
 
 @Repository
 public class UserDao {
+	private NamedParameterJdbcTemplate template;
+	RowMapper<User> mapper = new BeanPropertyRowMapper<User>(User.class);
+	Map<String, String> param = new HashMap<String,String>();
 	@Autowired
-	private SqlSessionTemplate sqlSession;
-	Map<Object, Object> param = new HashMap<Object,Object>();
-	
-	public void insert(User user) {
-		sqlSession.getMapper(UserMapper.class).insert(user);
+	public void setDataSource(DataSource dataSource) {
+		this.template = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	public User selectOne(String emailid) {
+	public void insert(User user) {
+		SqlParameterSource proparam = new BeanPropertySqlParameterSource(user);
+		String sql = "insert into useraccount (userid, password, username, postcode, email, birthday) "
+				+ " values (:userid, :password, :username, :postcode, :email, :birthday)";
+		template.update(sql, proparam);
+	}
+
+	public User selectOne(String userid) {
+		String sql = "select * from useraccount where userid=:userid";
 		param.clear();
-		param.put("emailid",emailid);
-		List<User> list = sqlSession.getMapper(UserMapper.class).select(param);
-		if(list==null || list.isEmpty()){
-			throw new LoginException("해당 아이디 없음","");
-		}else 
-		return list.get(0);
+		param.put("userid",userid);
+		return template.queryForObject(sql,param,mapper);
 	}
 
 	public void update(User user) {
-		sqlSession.getMapper(UserMapper.class).update(user);
+		String sql = "update useraccount set username=:username,"
+				+"phoneno=:phoneno,postcode=:postcode,address=:address,email=:email,birthday=:birthday"
+				+ " where userid=:userid";
+		SqlParameterSource proparam = new BeanPropertySqlParameterSource(user);
+		template.update(sql, proparam);
 	}
 
-	public void delete(String emailid) {
+	public void delete(String userid) {
 		param.clear();
-		param.put("emailid",emailid);
-		sqlSession.getMapper(UserMapper.class).delete(emailid);
-	}
-
-	public List<User> userlist() {
-		return sqlSession.getMapper(UserMapper.class).select(null);
-	}
-
-	public List<User> list(String[] idchks) {
-		param.clear();
-		param.put("idchks",idchks);
-		return sqlSession.getMapper(UserMapper.class).select(param);
-	}
-
-	public void passupdate(String emailid, String chgpass) {
-		param.clear();
-		param.put("emailid",emailid);
-		param.put("chgpass",chgpass);
-		sqlSession.getMapper(UserMapper.class).passupdate(param);
+		param.put("userid",userid);
+		template.update("delete from useraccount where userid=:userid", param);
 	}
 }

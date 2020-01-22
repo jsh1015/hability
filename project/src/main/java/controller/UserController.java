@@ -35,7 +35,7 @@ public class UserController {
 		return null;
 	}
 	@PostMapping("userEntry")
-	public ModelAndView userEntry(@Valid User user,BindingResult bresult) throws Exception{
+	public ModelAndView userEntry(@Valid User user,BindingResult bresult) {
 		ModelAndView mav = new ModelAndView();
 		if(bresult.hasErrors()) {
 			bresult.reject("error.input.user");
@@ -45,8 +45,8 @@ public class UserController {
 		//useraccount 테이블에 내용 등록. 뷰단은 login.jsp로 이동
 		try {
 			service.userInsert(user);
-			//mav.setViewName("redirect:main.shop");
 			mav.setViewName("user/login"); //redirect 를 사용하면 아이디값이 들어가지 않음
+			mav.addObject("user",user);//값도 넘어감
 		}catch(DataIntegrityViolationException e) {
 			//e.printStackTrace();
 			bresult.reject("error.duplicate.user");
@@ -54,7 +54,7 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("login")
-	public ModelAndView login(@Valid User user,BindingResult bresult,HttpSession session) throws Exception{
+	public ModelAndView login(@Valid User user,BindingResult bresult,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if(bresult.hasErrors()) {
 			bresult.reject("error.login.user");
@@ -64,7 +64,7 @@ public class UserController {
 		try {
 			User dbUser = service.getUser(user.getEmailid());
 			if(!dbUser.getPass().equals(user.getPass())) {
-				bresult.reject("error.login.pass");
+				bresult.reject("error.login.password");
 				return mav;
 			}else {
 				session.setAttribute("loginUser",dbUser);
