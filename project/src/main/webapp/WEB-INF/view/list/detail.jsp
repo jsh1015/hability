@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>hability</title>
+<title>hability-detail</title>
 </head>
 <body>
+<c:forEach items="${classList}" var="list">
 <div class="container">
 	<div class="vod-wrap">
 		<div class="vod-cont vimeohelper-92950 vimeohelper"
@@ -19,19 +21,13 @@
 		</div>
 			<div class="vod-info-wrap">
 				<div class="vod-info-tit view-class-title">
-					<span class="i-lecturer">[정규 클래스] 노플랜 프로젝트 작가님</span> 노플랜 프로젝트의 내방
-					소품 라탄 클래스
+					<span class="i-lecturer">${list.teacher}</span>
+					${list.cl_title}
 				</div>
 				<div class="vod-info-price-discount">
-					<span class="i-percent view-class-discount-percent">10%</span> <span
-						class="i-price view-class-discount-price">189,000원</span> <s
-						class="i-regularPrice view-class-discount-regularPrice">210,000원</s>
+					 <span class="i-regularPrice view-class-discount-regularPrice">210,000원</span>
 				</div>
-				<div class="vod-info-price">
-					<span class="i-won">월</span><span
-						class="vod-info-price-number view-class-price">37,800</span><span
-						class="i-won">원</span> <span class="i-desc">(5개월 무이자 할부 시)</span>
-				</div>
+			
 				<ul class="vod-info-list">
 					<!--li class="vod-info">
 <span class="vod-info-list-tit"></span>
@@ -43,73 +39,16 @@
 					<li class="vod-info"><span class="vod-info-list-tit">배송비</span>
 						<span class="vod-info-list-txt">무료배송(도서산간지역 제외)</span></li>
 				</ul>
-				<!--		<div class="vod-benefit-wrap i-pc">-->
-				<!--			<span class="vod-benefit-tit">정기구독 할인 혜택</span>-->
-				<!--			<ul class="vod-benefit-detail">-->
-				<!--				<li class="first">-->
-				<!--					<p>2개월</p>-->
-				<!--					<span>2%</span>-->
-				<!--				</li>-->
-				<!--				<li>-->
-				<!--					<p>3개월</p>-->
-				<!--					<span>3%</span>-->
-				<!--				</li>-->
-				<!--				<li>-->
-				<!--					<p>4개월</p>-->
-				<!--					<span>5%</span>-->
-				<!--				</li>-->
-				<!--				<li>-->
-				<!--					<p>5개월</p>-->
-				<!--					<span>7%</span>-->
-				<!--				</li>-->
-				<!--				<li class="last">-->
-				<!--					<p>6개월</p>-->
-				<!--					<span>10%</span>-->
-				<!--				</li>-->
-				<!--			</ul>-->
-				<!--			&lt;!&ndash;<p class="vod-benefit-desc">• 다른 클래스와 함께 정기구독을 신청해 할인혜택을 받으세요!</p>&ndash;&gt;-->
-				<!--		</div>-->
 				<div class="vod-info2-wrap i-totalprice">
 					<div class="vod-price">
 						총 클래스 가격 <span class="txt-color-r s-totalprice"></span>원
 					</div>
-					<!--<ul class="vod-sns-list">-->
-					<!--<li class="vod-sns"><a href="#kakaotalk" title="kakaotalk" class="btn-sns btn-sns-kakaotalk">kakaotalk</a></li>-->
-					<!--<li class="vod-sns"><a href="#facebook" title="facebook" class="btn-sns btn-sns-facebook">f</a></li>-->
-					<!--<li class="vod-sns"><a href="#URL" title="URL" class="btn-sns btn-sns-url">URL</a></li>-->
-					<!--</ul>-->
 				</div>
 				<div class="vod-btn-wrap">
 					<a href="#like" title="좋아요" class="btn-like">좋아요</a> <a
 						href="#cart" class="btn-get" style="">클래스 신청하기</a> <span
 						class="btn-get-soldout" style="display: none">일시 품절</span>
 				</div>
-				<!--		<div class="vod-benefit-wrap i-mobile">-->
-				<!--			<span class="vod-benefit-tit">정기구독 할인 혜택</span>-->
-				<!--			<ul class="vod-benefit-detail">-->
-				<!--				<li class="first">-->
-				<!--					<p>2개월</p>-->
-				<!--					<span>2%</span>-->
-				<!--				</li>-->
-				<!--				<li>-->
-				<!--					<p>3개월</p>-->
-				<!--					<span>3%</span>-->
-				<!--				</li>-->
-				<!--				<li>-->
-				<!--					<p>4개월</p>-->
-				<!--					<span>5%</span>-->
-				<!--				</li>-->
-				<!--				<li>-->
-				<!--					<p>5개월</p>-->
-				<!--					<span>7%</span>-->
-				<!--				</li>-->
-				<!--				<li class="last">-->
-				<!--					<p>6개월</p>-->
-				<!--					<span>10%</span>-->
-				<!--				</li>-->
-				<!--			</ul>-->
-				<!--			<p class="vod-benefit-desc">• 다른 클래스와 함께 정기구독을 신청해 할인혜택을 받으세요!</p>-->
-				<!--		</div>-->
 			</div>
 		</div>
 		<div class="tab-detail-wrap" id="tab-detail-explain">
@@ -127,28 +66,7 @@
 		</div>
 		<div class="class-detail-wrap block" id="detail-explain">
 			<div class="detail-explain-wrap c-editor s-classintro">
-				<p style="text-align: center;">&nbsp;</p>
-
-				<p style="text-align: center;">
-					<img alt="" height="2500"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578628773790_5028889.jpeg"
-						width="750"><img alt="" height="340"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578279065093_62500619.jpeg"
-						width="750"><img alt="" height="5091"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578277709416_73952262.jpeg"
-						width="750"><a
-						href="https://www.instagram.com/noplan_project/?hl=ko"
-						target="_blank"><img alt="" height="68"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578277721372_74092497.jpeg"
-						width="750"></a><img alt="" height="6654"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578277731242_44659322.jpeg"
-						width="750"><img alt="" height="6181"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578277761916_63941964.jpeg"
-						width="750"><img alt="" height="7154"
-						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/editor/class/image/1578910220519_87667914.jpeg"
-						width="750">
-				</p>
-
+				<p style="text-align: center;">${list.cl_info}</p>
 				<p style="text-align: center;">&nbsp;</p>
 
 				<p style="text-align: center;">&nbsp;</p>
@@ -158,33 +76,12 @@
 		<div class="class-detail-wrap block" id="detail-intro">
 			<div class="detail-explain-lecture-wrap">
 				<p style="text-align: center">
-					<img style="max-width: 750px; width: 100%;"
+<!-- 					<img style="max-width: 750px; width: 100%;"
 						src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/contents/52d5e3c0-dce9-11e8-b590-238f99ca8336-resize.png"
-						alt="">
+						alt=""> -->
+						${list.cl_story }
 				</p>
 			</div>
-			<!--<div class="class-intro-wrap">
-<div class="class-intro-summary">
-<div class="class-intro-tit">클래스 개요</div>
-<div class="class-intro-txt">
-프랑스자수, 시작 하고 싶은데 나도 할 수 있을까? 어렵진 않을까?<br />
-그래서 도안만 있으면 한줄로도 충분히 예쁜 라인 프랑스 자수를 준비했어요.<br />
-회사 끝나고, 주말에 쉴 때 짬짬이 시간내서 여럽지 않게 만들 수 있는 클래스에요! 시작이 반이라는 말, 있잖아요!<br />
-금손만 할 수 있는거 아닌가 겁먹지 말고 먼저 라인으로 된 프랑스자수부터 시작해 봐요!
-</div>
-<div class="class-intro">
-예상 소요 시간:  3.5 시간<em class="slash">/</em><br class="-w" />
-난이도: 매우 쉬움<em class="slash">/</em><br class="-w" />
-클래스 시간: 총 30분
-</div>
-</div>
-<div class="class-intro-list-wrap">
-<div class="class-intro-tit">클래스 목차</div>
-<div class="class-intro-txt">아래 클래스는 구매 후 내 클래스에서 시청하실 수 있습니다.</div>
-<ul class="class-intro-list view-class-video-list">
-</ul>
-</div>
-</div>-->
 		</div>
 		<div class="class-detail-wrap block" id="detail-epilogue">
 			<div class="class-epilogue-wrap">
@@ -618,107 +515,7 @@
 						</div></a></li>
 			</ul>
 		</div>
-
-
-
-
-		<!--<div class="hfe-bg"></div>-->
-		<!--<div class="hfc-modal s-big">&lt;!&ndash; s-small &ndash;&gt;-->
-		<!--	<div class="hfe-container">-->
-		<!--		<header>-->
-		<!--			<h3>클래스 구성을 선택하세요</h3>-->
-		<!--			<button class="hfe-header-close a-close">창닫기</button>-->
-		<!--		</header>-->
-		<!--		<section class="hfe-content">-->
-		<!--			<div class="hfe-option">-->
-		<!--&lt;!&ndash;				<article class="s-default">&ndash;&gt;-->
-		<!--&lt;!&ndash;					<header>&ndash;&gt;-->
-		<!--&lt;!&ndash;						<h4>클래스 기본 구성</h4>&ndash;&gt;-->
-		<!--&lt;!&ndash;					</header>&ndash;&gt;-->
-		<!--&lt;!&ndash;					<div class="option-item">&ndash;&gt;-->
-		<!--&lt;!&ndash;						<h5>클래스 수강권 + 준비물 패키지</h5>&ndash;&gt;-->
-		<!--&lt;!&ndash;						<p class="prices">&ndash;&gt;-->
-		<!--&lt;!&ndash;							<span class="regular"><s>+0원</s></span>&ndash;&gt;-->
-		<!--&lt;!&ndash;							<span class="sale"><span class="discount-rate">10%</span> 145,000원</span>&ndash;&gt;-->
-		<!--&lt;!&ndash;						</p>&ndash;&gt;-->
-		<!--&lt;!&ndash;					</div>&ndash;&gt;-->
-		<!--&lt;!&ndash;				</article>&ndash;&gt;-->
-		<!--				<article class="s-select">-->
-		<!--					<header>-->
-		<!--						<h4>준비물 패키지</h4>-->
-		<!--						<p class="desc">1개 필수선택</p>-->
-		<!--					</header>-->
-		<!--					<ul class="option-list">-->
-		<!--						<li>-->
-		<!--							<label>-->
-		<!--								<input type="radio" name="select_options">-->
-		<!--								<div class="option-item">-->
-		<!--									<h5>베이직 패키지</h5>-->
-		<!--									<p class="prices">-->
-		<!--										<span class="discount-rate">10%</span>-->
-		<!--										<span class="regular"><s>150,000원</s></span>-->
-		<!--										<span class="sale"> 145,000원</span>-->
-		<!--									</p>-->
-		<!--									<span class="desc">클래스를 듣기에 기본적으로 필요한 도구와 재료가 있는 패키지입니다.</span>-->
-		<!--									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/8ff8c480-8e4a-11e9-aa4a-2318dc53c1a7-resize.jpg" alt="">-->
-		<!--									<span class="components-desc">-->
-		<!--                                        필수 도구 1, 필수 도구 2, 도구 3, 도구 4, 도구 5,  재료 1, 재료 2, 재료 3, 재료 4-->
-		<!--                                    </span>-->
-		<!--								</div>-->
-		<!--							</label>-->
-		<!--						</li>-->
-		<!--						<li>-->
-		<!--							<label>-->
-		<!--								<input type="radio" name="select_options">-->
-		<!--								<div class="option-item">-->
-		<!--									<h5>베이직 패키지</h5>-->
-		<!--									<p class="prices">-->
-		<!--										<span class="sale">+0원</span>-->
-		<!--									</p>-->
-		<!--									<span class="desc">클래스를 듣기에 기본적으로 필요한 도구와 재료가 있는 패키지입니다.</span>-->
-		<!--									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/8ff8c480-8e4a-11e9-aa4a-2318dc53c1a7-resize.jpg" alt="">-->
-		<!--									<span class="components-desc">-->
-		<!--                                        필수 도구 1, 필수 도구 2, 도구 3, 도구 4, 도구 5,  재료 1, 재료 2, 재료 3, 재료 4-->
-		<!--                                    </span>-->
-		<!--								</div>-->
-		<!--							</label>-->
-		<!--						</li>-->
-		<!--						<li>-->
-		<!--							<label>-->
-		<!--								<input type="radio" name="select_options">-->
-		<!--								<div class="option-item">-->
-		<!--									<h5>베이직 패키지</h5>-->
-		<!--									<p class="prices">-->
-		<!--										<span class="sale">+0원</span>-->
-		<!--									</p>-->
-		<!--									<span class="desc">클래스를 듣기에 기본적으로 필요한 도구와 재료가 있는 패키지입니다.</span>-->
-		<!--									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/8ff8c480-8e4a-11e9-aa4a-2318dc53c1a7-resize.jpg" alt="">-->
-		<!--									<span class="components-desc">-->
-		<!--                                        필수 도구 1, 필수 도구 2, 도구 3, 도구 4, 도구 5,  재료 1, 재료 2, 재료 3, 재료 4-->
-		<!--                                    </span>-->
-		<!--								</div>-->
-		<!--							</label>-->
-		<!--						</li>-->
-		<!--					</ul>-->
-		<!--				</article>-->
-		<!--			</div>-->
-		<!--		</section>-->
-		<!--		<footer>-->
-		<!--			<div class="hfe-orderinfo">-->
-		<!--				<div class="i-names">-->
-		<!--					클래스 수강권 + 준비물 패키지(라이트 -10,000원)-->
-		<!--				</div>-->
-		<!--				<div class="i-quantity">1</div>-->
-		<!--				<div class="i-price-regular"><s>250,000원</s></div>-->
-		<!--				<div class="i-price-sale"><span class="i-label">클래스 금액</span> <span class="i-num">135,000원</span></div>-->
-		<!--			</div>-->
-		<!--			<div class="hfe-btn-group s-twin">-->
-		<!--				<button class="hfe-btn s-w4">장바구니 담기</button>-->
-		<!--				<button class="hfe-btn s-w7 s-active">신청하기</button>-->
-		<!--			</div>-->
-		<!--		</footer>-->
-		<!--	</div>-->
-		<!--</div>-->
 	</div>
+</c:forEach>
 </body>
 </html>

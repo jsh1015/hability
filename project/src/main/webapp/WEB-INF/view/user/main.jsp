@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <html>
 <head lang="ko" id="hobbyful">
-<title>늘:솜씨</title>
+<title>hability :-D 취미를만나일상이아름다워지다</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- <link rel="stylesheet" type="text/css" media="screen" href="CSSreset.min.css" /> -->
@@ -148,12 +148,6 @@
 	
 	<!-- small main -->
 	<div class="float-wrap">
-		<!-- 배송시작일 -->
-		<div class="delivery-info-wrap">
-			<div class="delivery-info-txt">지금 주문하시면</div>
-			<div class="delivery-info-tit">12월 30일(D-3)</div>
-			<div class="delivery-info-txt">부터 취미 배송이 시작됩니다.</div>
-		</div>
 		<!-- 인사 박스 -->
 		<div class="hf-info-wrap">
 			<div class="hf-info-cont">
