@@ -4,13 +4,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html class=""><head lang="ko" id="hobbyful">
-<title>하비풀 - 취미를 만나 일상이 아름다워지다.</title>
-<!-- 
-<script src="https://connect.facebook.net/en_US/sdk.js?hash=74dcbcc2704d622295a23269b1b69bee&amp;ua=modern_es6" async crossorigin="anonymous"></script>
-<script src="https://connect.facebook.net/signals/config/299353887143885?v=2.9.15&amp;r=stable" async></script><script async src="https://connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async src="https://www.google-analytics.com/gtm/js?id=GTM-NLKP5J5&amp;t=gtm2&amp;cid=2139233057.1577061431"></script>
-<script type="text/javascript" async src="https://cdn.channel.io/plugin/ch-plugin-web.js" charset="UTF-8"></script>
-<script id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js"></script><script type="text/javascript" async src="https://www.google-analytics.com/plugins/ua/ec.js"></script><script type="text/javascript" async src="//www.googleadservices.com/pagead/conversion_async.js"></script><script type="text/javascript" async src="//www.googleadservices.com/pagead/conversion_async.js"></script>
- -->
+<title>MyPage :) </title>
+
 <script type="text/javascript">
  $(document).ready(function(){
 		$(".btn-mymenu-order").addClass("btn-mymenu-on") //주문/배송관리 선택 
@@ -60,10 +55,6 @@
 				<span class="my-info-tit">마일리지</span>
 				<a href="javascript:;"><strong class="my-info-txt cut-txt my-point" onclick="$('.btn-mymenu-action-history').trigger('click');  $('.sub-menu-mileage').trigger('click')">1,000p</strong></a>
 				</li>
-				<li class="my-info">
-				<span class="my-info-tit">할인쿠폰</span>
-				<a href="javascript:;"><strong class="my-info-txt my-coupon" onclick="$('.btn-mymenu-action-history').trigger('click');  $('.sub-menu-coupon').trigger('click')">0</strong></a>
-				</li>
 			</ul>
 		</div>
 		</div>
@@ -73,6 +64,7 @@
 			<div class="mymenu-cont">
 				<ul class="mymenu-list">
 					<li class="mymenu"><a href="javascript:mymenu('order')" title="주문/배송관리" data-submenu="mymenu-order" class="btn-mymenu order btn-mymenu-order">주문/배송관리</a></li>
+					<!--			<li class="mymenu i-subscript"><a href="/mypage.html?m=subscript&s=subscript" title="정기구독 관리" data-submenu="mymenu-subscript" class="btn-mymenu">정기구독 관리</a></li>-->
 					<li class="mymenu"><a href="javascript:mymenu('address')" title="배송지 관리" data-submenu="mymenu-address" class="btn-mymenu address">배송지 관리</a></li>
 					<li class="mymenu"><a href="javascript:mymenu('history')" title="나의 활동 내역" data-submenu="mymenu-action-history" class="btn-mymenu history btn-mymenu-action-history">나의 활동 내역</a></li>
 					<li class="mymenu"><a href="javascript:mymenu('myinfo')" title="내 정보 관리" data-submenu="mymenu-myinfo" class="btn-mymenu myinfo">내 정보 관리</a></li>
@@ -90,44 +82,50 @@
 					<li class="mymenu-sub mymenu-sub-order" style="display: list-item;">
 						<a href="javascript:submymenu('order')"  title="주문/배송 조회" data-submenu="order" class="btn-mymenu-sub mymenu-order sub-menu-order btn-mymenu-sub-on">주문/배송 조회</a>
 					</li>
+					<!--			<li class="mymenu-sub">-->
+					<!--				<a href="/mypage.html?m=order&s=cancel" title="취소/교환/반품 조회" data-submenu="cancel" class="btn-mymenu-sub mymenu-order sub-menu-cancel">취소/교환/반품 조회</a>-->
+					<!--			</li>-->
+					<!-- <li class="mymenu-sub" style="display: none;">
+					<a href="/mypage.html?m=subscript&amp;s=subscript" title="정기구독 일정 확인" data-submenu="subscript" class="btn-mymenu-sub mymenu-subscript sub-menu-subscript">정기구독 일정 확인</a>
+					</li> -->
+					<!-- <li class="mymenu-sub" style="display: none;">
+					<a href="/mypage.html?m=subscript&amp;s=payment" title="결제수단 정보 변경" data-submenu="payment" class="btn-mymenu-sub mymenu-subscript sub-menu-payment">결제수단 정보 변경</a>
+					</li> -->
 	<!-- 배송지 관리 -->
 					<li class="mymenu-sub mymenu-sub-address" style="display: none;">
-						<a href="javascript:submymenu('address')" title="배송지 목록" data-submenu="addresslist" class="btn-mymenu-sub mymenu-address sub-menu-addresslist">배송지 목록</a>
+					<a href="javascript:submymenu('address')" title="배송지 목록" data-submenu="addresslist" class="btn-mymenu-sub mymenu-address sub-menu-addresslist">배송지 목록</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-address" style="display: none;">
-						<a href="javascript:submymenu('newaddress')" title="새 배송지 추가" data-submenu="newaddress" class="btn-mymenu-sub mymenu-newaddress sub-menu-newaddress">새 배송지 추가</a>
+					<a href="javascript:submymenu('newaddress')" title="새 배송지 추가" data-submenu="newaddress" class="btn-mymenu-sub mymenu-newaddress sub-menu-newaddress">새 배송지 추가</a>
 					</li>
 	<!-- 나의활동내역 -->
 					<li class="mymenu-sub mymenu-sub-history" style="display: none;">
-						<a href="javascript:submymenu('history')" title="내가 쓴 댓글" data-submenu="comment" class="btn-mymenu-sub mymenu-history mymenu-action-history sub-menu-comment">내가 쓴 댓글</a>
+					<a href="javascript:submymenu('history')" title="내가 쓴 댓글" data-submenu="comment" class="btn-mymenu-sub mymenu-history mymenu-action-history sub-menu-comment">내가 쓴 댓글</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-history" style="display: none;">
-						<a href="javascript:submymenu('review')" title="구매 후기" data-submenu="review" class="btn-mymenu-sub mymenu-review mymenu-action-history sub-menu-review">구매 후기</a>
+					<a href="javascript:submymenu('review')" title="구매 후기" data-submenu="review" class="btn-mymenu-sub mymenu-review mymenu-action-history sub-menu-review">구매 후기</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-history" style="display: none;">
-						<a href="javascript:submymenu('qna')" title="1:1 문의내역" data-submenu="qna" class="btn-mymenu-sub mymenu-qna mymenu-action-history sub-menu-qna">1:1 문의내역</a>
+					<a href="javascript:submymenu('qna')" title="1:1 문의내역" data-submenu="qna" class="btn-mymenu-sub mymenu-qna mymenu-action-history sub-menu-qna">1:1 문의내역</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-history" style="display: none;">
-						<a href="javascript:submymenu('mileage')" title="마일리지 현황" data-submenu="mileage" class="btn-mymenu-sub mymenu-mileage mymenu-action-history sub-menu-mileage">마일리지 현황</a>
-					</li>
-					<li class="mymenu-sub mymenu-sub-history" style="display: none;">
-						<a href="javascript:submymenu('coupon')" title="쿠폰 현황" data-submenu="coupon" class="btn-mymenu-sub mymenu-coupon mymenu-action-history sub-menu-coupon">쿠폰 현황</a>
+					<a href="javascript:submymenu('mileage')" title="마일리지 현황" data-submenu="mileage" class="btn-mymenu-sub mymenu-mileage mymenu-action-history sub-menu-mileage">마일리지 현황</a>
 					</li>
 	<!-- 내 정보 관리 -->
 					<li class="mymenu-sub mymenu-sub-myinfo" style="display: none;">
-						<a href="javascript:submymenu('myinfo')" title="회원정보 수정" data-submenu="profile" class="btn-mymenu-sub mymenu-myinfo sub-menu-profile">회원정보 수정</a>
+					<a href="javascript:submymenu('myinfo')" title="회원정보 수정" data-submenu="profile" class="btn-mymenu-sub mymenu-myinfo sub-menu-profile">회원정보 수정</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-myinfo" style="display: none;">
-						<a href="javascript:submymenu('password')" title="비밀번호 변경" data-submenu="password" class="btn-mymenu-sub mymenu-password sub-menu-password">비밀번호 변경</a>
+					<a href="javascript:submymenu('password')" title="비밀번호 변경" data-submenu="password" class="btn-mymenu-sub mymenu-password sub-menu-password">비밀번호 변경</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-myinfo" style="display: none;">
-						<a href="javascript:submymenu('exit')" title="회원탈퇴" data-submenu="exit" class="btn-mymenu-sub mymenu-exit sub-menu-exit">회원탈퇴</a>
+					<a href="javascript:submymenu('exit')" title="회원탈퇴" data-submenu="exit" class="btn-mymenu-sub mymenu-exit sub-menu-exit">회원탈퇴</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-favorite" style="display: none;">
-						<a href="javascript:submymenu('favorite')" title="취미 클래스" data-submenu="class" class="btn-mymenu-sub mymenu-favorite sub-menu-class">취미 클래스</a>
+					<a href="javascript:submymenu('favorite')" title="취미 클래스" data-submenu="class" class="btn-mymenu-sub mymenu-favorite sub-menu-class">취미 클래스</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-favorite" style="display: none;">
-						<a href="javascript:submymenu('magazine')" title="매거진" data-submenu="magazine" class="btn-mymenu-sub mymenu-magazint sub-menu-magazine btn-mymenu-sub-on">매거진</a>
+					<a href="javascript:submymenu('magazine')" title="매거진" data-submenu="magazine" class="btn-mymenu-sub mymenu-magazint sub-menu-magazine btn-mymenu-sub-on">매거진</a>
 					</li>
 				</ul>
 			</div>
@@ -159,25 +157,17 @@
 		<!-- 기본 -->
 			<div class="mymenu-sub-tab-wrap"></div>
 		<!-- 내가쓴댓글 -->
-			<div class="mymenu-sub-tab-wrap sub-tab-wrap-history" style="display: none;">
-<!-- 			<div class="mymenu-sub-tab-wrap block" style="display: none;"> -->
-				<ul class="mymenu-sub-tab-list">
-					<li class="mymenu-sub-tab">
-					<a href="/mypage.html?m=action-history&amp;s=comment&amp;type=magazine" title="매거진 댓글 보기" data-tabtype="magazine" class="btn-sub-tab btn-comment-tab btn-sub-on">매거진 댓글 보기</a>
-					</li>
-					<li class="mymenu-sub-tab">
-					<a href="/mypage.html?m=action-history&amp;s=comment&amp;type=award" title="어워드 댓글 보기" data-tabtype="award" class="btn-sub-tab btn-comment-tab">어워드 댓글 보기</a>
-					</li>
-				</ul>
-			</div>
 		<!-- 구매후기 -->
 			<div class="mymenu-sub-tab-wrap sub-tab-wrap-review" style="display: none;">
 <!-- 			<div class="mymenu-sub-tab-wrap block" style="display: none;"> -->
 				<ul class="mymenu-sub-tab-list">
 					<li class="mymenu-sub-tab">
-					<a href="/mypage.html?m=action-history&amp;s=review&amp;type=writer" title="구매 후기 작성" data-tabtype="writer" class="btn-sub-tab btn-review-tab">구매 후기 작성
-					</a></li>
-					<li class="mymenu-sub-tab"><a href="/mypage.html?m=action-history&amp;s=review&amp;type=history" title="클래수 후기 목록" data-tabtype="history" class="btn-sub-tab btn-review-tab btn-sub-on">구매 후기 목록</a></li>
+						<a href="javascript:subtab('review')" title="구매 후기 작성" data-tabtype="writer" class="btn-sub-tab btn-review-tab subtab_review">구매 후기 작성
+						</a>
+					</li>
+					<li class="mymenu-sub-tab">
+						<a href="javascript:subtab('review_list')" title="클래수 후기 목록" data-tabtype="history" class="btn-sub-tab btn-review-tab subtab_review_list">구매 후기 목록</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -234,7 +224,7 @@
 			</div>
 	<!-- 배송지관리 -->
 			<!-- 배송지목록 -->
-			<c:forEach var="" items="">
+			<%-- <c:forEach var="" items=""> --%>
 			<div class="delivery-list-wrap list-address">
 				<div class="delivery-list-cont">
 					<div class="delivery-list-title">배송지명</div>
@@ -256,78 +246,80 @@
 					</div>
 				</div>
 			</div>
-			</c:forEach>
+			<%-- </c:forEach> --%>
 			<!-- 새배송지 추가 -->
 			<div class="edit-delivery-wrap list-newaddress" style="display:none">
 				<div class="edit-delivery-cont">
 					<table class="edit-delivery-table" summary="배송지 입력 테이블">
-						<%-- <colgroup>
+						<colgroup>
 							<col class="th-edit-delivery">
 							<col class="td-edit-delivery">
-						</colgroup> --%>
-						<tr><th class="th-edit-delivery">배송지명</th>
-							<td class="td-edit-delivery">
-								<div class="edit-delivery-area"><span class="input-wrap input-type02">
-									<input type="text" class="input delivery address-name" value=""></span></div>
-							</td>
-						</tr>
-						<tr><th class="th-edit-delivery">수령자명</th>
-							<td class="td-edit-delivery">
-								<div class="edit-delivery-area">
-									<span class="input-wrap input-type02">
-									<input type="text" class="input receive-name" value="">
-									</span>
-								</div>
-							</td>
-						</tr>
-						<tr><th class="th-edit-delivery">휴대전화</th>
-							<td class="td-edit-delivery">
-								<div class="edit-delivery-area">
+						</colgroup>
+						<tbody>
+							<tr><th class="th-edit-delivery">배송지명</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area"><span class="input-wrap input-type02">
+										<input type="text" class="input delivery address-name" value=""></span></div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">수령자명</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+										<input type="text" class="input receive-name" value="">
+										</span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">휴대전화</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type03">
+										<input type="text" class="input phone-first" value="">
+										</span>
+										<span class="input-wrap input-type03">
+										<input type="text" class="input phone-middle" value="">
+										</span>
+										<span class="input-wrap input-type03">
+										<input type="text" class="input phone-last" value="">
+										</span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
 									<span class="input-wrap input-type03">
-									<input type="text" class="input phone-first" value="">
+									<input type="text" class="input phone2-first" value="">
 									</span>
 									<span class="input-wrap input-type03">
-									<input type="text" class="input phone-middle" value="">
+									<input type="text" class="input phone2-middle" value="">
 									</span>
-									<span class="input-wrap input-type03">
-									<input type="text" class="input phone-last" value="">
-									</span>
-								</div>
-							</td>
-						</tr>
-						<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
-							<td class="td-edit-delivery">
-								<div class="edit-delivery-area">
-								<span class="input-wrap input-type03">
-								<input type="text" class="input phone2-first" value="">
-								</span>
-								<span class="input-wrap input-type03">
-								<input type="text" class="input phone2-middle" value="">
-								</span>
-								<span class="input-wrap input-type03"><input type="text" class="input phone2-last" value=""></span>
-								</div>
-							</td>
-						</tr>
-						<tr><th class="th-edit-delivery">주소</th>
-							<td class="td-edit-delivery">
-								<div class="edit-delivery-area">
-									<span class="input-wrap input-type04">
-									<input type="text" class="input new-address-zipcode" value="">
-									</span>
-									<a href="#link" title="우편번호" class="btn-post-num get-zipcode">우편번호</a>
-								</div>
-								<div class="edit-delivery-area inline-45">
-									<span class="input-wrap"><input type="text" class="input new-address" value=""></span>
-								</div>
-								<div class="edit-delivery-area inline-45"><span class="input-wrap">
-									<input type="text" class="input new-address-detail" value=""></span></div>
-								<div class="edit-delivery-area">
-									<input type="checkbox" id="basic-delivery" class="btn-join-agree">
-									<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label></div>
-							</td>
-						</tr>
+									<span class="input-wrap input-type03"><input type="text" class="input phone2-last" value=""></span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">주소</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type04">
+										<input type="text" class="input new-address-zipcode" value="">
+										</span>
+										<a href="#link" title="우편번호" class="btn-post-num get-zipcode">우편번호</a>
+									</div>
+									<div class="edit-delivery-area inline-45">
+										<span class="input-wrap"><input type="text" class="input new-address" value=""></span>
+									</div>
+									<div class="edit-delivery-area inline-45"><span class="input-wrap">
+										<input type="text" class="input new-address-detail" value=""></span></div>
+									<div class="edit-delivery-area">
+										<input type="checkbox" id="basic-delivery" class="btn-join-agree">
+										<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label></div>
+								</td>
+							</tr>
+						</tbody>
 					</table>
-					<div class="edit-delivery-btn"><a href="addNewPost.shop" title="배송지 추가하기" class="btn-edit-delivery register-address">배송지 추가하기</a>
+					<div class="edit-delivery-btn"><a href="#link" title="배송지 추가하기" class="btn-edit-delivery register-address">배송지 추가하기</a>
 					</div>
 				</div>
 			</div>
@@ -366,6 +358,15 @@
 					<div class="no-view-tit">후기를 작성할 수 있는 클래스가 아직 없습니다.</div>
 					<div class="no-view-txt">구매 후기는 배송완료 후에 작성하실 수 있습니다.</div>
 					<a href="/mypage.html?m=order&amp;s=order" title="주문/배송 조회로 이동" class="btn-no-view">주문/배송 조회로 이동</a>
+				</div>
+			</div>
+			<div class="reply-class-wrap list-review_list">
+				<div class="no-view-wrap">
+					<div class="no-view-tit">아직 작성하신 구매 후기가 없어요.</div>
+					<div class="no-view-txt">취미 클래스에 대한 후기를 남겨 주세요!<br>
+					소중한 후기를 남겨주신 분들께<br>
+					마일리지를 선물로 드립니다.</div>
+					<a href="#link" title="구매 후기 작성" class="btn-no-view class-review-write">구매 후기 작성</a>
 				</div>
 			</div>
 		<!-- 1:1문의내역 -->
@@ -426,6 +427,7 @@
 					</div>
 				</div>
 			</div>
+			
 			
 	<!-- 내정보 관리 -->
 		<!-- 회원정보 수정 -->

@@ -12,6 +12,8 @@ public class Qna {
 	private String q_img;
 	private Date q_date;
 	private String q_info;
+	private String q_reply;
+	
 	public int getQ_num() {
 		return q_num;
 	}
@@ -67,10 +69,18 @@ public class Qna {
 		this.q_info = q_info;
 	}
 	
+	public String getQ_reply() {
+		return q_reply;
+	}
+	public void setQ_reply(String q_reply) {
+		this.q_reply = q_reply;
+	}
 	@Override
 	public String toString() {
 		return "Qna [q_num=" + q_num + ", emailid=" + emailid + ", name=" + name + ", q_type=" + q_type + ", q_title="
 				+ q_title + ", q_content=" + q_content + ", q_img=" + q_img + ", q_date=" + q_date + ", q_info="
-				+ q_info + "]";
+				+ q_info + ", q_reply=" + q_reply + "]";
 	}
+	
+	
 }

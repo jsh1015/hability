@@ -1,9 +1,10 @@
 package logic;
 
+import java.util.Date;
+
 public class Uorder {
 	private int od_num;
 	private String emailid;
-	private int cl_num;
 	private String name;
 	private String phone;
 	private String od_name;
@@ -13,6 +14,15 @@ public class Uorder {
 	private String od_addr;
 	private String od_comment;
 	private String od_deliver;
+	private Date od_date;
+	
+	
+	public Date getOd_date() {
+		return od_date;
+	}
+	public void setOd_date(Date od_date) {
+		this.od_date = od_date;
+	}
 	public int getOd_num() {
 		return od_num;
 	}
@@ -24,12 +34,6 @@ public class Uorder {
 	}
 	public void setEmailid(String emailid) {
 		this.emailid = emailid;
-	}
-	public int getCl_num() {
-		return cl_num;
-	}
-	public void setCl_num(int cl_num) {
-		this.cl_num = cl_num;
 	}
 	public String getName() {
 		return name;
@@ -87,10 +91,11 @@ public class Uorder {
 	}
 	@Override
 	public String toString() {
-		return "Uorder [od_num=" + od_num + ", emailid=" + emailid + ", cl_num=" + cl_num + ", name=" + name
-				+ ", phone=" + phone + ", od_name=" + od_name + ", od_client=" + od_client + ", od_phone=" + od_phone
-				+ ", od_phone2=" + od_phone2 + ", od_addr=" + od_addr + ", od_comment=" + od_comment + ", od_deliver="
-				+ od_deliver + "]";
+		return "Uorder [od_num=" + od_num + ", emailid=" + emailid + ", name=" + name + ", phone=" + phone
+				+ ", od_name=" + od_name + ", od_client=" + od_client + ", od_phone=" + od_phone + ", od_phone2="
+				+ od_phone2 + ", od_addr=" + od_addr + ", od_comment=" + od_comment + ", od_deliver=" + od_deliver
+				+ ", od_date=" + od_date + "]";
 	}
+	
 	
 }
