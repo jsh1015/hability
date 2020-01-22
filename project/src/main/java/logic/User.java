@@ -2,17 +2,31 @@ package logic;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class User {
+	@NotEmpty(message="필수 항목입니다.")
 	private String emailid;
+	@NotEmpty(message="필수 항목입니다.")
 	private String pass;
+	@NotEmpty(message="필수 항목입니다.")
 	private String name;
+	@NotEmpty(message="필수 항목입니다.")
+	@Size(min=3,max=10,message="닉네임은 2~12글자로 입력해주세요")
 	private String nickname;
+	@Past(message="생일은 과거 날짜만 가능합니다.")
+	@DateTimeFormat(pattern="yyyyMMdd")
 	private Date birth;
 	private String phone;
 	private int mileage;
 	private String address;
 	private String grade;
 	private String userimg;
+	
 	public String getEmailid() {
 		return emailid;
 	}

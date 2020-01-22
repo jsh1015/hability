@@ -117,10 +117,10 @@
 				<div class="gnb-wrap">
 					<ul class="gnb-list">
 						<li class="gnb gnb-login" style="display: none;">
-							<a href="#login" title="로그인" class="btn-gnb header_login">로그인</a>
+							<a href="${path}/user/login.shop" class="btn-gnb header_login">로그인</a>
 						</li>
 						<li class="gnb gnb-join" style="display: none;">
-							<a href="#join" title="회원가입" class="btn-gnb header_join">회원가입</a>
+							<a href="${path}/user/join.shop" title="회원가입" class="btn-gnb header_join">회원가입</a>
 						</li>
 						<li class="gnb gnb-logout" style="display: list-item;">
 							<a href="#logout" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
