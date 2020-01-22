@@ -6,5 +6,8 @@
 	</decorator>
 	<excludes><!-- sitemesh를 사용하지 않게 -->
 		<pattern>/admin/*</pattern>
+		<pattern>/user/userEntry*</pattern>
+		<pattern>/user/login*</pattern>
+		<pattern>/user/join*</pattern>
 	</excludes>
 </decorators>
