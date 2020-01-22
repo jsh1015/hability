@@ -8,6 +8,7 @@ public class Postaddr {
 	private String po_phone;
 	private String po_phone2;
 	private String po_addr;
+	
 	public int getPo_num() {
 		return po_num;
 	}

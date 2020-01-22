@@ -1,11 +1,14 @@
 package logic;
 
+import java.util.Date;
+
 public class Report {
 	private int cm_num;
 	private int cl_num;
-	private int ma_num;
 	private String emailid;
 	private int problem;
+	private Date re_date;
+	
 	public int getCm_num() {
 		return cm_num;
 	}
@@ -17,12 +20,6 @@ public class Report {
 	}
 	public void setCl_num(int cl_num) {
 		this.cl_num = cl_num;
-	}
-	public int getMa_num() {
-		return ma_num;
-	}
-	public void setMa_num(int ma_num) {
-		this.ma_num = ma_num;
 	}
 	public String getEmailid() {
 		return emailid;
@@ -36,10 +33,17 @@ public class Report {
 	public void setProblem(int problem) {
 		this.problem = problem;
 	}
+	public Date getRe_date() {
+		return re_date;
+	}
+	public void setRe_date(Date re_date) {
+		this.re_date = re_date;
+	}
+	
 	@Override
 	public String toString() {
-		return "Report [cm_num=" + cm_num + ", cl_num=" + cl_num + ", ma_num=" + ma_num + ", emailid=" + emailid
-				+ ", problem=" + problem + "]";
+		return "Report [cm_num=" + cm_num + ", cl_num=" + cl_num + ", emailid=" + emailid + ", problem=" + problem
+				+ ", re_date=" + re_date + "]";
 	}
 	
 }

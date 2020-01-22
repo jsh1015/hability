@@ -4,7 +4,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html class=""><head lang="ko" id="hobbyful">
-<title>하비풀 - 취미를 만나 일상이 아름다워지다.</title>
+<title>MyPage :)</title>
 <!-- 
 <script src="https://connect.facebook.net/en_US/sdk.js?hash=74dcbcc2704d622295a23269b1b69bee&amp;ua=modern_es6" async crossorigin="anonymous"></script>
 <script src="https://connect.facebook.net/signals/config/299353887143885?v=2.9.15&amp;r=stable" async></script><script async src="https://connect.facebook.net/en_US/fbevents.js"></script><script type="text/javascript" async src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async src="https://www.google-analytics.com/gtm/js?id=GTM-NLKP5J5&amp;t=gtm2&amp;cid=2139233057.1577061431"></script>
