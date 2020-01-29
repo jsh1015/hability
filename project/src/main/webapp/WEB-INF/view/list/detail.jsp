@@ -29,9 +29,9 @@
 		totalprice.value = price_value;
 	}
 	
-	
 
 </script>
+
 </head>
 <body>
 <div class="container">
@@ -72,7 +72,7 @@
 				</div>
 				<div class="vod-btn-wrap">
 					<a href="#like" title="좋아요" class="btn-like">좋아요</a>
-					<a data-toggle="modal" href="#cart" class="btn-get" style="text-decoration:none; color:white;">클래스 신청하기</a>
+					<a data-toggle="modal" href="#cart" class="btn-get">클래스 신청하기</a>
 					<!-- <span class="btn-get-soldout" style="display: none">일시 품절</span> -->
 				</div>
 			</div>
@@ -507,14 +507,15 @@
 <%-- </c:forEach>	 --%>
 	</div>
 	<!-- Modal -->
-	<div class="modal fade" id="cart" role="dialog">
+	<div class="modal fade" id="cart" role="dialog" style="display:none">
+	<div id="dimmer-hf-modal-1580289583484809" class="hfc-dimmer hfc-dimmer-modal"></div>
 		<div class="modal-dialog hfc-modal s-big" style="overflow: unset;">
 			<!-- Modal content-->
 			<div class="hfe-bg"></div>
 			<div class="modal-content hfe-container">
 				<header>
 					<h3 class="modal-title">클래스 옵션을 선택하세요</h3>
-					<!-- <button class="hfe-header-close a-close close" data-dismiss="modal">창닫기</button> -->
+					<button class="hfe-header-close a-close close" data-dismiss="modal">창닫기</button>
 				</header>
 				
 					<section class="hfe-content">
