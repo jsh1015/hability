@@ -36,7 +36,7 @@
 			</div>
 			<div class="profile-info-wrap">
 				안녕하세요.
-				<div class="profile-name cut-txt">서현-님</div>
+				<div class="profile-name cut-txt">${sessionScope.loginUser.nickname}-님</div>
 				<!--a href="javascript:;" title="프로필 사진 편집" class="btn-profile-thumb">프로필 사진 편집</a-->
 				<label for="upload" class="btn-profile-thumb">프로필 사진 편집</label>
 			</div>
@@ -45,15 +45,24 @@
 			<ul class="my-info-list">
 				<li class="my-info">
 				<span class="my-info-tit">회원등급<a href="#usergrade" title="보기" class="view-grade" onclick="showPopup2();">?</a></span>
-				<strong class="my-info-txt my-level">thanksful</strong>
+				<strong class="my-info-txt my-level">
+					<c:choose>
+						<c:when test="${sessionScope.loginUser.grade == 1}">thanksful</c:when>
+						<c:when test="${sessionScope.loginUser.grade == 2}">wonderful</c:when>
+						<c:when test="${sessionScope.loginUser.grade == 3}">joyful</c:when>
+						<c:when test="${sessionScope.loginUser.grade == 4}">colorful</c:when>
+						<c:when test="${sessionScope.loginUser.grade == 5}">beautiful</c:when>
+						<c:when test="${sessionScope.loginUser.grade == 6}">hobbyful</c:when>
+					</c:choose>
+				</strong>
 				</li>
 				<li class="my-info">
 				<span class="my-info-tit">내 클래스</span>
-				<a href="/myclass.html"><strong class="my-info-txt my-class">0</strong></a>
+				<a href="${path}/user/myClass.shop"><strong class="my-info-txt my-class">0</strong></a>
 				</li>
 				<li class="my-info">
 				<span class="my-info-tit">마일리지</span>
-				<a href="javascript:;"><strong class="my-info-txt cut-txt my-point" onclick="$('.btn-mymenu-action-history').trigger('click');  $('.sub-menu-mileage').trigger('click')">1,000p</strong></a>
+				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point">${sessionScope.loginUser.mileage}p</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -357,7 +366,7 @@
 				<div class="no-view-wrap">
 					<div class="no-view-tit">후기를 작성할 수 있는 클래스가 아직 없습니다.</div>
 					<div class="no-view-txt">구매 후기는 배송완료 후에 작성하실 수 있습니다.</div>
-					<a href="/mypage.html?m=order&amp;s=order" title="주문/배송 조회로 이동" class="btn-no-view">주문/배송 조회로 이동</a>
+					<a href="${path}/list/hobbyClass.shop" title="주문/배송 조회로 이동" class="btn-no-view">주문/배송 조회로 이동</a>
 				</div>
 			</div>
 			<div class="reply-class-wrap list-review_list">
@@ -366,7 +375,7 @@
 					<div class="no-view-txt">취미 클래스에 대한 후기를 남겨 주세요!<br>
 					소중한 후기를 남겨주신 분들께<br>
 					마일리지를 선물로 드립니다.</div>
-					<a href="#link" title="구매 후기 작성" class="btn-no-view class-review-write">구매 후기 작성</a>
+					<a href="javascript:subtab('review')" title="구매 후기 작성" class="btn-no-view class-review-write">구매 후기 작성</a>
 				</div>
 			</div>
 		<!-- 1:1문의내역 -->
@@ -386,11 +395,11 @@
 					<div class="reply-info-area reply-info-area-type02">
 						<div class="mileage-info">
 							<div class="mileage-info-tit">현재 마일리지</div>
-							<div class="mileage-info-p">1,000P</div>
+							<div class="mileage-info-p">${sessionScope.loginUser.mileage}P</div>
 						</div>
 						<div class="mileage-info">
 							<div class="mileage-info-tit">총 적립 마일리지</div>
-							<div class="mileage-info-p">1,000P</div>
+							<div class="mileage-info-p">1000P</div>
 						</div>
 						<div class="mileage-info">
 							<div class="mileage-info-tit">사용한 마일리지</div>

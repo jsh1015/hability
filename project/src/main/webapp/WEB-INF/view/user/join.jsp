@@ -23,7 +23,7 @@
 		<h2 class="layer-tit">회원가입</h2>
 		<div class="join-type-wrap">
 			<div class="join-type-cont">
-				<a href="${url}">
+				<a href="${path}/user/naver_join.shop">
 				<button title="네이버로 로그인" class="btn-join-type btn-join-naver">
 					<span class="ico-join-type ico-join-naver"></span>네이버로 가입
 				</button></a>

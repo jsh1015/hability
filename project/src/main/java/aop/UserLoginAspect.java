@@ -9,6 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import exception.LoginException;
+import logic.Mileage;
 import logic.User;
 
 @Component
@@ -32,6 +33,7 @@ public class UserLoginAspect {
 	("execution(* controller.User*.check*(..)) && args(id, session)")
 	public Object userIdCheck(ProceedingJoinPoint joinPoint, String id ,HttpSession session)throws Throwable{
 		User loginUser = (User)session.getAttribute("loginUser");
+		Mileage mileage = (Mileage)session.getAttribute("userMileage");
 		if(loginUser == null) {
 			throw new LoginException("2. 로그인 후 거래하세요","login.shop");
 		}

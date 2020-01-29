@@ -9,10 +9,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
-	@NotEmpty(message="필수 항목입니다.")
+	@NotEmpty(message="이메일을 입력해주세요.")
 	private String emailid;
-	@NotEmpty(message="필수 항목입니다.")
+	@NotEmpty(message="비밀번호 입력해주세요.")
+	@Size(min=6,max=16,message="비밀번호는 6~16자 영문, 숫자를 함께 입력해주세요")
 	private String pass;
+	@NotEmpty(message="필수 항목입니다.")
+	private String passck;
 	@NotEmpty(message="필수 항목입니다.")
 	private String name;
 	@NotEmpty(message="필수 항목입니다.")
@@ -26,7 +29,6 @@ public class User {
 	private String address;
 	private String grade;
 	private String userimg;
-	
 	public String getEmailid() {
 		return emailid;
 	}
@@ -38,6 +40,12 @@ public class User {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public String getPassck() {
+		return passck;
+	}
+	public void setPassck(String passck) {
+		this.passck = passck;
 	}
 	public String getName() {
 		return name;
@@ -89,9 +97,9 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [emailid=" + emailid + ", pass=" + pass + ", name=" + name + ", nickname=" + nickname + ", birth="
-				+ birth + ", phone=" + phone + ", mileage=" + mileage + ", address=" + address + ", grade=" + grade
-				+ ", userimg=" + userimg + "]";
+		return "User [emailid=" + emailid + ", pass=" + pass + ", passck=" + passck + ", name=" + name + ", nickname="
+				+ nickname + ", birth=" + birth + ", phone=" + phone + ", mileage=" + mileage + ", address=" + address
+				+ ", grade=" + grade + ", userimg=" + userimg + "]";
 	}
-	
 }
+	
