@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html class=""><head lang="ko" id="hobbyful">
 <title>MyPage :) </title>
@@ -23,9 +25,65 @@
 		$(".quit-membership-wrap").hide()
 		$(".list-favorite").hide()
 		$(".list-magazine").hide()
+		
+		// 새 배송지 추가 > hidden인 addrclick값이 넘어가면 누르는 단계를 패스하고 유효성검증이 된 페이지로 이동됨
+		if('${param.addrclick}' == 'addrclick') {
+			mymenu('address');
+			submymenu('newaddress');
+		}
 	})
  </script>
- 
+ <!-- 우편번호 > 주소 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function DaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('po_postcode').value = data.zonecode;
+                document.getElementById("po_addr_main").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("po_addr_sub").focus();
+            }
+        }).open();
+    }
+</script>
 <body>
 <div class="wrap" id="wrap">
 	<div class="container">
@@ -233,49 +291,78 @@
 			</div>
 	<!-- 배송지관리 -->
 			<!-- 배송지목록 -->
-			<%-- <c:forEach var="" items=""> --%>
+			
 			<div class="delivery-list-wrap list-address">
+			<c:if test="${postListCnt >0}">
+				<c:forEach items="${postList}" var="post" varStatus="stat">
 				<div class="delivery-list-cont">
-					<div class="delivery-list-title">배송지명</div>
+					<div class="delivery-list-title">${post.po_name}</div>
 					<div class="delivery-list-area delivery-list-name">
 						<div class="delivery-list-tit">수령인</div>
-						<div class="delivery-list-txt">수령자명</div>
+						<div class="delivery-list-txt">${post.po_client}</div>
 					</div>
 					<div class="delivery-list-area delivery-list-phone">
 						<div class="delivery-list-tit">휴대폰번호</div>
-						<div class="delivery-list-txt">01091963064</div>
+						<div class="delivery-list-txt">${post.po_phone}</div>
 					</div>
 					<div class="delivery-list-area delivery-list-address">
 						<div class="delivery-list-tit">주소지</div>
-						<div class="delivery-list-txt"></div>
+						<div class="delivery-list-txt">(${post.po_postcode}) ${post.po_addr_main} ${post.po_addr_sub}</div>
 					</div>
 					<div class="delivery-list-btn">
 						<a href="#link" title="수정" data-arr-idx="0" class="btn-delivery-list edit-address-btn">수정</a>
 						<a href="#link" title="삭제" data-address-id="12843" class="btn-delivery-list delete-address-btn">삭제</a>
 					</div>
 				</div>
+				</c:forEach>
+			</c:if>
+			<c:if test="${postListCnt ==0}">
+			<div class="no-view-wrap">
+				<div class="no-view-tit">아직 등록된 배송지가 없습니다.</div>
+				<div class="no-view-txt">배송지를 등록해주세요.</div>
+				<a href="javascript:submymenu('newaddress')" title="배송지 등록하기"
+					class="btn-no-view register-new-address">배송지 등록하기</a>
 			</div>
-			<%-- </c:forEach> --%>
-			<!-- 새배송지 추가 -->
+			</c:if>
+			</div>
+		<!-- 새배송지 추가 -->
+			<form:form modelAttribute="postaddr" action="po_addr.shop" method="post">
+			<input type="hidden" name="addrclick" value="addrclick" >
+			<input type="hidden" value="${param.emailid}" name="emailid">
 			<div class="edit-delivery-wrap list-newaddress" style="display:none">
 				<div class="edit-delivery-cont">
 					<table class="edit-delivery-table" summary="배송지 입력 테이블">
-						<colgroup>
+						<!-- <colgroup>
 							<col class="th-edit-delivery">
 							<col class="td-edit-delivery">
-						</colgroup>
+						</colgroup> -->
 						<tbody>
 							<tr><th class="th-edit-delivery">배송지명</th>
 								<td class="td-edit-delivery">
-									<div class="edit-delivery-area"><span class="input-wrap input-type02">
-										<input type="text" class="input delivery address-name" value=""></span></div>
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<!-- <input type="text" class="input delivery address-name" value=""> -->
+											<form:input path="po_name" class="input delivery address-name" />
+											<font color="red">
+												<form:errors path="po_name" />
+											</font>
+											<!-- <script>
+											   if ('<form:errors path='po_name' />' != '') {
+											    	alert('<form:errors path='po_name' />');
+											   }
+											</script> -->
+										</span>
+									</div>
 								</td>
 							</tr>
 							<tr><th class="th-edit-delivery">수령자명</th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type02">
-										<input type="text" class="input receive-name" value="">
+											<form:input path="po_client" class="input" size="40" />
+											<font color="red">
+												<form:errors path="po_client" />
+											</font>
 										</span>
 									</div>
 								</td>
@@ -283,14 +370,11 @@
 							<tr><th class="th-edit-delivery">휴대전화</th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
-										<span class="input-wrap input-type03">
-										<input type="text" class="input phone-first" value="">
-										</span>
-										<span class="input-wrap input-type03">
-										<input type="text" class="input phone-middle" value="">
-										</span>
-										<span class="input-wrap input-type03">
-										<input type="text" class="input phone-last" value="">
+										<span class="input-wrap input-type02">
+											<form:input path="po_phone" class="input" />
+											<font color="red">
+												<form:errors path="po_phone" />
+											</font>
 										</span>
 									</div>
 								</td>
@@ -298,13 +382,12 @@
 							<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
-									<span class="input-wrap input-type03">
-									<input type="text" class="input phone2-first" value="">
-									</span>
-									<span class="input-wrap input-type03">
-									<input type="text" class="input phone2-middle" value="">
-									</span>
-									<span class="input-wrap input-type03"><input type="text" class="input phone2-last" value=""></span>
+										<span class="input-wrap input-type02">
+											<form:input path="po_phone2" class="input" />
+										 	<font color="red">
+												<form:errors path="po_phone2" />
+											</font>
+										</span>
 									</div>
 								</td>
 							</tr>
@@ -312,26 +395,37 @@
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type04">
-										<input type="text" class="input new-address-zipcode" value="">
-										</span>
-										<a href="#link" title="우편번호" class="btn-post-num get-zipcode">우편번호</a>
+											<form:input path="po_postcode" id="po_postcode" class="input new-address-zipcode" value="" placeholder="우편번호" />
+ 										</span>
+										<input type="button" onclick="DaumPostcode()" class="btn-post-num get-zipcode" value="우편번호"><br>
 									</div>
 									<div class="edit-delivery-area inline-45">
-										<span class="input-wrap"><input type="text" class="input new-address" value=""></span>
+										<span class="input-wrap">
+											<form:input path="po_addr_main" id="po_addr_main" class="input new-address" value="" placeholder="주소" />
+	 									</span>
 									</div>
-									<div class="edit-delivery-area inline-45"><span class="input-wrap">
-										<input type="text" class="input new-address-detail" value=""></span></div>
+									<div class="edit-delivery-area inline-45">
+										<span class="input-wrap">
+											<form:input path="po_addr_sub" id="po_addr_sub" class="input new-address" value="" placeholder="상세주소" />
+		 								</span>
+									</div>
 									<div class="edit-delivery-area">
-										<input type="checkbox" id="basic-delivery" class="btn-join-agree">
-										<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label></div>
+										<!-- <input type="checkbox" id="basic-delivery" class="btn-join-agree">
+										<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label> -->
+									</div>
+									<input type="hidden" id="extraAddress">
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<div class="edit-delivery-btn"><a href="#link" title="배송지 추가하기" class="btn-edit-delivery register-address">배송지 추가하기</a>
+					<div class="edit-delivery-btn">
+						<!-- <a href="#link" title="배송지 추가하기" class="btn-edit-delivery register-address">배송지 추가하기</a> -->
+						<!-- <button onclick="submit" class="btn-edit-delivery register-address">배송지 추가하기</button> -->
+						<input type="submit" class="btn-edit-delivery register-address" value="배송지 추가하기">
 					</div>
 				</div>
 			</div>
+			</form:form>
 	<!-- 나의 활동내역 -->
 		<!-- 내가쓴 댓글 -->
 			<div class="view-reply-wrap list-history">

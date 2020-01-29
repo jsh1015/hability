@@ -1431,7 +1431,7 @@ z-index 정리
 .hfc-modal .hfe-orderinfo .i-price-sale .i-price-installment .i-num { font-size:20px; }
 
 
-.hfb-categorySlideList { padding:0 40px; margin:10px -40px 40px -40px; }
+.hfb-categorySlideList { /* padding:0 40px; */ margin:10px -40px 40px -40px; }
 .hfb-categorySlideList header h4 { font-size:22px; line-height:1.4; }
 .hfb-categorySlideList .f-nav { cursor:pointer; display:block; position:absolute; z-index:10; top:-75px; bottom:-45px; width:40px; background-color:#fff; background-size:12px; background-repeat:no-repeat; background-position:50% 50%; text-indent:-99999px; }
 .hfb-categorySlideList.s-hasdesc .f-nav { top:-75px; bottom:-70px; }

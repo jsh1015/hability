@@ -47,7 +47,11 @@ public class ShopService {
 	public List<Class> classList() {
 		return listDao.list();
 	}
-
+	
+	public Class classDetail(int cl_num) {
+		return listDao.classDetail(cl_num);
+	}
+	
 	public void orderInsert(Uorder uorder) {
 		// TODO Auto-generated method stub
 		

@@ -6,10 +6,36 @@
 <head>
 <meta charset="UTF-8">
 <title>hability-detail</title>
+<script>
+ 
+	function reset() {
+		$('.modal').on('hidden.modal', function() {
+			$(this).reset();
+		})
+	}
+	
+	function form_btn(n) {
+		var quantity = document.getElementById("count");
+		quan_value = parseInt(quantity.value);
+		quan_value +=n;
+		quantity.value = quan_value;
+		if(quan_value <=0) {
+			quantity.value = 1;
+		}
+		
+		var price = document.getElementById("price");
+		price_value = parseInt(price.value);
+		price_value = price_value * quan_value; // 가격*수량
+		totalprice.value = price_value;
+	}
+	
+	
+
+</script>
 </head>
 <body>
-<c:forEach items="${classList}" var="list">
 <div class="container">
+<%-- <c:forEach items="${classList}" var="list"> --%>
 	<div class="vod-wrap">
 		<div class="vod-cont vimeohelper-92950 vimeohelper"
 			data-vimeo-initialized="true">
@@ -21,11 +47,11 @@
 		</div>
 			<div class="vod-info-wrap">
 				<div class="vod-info-tit view-class-title">
-					<span class="i-lecturer">${list.teacher}</span>
-					${list.cl_title}
+					<span class="i-lecturer">${classDetail.teacher}</span>
+					${classDetail.cl_title}
 				</div>
 				<div class="vod-info-price-discount">
-					 <span class="i-regularPrice view-class-discount-regularPrice">210,000원</span>
+					 <span class="i-regularPrice view-class-discount-regularPrice">${classDetail.cl_price}원</span>
 				</div>
 			
 				<ul class="vod-info-list">
@@ -35,7 +61,7 @@
 </li-->
 					<li class="vod-info"><span class="vod-info-list-tit">적립
 							마일리지</span> <span class="vod-info-list-txt view-class-mileage">최대
-							3,780p</span></li>
+							${classDetail.cl_price *0.1}p</span></li>
 					<li class="vod-info"><span class="vod-info-list-tit">배송비</span>
 						<span class="vod-info-list-txt">무료배송(도서산간지역 제외)</span></li>
 				</ul>
@@ -45,9 +71,9 @@
 					</div>
 				</div>
 				<div class="vod-btn-wrap">
-					<a href="#like" title="좋아요" class="btn-like">좋아요</a> <a
-						href="#cart" class="btn-get" style="">클래스 신청하기</a> <span
-						class="btn-get-soldout" style="display: none">일시 품절</span>
+					<a href="#like" title="좋아요" class="btn-like">좋아요</a>
+					<a data-toggle="modal" href="#cart" class="btn-get" style="text-decoration:none; color:white;">클래스 신청하기</a>
+					<!-- <span class="btn-get-soldout" style="display: none">일시 품절</span> -->
 				</div>
 			</div>
 		</div>
@@ -478,44 +504,78 @@
 				</div>
 			</div>
 		</div>
-		<div class="recommend-hobby-wrap">
-			<div class="recommend-hobby-tit">이런 취미는 어떠세요?</div>
-			<ul class="class-list-wrap hf-tracker-group" id="detailRecommendList"
-				data-tracker-type="impression"
-				data-tracker-id="/list/recommend/detail-class">
-				<li class="class-list hf-tracker-item" data-tracker-id="RT-M-0001"><a
-					href="/product/rattancarpetbeater" title="라탄으로 이불 톡톡 키트"><div
-							class="class-list-thumb">
-							<img
-								src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/cb4325b0-304a-11ea-943b-ab137e78fd91-resize.jpg"
-								alt="" class="thumb-class-list">
+<%-- </c:forEach>	 --%>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="cart" role="dialog">
+		<div class="modal-dialog hfc-modal s-big" style="overflow: unset;">
+			<!-- Modal content-->
+			<div class="hfe-bg"></div>
+			<div class="modal-content hfe-container">
+				<header>
+					<h3 class="modal-title">클래스 옵션을 선택하세요</h3>
+					<!-- <button class="hfe-header-close a-close close" data-dismiss="modal">창닫기</button> -->
+				</header>
+				
+					<section class="hfe-content">
+						<div class="hfe-option">
+							<article class="s-select">
+								<header>
+									<h4>클래스 옵션</h4>
+									<!-- 조건 -->
+									<p class="desc">1개 필수선택</p>
+								</header>
+								<ul class="option-list">
+									<!-- forEach 필요 -->
+									<li><label>
+										<input type="radio" name="listIndex" value="0">
+											<div class="option-item">
+												<h5>베이직 패키지</h5>
+												<p class="prices">
+													<span class="sale" id="price">210,000원</span>
+												</p>
+												<span class="desc">온라인 수강권(평생수강)<br>+ 기본 재료/도구</span>
+												<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/product/146/b6f17010-3029-11ea-9134-2970db5a6784-resize.jpg">
+											</div>
+									</label></li>
+									<!-- <li><label>
+										<input type="radio" name="listIndex" value="1">
+											<div class="option-item">
+												<h5>클래스 수강권</h5>
+												<p class="prices">
+													<span class="sale" id="price">124,000원</span>
+												</p>
+												<span class="desc">온라인 수강권(평생수강)</span>
+											</div>
+									</label></li> -->
+								</ul>
+							</article>
 						</div>
-						<div class="class-list-cont">
-							<p class="class-list-info">라탄으로 이불 톡톡 키트</p>
-						</div></a></li>
-				<li class="class-list hf-tracker-item" data-tracker-id="FE-M-0006"><a
-					href="/product/h9VewXf18y" title="장미정원 자수 끈파우치 만들기"><div
-							class="class-list-thumb">
-							<img
-								src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/490b45e0-2213-11ea-9cb3-c70fccd5674e-resize.jpg"
-								alt="" class="thumb-class-list">
+					</section>				
+				<footer>
+					<div class="hfe-orderinfo s-installment">
+						<div class="i-names">베이직 패키지</div>
+						<div class="i-quantity">
+							<div class="hfc-spinner">
+								<button class="hfc-i-down" onclick="form_btn(-1)">줄이기</button>
+								<input type="number" id="count" name="count" class="hfc-i-num" min="1" max="99" value="1">
+								<button class="hfc-i-up" onclick="form_btn(1)">늘리기</button>
+							</div>
 						</div>
-						<div class="class-list-cont">
-							<p class="class-list-info">장미정원 자수 끈파우치 만들기</p>
-						</div></a></li>
-				<li class="class-list hf-tracker-item" data-tracker-id="부쉬아로마01"><a
-					href="/product/92LvaquM5a" title="하트 곰돌이비누 DIY 키트"><div
-							class="class-list-thumb">
-							<img
-								src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d914c600-1b12-11ea-add4-09214dce28ac-resize.jpg"
-								alt="" class="thumb-class-list">
+						<div class="i-price-sale">
+							<span class="i-label">클래스 금액</span>
+							<span class="i-num" id="totalprice"></span>
 						</div>
-						<div class="class-list-cont">
-							<p class="class-list-info">하트 곰돌이비누 DIY 키트</p>
-						</div></a></li>
-			</ul>
+					</div>
+					<div class="hfe-btn-group s-twin">
+						<button class="hfe-btn s-w5 a-cart" onclick="location.href='../order/cartList.shop'">장바구니 담기</button>
+						<button class="hfe-btn s-w5 a-buy s-active" onclick="location.href='../order/order_write.shop'">바로 신청하기</button>
+					</div>
+				</footer>
+			
+			</div>
 		</div>
 	</div>
-</c:forEach>
+	
 </body>
 </html>

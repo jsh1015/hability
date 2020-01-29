@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Class;
+import logic.Kit;
 import logic.ShopService;
 
 @Controller
@@ -32,10 +33,11 @@ public class ListController {
       return mav;
    }
    @RequestMapping("detail")
-   public ModelAndView detail() {
+   public ModelAndView detail(int cl_num) {
       ModelAndView mav = new ModelAndView();
-      List<Class> classList = service.classList();
-      mav.addObject("classList",classList);
+      Class classDetail = service.classDetail(cl_num);
+      mav.addObject("classDetail",classDetail);
+      mav.addObject(new Kit()); // 빈 객체를 전달
       return mav;
    }
    
