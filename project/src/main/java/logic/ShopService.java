@@ -48,4 +48,9 @@ public class ShopService {
 		return listDao.list();
 	}
 
+	public void orderInsert(Uorder uorder) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
