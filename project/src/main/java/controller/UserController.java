@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
-import logic.Item;
-import logic.Sale;
-import logic.SaleItem;
 import logic.ShopService;
 import logic.User;
 
@@ -35,7 +31,7 @@ public class UserController {
 		return null;
 	}
 	@PostMapping("userEntry")
-	public ModelAndView userEntry(@Valid User user,BindingResult bresult) throws Exception{
+	public ModelAndView userEntry(@Valid User user, BindingResult bresult, HttpSession session) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		if(bresult.hasErrors()) {
 			bresult.reject("error.input.user");
@@ -45,8 +41,12 @@ public class UserController {
 		//useraccount 테이블에 내용 등록. 뷰단은 login.jsp로 이동
 		try {
 			service.userInsert(user);
-			//mav.setViewName("redirect:main.shop");
-			mav.setViewName("user/login"); //redirect 를 사용하면 아이디값이 들어가지 않음
+			service.mileageInsert(user.getEmailid(), "회원가입 포인트", 1000);
+			service.mileageupdate(user.getEmailid());
+			User dbUser = service.getUser(user.getEmailid());
+			session.setAttribute("loginUser",dbUser);
+			mav.setViewName("redirect:main.shop");
+			// mav.setViewName("user/login"); //redirect 를 사용하면 아이디값이 들어가지 않음
 		}catch(DataIntegrityViolationException e) {
 			e.printStackTrace();
 			bresult.reject("error.duplicate.user");
@@ -56,23 +56,26 @@ public class UserController {
 	@PostMapping("login")
 	public ModelAndView login(@Valid User user,BindingResult bresult,HttpSession session) throws Exception{
 		ModelAndView mav = new ModelAndView();
-		if(bresult.hasErrors()) {
-			bresult.reject("error.login.user");
-			mav.getModel().putAll(bresult.getModel());
-			return mav;
-		}
 		try {
+			if(user.getEmailid() == null || user.getEmailid().isEmpty())
+			{
+				throw new LoginException("아이디를 확인해주세요","");				
+			}
 			User dbUser = service.getUser(user.getEmailid());
-			if(!dbUser.getPass().equals(user.getPass())) {
-				bresult.reject("error.login.pass");
-				return mav;
-			}else {
+			if(user.getPass() == null || user.getPass().isEmpty())
+			{
+				throw new LoginException("비밀번호를 확인해주세요","");				
+			}
+			else if(!dbUser.getEmailid().equals(user.getEmailid()) || !dbUser.getPass().equals(user.getPass())) {
+				throw new LoginException("아이디/비밀번호를 확인해주세요","");
+			}
+			else {
 				session.setAttribute("loginUser",dbUser);
 				mav.setViewName("redirect:main.shop");
 			}
 		}catch(EmptyResultDataAccessException e) {
-			e.printStackTrace();
-			bresult.reject("error.login.id");
+			//e.printStackTrace();
+			bresult.reject("error.login.emailid");
 		}
 		return mav;
 	}
@@ -81,7 +84,7 @@ public class UserController {
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:login.shop";
+		return "redirect:main.shop";
 	}
 	
 	@RequestMapping("main") //UserLoginAspect 클래스에 해당하는 핵심로직

@@ -12,39 +12,66 @@
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_effect.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_responsible.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_nalrarang.css">
+<script type="text/javascript">
+	function check() {
+		var login = document.login
+		if(login.emailid.value == "")
+			alert("아이디를 입력하세요")
+			return false;
+		else if(login.pass.value == "")
+			alert("비밀번호를 입력하세요")
+			return false;
+			
+	}
+</script>
 
 <body>
-<form:form modelAttribute="user" method="post" action="login.shop"><!-- submit보내면 가는곳 -->
-	<div class="join-cont" >
-		<h2 class="layer-tit">로그인 하기</h2>
-		<div class="join-type-wrap">
-			<div class="float-wrap">
-				<div class="join-type-cont">
-				
-					<button title="네이버로 로그인" class="btn-join-type btn-join-naver">
-					<a href="${naver_url}" />
-						<span class="ico-join-type ico-join-naver"></span>네이버로 로그인
-					</button>
-					<button title="카카오톡으로 로그인" class="btn-join-type btn-join-kakaotalk">
-						<span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 로그인
-					</button>
-				</div>
-				<div class="join-type-txt-wrap">
-					<span class="join-type-txt">또는</span>
-				</div>
+<div class="join-cont" >
+	<h2 class="layer-tit">로그인 하기</h2>
+	<div class="join-type-wrap">
+		<div class="float-wrap">
+			<div class="join-type-cont">
+			<a href="${path}/user/naver_login.shop">
+				<button title="네이버로 로그인" class="btn-join-type btn-join-naver">
+					<span class="ico-join-type ico-join-naver"></span>네이버로 로그인
+				</button>
+			</a>
+
+				<button title="카카오톡으로 로그인" class="btn-join-type btn-join-kakaotalk">
+					<span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 로그인
+				</button>
+			</div>
+			<div class="join-type-txt-wrap">
+				<span class="join-type-txt">또는</span>
+			</div>
+			<form:form modelAttribute="user" method="post" action="login.shop" name="login"><!-- submit보내면 가는곳 -->
+				<input type="hidden" name="name" value="의미없는 이름"/>		
+				<input type="hidden" name="passck" value="의미없는 이름"/>		
+				<input type="hidden" name="nickname" value="의미없는 이름"/>
 				<div class="join-type-cont">
 					<ul class="login-email-wrap">
-						<li class="login-email"><input type="email"
-							id="emailid" class="login-input" placeholder="아이디 (이메일)">
-						<div class="join-txt-warning login-email-warning"></div></li>
-						<li class="login-email"><input type="password"
-							id="pass" class="login-input" placeholder="비밀번호">
-						<div class="join-txt-warning login-password-warning"></div></li>
+						<spring:hasBindErrors name="user">
+							<font color="blue">
+								<c:forEach items="${errors.globalErrors}" var="error">
+									<spring:message code="${error.code }" />
+								</c:forEach><!-- 글로벌 에러 발생하는위치 -->
+							</font>
+						</spring:hasBindErrors>
+					
+						<li class="login-email">
+							<form:input path ="emailid" id="emailid" placeholder="아이디 (이메일)" class="login-input" />
+							<font color="black"><form:errors path="emailid"/></font>
+						</li>
+						<li class="login-email">
+							<input type="password" id="pass" name="pass" class="login-input" placeholder="비밀번호">
+							<font color="black"><form:errors path="pass"/></font>
+						</li>
 						<li class="login-keep">
-							<button title="로그인" class="btn-join a-submit">로그인</button>
+							<button title="로그인" class="btn-join a-submit" type="submit" onclick="return check();">로그인</button>
 						</li>
 					</ul>
 				</div>
+			</form:form>
 			</div>
 			<div class="float-wrap">
 				<div class="login-find-wrap">
@@ -67,6 +94,5 @@
 		</div>
 		<a href="#close" title="닫기" class="btn-layer-close a-close">닫기</a>
 	</div>
-</form:form>
 </body>
 </html>

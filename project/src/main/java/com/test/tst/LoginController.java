@@ -25,22 +25,22 @@ public class LoginController
 		this.naverLoginBO = naverLoginBO;
 	}
 
-	@RequestMapping(value = "/user/login", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "user/naver_login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) 
 	{
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("네이버:" + naverAuthUrl);
 		model.addAttribute("naver_url", naverAuthUrl);
-		return "/user/login";
+		return "user/naver_login";
 	}
 
-	@RequestMapping(value = "/user/join", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/user/naver_join", method = { RequestMethod.GET, RequestMethod.POST })
 	public String join(Model model, HttpSession session) 
 	{
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("네이버:" + naverAuthUrl);
 		model.addAttribute("naver_url", naverAuthUrl);
-		return "/user/join";
+		return "/user/naver_join";
 	}
 
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -61,11 +61,11 @@ public class LoginController
 		return "login";
 	}
 
-	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/user/naver_logout", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session) throws IOException 
 	{
-		System.out.println("여기는 logout");
+		System.out.println("여기는 naver_logout");
 		session.invalidate();
-		return "redirect:index.jsp";
+		return "redirect:main.jsp";
 	}
 }
