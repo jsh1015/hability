@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<%-- <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script> --%>
+<script type="text/javascript" src="${path}/jquery/js/HF.js"></script>
+<script type="text/javascript" src="${path}/jquery/js/page/user.js"></script>
 	<meta name="description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 취미 배달, 취미 정기구독">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,51 +20,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=no, minimal-ui">
 	
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700|Roboto+Slab:400,700|Lato:400,700,900" rel="stylesheet" media="all" onload="this.media='all';">
-	<link rel="stylesheet" type="text/css" href="${path}/css/swiper.min.css">
+	<%-- <link rel="stylesheet" type="text/css" href="${path}/css/swiper.min.css"> --%>
 	<link rel="stylesheet" type="text/css" href="${path}/awesomplete/awesomplete.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_base.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_effect.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_responsible.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_nalrarang.css">
-	<meta name="naver-site-verification" content="naver9a1242e74229715560a0c5c0e9c18eca">
-	<meta property="og:url" content="https://hobbyful.co.kr">
-	<meta property="og:title" content="하비풀 - 취미를 만나 일상이 아름다워지다.">
-	<meta property="og:description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 하비풀은 당신과 취미를 만나게 합니다.">
-	<meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/hobbyful_concept01.jpg">
 	
 	<link rel="shortcut icon" href="${path}/img/favicon.png">
 	<link rel="apple-touch-icon" href="${path}/img/m_favicon.png">
-	
-	<style type="text/css">
-		.fb_hidden{position:absolute;top:-10000px;z-index:10001}
-		.fb_reposition{overflow:hidden;position:relative}
-		.fb_invisible{display:none}
-		.fb_reset{
-			background:none;border:0;border-spacing:0;
-			color:#000;cursor:auto;direction:ltr;
-			font-family:"lucida grande", tahoma, verdana, arial, sans-serif;
-			font-size:11px;font-style:normal;font-variant:normal;
-			font-weight:normal;letter-spacing:normal;line-height:1;
-			margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;
-			text-indent:0;text-shadow:none;text-transform:none;visibility:visible;
-			white-space:normal;word-spacing:normal
-		}
-		.fb_reset>div{overflow:hidden}
-		@keyframes fb_transform{from{opacity:0;transform:scale(.95)}
-		to{opacity:1;transform:scale(1)}}
-		.fb_animate{animation:fb_transform .3s forwards}
-		.fb_dialog{background:rgba(82, 82, 82, .7);
-		position:absolute;top:-10000px;z-index:10001}
-		.fb_dialog_advanced{border-radius:8px;padding:10px}
-		.fb_dialog_content{background:#fff;color:#373737}
-		.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}
-		.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}
-		.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
-		.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}
-		.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-		.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
-	</style>
 <title><decorator:title/></title>
 <decorator:head />
 </head>
@@ -94,7 +63,7 @@
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">
-								<a href="#myclass" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
+								<a href="${path}/user/myClass.shop" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
 								<div class="txt-func03">내 클래스</div>
 							</li>
 						</ul>
@@ -116,30 +85,44 @@
 				</div>
 				<div class="gnb-wrap">
 					<ul class="gnb-list">
-						<li class="gnb gnb-login" style="display: none;">
-							<a href="${path}/user/login.shop" class="btn-gnb header_login">로그인</a>
+					<c:if test="${empty sessionScope.loginUser}">
+						<li class="gnb gnb-login" style="display: list-item;">
+							<a href="javascript:dologin()" class="btn-gnb header_login">로그인</a>
 						</li>
-						<li class="gnb gnb-join" style="display: none;">
-							<a href="${path}/user/join.shop" title="회원가입" class="btn-gnb header_join">회원가입</a>
+						<li class="gnb gnb-join" style="display: list-item;">
+							<a href="javascript:dojoin()" title="회원가입" class="btn-gnb header_join">회원가입</a>
 						</li>
-						<li class="gnb gnb-logout" style="display: list-item;">
-							<a href="#logout" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
-						</li>
-						<li class="gnb gnb-favorite" style="display: list-item;">
-							<a href="/mypage.html?m=favorite&amp;s=class" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
-						</li>
-						<li class="gnb gnb-admin" style="display: list-item;">
-							<a href="../admin/admain.shop" title="관리자 페이지" class="btn-gnb header_admin">관리자 페이지</a>
-						</li>
-						<!-- #login 모달창 찾기!!!!!!!!!!!!! -->
 						<li class="gnb gnb-mypage">
-							<a href="${path}/user/mypage.shop" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+							<a href="javascript:dologin()" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
 						</li>
+					</c:if>
+					<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.emailid ne 'admin@naver.com'}">
+						<li class="gnb gnb-logout" style="display: list-item;">
+							<a href="logout.shop" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
+						</li>
+						<li class="gnb gnb-favorite" style="display: list-item;">
+							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}&m=hobby" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
+						</li>
+						<li class="gnb gnb-mypage">
+							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+						</li>
+						<li class="gnb gnb-customer">
+							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
+						</li>
+					</c:if>
+					<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.emailid eq 'admin@naver.com'}">
+						<li class="gnb gnb-logout" style="display: list-item;">
+							<a href="logout.shop" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
+						</li>
+						<li class="gnb gnb-admin" style="display: list-item;">
+							<a href="../admin/admain.shop" title="관리자 페이지" class="btn-gnb header_admin">관리자 페이지</a>
+						</li>
+					</c:if>
 					</ul>
-					<div class="hobbyful-txt -w">You're hobbyfull!</div>
+					<div class="hobbyful-txt -w">You're hability!</div>
 				</div>
 				<a href="javascript:;" title="닫기" class="btn-menu-close -w" onclick="hideMenu();">닫기</a>
 		</div>
@@ -188,7 +171,7 @@
 			</ul>
 		</div>
 		<div class="f-info-wrap">
-			<div class="logo-hobbyful">hobbyful</div>
+			<div class="logo-hobbyful">hability</div>
 			<div class="f-info-cont">
 				<p class="f-info "><strong class="f-info-tit f-info-title">㈜하비풀</strong></p>
 				<p class="f-info f-info-address">서울특별시 강남구 테헤란로84길 16 세풍빌딩 10층</p>
@@ -204,12 +187,192 @@
 	<div class="layer-wrap popup-wrap" id="popup-wrap">
 		<div class="bg-layer-wrap" onclick="Popup.hide();"></div>
 	</div>
-	<div class="layer-wrap login-wrap" id="login-wrap">
-		<div class="bg-layer-wrap a-close"></div>
-		<!-- 로그인 모달창 -->
+	
+	<!-- 팝업 모달창 -->
+<div class="layer-wrap popup-wrap" id="popup-wrap" style="display:none">
+	<div class="popup-layer"></div>
+	<div class="popup-cont" style="top:50%; margin-top:-137px;">
+		<h2 class="layer-tit">구독 신청 실패</h2>
+		<div class="popup-txt" style="min-height:78px; width:100%; text-align:center; display:table;">
+			<span style="display:table-cell; vertical-align:middle;">수령자명을 입력해주세요.</span>
+		</div>
+		<div class="popup-btn"><button class="btn-popup alert_btn_1">확인</button></div>
 	</div>
+	<a href="javascript:;" title="닫기" class="btn-layer-close" onclick="Popup.hide();">닫기</a>
 </div>
-	<div id="ch-plugin">
+
+	
+<!-- !!!!!!!!!!!!!!!로그인 모달창!!!!!!!!!!!!!!!!! -->
+<div class="layer-wrap login-wrap" id="login-wrap">
+	<div class="bg-layer-wrap a-close"></div>
+	<div class="join-cont">
+		<h2 class="layer-tit">로그인 하기</h2>
+		<div class="join-type-wrap">
+			<div class="float-wrap">
+				<div class="join-type-cont">
+					<button title="네이버로 로그인" class="btn-join-type btn-join-naver">
+					<span class="ico-join-type ico-join-naver"></span>네이버로 로그인</button>
+					<button title="카카오톡으로 로그인" class="btn-join-type btn-join-kakaotalk">
+					<span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 로그인</button></div>
+				<div class="join-type-txt-wrap"><span class="join-type-txt">또는</span></div>
+		<form:form modelAttribute="user" method="post" action="../user/login.shop"><!-- submit보내면 가는곳 -->     
+				<div class="join-type-cont">
+					<ul class="login-email-wrap">
+						<li class="login-email">
+                     <input type="email" id="emailid" name="emailid" class="login-input" placeholder="아이디 (이메일)">
+                  </li>
+                  <li class="login-email">
+                     <input type="password" id="pass" name="pass" class="login-input" placeholder="비밀번호">
+                  </li>
+						<li class="login-keep">
+		                    <button title="로그인" class="btn-login login_user" type="submit">로그인</button>
+		                </li>
+					</ul>
+				</div>
+		</form:form>
+			</div>
+			<div class="float-wrap">
+				<div class="login-find-wrap">
+					<ul class="login-find-list">
+						<li class="login-find">
+							<a href="#findid" title="아이디 찾기" class="btn-login-find btn-find-id">아이디 찾기</a></li>
+						<li class="login-find">
+							<a href="#findpassword" title="비밀번호 찾기" class="btn-login-find btn-find-pw">비밀번호 찾기</a></li>
+					</ul>
+				</div>
+				<div class="login-bottom-wrap" data-gtm-vis-recent-on-screen-6759522_106="4107" data-gtm-vis-first-on-screen-6759522_106="4107" data-gtm-vis-total-visible-time-6759522_106="100" data-gtm-vis-has-fired-6759522_106="1">아직 하비풀 회원이 아니신가요?
+					<a href="javascript:dojoin()" title="회원가입" class="link-join a-join">회원가입</a></div>
+			</div>
+		</div>
+		<a href="#close" title="닫기" class="btn-layer-close a-close">닫기</a></div>
+</div>
+
+<!-- 회원가입 모달창!!!!!!!!!!!!!!!!! --> 
+	<div class="layer-wrap join-wrap" id="join-wrap" width="100%">
+		<div class="bg-layer-wrap a-close"></div>
+		<div class="join-cont join-select" data-gtm-vis-recent-on-screen-6759522_8="3190" data-gtm-vis-first-on-screen-6759522_8="3190" data-gtm-vis-total-visible-time-6759522_8="100" data-gtm-vis-has-fired-6759522_8="1">
+			<h2 class="layer-tit">회원가입</h2>
+			<div class="join-type-wrap">
+				<div class="join-type-cont">
+					<button title="네이버로 가입" class="a-naver btn-join-type btn-join-naver"><span class="ico-join-type ico-join-naver"></span>네이버로 가입</button>
+					<button title="카카오톡으로 가입" class="a-kakao btn-join-type btn-join-kakaotalk"><span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 가입</button>
+				</div>
+				<div class="join-type-txt-wrap"><span class="join-type-txt">또는</span></div>
+				<div class="join-type-cont">
+						<button title="이메일로 가입" class="a-email btn-join-type btn-join-email">
+							<span class="ico-join-type ico-join-email"></span>이메일로 가입
+						</button>
+					<div class="join-info">
+					본인은 만 14세 이상이며, 회원 가입하면 하빌리티의 <a href="/term-provision.html" title="서비스 이용약관" class="link-info" target="_blank">서비스 이용약관</a>, 
+					<a href="/term-privacy.html" title="개인정보 취급방침" class="link-info" target="_blank">개인정보 취급방침</a>에 동의하는 것입니다.
+					</div>
+				</div>
+				<div class="join-login">
+					이미 회원이신가요? <a href="javascript:dologin()" title="로그인" class="link-login a-login">로그인</a>
+				</div>
+			</div>
+			<button title="닫기" class="btn-layer-close a-close">닫기</button>
+		</div>
+	</div>
+	
+<!-- 이메일로 가입하기 -->
+	<div class="layer-wrap join-wrap" id="join-write" width="100%">
+		<div class="bg-layer-wrap a-close"></div>
+		<form:form modelAttribute="user" method="post" action="userEntry.shop"><!-- submit보내면 가는곳 -->
+		   <div class="join-cont join-write">
+		      <h2 class="layer-tit">회원가입</h2>
+		      <div class="join-thumb-wrap">
+		         <div class="join-thumb"
+		            data-gtm-vis-recent-on-screen-6759522_100="268748"
+		            data-gtm-vis-first-on-screen-6759522_100="268748"
+		            data-gtm-vis-total-visible-time-6759522_100="100"
+		            data-gtm-vis-has-fired-6759522_100="1">
+		            <label for="btn-add-thumb" class="label-add-thumb2"></label>
+		            <input name="userimg" type="file" class="btn-add-thumb"
+		            id="btn-add-thumb" accept="file_extension|audio/*|video/*|image/*|media_type">
+		         </div>
+		      </div>
+		      <div class="join-type-email">
+		         <div class="join-txt-wrap">
+		            <div class="join-txt-cont mb10">
+		               <label class="join-txt-label" for="join-txt-email">이메일</label>
+		               <div class="awesomplete">
+		                  <input name="emailid" type="email" value="" placeholder="이메일 주소를 입력해 주세요."
+		                     class="join-txt-input email-join-txt-input" id="join-txt-email"
+		                     autocomplete="off" aria-expanded="false"
+		                     aria-owns="awesomplete_list_1" role="combobox">
+		                  <font><form:errors path="emailid" /></font>
+		                  <ul hidden="" role="listbox" id="awesomplete_list_1"></ul>
+		                  <span class="visually-hidden" role="status" aria-live="assertive"
+		                     aria-atomic="true">Type 2 or more characters for results.</span>
+		               </div>
+		               <ul class="auto-complete-list">
+		               </ul>
+		            </div>
+		         </div>
+		         <div class="join-txt-wrap join-txt-wrap-password">
+		            <div class="join-txt-cont">
+		               <label class="join-txt-label" for="join-txt-pw">비밀번호</label> <input
+		                  name="pass" required="" type="password"
+		                  placeholder="비밀번호는 6~16자 영문, 숫자를 사용해주세요." class="join-txt-input"
+		                  id="join-txt-pw">
+		                  <font><form:errors path="pass" /></font>
+		            </div>
+		            <div class="join-txt-cont">
+		               <label class="join-txt-label" for="join-txt-confirm">비밀번호 확인</label>
+		               <input name="userpasscheck" required="" type="password"
+		                  placeholder="비밀번호는 6~16자 영문, 숫자를 사용해주세요." class="join-txt-input">
+		                  <font>
+		                     <form:errors path="pass" />
+		                  </font>
+		            </div>
+		         </div>
+		         <div class="join-txt-wrap">
+		            <div class="join-txt-cont join-name-input">
+		               <label class="join-txt-label" for="join-txt-name">이름</label> <input
+		                  name="name" value="" required="" type="text"
+		                  placeholder="이름을 입력해 주세요." maxlength="5" class="join-txt-input">
+		                  <font><form:errors path="name" /></font>
+		            </div>
+		         </div>
+		         <div class="join-txt-wrap">
+		            <div class="join-txt-cont">
+		               <label class="join-txt-label" for="join-txt-nick">닉네임</label> <input
+		                  name="nickname" required="" type="text" value=""
+		                  placeholder="닉네임은 2~12글자로 입력해주세요." maxlength="12"
+		                  class="join-txt-input">
+		                  <font><form:errors path="nickname" /></font>
+		            </div>
+		         </div>
+		         <div class="join-txt-wrap">
+		            <div class="join-txt-cont">
+		               <label class="join-txt-label" for="join-txt-birth">생년월일</label> <input
+		                  name="birth" type="text" value="" placeholder="예) 19840411"
+		                  class="join-txt-input" maxlength="8">
+		                  <font><form:errors path="birth" /></font>
+		               <div class="join-txt-warning join-birth-warning">생년월일을 다시확인해주세요.</div>
+		            </div>
+		         </div>
+		         <div class="join-txt-wrap">
+		            <div class="join-txt-cont">
+		               <label class="join-txt-label" for="join-txt-phone">휴대폰번호</label> <input
+		                  name="phone" type="tel" value="" placeholder="예) 01099849078"
+		                  class="join-txt-input" maxlength="11">
+		            </div>
+		            <div class="join-txt-info">* 휴대폰 번호로 비밀번호 찾기 및 재설정을 하실 수 있습니다.</div>
+		         </div>
+		      </div>
+		      <div class="join-btn-wrap">
+		         <button title="가입하기" class="btn-join a-submit">가입하기</button>
+		      </div>
+		      <button title="닫기" class="btn-layer-close a-close">닫기</button>
+		   </div>
+		</form:form>
+	</div>
+	
+</div>
+
+	<!-- <div id="ch-plugin">
 		<div id="ch-plugin-script" style="display: none">
 			<iframe id="ch-plugin-script-iframe"
 				style="position: relative !important; height: 100% !important; width: 100% !important; border: none !important;"></iframe>
@@ -240,7 +403,7 @@
 		<div class="sc-jRuhRL coGTKb">
 		<span class=""></span>
 		</div>
-		</div></div></div>
-</div>
+		</div></div></div> 
+</div>-->
 </body>
 </html>

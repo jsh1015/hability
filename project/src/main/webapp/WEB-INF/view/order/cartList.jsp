@@ -83,7 +83,7 @@
 				<!-- 이동 버튼 -->
 				<div class="btn-group-2 i-btn-group">
 					<a href="${path}/list/hobbyClass.shop" class="btn-normal">취미 더 고르기</a>
-					<a href="/write-order.html" class="btn-important a-buy">취미 클래스 신청하기</a>
+					<a href="../order/order_write.shop" class="btn-important a-buy">취미 클래스 신청하기</a>
 				</div>
 			</div>
 		</div>
