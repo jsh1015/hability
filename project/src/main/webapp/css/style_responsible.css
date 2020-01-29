@@ -80,7 +80,7 @@ z-index 정리
 /* header */
 .header-wrap { height:155px; padding:47px 0 0; }
 	.logo-h1 { position:fixed; top:85px; left:10%; width:124px; height:32px; }
-	.logo-hobbyful { float:none; width:100%; height:100%; background:url('../img/logo-hobbyful-m.svg') 0 center no-repeat; }
+	.logo-hobbyful { float:none; width:100%; height:100%; background:url('../img/hability.png') 0 center no-repeat; }
 	.toast-wrap { top:155px; height:70px; font-size:20px; line-height:70px; }
 	.btn-close-toast { width:36px; height:36px; background-size:30px 30px; }
 
@@ -102,7 +102,7 @@ z-index 정리
 	.btn-search2 { width:30px; height:30px; margin:0 37px 0 0; background-size:30px 30px; }
 	.search-input-wrap { display:inline-block; position:relative; width:80%; }
 	.search-input { display:inline-block; width:100%; color:#c7c7c7; font-size:24px; }
-	.search-keyword-wrap { display:block; padding:20px 10%; color:#FFFFFF; background:#f1645d; overflow:hidden; }
+	.search-keyword-wrap { display:block; padding:20px 10%; color:#FFFFFF; background:#11447B; overflow:hidden; }
 	.search-keyword-tit { float:left; width:190px; font-size:20px; font-weight:bold; }
 	.search-keyword-list { float:left; width:calc(100% - 190px); overflow:hidden; }
 	.search-keyword { float:left; margin:0 20px; font-size:20px; }
@@ -260,7 +260,7 @@ z-index 정리
 	.f-info-cont { margin-top:20px; line-height:24px; }
 	.f-info-customer { position:absolute; top:150px; right:10%; text-align:right; }
 	.f-info-inline { display:block; }
-	.f-logo-hobbyful { position:static; width:135px; height:35px; background-image:url('../img/logo-hobbyful.svg'); }
+	.f-logo-hobbyful { position:static; width:135px; height:35px; background-image:url('../img/hability.png'); }
 
 /* 레이어 공통 */
 .layer-wrap { position:absolute; top:0; left:0; width:100%; height:100%; }
@@ -419,7 +419,7 @@ z-index 정리
 	.mymenu-cont { position:relative; height:64px; background:#2a2c34; overflow:hidden; }
 	.mymenu-list { width:100%; padding:0 10px; }
 	.btn-mymenu { padding:21px 18px 23px; font-size:14px; }
-	.btn-favorite { width:210px; height:64px; padding-left:89px; color:#FFFFFF; font-size:14px; background:#f1645d url('../img/ico-heart.png') 60px center no-repeat; background-size:19px 18px; text-indent:0; line-height:64px; }
+	.btn-favorite { width:210px; height:64px; padding-left:89px; color:#FFFFFF; font-size:14px; background:#11447B url('../img/ico-heart.png') 60px center no-repeat; background-size:19px 18px; text-indent:0; line-height:64px; }
 	.btn-write { position:absolute; top:75px; right:0; width:144px; height:35px; color:#202127; font-size:14px; line-height:33px; }
 	.mymenu-sub-wrap { padding:0 10%; }
 	.mymenu-sub-cont { overflow:hidden; }
@@ -455,7 +455,7 @@ z-index 정리
 	.reply-info-area-type02 { line-height:1.71; }
 	.reply-info-area-type02 .mileage-info { width:18%; }
 	.reply-info-txt { display:inline-block; margin:0 30px 0 0; }
-	.reply-info-point { margin:5px 0; color:#f1645d; }
+	.reply-info-point { margin:5px 0; color:#11447B; }
 	.btn-view-reply-info { display:none; }
 	.reply-info-on .btn-show-reply-info,
 	.reply-info-on .btn-hide-reply-info { display:none; }
@@ -464,7 +464,7 @@ z-index 정리
 	.order-list-area { padding:0 110px 0 107px; min-height:100px; text-align:center; }
 	.order-list-tit { display:block; margin:19px 0 0; color:#a1a4a8; font-size:14px; }
 	.order-list-txt { margin:7px 0 0; font-size:15px; color:#2f3338; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; word-break:break-all; }
-	.order-list-point { color:#f1645d; font-size:12px; }
+	.order-list-point { color:#11447B; font-size:12px; }
 	.order-list-thumb { width:100px; height:100px; }
 	.mark-ea { display:none; }
 	.mark-state-txt { left:0; width:100px; height:30px; color:#FFFFFF; font-size:12px; background:#3d4248; font-weight:bold; text-align:center; line-height:30px; }
@@ -478,7 +478,7 @@ z-index 정리
 	.order-list-price { float:left; width:15%; }
 	.order-list-price .order-list-txt {}
 	.order-list-state { float:left; width:15%; }
-	.order-list-state .order-list-txt { /*margin:11px 0 0;*/ color:#f1645d; }
+	.order-list-state .order-list-txt { /*margin:11px 0 0;*/ color:#11447B; }
 	.order-list-btn { width:100px; padding:9px 0 0; }
 	.btn-order-list,
 	.btn-order-list2 { width:100px; height:35px; margin:0 0 12px; font-size:14px; line-height:33px; }
@@ -1145,7 +1145,7 @@ z-index 정리
 	.award-detail-info { width:615px; margin:16px auto 0; color:#909397; font-size:16px; }
 	.award-detail-txt { width:615px; margin:9px auto 0; font-size:16px; line-height:1.63; }
 	.award-detail-btn { margin:35px 0 0; }
-	.btn-award-vote { width:440px; height:70px; padding-left:200px; font-size:20px; background:#f1645d url('../img/ico-star.png') 166px 23px no-repeat; background-size:24px 23px; line-height:70px; }
+	.btn-award-vote { width:440px; height:70px; padding-left:200px; font-size:20px; background:#11447B url('../img/ico-star.png') 166px 23px no-repeat; background-size:24px 23px; line-height:70px; }
 	.btn-award-vote-off { background-color:#a1a4a8; }
 	.award-detail-btn-wrap { top:17px; }
 	.btn-award-detail { width:36px; height:36px; margin:0 0 0 10px; }
@@ -1323,8 +1323,8 @@ z-index 정리
 	.order-class-ea .order-class-txt,
 	.order-class-start .order-class-txt,
 	.order-class-txt { margin:7px 0 0; color:#2f3338; font-size:16px; line-height:1.5; }
-	.discount { display:block; color:#f1645d; font-size:12px; }
-	.order-class-month { font-size:14px; top:101px; left:12px; width:86px; height:28px; border:2px solid #f1645d; border-radius:14px; line-height:24px; }
+	.discount { display:block; color:#11447B; font-size:12px; }
+	.order-class-month { font-size:14px; top:101px; left:12px; width:86px; height:28px; border:2px solid #11447B; border-radius:14px; line-height:24px; }
 	.order-class-thumb { top:30px; left:0; width:110px; height:110px; }
 	.order-class-product { width:100%; font-weight:normal; }
 	.order-class-ea { position:absolute; top:50px; right:300px; }

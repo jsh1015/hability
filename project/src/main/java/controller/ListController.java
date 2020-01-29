@@ -46,6 +46,11 @@ public class ListController {
       return "list/magazine";
    }
    
+   @RequestMapping("service")
+   public String service() {
+	   return "list/service";
+   }
+   
    @GetMapping("*")
    public String hobbyClass() 
    {

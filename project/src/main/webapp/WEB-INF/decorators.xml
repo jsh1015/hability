@@ -4,8 +4,12 @@
 	<decorator name="main" page="decorator.jsp">
 		<pattern>*.shop</pattern>
 	</decorator>
-	<excludes><!-- sitemesh를 사용하지 않게 -->
+	<decorator name="admain" page="adecorator.jsp">
 		<pattern>/admin/*</pattern>
+	</decorator>
+	
+	<excludes><!-- sitemesh를 사용하지 않게 -->
+		<pattern>/admin/kit*</pattern>
 		<pattern>/user/userEntry*</pattern>
 		<pattern>/user/login*</pattern>
 		<pattern>/user/join*</pattern>
