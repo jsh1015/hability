@@ -7,9 +7,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<!-- 클래스 신청하기 모달 라이브러리 DETAIL Modal -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<%-- <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script> --%>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript" src="${path}/jquery/js/HF.js"></script>
 <script type="text/javascript" src="${path}/jquery/js/page/user.js"></script>
 	<meta name="description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 취미 배달, 취미 정기구독">

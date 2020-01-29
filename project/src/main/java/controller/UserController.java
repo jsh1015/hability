@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
+import logic.Postaddr;
 import logic.ShopService;
+import logic.ShopService_pr;
 import logic.User;
 
 @Controller //@Component + Controller : 객체를 만들고 컨트롤러의 기능까지 같이 수행
@@ -24,6 +28,8 @@ public class UserController {
 	@Autowired
 	private ShopService service;
 	
+	@Autowired
+	private ShopService_pr service_pr;
 	
 	@GetMapping("*")
 	public String form(Model model) {
@@ -114,7 +120,21 @@ public class UserController {
 		mav.addObject("user",user);
 		mav.addObject("salelist",salelist);
 		 */
-		return mav;
+		User user = service.getUser(id);
+	      mav.addObject("user", user);
+	      mav.addObject(new Postaddr()); // 빈 객체를 전달
+	      
+	      // 등록한 배송지 목록 조회
+	      List<Postaddr> postList = service_pr.postList(user.getEmailid());
+	      System.out.println("user.getEmailid() = "+user.getEmailid());
+	      mav.addObject("postList", postList);
+	      
+	      // 배송지 개수
+	      int postListCnt= service_pr.postListCnt(user.getEmailid());
+	      System.out.println(postListCnt);
+	      mav.addObject("postListCnt", postListCnt);
+	      
+	      return mav;
 	}
 	
 	//delete.shop과 update.shop에서만 사용할 수 있게 수정 : * 는 상관없이 모두 사용

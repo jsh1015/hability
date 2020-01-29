@@ -1,13 +1,27 @@
 package logic;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Postaddr {
 	private int po_num;
 	private String emailid;
+	@NotEmpty(message="배송지 명을 입력해주세요.")
 	private String po_name;
+	@NotEmpty(message="수령자 명을 입력해주세요.")
 	private String po_client;
+	@NotEmpty(message="휴대전화 번호를 입력해주세요.")
+//	@Size(min=1, max=11)
 	private String po_phone;
 	private String po_phone2;
-	private String po_addr;
+	@NotEmpty(message="정확한 주소를 입력해주세요.")
+	private String po_postcode;
+	@NotEmpty(message="정확한 주소를 입력해주세요.")
+	private String po_addr_main;
+	@NotEmpty(message="정확한 주소를 입력해주세요.")
+	private String po_addr_sub;
+	
 	public int getPo_num() {
 		return po_num;
 	}
@@ -44,17 +58,29 @@ public class Postaddr {
 	public void setPo_phone2(String po_phone2) {
 		this.po_phone2 = po_phone2;
 	}
-	public String getPo_addr() {
-		return po_addr;
+	public String getPo_postcode() {
+		return po_postcode;
 	}
-	public void setPo_addr(String po_addr) {
-		this.po_addr = po_addr;
+	public void setPo_postcode(String po_postcode) {
+		this.po_postcode = po_postcode;
 	}
+	public String getPo_addr_main() {
+		return po_addr_main;
+	}
+	public void setPo_addr_main(String po_addr_main) {
+		this.po_addr_main = po_addr_main;
+	}
+	public String getPo_addr_sub() {
+		return po_addr_sub;
+	}
+	public void setPo_addr_sub(String po_addr_sub) {
+		this.po_addr_sub = po_addr_sub;
+	}
+	
 	@Override
 	public String toString() {
 		return "Postaddr [po_num=" + po_num + ", emailid=" + emailid + ", po_name=" + po_name + ", po_client="
-				+ po_client + ", po_phone=" + po_phone + ", po_phone2=" + po_phone2 + ", po_addr=" + po_addr + "]";
+				+ po_client + ", po_phone=" + po_phone + ", po_phone2=" + po_phone2 + ", po_postcode=" + po_postcode
+				+ ", po_addr_main=" + po_addr_main + ", po_addr_sub=" + po_addr_sub + "]";
 	}
-	
-	
 }

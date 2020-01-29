@@ -22,11 +22,10 @@ public class ListDao {
 	      return sqlSession.getMapper(ListMapper.class).list(null);
 	   }
 
-	   //각 게시물 detail=>select
-	   public Class selectcl(Integer cl_num) {
-	      param.clear();
-	      param.put("cl_num", cl_num);
-	      return sqlSession.getMapper(ListMapper.class).list(param).get(0);
+	   public Class classDetail(int cl_num) {
+			param.clear();
+			param.put("cl_num", cl_num);
+			return sqlSession.getMapper(ListMapper.class).list(param).get(0);
 
-	   }
+		}
 }

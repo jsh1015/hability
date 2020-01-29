@@ -163,7 +163,7 @@
  				<!--정규 클래스-->
  				<c:forEach items="${classList}" var="list">
 				<li class="class-list">
-					<a href="detail.shop">
+					<a href="detail.shop?cl_num=${list.cl_num}">
 						<div class="class-list-thumb">
 							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/42649440-218b-11ea-9cb3-c70fccd5674e-resize.jpg" alt="" class="thumb-class-list">
 						</div>

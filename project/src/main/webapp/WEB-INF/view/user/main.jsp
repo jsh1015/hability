@@ -62,12 +62,12 @@
   
 	$(document).ready(function() {
 		$("#lista1").als({
-			visible_items : 3,
+			visible_items : 4,
 			scrolling_items : 1,
 			orientation : "horizontal",
 			circular : "yes",
 			autoscroll : "no",
-			interval : 5000,
+			interval : 3000,
 			speed : 500,
 			easing : "linear",
 			direction : "right",
@@ -77,7 +77,7 @@
 	
 	$(document).ready(function() {
 		$("#lista2").als({
-			visible_items : 3,
+			visible_items : 4,
 			scrolling_items : 1,
 			orientation : "horizontal",
 			circular : "yes",
@@ -168,7 +168,7 @@
 	</div>
 	
 	<!-- 추천 리스트 시작 -->
-	<div id="recommendSlideList">
+	<div id="recommendSlideList" style="padding-left: 0px; padding-right: 0px;">
 		<!-- BEST 지금 가장 인기있는 취미  -->
 		<section id="content" class="hfb-categorySlideList hf-tracker-group swiper-container-initialized swiper-container-horizontal">
 			<header>
