@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
@@ -16,9 +16,11 @@
 	
 	function form_btn(n) {
 		var quantity = document.getElementById("count");
+		
 		quan_value = parseInt(quantity.value);
 		quan_value +=n;
 		quantity.value = quan_value;
+		
 		if(quan_value <=0) {
 			quantity.value = 1;
 		}
@@ -29,13 +31,54 @@
 		totalprice.value = price_value;
 	}
 	
+	function selectRadio(val) {
+		//alert(val);
+		if(val == '1') {
+			$('#1').css('display', 'block');
+			$('#2').css('display', 'none');
+			$('#3').css('display', 'none');
+		} else if(val == '2') {
+			$('#1').css('display', 'none');
+			$('#2').css('display', 'block');
+			$('#3').css('display', 'none');
+		} else if(val == '3') {
+			$('#1').css('display', 'none');
+			$('#2').css('display', 'none');
+			$('#3').css('display', 'block');
+		}
+	}
+	
+	/* $(document).ready(function() {
+		$('input[type="radio"]').click(function () {
+			var inputValue = $(this).attr("value");
+			var targetBox = $("."+inputValue);
+			$(".select").not(targetBox).hide();
+			$("tagetBox").show();
+		});
+	}); */
 
+/* 	$('input[type=radio][name=kit_num]').on('click', function() {
+		var chkValue = $('input[type=radio][name=tp_cd]:checked').val();
+		
+		if(chkValue == '1') {
+			$('#1').css('display', 'block');
+			$('#2').css('display', 'none');
+			$('#3').css('display', 'none');
+		} else if(chkValue == '2') {
+			$('#1').css('display', 'none');
+			$('#2').css('display', 'block');
+			$('#3').css('display', 'none');
+		} else if(chkValue == '3') {
+			$('#1').css('display', 'none');
+			$('#2').css('display', 'none');
+			$('#3').css('display', 'block');
+		}
+	}) */
 </script>
 
 </head>
 <body>
 <div class="container">
-<%-- <c:forEach items="${classList}" var="list"> --%>
 	<div class="vod-wrap">
 		<div class="vod-cont vimeohelper-92950 vimeohelper"
 			data-vimeo-initialized="true">
@@ -45,38 +88,47 @@
 				allow="autoplay; fullscreen" allowfullscreen=""
 				title="intro_final03" data-ready="true" class="vimeohelper-player"></iframe>
 		</div>
-			<div class="vod-info-wrap">
-				<div class="vod-info-tit view-class-title">
-					<span class="i-lecturer">${classDetail.teacher}</span>
-					${classDetail.cl_title}
-				</div>
-				<div class="vod-info-price-discount">
-					 <span class="i-regularPrice view-class-discount-regularPrice">${classDetail.cl_price}원</span>
-				</div>
-			
-				<ul class="vod-info-list">
-					<!--li class="vod-info">
-<span class="vod-info-list-tit"></span>
-<span class="vod-info-list-txt view-class-id"></span>
-</li-->
-					<li class="vod-info"><span class="vod-info-list-tit">적립
-							마일리지</span> <span class="vod-info-list-txt view-class-mileage">최대
-							${classDetail.cl_price *0.1}p</span></li>
-					<li class="vod-info"><span class="vod-info-list-tit">배송비</span>
-						<span class="vod-info-list-txt">무료배송(도서산간지역 제외)</span></li>
-				</ul>
-				<div class="vod-info2-wrap i-totalprice">
-					<div class="vod-price">
-						총 클래스 가격 <span class="txt-color-r s-totalprice"></span>원
-					</div>
-				</div>
-				<div class="vod-btn-wrap">
-					<a href="#like" title="좋아요" class="btn-like">좋아요</a>
-					<a data-toggle="modal" href="#cart" class="btn-get">클래스 신청하기</a>
-					<!-- <span class="btn-get-soldout" style="display: none">일시 품절</span> -->
+		<div class="vod-info-wrap">
+			<div class="vod-info-tit view-class-title">
+				<span class="i-lecturer">${classDetail.teacher}</span>
+				${classDetail.cl_title}
+			</div>
+			<div class="vod-info-price-discount">
+				 <span class="i-regularPrice view-class-discount-regularPrice">
+				 	<fmt:formatNumber value="${classDetail.cl_price}" pattern="##,###" />원
+				 </span>
+			</div>
+			<ul class="vod-info-list">
+				<li class="vod-info">
+					<span class="vod-info-list-tit"> 적립	마일리지</span>
+					<span class="vod-info-list-txt view-class-mileage">
+						최대 <fmt:formatNumber value="${classDetail.cl_price *0.1}" pattern="##,###" />p
+					</span>
+				</li>
+				<li class="vod-info">
+					<span class="vod-info-list-tit">배송비</span>
+					<span class="vod-info-list-txt">무료배송(도서산간지역 제외)</span>
+				</li>
+			</ul>
+			<div class="vod-info2-wrap i-totalprice">
+				<div class="vod-price">
+					총 클래스 가격 <span class="txt-color-r s-totalprice"></span>원
 				</div>
 			</div>
+			<div class="vod-btn-wrap">
+				<a href="#like" title="좋아요" class="btn-like">좋아요</a>
+				<c:if test="${empty sessionScope.loginUser}">
+					<a href="javascript:dologin()" class="btn-get">클래스 신청하기</a>
+				</c:if>
+				<c:if test="${!empty sessionScope.loginUser}">
+					<a data-toggle="modal" href="#option" class="btn-get">클래스 신청하기</a>
+					<%-- <a href="javascript:optionModal(${classDetail.cl_num})" class="btn-get">클래스 신청하기</a> --%>
+				</c:if>
+					<!-- <span class="btn-get-soldout" style="display: none">일시 품절</span> -->
+			</div>
 		</div>
+	</div>
+	
 		<div class="tab-detail-wrap" id="tab-detail-explain">
 			<ul class="tab-detail-list tab-on01" id="tab-detail-list">
 				<li class="tab-detail"><a href="#detail-explain"
@@ -504,10 +556,9 @@
 				</div>
 			</div>
 		</div>
-<%-- </c:forEach>	 --%>
 	</div>
 	<!-- Modal -->
-	<div class="modal fade" id="cart" role="dialog" style="display:none">
+	<div class="modal fade" id="option" role="dialog" style="display:none">
 	<div id="dimmer-hf-modal-1580289583484809" class="hfc-dimmer hfc-dimmer-modal"></div>
 		<div class="modal-dialog hfc-modal s-big" style="overflow: unset;">
 			<!-- Modal content-->
@@ -528,48 +579,45 @@
 								</header>
 								<ul class="option-list">
 									<!-- forEach 필요 -->
+									<c:forEach var="kit" items="${kitList}">
 									<li><label>
-										<input type="radio" name="listIndex" value="0">
+										<input type="radio" id="${kit.kit_num} name="kit_num" value="${kit.kit_num}" onClick="javascript:selectRadio(this.value);">
 											<div class="option-item">
-												<h5>베이직 패키지</h5>
+												<h5>${kit.kit_name}</h5>
 												<p class="prices">
-													<span class="sale" id="price">210,000원</span>
+													<span class="sale" id="price"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</span>
 												</p>
-												<span class="desc">온라인 수강권(평생수강)<br>+ 기본 재료/도구</span>
-												<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/product/146/b6f17010-3029-11ea-9134-2970db5a6784-resize.jpg">
+												<span class="desc">${kit.kit_box}</span>
+												<!-- <img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/product/146/b6f17010-3029-11ea-9134-2970db5a6784-resize.jpg"> -->
 											</div>
 									</label></li>
-									<!-- <li><label>
-										<input type="radio" name="listIndex" value="1">
-											<div class="option-item">
-												<h5>클래스 수강권</h5>
-												<p class="prices">
-													<span class="sale" id="price">124,000원</span>
-												</p>
-												<span class="desc">온라인 수강권(평생수강)</span>
-											</div>
-									</label></li> -->
+									</c:forEach>
 								</ul>
 							</article>
 						</div>
 					</section>				
 				<footer>
-					<div class="hfe-orderinfo s-installment">
-						<div class="i-names">베이직 패키지</div>
+					<c:forEach var="kit" items="${kitList}">
+					<div id="${kit.kit_num}" style="display:none">
+						<div  class="hfe-orderinfo s-installment">
+						<div class="i-names">${kit.kit_name}</div>
 						<div class="i-quantity">
 							<div class="hfc-spinner">
 								<button class="hfc-i-down" onclick="form_btn(-1)">줄이기</button>
-								<input type="number" id="count" name="count" class="hfc-i-num" min="1" max="99" value="1">
+									<input type="number" id="count" name="count" class="hfc-i-num" min="1" max="99" value="1">
 								<button class="hfc-i-up" onclick="form_btn(1)">늘리기</button>
 							</div>
 						</div>
 						<div class="i-price-sale">
 							<span class="i-label">클래스 금액</span>
-							<span class="i-num" id="totalprice"></span>
+							<div id="totalprice"><span class="i-num"></span></div>
+						</div>
 						</div>
 					</div>
+					</c:forEach>
+					
 					<div class="hfe-btn-group s-twin">
-						<button class="hfe-btn s-w5 a-cart" onclick="location.href='../order/cartList.shop'">장바구니 담기</button>
+						<button class="hfe-btn s-w5 a-cart" onclick="location.href='../order/basketList.shop'">장바구니 담기</button>
 						<button class="hfe-btn s-w5 a-buy s-active" onclick="location.href='../order/order_write.shop'">바로 신청하기</button>
 					</div>
 				</footer>

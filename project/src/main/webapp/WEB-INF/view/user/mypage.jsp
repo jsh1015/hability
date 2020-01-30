@@ -328,7 +328,7 @@
 		<!-- 새배송지 추가 -->
 			<form:form modelAttribute="postaddr" action="po_addr.shop" method="post">
 			<input type="hidden" name="addrclick" value="addrclick" >
-			<input type="hidden" value="${param.emailid}" name="emailid">
+			<%-- <input type="hidden" value="${param.emailid}" name="emailid"> --%>
 			<div class="edit-delivery-wrap list-newaddress" style="display:none">
 				<div class="edit-delivery-cont">
 					<table class="edit-delivery-table" summary="배송지 입력 테이블">

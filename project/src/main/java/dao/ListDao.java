@@ -55,4 +55,10 @@ public class ListDao {
 		param.put("cl_num", cl_num);
 		return sqlSession.getMapper(ListMapper.class).list(param).get(0);
 	}
+
+	public List<Kit> kitList(int cl_num) {
+		param.clear();
+		param.put("cl_num", cl_num);
+		return sqlSession.getMapper(ListMapper.class).kitList(param);
+	}
 }

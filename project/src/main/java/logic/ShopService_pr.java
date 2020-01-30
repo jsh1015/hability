@@ -7,24 +7,20 @@ import org.springframework.stereotype.Service;
 
 import dao.PoohDao;
 
-@Service //@Component + service 기능 : controller와 db의 중간역할
+@Service
 public class ShopService_pr {
 	
-	@Autowired //내 컨테이너안의 객체중 자료형이 PostDao인 것을 주입 ->@service
+	@Autowired 
 	private PoohDao poohDao;
 
-	public void po_addr_insert(Postaddr postaddr, String emailid) {
-		System.out.println(postaddr);
-		System.out.println(emailid);
-		poohDao.po_addr_insert(postaddr, emailid);
+	public void po_addr_insert(Postaddr postaddr) {
+		poohDao.po_addr_insert(postaddr);
 	}
 	
-	// emailid 조회
 	public User getEmailid(String emailid) {
 		return poohDao.selectEmailid(emailid);
 	}
 	
-	// 배송지 목록
 	public List<Postaddr> postList(String emailid) {
 		return poohDao.postList(emailid);
 	}

@@ -97,4 +97,8 @@ public class ShopService {
 		listDao.kitinsert(kit);
 	}
 
+	public List<Kit> kitList(int cl_num) {
+		return listDao.kitList(cl_num);
+	}
+
 }

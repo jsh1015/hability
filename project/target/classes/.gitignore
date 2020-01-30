@@ -1,3 +1,7 @@
+/aop/
+/com/
+/config/
 /controller/
-/logic/
 /dao/
+/exception/
+/logic/

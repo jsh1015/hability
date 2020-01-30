@@ -21,15 +21,13 @@ public class PoohDao {
 	private SqlSessionTemplate sqlSession;
 	private Map<String, Object> param = new HashMap<>();
 	
-	public void po_addr_insert(Postaddr postaddr, String emailid) {
-		// 배송지 등록 번호
+	public void po_addr_insert(Postaddr postaddr) {
 		int po_num = sqlSession.getMapper(PoohMapper.class).max_po_num();
 		System.out.println(po_num);
-		System.out.println(emailid);
 
 		param.clear();
 		postaddr.setPo_num(++po_num);
-		param.put("emailid", emailid);
+		System.out.println("理쒖쥌 postaddr : " + postaddr);
 		param.put("postaddr", postaddr);
 		sqlSession.getMapper(PoohMapper.class).po_addr_insert(param);
 	}

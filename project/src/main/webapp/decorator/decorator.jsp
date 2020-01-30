@@ -22,7 +22,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=no, minimal-ui">
 	
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700|Roboto+Slab:400,700|Lato:400,700,900" rel="stylesheet" media="all" onload="this.media='all';">
-	<%-- <link rel="stylesheet" type="text/css" href="${path}/css/swiper.min.css"> --%>
+	<link rel="stylesheet" type="text/css" href="${path}/css/swiper.min.css">
 	<link rel="stylesheet" type="text/css" href="${path}/awesomplete/awesomplete.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style_base.css">
 	<link type="text/css" rel="stylesheet" href="${path}/css/style.css">
@@ -61,7 +61,7 @@
 						<ul class="hf-func-list">
 							<li class="hf-func s-empty">
 								<span class="i-count txt-cart-count"></span>
-								<a href="${path}/order/cartList.shop" title="취미바구니" class="btn-func func-box">취미바구니</a>
+								<a href="${path}/order/basketList.shop" title="취미바구니" class="btn-func func-box">취미바구니</a>
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">
@@ -109,7 +109,7 @@
 							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}&m=hobby" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
 						</li>
 						<li class="gnb gnb-mypage">
-							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+							<a href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>

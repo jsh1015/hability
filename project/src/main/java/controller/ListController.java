@@ -33,13 +33,18 @@ public class ListController {
       return mav;
    }
    @RequestMapping("detail")
-   public ModelAndView detail(int cl_num) {
-      ModelAndView mav = new ModelAndView();
-      Class classDetail = service.classDetail(cl_num);
-      mav.addObject("classDetail",classDetail);
-      mav.addObject(new Kit()); // 빈 객체를 전달
-      return mav;
-   }
+	public ModelAndView detail(int cl_num) {
+		ModelAndView mav = new ModelAndView();
+		// 세부정보 넘겨줌
+		Class classDetail = service.classDetail(cl_num);
+
+		// 옵션값 넘겨줌
+		List<Kit> kitList = service.kitList(cl_num);
+//	      classDetail.setOption(kitList);
+		mav.addObject("classDetail", classDetail);
+		mav.addObject("kitList", kitList);
+		return mav;
+	}
    
    @RequestMapping("magazine")
    public String magazine() {

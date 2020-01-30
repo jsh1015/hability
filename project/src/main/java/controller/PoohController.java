@@ -1,5 +1,6 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import logic.Basket;
 import logic.Postaddr;
 import logic.ShopService_pr;
 import logic.User;
@@ -22,31 +24,82 @@ public class PoohController {
 //	@RequestMapping("user/mypage")
 //	public ModelAndView form() {
 //		ModelAndView mav = new ModelAndView();
-//		mav.addObject(new Postaddr()); // ºó °´Ã¼¸¦ Àü´Ş
+//		mav.addObject(new Postaddr()); // ë¹ˆ ê°ì²´ë¥¼ ì „ë‹¬
 //		return mav;
 //	}
 	
 	@PostMapping("user/po_addr")
-	public ModelAndView postaddr(@Valid Postaddr postaddr, BindingResult bresult, String emailid) throws Exception{
-		ModelAndView mav = new ModelAndView("user/mypage"); // po_addrÀÌ ¾øÀ¸´Ï±î ÁöÁ¤ÇØÁà
-		// À¯È¿¼º °ËÁõ
-		// @Valid : ÀÌ °¡´ÉÇÏ·Á¸é User °´Ã¼¿¡ ¾î³ëÅ×ÀÌ¼ÇÀÌ µÇ¾îÀÖ¾î¾ßÇÔ
-		// System.out.println(postaddr);
-		// System.out.println(bresult.getModel());
+	public ModelAndView postaddr(@Valid Postaddr postaddr, BindingResult bresult, HttpSession session) throws Exception{
+		User loginUser = (User)session.getAttribute("loginUser");
+
+		ModelAndView mav = new ModelAndView("user/mypage"); // po_addrì´ ì—†ìœ¼ë‹ˆê¹Œ ì§€ì •í•´ì¤˜
+		// ìœ íš¨ì„± ê²€ì¦
+		// @Valid : ì´ ê°€ëŠ¥í•˜ë ¤ë©´ User ê°ì²´ì— ì–´ë…¸í…Œì´ì…˜ì´ ë˜ì–´ìˆì–´ì•¼í•¨
+		System.out.println("ì…ë ¥í•œ postaddr = "+postaddr);
+		
 		if(bresult.hasErrors()) {
+//			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
+			mav.addObject("User", loginUser); //?
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
+		
+		// phone2 í˜¹
+		if(postaddr.getPo_phone2().equals("")) postaddr.setPo_phone2(null);
+				
 		try {
-			User user = service_pr.getEmailid(emailid);
-			System.out.println(user.getEmailid());
-			service_pr.po_addr_insert(postaddr, user.getEmailid());
-			mav.setViewName("redirect:mypage.shop?emailid="+user.getEmailid());
+			System.out.println("po_addr emailid = "+loginUser.getEmailid());
+			postaddr.setEmailid(loginUser.getEmailid());
+			service_pr.po_addr_insert(postaddr);
+			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
 		} catch(Exception e) {
+			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
 			e.printStackTrace();
 		}
 		return mav;
 	}
 	
+	@RequestMapping("list/basketAdd")
+	public ModelAndView add(String id, Integer quantity, HttpSession session) {
+		ModelAndView mav = new ModelAndView("order/basketList"); // viewì§€ì • (ì™œ? cartAdd.jspë¡œ ê°€ëŠ”ê²Œ ì•„ë‹ˆë‹ˆê¹Œ)
+		
+//		// ì„ íƒëœ ìƒí’ˆ ê°ì²´
+//		Class basketClass = service_pr.basketInfo(id);
+//		
+//		
+//		Cart cart = (Cart)session.getAttribute("CART");
+//		if(cart ==null) { // ì¥ë°”êµ¬ë‹ˆê°€ ë¹„ì—ˆì„ ë•Œ,
+//			cart = new Cart(); // sessionì— ë“±ë¡ëœ cart
+//			session.setAttribute("CART", cart);
+//		}
+//		
+//		// itemSetListì— ì¶”ê°€ ë¨
+//		cart.push(new ItemSet(item, quantity));
+//
+//		mav.addObject("message", item.getName() + ":" + quantity + "ê°œ ì¥ë°”êµ¬ë‹ˆ ì¶”ê°€");
+//		mav.addObject("cart", cart);
+		
+		return mav;
+	}
+	
+	@RequestMapping("order/basketList")
+	public ModelAndView basketList() {
+		ModelAndView mav = new ModelAndView();
+				
+		mav.addObject(new Basket());
+		
+		return mav;
+	}
+	
+	// ajax ìš”ì²­ëœ ë©”ì„œë“œ
+	@RequestMapping("ajax/optionModal")
+	public ModelAndView optionModal(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		int cl_num = Integer.parseInt(request.getParameter("cl_num")); // dataì—ì„œ ë„˜ì–´ì˜¨ cl_numê°’
+		System.out.println("ajax = "+cl_num);
+		
+		mav.addObject("cl_num", cl_num); // ajaxìœ¼ë¡œ ë„˜ì–´ê°
+		return mav;
+	}
 	
 }
