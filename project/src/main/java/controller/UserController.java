@@ -99,42 +99,25 @@ public class UserController {
 	}
 	
 	//로그인 검증, (로그인 정보 != 파라미터정보 접근 불가, admin은 가능)
-	@RequestMapping("mypage")
-	public ModelAndView page(String id,HttpSession session) {
+	@GetMapping("mypage")
+	public ModelAndView page(String emailid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		/*
-		User user = service.getUser(id); //loginuser를 쓸 수 없음 admin인경우 파라미터에 해당하는 id 조회
-		//사용자가 주문한 모든 주문내역 조회
-		List<Sale> salelist = service.salelist(id);
-		for(Sale sa : salelist) {
-			//주문번호에 해당하는 주문 상품내역 조회
-			//db에 외래키 필요함
-			List<SaleItem> saleitemlist = service.saleItemList(sa.getSaleid());
-			for(SaleItem si : saleitemlist) {
-				//주문상품 한개에 해당하는 Item 조회
-				Item item = service.getItem(si.getItemid());
-				si.setItem(item);
-			}
-			sa.setItemList(saleitemlist);
-		}
-		mav.addObject("user",user);
-		mav.addObject("salelist",salelist);
-		 */
-		User user = service.getUser(id);
-	      mav.addObject("user", user);
-	      mav.addObject(new Postaddr()); // 빈 객체를 전달
-	      
-	      // 등록한 배송지 목록 조회
-	      List<Postaddr> postList = service_pr.postList(user.getEmailid());
-	      System.out.println("user.getEmailid() = "+user.getEmailid());
-	      mav.addObject("postList", postList);
-	      
-	      // 배송지 개수
-	      int postListCnt= service_pr.postListCnt(user.getEmailid());
-	      System.out.println(postListCnt);
-	      mav.addObject("postListCnt", postListCnt);
-	      
-	      return mav;
+		
+		User user = service.getUser(emailid);
+		mav.addObject("user", user);
+		mav.addObject(new Postaddr()); // 빈 객체를 전달
+
+		// 등록한 배송지 목록 조회
+		List<Postaddr> postList = service_pr.postList(user.getEmailid());
+		System.out.println("user.getEmailid() = " + user.getEmailid());
+		mav.addObject("postList", postList);
+
+		// 배송지 개수
+		int postListCnt = service_pr.postListCnt(user.getEmailid());
+		System.out.println(postListCnt);
+		mav.addObject("postListCnt", postListCnt);
+
+		return mav;
 	}
 	
 	//delete.shop과 update.shop에서만 사용할 수 있게 수정 : * 는 상관없이 모두 사용

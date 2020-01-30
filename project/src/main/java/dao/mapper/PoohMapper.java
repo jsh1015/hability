@@ -14,8 +14,8 @@ public interface PoohMapper {
 	@Select("select ifnull(max(po_num),0) from postaddr")
 	int max_po_num();
 
-	@Insert("insert into postaddr (po_num,emailid,po_name,po_client,po_phone,po_phone2,po_postcode,po_addr_main,po_addr_sub)"
-			+ " values (#{po_num},#{emailid},#{po_name},#{po_client},#{po_phone},#{po_phone2},#{po_postcode},#{po_addr_main},#{po_addr_sub}")
+	@Insert("insert into postaddr (po_num, emailid,po_name,po_client,po_phone,po_phone2,po_postcode,po_addr_main,po_addr_sub)"
+			+ " values (#{po_num},#{emailid},#{po_name},#{po_client},#{po_phone},#{po_phone2},#{po_postcode},#{po_addr_main},#{po_addr_sub})")
 	void po_addr_insert(Map<String, Object> param);
 
 	@Select("select * from user where 1=1 and emailid=#{emailid}")
