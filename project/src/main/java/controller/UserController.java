@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -60,7 +61,7 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("login")
-	public ModelAndView login(@Valid User user,BindingResult bresult,HttpSession session) throws Exception{
+	public ModelAndView login(@Valid User user,BindingResult bresult, HttpServletRequest request, HttpSession session) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		try {
 			if(user.getEmailid() == null || user.getEmailid().isEmpty())
@@ -77,6 +78,11 @@ public class UserController {
 			}
 			else {
 				session.setAttribute("loginUser",dbUser);
+//				int cl_num = Integer.parseInt(request.getParameter("cl_num"));
+//				System.out.println("list에서 로그인하면"+cl_num);
+//				if(cl_num >= 1) {
+//					mav.setViewName("redirect:list/detail.shop");
+//				}
 				mav.setViewName("redirect:main.shop");
 			}
 		}catch(EmptyResultDataAccessException e) {
@@ -100,7 +106,7 @@ public class UserController {
 	
 	//로그인 검증, (로그인 정보 != 파라미터정보 접근 불가, admin은 가능)
 	@GetMapping("mypage")
-	public ModelAndView page(String emailid,HttpSession session) {
+	public ModelAndView page(String emailid, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		User user = service.getUser(emailid);
@@ -109,12 +115,12 @@ public class UserController {
 
 		// 등록한 배송지 목록 조회
 		List<Postaddr> postList = service_pr.postList(user.getEmailid());
-		System.out.println("user.getEmailid() = " + user.getEmailid());
+		System.out.println("mypage emailid = " + user.getEmailid());
 		mav.addObject("postList", postList);
 
 		// 배송지 개수
 		int postListCnt = service_pr.postListCnt(user.getEmailid());
-		System.out.println(postListCnt);
+		System.out.println("배송지 개수 = "+postListCnt);
 		mav.addObject("postListCnt", postListCnt);
 
 		return mav;
