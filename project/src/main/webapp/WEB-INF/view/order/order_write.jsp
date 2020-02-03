@@ -23,46 +23,25 @@
 	<h2 class="layer-tit">취미주문 신청서</h2>
 		<div class="write-regular-cont">
 			<div class="float-wrap">
+				<!-- 주문 상품 정보 -->
 				<div class="write-regular-area i-cart">
 					<div class="title">주문 정보</div>
 						<ul id="cartList" class="list-product s-vertical">
 							<li class="row">
 								<ul class="columns">
-									<li class="c-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt=""></li>
-									<li class="c-name">매일이 반짝이는 썬캐쳐 클래스</li>
-									<li class="c-options">베이직 패키지</li>
-									<li class="c-quantity">수량 : 1개</li>
-									<li class="c-price">
-									28,000<span class="i-won">원</span>
+									<li class="c-thumb">
+										<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
 									</li>
-								</ul>
-							</li>
-							<li class="row">
-								<ul class="columns">
-									<li class="c-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/5dc059d0-302d-11ea-9134-2970db5a6784-square.jpg" alt=""></li>
-									<li class="c-name">노플랜 프로젝트의 내방 소품 라탄 클래스</li>
-									<li class="c-options">베이직 패키지</li>
-									<li class="c-quantity">수량 : 1개</li>
+									<li class="c-name">${classDetail.cl_title}</li>
+									<li class="c-options">${kitDetail.kit_name}</li>
+									<li class="c-quantity">수량 : ${count}개</li>
 									<li class="c-price">
-									<s>210,000원</s>
-									189,000<span class="i-won">원</span>
-									</li>
-								</ul>
-							</li>
-							<li class="row">
-								<ul class="columns">
-									<li class="c-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/5dc059d0-302d-11ea-9134-2970db5a6784-square.jpg" alt=""></li>
-									<li class="c-name">노플랜 프로젝트의 내방 소품 라탄 클래스</li>
-									<li class="c-options">클래스 수강권</li>
-									<li class="c-quantity">수량 : 1개</li>
-									<li class="c-price">
-									<s>124,000원</s>
-									111,600<span class="i-won">원</span>
+										<fmt:formatNumber value="${count * kitDetail.kit_price}" pattern="##,###" /><span class="i-won">원</span>
 									</li>
 								</ul>
 							</li>
 						</ul>
-				</div><!-- 주문 상품 정보 -->
+				</div>
 				<div class="write-regular-area i-sender">
 					<div class="title">주문자 정보</div>
 					<colgoup></colgoup>
@@ -71,7 +50,7 @@
 							<col class="col01">
 							<col class="col02">
 						</colgroup>
-						<tbody>
+ 						<tbody>
 							<tr class="tr">
 								<th class="th">주문자명</th>
 								<td class="td">

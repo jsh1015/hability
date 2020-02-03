@@ -61,7 +61,7 @@
 						<ul class="hf-func-list">
 							<li class="hf-func s-empty">
 								<span class="i-count txt-cart-count"></span>
-								<a href="${path}/order/basketList.shop" title="취미바구니" class="btn-func func-box">취미바구니</a>
+								<a href="${path}/order/basketView.shop?emailid=${sessionScope.loginUser.emailid}" title="취미바구니" class="btn-func func-box">취미바구니</a>
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">

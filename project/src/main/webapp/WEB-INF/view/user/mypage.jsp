@@ -291,8 +291,26 @@
 			</div>
 	<!-- 배송지관리 -->
 			<!-- 배송지목록 -->
-			
 			<div class="delivery-list-wrap list-address">
+			<script>
+				function addrDelete(po_num) {
+					alert("반응하니?");
+					$(".addrDeleteModal").show();
+					
+					$.ajax({
+						type : "POST",
+						// 요청한 url
+						url : "../ajax/addrDeleteModal.shop", // shop이니까 controller작동하고
+						data : {
+							// request로 요청하면 넘어갈 값
+							"po_num" : po_num
+							},
+						success : function(data) {
+							$(".addrDeleteModal").html(data);
+						}
+					})
+				}
+			</script>
 			<c:if test="${postListCnt >0}">
 				<c:forEach items="${postList}" var="post" varStatus="stat">
 				<div class="delivery-list-cont">
@@ -310,18 +328,19 @@
 						<div class="delivery-list-txt">(${post.po_postcode}) ${post.po_addr_main} ${post.po_addr_sub}</div>
 					</div>
 					<div class="delivery-list-btn">
-						<a href="#link" title="수정" data-arr-idx="0" class="btn-delivery-list edit-address-btn">수정</a>
-						<a href="#link" title="삭제" data-address-id="12843" class="btn-delivery-list delete-address-btn">삭제</a>
+						<a href="javascript:submymenu('addrupdate'+${post.po_num})" title="수정" data-arr-idx="0" class="btn-delivery-list edit-address-btn">수정</a>
+						<a href="javascript:addrDelete(${post.po_num})" title="삭제" data-address-id="12843" class="btn-delivery-list delete-address-btn">삭제</a>
 					</div>
 				</div>
 				</c:forEach>
+				<div class="modal fade addrDeleteModal" id="addrDeleteModal" role="dialog" style="display:none">
+				</div>
 			</c:if>
 			<c:if test="${postListCnt ==0}">
 			<div class="no-view-wrap">
 				<div class="no-view-tit">아직 등록된 배송지가 없습니다.</div>
 				<div class="no-view-txt">배송지를 등록해주세요.</div>
-				<a href="javascript:submymenu('newaddress')" title="배송지 등록하기"
-					class="btn-no-view register-new-address">배송지 등록하기</a>
+				<a href="javascript:submymenu('newaddress')" title="배송지 등록하기" class="btn-no-view register-new-address">배송지 등록하기</a>
 			</div>
 			</c:if>
 			</div>
@@ -422,6 +441,105 @@
 						<!-- <a href="#link" title="배송지 추가하기" class="btn-edit-delivery register-address">배송지 추가하기</a> -->
 						<!-- <button onclick="submit" class="btn-edit-delivery register-address">배송지 추가하기</button> -->
 						<input type="submit" class="btn-edit-delivery register-address" value="배송지 추가하기">
+					</div>
+				</div>
+			</div>
+			</form:form>
+		<!-- 배송지 수정 -->
+			<form:form modelAttribute="postaddr" action="po_addr.shop" method="post">
+			<%-- <input type="hidden" value="${param.emailid}" name="emailid"> --%>
+			<div class="edit-delivery-wrap list-addrupdate" style="display:none">
+				<div class="edit-delivery-cont">
+					<table class="edit-delivery-table" summary="배송지 입력 테이블">
+						<!-- <colgroup>
+							<col class="th-edit-delivery">
+							<col class="td-edit-delivery">
+						</colgroup> -->
+						<tbody>
+							<tr><th class="th-edit-delivery">배송지명</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<!-- <input type="text" class="input delivery address-name" value=""> -->
+											<form:input path="po_name" class="input delivery address-name" />
+											<font color="red">
+												<form:errors path="po_name" />
+											</font>
+											<!-- <script>
+											   if ('<form:errors path='po_name' />' != '') {
+											    	alert('<form:errors path='po_name' />');
+											   }
+											</script> -->
+										</span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">수령자명</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<form:input path="po_client" class="input" size="40" />
+											<font color="red">
+												<form:errors path="po_client" />
+											</font>
+										</span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">휴대전화</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<form:input path="po_phone" class="input" />
+											<font color="red">
+												<form:errors path="po_phone" />
+											</font>
+										</span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<form:input path="po_phone2" class="input" />
+										 	<font color="red">
+												<form:errors path="po_phone2" />
+											</font>
+										</span>
+									</div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">주소</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type04">
+											<form:input path="po_postcode" id="po_postcode" class="input new-address-zipcode" value="" placeholder="우편번호" />
+ 										</span>
+										<input type="button" onclick="DaumPostcode()" class="btn-post-num get-zipcode" value="우편번호"><br>
+									</div>
+									<div class="edit-delivery-area inline-45">
+										<span class="input-wrap">
+											<form:input path="po_addr_main" id="po_addr_main" class="input new-address" value="" placeholder="주소" />
+	 									</span>
+									</div>
+									<div class="edit-delivery-area inline-45">
+										<span class="input-wrap">
+											<form:input path="po_addr_sub" id="po_addr_sub" class="input new-address" value="" placeholder="상세주소" />
+		 								</span>
+									</div>
+									<div class="edit-delivery-area">
+										<!-- <input type="checkbox" id="basic-delivery" class="btn-join-agree">
+										<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label> -->
+									</div>
+									<input type="hidden" id="extraAddress">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="edit-delivery-btn">
+						<button onclick="submit" type="button" class="btn-edit-delivery register-address">배송지 수정하기</button>
+						<!-- <input type="submit" class="btn-edit-delivery register-address" value="배송지 수정하기"> -->
 					</div>
 				</div>
 			</div>

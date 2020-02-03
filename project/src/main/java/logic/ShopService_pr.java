@@ -29,4 +29,21 @@ public class ShopService_pr {
 		System.out.println(id);
 		return poohDao.postListCnt(id);
 	}
+	
+	// 클래스의 옵션정보
+	public Kit kitInfo(String kit_num, int cl_num) {
+		return poohDao.kitInfo(kit_num, cl_num);
+	}
+
+	public void basketAdd(Kit kit) {
+		poohDao.basketAdd(kit);
+		
+	}
+
+	public void addrDelete(int po_num) {
+		poohDao.addrDelete(po_num);
+		
+	}
+
+
 }

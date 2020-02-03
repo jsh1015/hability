@@ -13,27 +13,17 @@
 			$(this).reset();
 		})
 	}
-	
-	function form_btn(n) {
-		var quantity = document.getElementById("count");
-		
-		quan_value = parseInt(quantity.value);
-		quan_value +=n;
-		quantity.value = quan_value;
-		
-		if(quan_value <=0) {
-			quantity.value = 1;
-		}
-		
-		var price = document.getElementById("price");
-		price_value = parseInt(price.value);
-		price_value = price_value * quan_value; // 가격*수량
-		totalprice.value = price_value;
-	}
+	var kitcnt = '<c:out value="${kitcnt}" />';
 	
 	function selectRadio(val) {
-		//alert(val);
-		if(val == '1') {
+		/* $("#"+i).toggle();
+		alert(val);
+		for(int i=1; i<=kitcnt; i++) {
+			if(val == i) {
+				$("#"+i).toggle();
+			} else $('#'+i).css('display', 'none');
+		} */
+ 		if(val == '1') {
 			$('#1').css('display', 'block');
 			$('#2').css('display', 'none');
 			$('#3').css('display', 'none');
@@ -47,37 +37,11 @@
 			$('#3').css('display', 'block');
 		}
 	}
-	
-	/* $(document).ready(function() {
-		$('input[type="radio"]').click(function () {
-			var inputValue = $(this).attr("value");
-			var targetBox = $("."+inputValue);
-			$(".select").not(targetBox).hide();
-			$("tagetBox").show();
-		});
-	}); */
-
-/* 	$('input[type=radio][name=kit_num]').on('click', function() {
-		var chkValue = $('input[type=radio][name=tp_cd]:checked').val();
-		
-		if(chkValue == '1') {
-			$('#1').css('display', 'block');
-			$('#2').css('display', 'none');
-			$('#3').css('display', 'none');
-		} else if(chkValue == '2') {
-			$('#1').css('display', 'none');
-			$('#2').css('display', 'block');
-			$('#3').css('display', 'none');
-		} else if(chkValue == '3') {
-			$('#1').css('display', 'none');
-			$('#2').css('display', 'none');
-			$('#3').css('display', 'block');
-		}
-	}) */
 </script>
 
 </head>
 <body>
+<input type="hidden" value="${sessionScope.loginUser.emailid}" name="emailid">
 <div class="container">
 	<div class="vod-wrap">
 		<div class="vod-cont vimeohelper-92950 vimeohelper"
@@ -558,6 +522,8 @@
 		</div>
 	</div>
 	<!-- Modal -->
+	<form:form name="modal_form" action="../order/order_write.shop" method="post">
+	<input type="hidden" value="${classDetail.cl_num}" name="cl_num" id="cl_num">
 	<div class="modal fade" id="option" role="dialog" style="display:none">
 	<div id="dimmer-hf-modal-1580289583484809" class="hfc-dimmer hfc-dimmer-modal"></div>
 		<div class="modal-dialog hfc-modal s-big" style="overflow: unset;">
@@ -568,7 +534,6 @@
 					<h3 class="modal-title">클래스 옵션을 선택하세요</h3>
 					<button class="hfe-header-close a-close close" data-dismiss="modal">창닫기</button>
 				</header>
-				
 					<section class="hfe-content">
 						<div class="hfe-option">
 							<article class="s-select">
@@ -581,11 +546,11 @@
 									<!-- forEach 필요 -->
 									<c:forEach var="kit" items="${kitList}">
 									<li><label>
-										<input type="radio" id="${kit.kit_num} name="kit_num" value="${kit.kit_num}" onClick="javascript:selectRadio(this.value);">
+										<input type="radio" <%-- id="${kit.kit_num}" --%> name="kit_num" class="kit_num" value="${kit.kit_num}" onClick="javascript:selectRadio(this.value);">
 											<div class="option-item">
 												<h5>${kit.kit_name}</h5>
 												<p class="prices">
-													<span class="sale" id="price"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</span>
+													<span class="sale" id="price${kit.kit_num}"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</span>
 												</p>
 												<span class="desc">${kit.kit_box}</span>
 												<!-- <img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/product/146/b6f17010-3029-11ea-9134-2970db5a6784-resize.jpg"> -->
@@ -597,34 +562,98 @@
 						</div>
 					</section>				
 				<footer>
+					<script>
+						var kitcnt = '<c:out value="${kitcnt}" />';
+						
+						function form_btn(kit_num,kit_price,n) {
+							var quantity = document.getElementById("count"+kit_num);
+							console.log(quantity);
+							quan_value = parseInt(quantity.value);
+							console.log(quan_value);
+							quan_value +=n;
+							quantity.value = quan_value;
+							document.modal_form.lastcount.value = quantity.value 
+
+							if(quan_value <=0) {
+								quantity.value = 1;
+							}
+							
+							if(quantity.value ==1) {
+								$("#totalprice"+kit_num).text(kit_price);
+							} else {
+								$("#totalprice"+kit_num).text(kit_price * quan_value);
+							}
+							return false;							
+						}
+						
+						// 바로 구매하기
+						function order_write() {
+							f = document.modal_form;
+							if(f.kit_num.value == "") {
+								alert("원하는 구성품을 먼저 선택해 주세요.");
+								return false;
+							}
+							/* kit = document.getElementById(f.kit_num.value);
+							if(kit.style.display == 'none' ) {
+								alert("원하는 구성품을 먼저 선택해 주세요.");
+								return false;
+							} */
+							f.submit();
+						}
+						
+						// 장바구니
+						function basketAdd() {
+							alert("반응하니?");
+							f = document.modal_form;
+							var data = {"lastcount":$(".lastcount").val(), "cl_num":$("#cl_num").val(), "kit_num":f.kit_num.value, "emailid":$(".emailid").val()};
+							console.log(data);
+							$.ajax({
+								type : "POST",
+								// 요청한 url
+								url : "../ajax/basketAddCheck.shop",
+								data : data,
+								success : function(data) {
+									// 새창 띄우기..?
+									$(".basketAddCheck").html(data);
+								}
+							})
+						}
+					</script>
+					<input type="hidden" class="lastcount" name="lastcount"  value="1">
+					<input type="hidden" class="emailid" name="emailid" value="${sessionScope.loginUser.emailid}">
+					<input type="hidden" class="lastkit" name="lastkit" value="">
 					<c:forEach var="kit" items="${kitList}">
 					<div id="${kit.kit_num}" style="display:none">
 						<div  class="hfe-orderinfo s-installment">
 						<div class="i-names">${kit.kit_name}</div>
 						<div class="i-quantity">
-							<div class="hfc-spinner">
-								<button class="hfc-i-down" onclick="form_btn(-1)">줄이기</button>
-									<input type="number" id="count" name="count" class="hfc-i-num" min="1" max="99" value="1">
-								<button class="hfc-i-up" onclick="form_btn(1)">늘리기</button>
+							<div id="divcount" class="hfc-spinner">
+								<button class="hfc-i-down" onclick="return form_btn(${kit.kit_num},${kit.kit_price},-1)">줄이기</button>
+									<input type="number" id="count${kit.kit_num}" name="count" class="count hfc-i-num" min="1" max="99" value="1">
+								<button class="hfc-i-up" onclick="return form_btn(${kit.kit_num},${kit.kit_price},1)">늘리기</button>
 							</div>
 						</div>
 						<div class="i-price-sale">
 							<span class="i-label">클래스 금액</span>
-							<div id="totalprice"><span class="i-num"></span></div>
+							<div id="totalprice${kit.kit_num}" class="i-num"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</div>
 						</div>
 						</div>
 					</div>
 					</c:forEach>
-					
+					<div>${sessionScope.loginUser.emailid}</div>
 					<div class="hfe-btn-group s-twin">
-						<button class="hfe-btn s-w5 a-cart" onclick="location.href='../order/basketList.shop'">장바구니 담기</button>
-						<button class="hfe-btn s-w5 a-buy s-active" onclick="location.href='../order/order_write.shop'">바로 신청하기</button>
+						<button class="hfe-btn s-w5 a-cart" type="button" onclick="basketAdd()">장바구니 담기</button>
+						<%-- <button class="hfe-btn s-w5 a-buy s-active" onclick="location.href='order_write.shop?emailid=${sessionScope.loginUser.emailid}'">바로 신청하기</button> --%>
+						<button class="hfe-btn s-w5 a-buy s-active" type="button" onclick="order_write()">바로 신청하기</button>
 					</div>
+					
 				</footer>
 			
 			</div>
 		</div>
 	</div>
-	
+	</form:form>
+	<div class="modal fade basketAddCheck" id="cart" role="dialog" style="display:none">
+	</div>
 </body>
 </html>
