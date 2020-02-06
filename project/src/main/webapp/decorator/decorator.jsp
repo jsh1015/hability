@@ -70,13 +70,13 @@
 					</div>
 					<ul class="menu-list">
 						<li class="menu">
-							<a href="${path}/list/hobbyClass.shop" class="btn-menu menu-class">취미 클래스<em class="menu-txt -w">CLASS</em></a>
+							<a href="${path}/list/hobbyClass.shop?board_type=1" class="btn-menu menu-class">취미 클래스<em class="menu-txt -w">CLASS</em></a>
 						</li>
 						<li class="menu">
-							<a href="${path}/list/diystore.shop" class="btn-menu menu-class">DIY 스토어<em class="menu-txt -w">DIY STORE</em></a>
+							<a href="${path}/list/diystore.shop?board_type=2" class="btn-menu menu-class">DIY 스토어<em class="menu-txt -w">DIY STORE</em></a>
 						</li>
 						<li class="menu">
-							<a href="${path}/list/magazine.shop" class="btn-menu menu-magazine">매거진<em class="menu-txt -w">MAGAZINE</em></a>
+							<a href="${path}/list/magazine.shop?board_type=3" class="btn-menu menu-magazine">매거진<em class="menu-txt -w">MAGAZINE</em></a>
 						</li>
 						<li class="menu">
 							<a href="${path}/list/service.shop" class="btn-menu menu-service">하비풀 소개<em class="menu-txt -w">ABOUT</em></a>

@@ -19,20 +19,21 @@ public class ListController {
    private ShopService service;
    
    @RequestMapping("hobbyClass")
-   public ModelAndView list() {
+   public ModelAndView hlist(Integer board_type) {
       ModelAndView mav = new ModelAndView();
-      List<Class> classList = service.classList();
-      mav.addObject("classList",classList); 
+      List<Class> classList = service.classList(board_type);
+      mav.addObject("classList",classList);
       return mav;
    }
    
    @RequestMapping("diystore")
-   public ModelAndView list(Integer pageNum) {
+   public ModelAndView dlist(Integer board_type) {
       ModelAndView mav = new ModelAndView();
-      List<Class> classList = service.classList();
+      List<Class> classList = service.classList(board_type);
       mav.addObject("classList",classList);
       return mav;
    }
+   
    @RequestMapping("detail")
 	public ModelAndView detail(int cl_num) {
 		ModelAndView mav = new ModelAndView();
