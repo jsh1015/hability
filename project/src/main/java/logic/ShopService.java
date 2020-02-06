@@ -68,7 +68,7 @@ public class ShopService {
 		String orgFile = cl_imgUrl.getOriginalFilename();
 		String orgFile2 = cl_infoUrl.getOriginalFilename();
 		String orgFile3 = cl_storyUrl.getOriginalFilename();
-		String uploadPath = request.getServletContext().getRealPath("/") + path; //파일을 만들어줌
+		String uploadPath = "/project/" + path; //파일을 만들어줌
 		File fpath = new File(uploadPath);
 		if(!fpath.exists()) fpath.mkdirs(); //해당 path가없으면 생성
 		try {
@@ -101,7 +101,7 @@ public class ShopService {
 	private void kuploadFileCreate(MultipartFile kit_imgUrl,HttpServletRequest request, String path) {
 		//picture : 업로드된 파일의 내용
 		String orgFile = kit_imgUrl.getOriginalFilename();
-		String uploadPath = request.getServletContext().getRealPath("/") + path; //파일을 만들어줌
+		String uploadPath = "/project/" + path; //파일을 만들어줌
 		File fpath = new File(uploadPath);
 		if(!fpath.exists()) fpath.mkdirs(); //해당 path가없으면 생성
 		try {
