@@ -108,9 +108,10 @@
 					<div class="title">배송지 정보</div>
 					<div class="select-radio-wrap">
 						<label class="label">
-							<input type="radio" name="isNewAddress" value="true" class="check" checked=""> 새로운 배송지</label>
+							<input type="radio" name="isNewAddress" value="true" class="check" checked=""> 새로운 배송지${postListCnt}</label>
 						<label class="label s-savedAddress">
-							<input type="radio" name="isNewAddress" value="false" class="check showaddresslist"> 저장된 배송지</label>
+							<input type="radio" name="isNewAddress" value="false" class="check showaddresslist"> 저장된 배송지
+						</label>
 							<a href="#addresslist" title="주소록 선택" class="btn-td2 btn-select-address showaddresslist">주소록 선택</a>
 					</div>
 					<table class="table-input" summary="배송지 입력 테이블">

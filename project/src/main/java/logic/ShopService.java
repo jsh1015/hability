@@ -68,7 +68,9 @@ public class ShopService {
 		String orgFile = cl_imgUrl.getOriginalFilename();
 		String orgFile2 = cl_infoUrl.getOriginalFilename();
 		String orgFile3 = cl_storyUrl.getOriginalFilename();
+		System.out.println("context:" + request.getServletContext());
 		String uploadPath = request.getServletContext().getRealPath("/") + path; //파일을 만들어줌
+		System.out.println("uploadpath:" + uploadPath);
 		File fpath = new File(uploadPath);
 		if(!fpath.exists()) fpath.mkdirs(); //해당 path가없으면 생성
 		try {
