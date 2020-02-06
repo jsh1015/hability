@@ -100,5 +100,14 @@ public class ShopService {
 	public List<Kit> kitList(int cl_num) {
 		return listDao.kitList(cl_num);
 	}
+	
+	//회원목록
+		public List<User> userList() {
+			return userDao.userlist();
+		}
+
+		public User userdetail(String emailid) {
+			return userDao.selectOne(emailid);
+		}
 
 }

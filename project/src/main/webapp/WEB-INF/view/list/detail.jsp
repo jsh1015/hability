@@ -82,7 +82,7 @@
 			<div class="vod-btn-wrap">
 				<a href="#like" title="좋아요" class="btn-like">좋아요</a>
 				<c:if test="${empty sessionScope.loginUser}">
-					<a href="javascript:dologin()" class="btn-get">클래스 신청하기</a>
+					<a href="#login" class="btn-get showlogin">클래스 신청하기</a>
 				</c:if>
 				<c:if test="${!empty sessionScope.loginUser}">
 					<a data-toggle="modal" href="#option" class="btn-get">클래스 신청하기</a>
@@ -546,7 +546,7 @@
 									<!-- forEach 필요 -->
 									<c:forEach var="kit" items="${kitList}">
 									<li><label>
-										<input type="radio" <%-- id="${kit.kit_num}" --%> name="kit_num" class="kit_num" value="${kit.kit_num}" onClick="javascript:selectRadio(this.value);">
+										<input type="radio" name="kit_num" class="kit_num" value="${kit.kit_num}" onClick="javascript:selectRadio(this.value);">
 											<div class="option-item">
 												<h5>${kit.kit_name}</h5>
 												<p class="prices">

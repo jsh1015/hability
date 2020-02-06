@@ -1,7 +1,6 @@
 package logic;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,17 +20,6 @@ public class Class {
 	private String cl_storyUrl;
 	private String cl_content;
 	private Date cl_date;
-	
-	// 해당 cl_num에 대한 kit을 다 가져옴 list
-	private List<Kit> option;
-	
-	public List<Kit> getOption() {
-		return option;
-	}
-	public void setOption(List<Kit> option) {
-		this.option = option;
-	}
-	
 	public int getCl_num() {
 		return cl_num;
 	}
@@ -122,14 +110,13 @@ public class Class {
 	public void setCl_date(Date cl_date) {
 		this.cl_date = cl_date;
 	}
+	
 	@Override
 	public String toString() {
 		return "Class [cl_num=" + cl_num + ", board_type=" + board_type + ", cl_type=" + cl_type + ", cl_category="
 				+ cl_category + ", cl_title=" + cl_title + ", cl_img=" + cl_img + ", cl_imgUrl=" + cl_imgUrl
 				+ ", teacher=" + teacher + ", cl_price=" + cl_price + ", cl_info=" + cl_info + ", cl_infoUrl="
 				+ cl_infoUrl + ", cl_story=" + cl_story + ", cl_storyUrl=" + cl_storyUrl + ", cl_content=" + cl_content
-				+ ", cl_date=" + cl_date + ", option=" + option + "]";
+				+ ", cl_date=" + cl_date + "]";
 	}
-	
-	
 }

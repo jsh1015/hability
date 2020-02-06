@@ -2,10 +2,15 @@ package logic;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Uorder {
 	private int od_num;
+	@NotEmpty(message="이메일을 입력하세요.")
 	private String emailid;
+	@NotEmpty(message="주문자명을 입력하세요.")
 	private String name;
+	@NotEmpty(message="휴대전화를 입력하세요.")
 	private String phone;
 	private String od_name;
 	private String od_client;

@@ -12,37 +12,45 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  
-  <script type="text/javascript" src="${path}/jquery/js/page/order.js"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	   
+	</script>
 </head>
 <body>
-<!-- <div class="wrap" id="wrap"> -->
-<form:form modelAttribute="uorder" method="post" action="order_write.shop">
 <div class="container">
 	<div class="write-regular-wrap">
 	<h2 class="layer-tit">취미주문 신청서</h2>
 		<div class="write-regular-cont">
+<form:form name="order">
+<input type="hidden" id="emailid2" value="${loginUser.emailid}" >
+<input type="hidden" id="cl_num" name="cl_num" value="${classDetail.cl_num}" >
+<input type="hidden" id="kit_num" name="kit_num" value="${kitDetail.kit_num}" >
+<input type="hidden" id="count" name="lastcount" value="${count}" >
 			<div class="float-wrap">
-				<!-- 주문 상품 정보 -->
 				<div class="write-regular-area i-cart">
+<!-- 주문정보 -->
 					<div class="title">주문 정보</div>
-						<ul id="cartList" class="list-product s-vertical">
-							<li class="row">
-								<ul class="columns">
-									<li class="c-thumb">
-										<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
-									</li>
-									<li class="c-name">${classDetail.cl_title}</li>
-									<li class="c-options">${kitDetail.kit_name}</li>
-									<li class="c-quantity">수량 : ${count}개</li>
-									<li class="c-price">
-										<fmt:formatNumber value="${count * kitDetail.kit_price}" pattern="##,###" /><span class="i-won">원</span>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					<ul id="cartList" class="list-product s-vertical">
+					<%-- <c:forEach items="${classList}" var="list"> --%>
+						<li class="row">
+							<ul class="columns">
+								<li class="c-thumb">
+									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
+								</li>
+								<li class="c-name">${classDetail.cl_title}</li>
+								<li class="c-options">${kitDetail.kit_name}</li>
+								<li class="c-quantity">수량 : ${count}개</li>
+								<li class="c-price">
+									<fmt:formatNumber value="${count * kitDetail.kit_price}" pattern="##,###" /><span class="i-won">원</span>
+								</li>
+							</ul>
+						</li>
+					<%-- </c:forEach> --%>
+					</ul>
 				</div>
 				<div class="write-regular-area i-sender">
+<!-- 주문자정보 -->
 					<div class="title">주문자 정보</div>
 					<colgoup></colgoup>
 					<table class="table-input" summary="주문자 입력 테이블">
@@ -50,13 +58,12 @@
 							<col class="col01">
 							<col class="col02">
 						</colgroup>
- 						<tbody>
+						<tbody>
 							<tr class="tr">
 								<th class="th">주문자명</th>
 								<td class="td">
 									<div class="input-wrap">
-									<form:input path="name" class="input order_name" placeholder=""/>
-									<font color="red"><form:errors path="name"></form:errors></font>
+									<input value="${user.name}" name="name" type="text" class="name input order_name" placeholder="">
 									</div>
 								</td>
 							</tr>
@@ -64,8 +71,7 @@
 								<th class="th">이메일</th>
 								<td class="td">
 									<div class="input-wrap">
-									<form:input path="emailid" type="email" class="input order_email" placeholder=""/>
-									<font color="red"><form:errors path="emailid"></form:errors></font>
+									<input value="${user.emailid}" name="emailid" type="text" class="emailid input order_email" placeholder="">
 									</div>
 									<div class="table-txt txt-color-r email-error-msg"></div>
 								</td>
@@ -74,13 +80,13 @@
 								<th class="th">휴대전화</th>
 								<td class="td">
 									<div class="input-wrap input-phone">
-									<form:input path="phone" class="input order_phone" placeholder=""/>
-									<font color="red"><form:errors path="phone"></form:errors></font>
+									<input value="${user.phone}" name="phone" type="text" class="phone input order_phone" placeholder="">
 									</div>
-									<button type="button" title="인증" class="btn-td phone-auth-btn" disabled="">인증 완료</button>
+									<!-- <button type="button" title="인증" id="auth" class="btn-td phone-auth-btn">인증</button> -->
+									<!-- <button type="button" title="인증" class="btn-td phone-auth-btn" disabled="">인증 완료</button> -->
 								</td>
 							</tr>
-							<tr class="tr auth_number" style="display: none;">
+							<!-- <tr class="tr auth_number">
 								<th class="th">인증번호</th>
 								<td class="td">
 									<div class="input-wrap input-phone">
@@ -90,20 +96,22 @@
 									<span class="td-info auth-time"></span>
 									<div class="table-txt txt-color-r auth-error-msg"></div>
 								</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 					<div class="table-info">
 					•  정확한 이메일과 휴대폰 번호를 입력해주세요.<br>
-					•  구매내역, 환불, 품절 등을 이메일과 SMS 문자로 안내해드립니다.
 					</div>
 				</div>
 				<div class="write-regular-area i-receiver">
+<!-- 배송지정보 -->
 					<div class="title">배송지 정보</div>
 					<div class="select-radio-wrap">
-						<label class="label"><input type="radio" name="isNewAddress" value="true" class="check" checked=""> 새로운 배송지</label>
-						<label class="label s-savedAddress"><input type="radio" name="isNewAddress" value="false" class="check"> 저장된 배송지</label>
-						<a href="javascript:;" title="주소록 선택" class="btn-td2 btn-select-address">주소록 선택</a>
+						<label class="label">
+							<input type="radio" name="isNewAddress" value="true" class="check" checked=""> 새로운 배송지</label>
+						<label class="label s-savedAddress">
+							<input type="radio" name="isNewAddress" value="false" class="check showaddresslist"> 저장된 배송지</label>
+							<a href="#addresslist" title="주소록 선택" class="btn-td2 btn-select-address showaddresslist">주소록 선택</a>
 					</div>
 					<table class="table-input" summary="배송지 입력 테이블">
 						<colgroup>
@@ -115,7 +123,7 @@
 						<th class="th">배송지명</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input type="text" class="input order_addressname" placeholder="">
+						<input name="od_name" type="text" class="input order_addressname" placeholder="" >
 						</div>
 						</td>
 						</tr>
@@ -123,7 +131,7 @@
 						<th class="th">수령자명</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input type="text" class="input order_receivename" placeholder="">
+						<input name="od_client" type="text" class="input order_receivename" placeholder="">
 						</div>
 						</td>
 						</tr>
@@ -131,7 +139,7 @@
 						<th class="th">휴대전화</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input type="text" class="input receive_phone" placeholder="">
+						<input name="od_phone" type="text" class="input receive_phone" placeholder="">
 						</div>
 						</td>
 						</tr>
@@ -139,7 +147,7 @@
 						<th class="th">추가번호(선택)</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input type="text" class="input receive_phone2" placeholder="">
+						<input name="od_phone2" type="text" class="input receive_phone2" placeholder="">
 						</div>
 						</td>
 						</tr>
@@ -148,23 +156,24 @@
 						<td class="td">
 						<div class="td-br">
 						<div class="input-wrap input-post input-readonly">
-						<input type="text" readonly="readonly" class="input order_receivezipcode" placeholder="">
+						<input name="od_postcode" type="text" readonly="readonly" id="po_postcode" class="input order_receivezipcode" placeholder="우편번호">
 						</div>
-						<a href="javascript:;" title="우편번호" class="btn-td2 get-zipcode">우편번호</a>
+						<a href="javascript:DaumPostcode()" title="우편번호" class="btn-td2 get-zipcode">우편번호</a>
 						</div>
 						<div class="td-br">
 						<div class="input-wrap input-readonly">
-						<input type="text" readonly="readonly" class="input order_receiveaddress" placeholder="">
+						<input name="od_addr_main" type="text" readonly="readonly" id="po_addr_main" class="input order_receiveaddress" placeholder="주소">
 						</div>
 						</div>
 						<div class="td-br">
 						<div class="input-wrap">
-						<input type="text" class="input order_receiveaddressdetail" placeholder="">
+						<input name="od_addr_sub" type="text" id="po_addr_sub" class="input order_receiveaddressdetail" placeholder="상세주소">
 						</div>
 						</div>
 						<div class="td-br i-row-savebasic">
-						<input type="checkbox" id="save-basic-delivery" class="checkbox">
-						<label for="save-basic-delivery" class="label-basic-delivery">기본 배송지로 저장</label>
+					<!--	<input type="checkbox" id="save-basic-delivery" class="checkbox">
+				 		<label for="save-basic-delivery" class="label-basic-delivery">기본 배송지로 저장</label> -->
+						<input type="hidden" id="extraAddress">
 						</div>
 						</td>
 						</tr>
@@ -172,7 +181,7 @@
 						<th class="th">배송요청 사항</th>
 						<td class="td">
 						<div class="input-textarea">
-						<textarea class="textarea order_receivecomment" rows="" cols="" placeholder="배송을 해주시는 택배기사님께 전달드리는 내용입니다." maxlength="300"></textarea>
+						<textarea name="od_comment" class="textarea order_receivecomment" rows="" cols="" placeholder="배송을 해주시는 택배기사님께 전달드리는 내용입니다." maxlength="300"></textarea>
 						</div>
 						</td>
 						</tr>
@@ -180,6 +189,7 @@
 					</table>
 				</div>
 				<div class="write-regular-area i-payment">
+<!-- 결제정보 -->
 				<div class="title">결제 정보</div>
 				<colgoup>
 				</colgoup>
@@ -206,10 +216,10 @@
 				<span class="i-title">상품금액</span>
 				<span class="i-value">362,000원</span>
 				</li>
-				<li>
+				<!-- <li>
 				<span class="i-title">할인금액</span>
 				<span class="i-value">-33,400원</span>
-				</li>
+				</li> -->
 				<li>
 				<span class="i-title">배송비</span>
 				<span class="i-value">무료</span>
@@ -224,63 +234,15 @@
 				
 				</div>
 			</div>
-				<!--		<div class="write-regular-area">-->
-				<!--			<div class="title">정기구독 및 결제대행 서비스 동의</div>-->
-				<!--			<ul class="payment-agree-list">-->
-				<!--				<li class="payment-agree-sub">-->
-				<!--					<input type="checkbox" name="all-check" id="check-all" />-->
-				<!--					<label for="check-all">전체 동의</label>-->
-				<!--				</li>-->
-				<!--				<li class="payment-agree">-->
-				<!--					<input type="checkbox" name="payment-agree" id="check-privacy" />-->
-				<!--					<label for="check-privacy">개인정보 수집 및 이용 동의</label>-->
-				<!--					<a href="javascript:;" title="상세보기" class="view-detail privacy-agree-view">상세보기</a>-->
-				<!--				</li>-->
-				<!--				<li class="payment-agree" style="display:none;">-->
-				<!--					<input type="checkbox" name="payment-agree" id="check-regular" checked />-->
-				<!--					<label for="check-regular">정기구독 서비스 이용 동의</label>-->
-				<!--					<a href="javascript:;" title="상세보기" class="view-detail">상세보기</a>-->
-				<!--				</li>-->
-				<!--			</ul>-->
-				<!--		</div>-->
 				<div class="write-order-btn">	
 				<p class="desc">위 주문 내용을 확인 하였으며, 회원 본인은 결제에 동의합니다.</p>
-					<button id="orderBtn" class="btn-order-ask confirm-order" onclick="javascript:ordercheck()">취미 주문하기</button>
+					<button id="orderBtn" class="btn-order-ask confirm-order">취미 주문하기</button>
 				</div>
-	<script type="text/javascript">
-		$("#orderBtn").click(function(){
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp11832569'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			
-			IMP.request_pay({
-			    pg : 'kakaopay', //결제방식
-			    pay_method : 'card', //결제수단
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:결제테스트', //order테이블에 들어갈 주문명 혹은 주문 번호
-			    amount : 1000, //결제 금액
-			    buyer_email : 'iamport@siot.do', //구매자 email
-			    buyer_name : '구매자이름', //구매자 이름
-			    buyer_tel : '010-1234-5678', //구매자 번호
-			    buyer_addr : '서울특별시 강남구 삼성동', //구매자 주소
-			    buyer_postcode : '123-456' //구매자 우편번호
-			}, function(rsp) {
-			    if ( rsp.success ) { //성공시
-			    	var msg = '결제가 완료되었습니다.';
-					msg += '\n고유ID : ' + rsp.imp_uid;
-					msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-					msg += '\결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-					alert(msg);
-				} else {
-					var msg = '결제에 실패하였습니다.\n';
-					/* msg += '에러내용 : ' + rsp.error_msg; */
-				}
-			    alert(msg);
-			});
-		})
-	</script>
-		</div>
-	</div>
-</div>
 </form:form>
+
+<script type="text/javascript" src="${path}/jquery/js/page/order.js"></script>		
+ 		</div>
+	</div>
+<div class="modal addresslist"></div>
+</div>
 </body>

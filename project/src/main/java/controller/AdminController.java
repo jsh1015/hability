@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import logic.Class;
 import logic.Kit;
 import logic.ShopService;
+import logic.User;
 
 @Controller
 @RequestMapping("admin")
@@ -79,6 +80,21 @@ public class AdminController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		return mav;
+	}
+	
+	@RequestMapping("userlist") //회원 목록
+	public ModelAndView userlist() {
+		ModelAndView mav = new ModelAndView();
+	    List<User> userList = service.userList();
+	    mav.addObject("userList",userList);
+		return mav;
+	}
+	@RequestMapping("userdetail") //회원 목록
+	public ModelAndView userdetail(String emailid) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.userdetail(emailid);
+		mav.addObject("user",user);
 		return mav;
 	}
 }

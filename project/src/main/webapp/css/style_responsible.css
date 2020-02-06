@@ -61,7 +61,7 @@ z-index 정리
 .table-input { font-size:14px; }
 	.col01 { width:20%; }
 	.col02 { width:80%; }
-	.input-phone { width:75%; }
+	.input-phone { width:100%; }
 	.input-phone2 { width:32%; }
 	.input-post { width:75%; }
 	.input-readonly { background:#f8f8fa; }

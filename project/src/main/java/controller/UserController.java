@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.LoginException;
@@ -61,7 +62,8 @@ public class UserController {
 		return mav;
 	}
 	@PostMapping("login")
-	public ModelAndView login(@Valid User user,BindingResult bresult, HttpServletRequest request, HttpSession session) throws Exception{
+	@ResponseBody //리턴값을 view를 통해서 출력하지 않고 body에 사용
+	public String login(@Valid User user,BindingResult bresult, HttpServletRequest request, HttpSession session) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		try {
 			if(user.getEmailid() == null || user.getEmailid().isEmpty())
@@ -83,13 +85,14 @@ public class UserController {
 //				if(cl_num >= 1) {
 //					mav.setViewName("redirect:list/detail.shop");
 //				}
-				mav.setViewName("redirect:main.shop");
+				// /list/detail.shop?cl_num=1#login
+				return "<script>location.href=document.referrer; history.go(-1);</script>";
 			}
 		}catch(EmptyResultDataAccessException e) {
 			//e.printStackTrace();
 			bresult.reject("error.login.emailid");
 		}
-		return mav;
+		return null;
 	}
 
 	
