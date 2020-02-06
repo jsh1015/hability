@@ -16,7 +16,7 @@ function mymenu(str){
 			".list-qna,.list-mileage,.list-coupon,.list-myinfo,.list-password," +
 			".list-exit,.list-favorite,.list-magazine").hide()
 	$(".list-"+str).show()
-	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-class").css("display","none")
+	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-favorite").css("display","none")
 	$(".mymenu-sub-"+str).css("display","list-item")
 }
 function favorite(){
@@ -73,7 +73,7 @@ function submymenu(str){
 	$(".direct-ask-wrap").hide() //1:1문의
 	$(".edit-membership-wrap").hide()
 	$(".change-pw-wrap").hide()
-	$(".quit-membership-wrap").hide()
+	$(".quit-membership-wrap,.list-favorite").hide()
 	$(".list-"+str).show()
 }
 
