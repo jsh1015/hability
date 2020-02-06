@@ -9,11 +9,13 @@
 <meta charset="UTF-8">
 <title><decorator:title/></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="${path}/css/admin.css">
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap&subset=korean">
 <style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
+/* body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif} */
+body,h1,h2,h3,h4,h5 {font-family: 'Noto Sans KR', sans-serif}
+body {font-size:20x;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 ul {list-style:none; text-decoration:none;}
@@ -25,6 +27,7 @@ ul li:hover > ul {display:block;}
 h3{text-align: left;}
 a{text-decoration: none;}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <decorator:head/>
 <body>
@@ -87,7 +90,7 @@ a{text-decoration: none;}
 </div>
 
 <!-- W3.CSS Container -->
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Produce by hability</p></div>
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:320px;padding-right:58px"><p class="w3-right">Produce by hability</p></div>
 
 <!-- menubar slide -->
 <script>

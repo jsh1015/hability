@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,10 +164,25 @@
 				<li class="class-list">
 					<a href="detail.shop?cl_num=${list.cl_num}">
 						<div class="class-list-thumb">
-							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/42649440-218b-11ea-9cb3-c70fccd5674e-resize.jpg" alt="" class="thumb-class-list">
+							<img src="${path}/img/${list.cl_img}" alt="" class="thumb-class-list">
 						</div>
 						<div class="class-list-cont">
-							<p class="class-list-lecturer-name">${list.teacher}</p>
+							<p class="class-list-lecturer-name">  		
+							<c:set var="type" value="${list.cl_type}"/>
+							<c:choose>
+					  			<c:when test="${type eq 1}"> <!-- 1 = 취미클래스 -->
+					  				[정규클래스]
+					  			</c:when>
+					  			<c:when test="${type eq 2}">  <!-- 2 = DIY스토어 -->
+					  				[원데이클래스]
+					  			</c:when>
+					  			<c:when test="${type eq 3}">  <!-- 3 = 매거진 -->
+					  				[DIY]
+					  			</c:when>
+					  			<c:when test="${type eq 4}">  <!-- 3 = 매거진 -->
+					  				[도구]
+					  			</c:when>
+					  		</c:choose>${list.teacher}</p>
 							<p class="class-list-name" style="padding:0 150px 0 0;">${list.cl_title}</p>
 							<p class="class-list-price">
 								<span class="i-won"></span>${list.cl_price}<span class="i-won">원</span>

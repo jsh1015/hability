@@ -9,7 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Class;
@@ -30,9 +34,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("boardlist") //게시물 목록
-	public ModelAndView list() {
+	public ModelAndView list(Integer board_type) {
 		ModelAndView mav = new ModelAndView();
-	    List<Class> classList = service.classList();
+	    List<Class> classList = service.classList(board_type);
 	    mav.addObject("classList",classList);
 		return mav;
 	}
@@ -60,6 +64,26 @@ public class AdminController {
 		return mav;
 	}
 	
+	@PostMapping("boardedit") //게시물 수정
+	public ModelAndView edit(Class classes, BindingResult bresult, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		service.boardedit(classes,request);
+		mav.setViewName("redirect:/admin/boardlist.shop");
+		return mav;
+	}
+	
+	@PostMapping("boarddel") //게시물 삭제
+	public ModelAndView delete(Class classes, BindingResult bresult) {
+		ModelAndView mav = new ModelAndView();
+		service.boarddel(classes);
+		mav.setViewName("redirect:boardlist.shop");
+		return mav;
+	}
+	
 	@GetMapping("kit") //키트등록
 	public ModelAndView getkit() {
 		ModelAndView mav = new ModelAndView();
@@ -68,7 +92,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("kit") 
-	public ModelAndView kit(Kit kit,Integer cl_num,BindingResult bresult,HttpServletRequest request) {
+	public ModelAndView kit(Kit kit, Integer cl_num, BindingResult bresult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		if(bresult.hasErrors()) {
 			mav.getModel().putAll(bresult.getModel());
@@ -76,10 +100,18 @@ public class AdminController {
 		}
 		try {
 			service.kitinsert(kit,cl_num,request);
-			mav.setViewName("redirect:kit.shop");
+			mav.setViewName("redirect:kit.shop?cl_num="+cl_num);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		return mav;
+	}
+	
+	@RequestMapping("kitdelete")
+	public ModelAndView deletekit(Integer cl_num, Integer kit_num) {
+		ModelAndView mav = new ModelAndView();
+		service.kitdelete(cl_num,kit_num);
+		mav.setViewName("redirect:kit.shop?cl_num="+cl_num);
 		return mav;
 	}
 	
@@ -97,4 +129,13 @@ public class AdminController {
 		mav.addObject("user",user);
 		return mav;
 	}
+	
+	@GetMapping("*")
+	public ModelAndView select(Integer cl_num) {
+		Class classes = service.getboard(cl_num);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("classes",classes);
+		return mav;
+	}
 }
+

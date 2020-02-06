@@ -56,50 +56,100 @@ public class ShopService {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	//게시물목록
-	public List<Class> classList() {
-		return listDao.list();
+	public List<Class> classList(Integer board_type) {
+		return listDao.list(board_type);
 	}
 	
-	private void uploadFileCreate(MultipartFile picture, HttpServletRequest request, String path) {
+	//게시물 사진업로드
+	private void uploadFileCreate(MultipartFile cl_imgUrl,MultipartFile cl_infoUrl,MultipartFile cl_storyUrl ,HttpServletRequest request, String path) {
 		//picture : 업로드된 파일의 내용
-		String orgFile = picture.getOriginalFilename();
+		String orgFile = cl_imgUrl.getOriginalFilename();
+		String orgFile2 = cl_infoUrl.getOriginalFilename();
+		String orgFile3 = cl_storyUrl.getOriginalFilename();
 		String uploadPath = request.getServletContext().getRealPath("/") + path; //파일을 만들어줌
 		File fpath = new File(uploadPath);
 		if(!fpath.exists()) fpath.mkdirs(); //해당 path가없으면 생성
 		try {
 			//picture에 있는 것 파일로 생성
-			picture.transferTo(new File(uploadPath + orgFile));
+			cl_imgUrl.transferTo(new File(uploadPath + orgFile));
+			cl_infoUrl.transferTo(new File(uploadPath + orgFile2));
+			cl_storyUrl.transferTo(new File(uploadPath + orgFile3));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//게시물등록
+	public void boardwrite(Class classes,HttpServletRequest request) {
+		//첨부파일이 존재하는 경우
+		if(classes.getCl_imgUrl()!=null && !classes.getCl_imgUrl().isEmpty() &&classes.getCl_infoUrl()!=null && !classes.getCl_infoUrl().isEmpty()
+					&& classes.getCl_storyUrl()!=null && !classes.getCl_storyUrl().isEmpty() ) {
+			uploadFileCreate(classes.getCl_imgUrl(),classes.getCl_infoUrl(),classes.getCl_storyUrl(), request, "img/");
+			//업로드될 파일 이름을 설정
+			classes.setCl_img(classes.getCl_imgUrl().getOriginalFilename());
+			classes.setCl_info(classes.getCl_infoUrl().getOriginalFilename());
+			classes.setCl_story(classes.getCl_storyUrl().getOriginalFilename());
+				
+		}
+
+		int max = listDao.maxnum();
+		classes.setCl_num(++max);
+		listDao.insert(classes);
+	}
+	//키트사진 업로드
+	private void kuploadFileCreate(MultipartFile kit_imgUrl,HttpServletRequest request, String path) {
+		//picture : 업로드된 파일의 내용
+		String orgFile = kit_imgUrl.getOriginalFilename();
+		String uploadPath = request.getServletContext().getRealPath("/") + path; //파일을 만들어줌
+		File fpath = new File(uploadPath);
+		if(!fpath.exists()) fpath.mkdirs(); //해당 path가없으면 생성
+		try {
+			//picture에 있는 것 파일로 생성
+			kit_imgUrl.transferTo(new File(uploadPath + orgFile));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	//게시물등록
-	public void boardwrite(Class classes,HttpServletRequest request) {
-		//첨부파일이 존재하는 경우
-		if(classes.getCl_img()!=null && !classes.getCl_img().isEmpty()) {
-			uploadFileCreate(classes.getCl_img(), request, "class/file/");
-			//업로드될 파일 이름을 설정
-			classes.setCl_imgUrl(classes.getCl_img().getOriginalFilename());
-		}
-		int max = listDao.maxnum();
-		classes.setCl_num(++max);
-		listDao.insert(classes);
-	}
-	
 	//키트등록
 	public void kitinsert(Kit kit,Integer cl_num,HttpServletRequest request) {
-		int max = listDao.kitnum();
-		kit.setKit_num(++max);
+		if(kit.getKit_imgUrl()!=null && !kit.getKit_imgUrl().isEmpty()) {
+		kuploadFileCreate(kit.getKit_imgUrl(), request, "img/");
+		//업로드될 파일 이름을 설정
+		kit.setKit_img(kit.getKit_imgUrl().getOriginalFilename());
+	}
+		int num = listDao.kitnum(cl_num);
+		kit.setKit_num(++num);
 		kit.setCl_num(cl_num);
 		listDao.kitinsert(kit);
 	}
-
-	public List<Kit> kitList(int cl_num) {
-		return listDao.kitList(cl_num);
+	
+	//게시물 수정
+	public void boardedit(Class classes, HttpServletRequest request) {
+		if(classes.getCl_imgUrl()!=null && !classes.getCl_imgUrl().isEmpty() &&classes.getCl_infoUrl()!=null && !classes.getCl_infoUrl().isEmpty()
+				&& classes.getCl_storyUrl()!=null && !classes.getCl_storyUrl().isEmpty() ) {
+			uploadFileCreate(classes.getCl_imgUrl(),classes.getCl_infoUrl(),classes.getCl_storyUrl(), request, "img/");
+			//업로드될 파일 이름을 설정
+			classes.setCl_img(classes.getCl_imgUrl().getOriginalFilename());
+			classes.setCl_info(classes.getCl_infoUrl().getOriginalFilename());
+			classes.setCl_story(classes.getCl_storyUrl().getOriginalFilename());
+		}
+		listDao.update(classes);
 	}
+	
+	public Class getboard(Integer cl_num) {
+		return listDao.selectnum(cl_num);
+	}
+	//게시물삭제
+	public void boarddel(Class classes) {
+		listDao.delete(classes);
+	}
+
+	public void kitdelete(Integer cl_num, Integer kit_num) {
+		listDao.kitdelete(cl_num,kit_num);
+	}
+	
 	
 	//회원목록
 		public List<User> userList() {
@@ -109,5 +159,11 @@ public class ShopService {
 		public User userdetail(String emailid) {
 			return userDao.selectOne(emailid);
 		}
+
+		public List<Kit> kitList(int cl_num) {
+			return listDao.kitList(cl_num);
+		}
+		
+		
 
 }

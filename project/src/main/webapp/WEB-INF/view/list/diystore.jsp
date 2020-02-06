@@ -25,7 +25,7 @@
                         <div class="img-slide-area2 img-slide-type02">
                            <strong class="img-slide-tit">NEW SERVICE</strong><span
                               class="img-slide-txt">도안, DIY키트부터 재료와 도구까지<span
-                              class="bold">혼자서도 잘해요! 하비풀 DIY 스토어</span></span>
+                              class="bold">혼자서도 잘해요! 하비릴리티 DIY 스토어</span></span>
                            <button type="button" class="btn-slide-go">자세히 보기</button>
                         </div></a></li>
                </ul>
@@ -71,12 +71,27 @@
                data-tracker-type="impression" data-tracker-id="/list/">
                <c:forEach items="${classList}" var="list">
                <li class="class-list hf-tracker-item" data-tracker-id="FE-M-0006">
-               <a href="detail.shop">
+              	 <a href="detail.shop">
                   <div class="class-list-thumb">
-                     <img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/490b45e0-2213-11ea-9cb3-c70fccd5674e-resize.jpg" alt="" class="thumb-class-list">
+						<img src="${path}/img/${list.cl_img}" alt="" class="thumb-class-list">
                   </div>
                   <div class="class-list-cont">
-                     <p class="class-list-lecturer-name">${list.teacher}</p>
+                     <p class="class-list-lecturer-name">[  		
+                    <c:set var="type" value="${list.cl_type}"/>
+					<c:choose>
+			  			<c:when test="${type eq 1}"> <!-- 1 = 취미클래스 -->
+			  				[정규클래스]
+			  			</c:when>
+			  			<c:when test="${type eq 2}">  <!-- 2 = DIY스토어 -->
+			  				[원데이클래스]
+			  			</c:when>
+			  			<c:when test="${type eq 3}">  <!-- 3 = 매거진 -->
+			  				[DIY]
+			  			</c:when>
+			  			<c:when test="${type eq 4}">  <!-- 3 = 매거진 -->
+			  				[도구]
+			  			</c:when>
+			  		</c:choose>${list.teacher}</p>
                      <p class="class-list-name" style="padding:0 150px 0 0;">${list.cl_title}</p>
                      <p class="class-list-price">
                         <span class="i-won"></span>${list.cl_price}<span class="i-won">원</span>
