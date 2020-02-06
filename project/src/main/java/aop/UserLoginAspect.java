@@ -16,25 +16,25 @@ import logic.User;
 @Aspect
 @Order(1)
 public class UserLoginAspect {
-	@Around("execution(* controller.User*.page(..)) && args(.., session)")
-	public Object userLoginCheck_mypage(ProceedingJoinPoint joinPoint, HttpSession session) throws Throwable {
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser == null) {
-			throw new LoginException("로그인 후 거래하세요", "login.shop");
-		}
-		Object ret = joinPoint.proceed();
-		return ret;
-	}
-	@Around("execution(* controller.Pooh*.*(..)) && args(.., session)")
-	public Object userLoginCheck_pooh(ProceedingJoinPoint joinPoint, HttpSession session) throws Throwable {
-		User loginUser = (User) session.getAttribute("loginUser");
-		if (loginUser == null) {
-			throw new LoginException("로그인 후 거래하세요", "../user/login.shop");
-		}
-		Object ret = joinPoint.proceed();
-		return ret;
-	}
-	
+//	@Around("execution(* controller.User*.page(..)) && args(.., session)")
+//	public Object userLoginCheck_mypage(ProceedingJoinPoint joinPoint, HttpSession session) throws Throwable {
+//		User loginUser = (User) session.getAttribute("loginUser");
+//		if (loginUser == null) {
+//			throw new LoginException("로그인 후 거래하세요", "");
+//		}
+//		Object ret = joinPoint.proceed();
+//		return ret;
+//	}
+//	@Around("execution(* controller.Pooh*.*(..)) && args(.., session)")
+//	public Object userLoginCheck_pooh(ProceedingJoinPoint joinPoint, HttpSession session) throws Throwable {
+//		User loginUser = (User) session.getAttribute("loginUser");
+//		if (loginUser == null) {
+//			throw new LoginException("로그인 후 거래하세요", "");
+//		}
+//		Object ret = joinPoint.proceed();
+//		return ret;
+//	}
+
 	@Around //advice : 핵심로직 전,후
 		("execution(* controller.User*.check*(..)) && args(.., session)")
 		//pointcut : 핵심로직 설정(접근제어자 상관X controller패키지.User로 시작하는 모든클래스.check로시작하는 모든메서드

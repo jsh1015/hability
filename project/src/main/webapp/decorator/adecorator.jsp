@@ -38,7 +38,7 @@ a{text-decoration: none;}
   <ul>
     <li class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">회원관리</a> 
     	<ul class="hide">
-    		<li><a href="#">회원 목록</a></li>
+    		<li><a href="${path}/admin/userlist.shop">회원 목록</a></li>
     	</ul>
     </li>
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">배송관리</a>

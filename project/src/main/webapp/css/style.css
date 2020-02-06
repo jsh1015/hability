@@ -529,7 +529,7 @@ z-index 정리
 
 /* 회원가입 */
 .join-on .join-wrap { display:block; }
-	.join-cont { background:#fff; position:absolute; z-index:100; left:50%; width:100%; }
+	.join-cont { background:#fff; position:absolute; z-index:100; left:auto; width:100%; }
 	.join-type-cont { padding:28px 25px; }
 	.btn-join-type { display:block; width:100%; position:relative; margin:0 0 10px; padding:17px 0 15px 50px; color:#FFFFFF; font-size:12px; text-align:center; }
 	.btn-join-type:last-child { margin-bottom:0; }

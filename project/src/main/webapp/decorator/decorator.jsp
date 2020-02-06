@@ -10,10 +10,8 @@
 <!-- 클래스 신청하기 모달 라이브러리 DETAIL Modal -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 <script type="text/javascript" src="${path}/jquery/js/HF.js"></script>
-<script type="text/javascript" src="${path}/jquery/js/page/user.js"></script>
+<script type="text/javascript" src="${path}/jquery/js/page/main.js"></script>
 	<meta name="description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 취미 배달, 취미 정기구독">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,11 +32,11 @@
 	<link rel="apple-touch-icon" href="${path}/img/m_favicon.png">
 <title><decorator:title/></title>
 <decorator:head />
+<script type="text/javascript">
+	
+</script>
 </head>
 <body class="">
-<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJXG8SF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-	<!-- End Google Tag Manager (noscript) -->
 <div class="wrap" id="wrap">
 	<header class="header-wrap" id="header-wrap"><!-- 햄버거 버튼 클릭 시 menu-on 클래스 추가 -->
 		<h1 class="logo-h1">
@@ -89,13 +87,13 @@
 					<ul class="gnb-list">
 					<c:if test="${empty sessionScope.loginUser}">
 						<li class="gnb gnb-login" style="display: list-item;">
-							<a href="javascript:dologin()" class="btn-gnb header_login">로그인</a>
+							<a href="#login" class="btn-gnb header_login showlogin">로그인</a>
 						</li>
 						<li class="gnb gnb-join" style="display: list-item;">
-							<a href="javascript:dojoin()" title="회원가입" class="btn-gnb header_join">회원가입</a>
+							<a href="#join" title="회원가입" class="btn-gnb header_join showjoin">회원가입</a>
 						</li>
 						<li class="gnb gnb-mypage">
-							<a href="javascript:dologin()" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+							<a href="#login" title="마이페이지" class="btn-gnb header_mypage showlogin">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
@@ -109,7 +107,7 @@
 							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}&m=hobby" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
 						</li>
 						<li class="gnb gnb-mypage">
-							<a href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
@@ -129,34 +127,64 @@
 				<a href="javascript:;" title="닫기" class="btn-menu-close -w" onclick="hideMenu();">닫기</a>
 		</div>
 		
-		<div class="search-cont" id="search-cont">
+		<div class="search-cont search-cont" id="search-cont">
 			<h2 class="search-tit">검색</h2>
 			<div class="search-area">
 				<button type="button" class="btn-search2">검색</button>
 				<div class="search-input-wrap">
 					<input type="text" placeholder="클래스와 매거진을 검색해 보세요!" class="search-input">
-					<ul class="search-txt-list search-keyword-text"></ul>
+					<ul class="search-txt-list search-keyword-text">
+						<li class="search-txt"><a href="#search" title="프랑스" class="search-txt-link">프랑스</a>
+							<button type="button" class="btn-search-del">삭제</button></li>
+					</ul>
 				</div>
 				<button type="button" class="btn-search-close" onclick="hideSearch();">닫기</button>
 			</div>
 			<div class="search-keyword-wrap">
 				<div class="search-keyword-tit">이런 검색어는 어때요?</div>
-				<ul class="search-keyword-list search-recommend-list"></ul>
+				<ul class="search-keyword-list search-recommend-list"><li class="search-keyword">이런 검색어는 어때요?</li><li class="search-keyword"><a href="#;" title="프랑스자수" class="search-keyword-link">프랑스자수</a></li><li class="search-keyword"><a href="#;" title="마크라메" class="search-keyword-link">마크라메</a></li><li class="search-keyword"><a href="#;" title="수채화" class="search-keyword-link">수채화</a></li><li class="search-keyword"><a href="#;" title="색연필" class="search-keyword-link">색연필</a></li><li class="search-keyword"><a href="#;" title="멘티" class="search-keyword-link">멘티</a></li></ul>
 			</div>
 			<div class="search-result-wrap">
-				<div class="search-result-tab-wrap"></div>
+				<div class="search-result-tab-wrap">
+					<a href="#search" title="클래스(24)" data-list="class" class="search-result-tab search-result-class search-result-tab-on">클래스<span class="search-tab-ea">(24)</span></a>
+					<a href="#search" title="매거진(5)" data-list="magazine" class="search-result-tab search-result-magazine">매거진<span class="search-tab-ea">(5)</span></a>
+				</div>
 				<div class="search-result-cont thumb-slide-type02">
-					<ul class="thumb-slide-list search-magazine-list"></ul>
+					<!-- 매거진 검색 내용 -->
+					<ul class="thumb-slide-list search-list search-magazine-list" style="display:none">
+						<li class="thumb-slide"><a href="view-magazine.html?id=92" class="thumb-slide-link" title="프랑스자수 꽃 향수 액자 클래스 TIP"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/magazine/d89bb6a0-227d-11e8-950b-71e3e689f0d5-resize.png" class="thumb-slide-img" alt="프랑스자수 꽃 향수 액자 클래스 TIP"><span class="thumb-slide-play">재생</span></a><span class="thumb-slide-link-type">더 화사하고 풍성한 꽃 향수 액자 만들기</span><span class="thumb-slide-link-tit">프랑스자수 꽃 향수 액자 클래스 TIP</span><span class="thumb-slide-link-info">2018.03.08 목요일 <em class="thumb-slide-link-nick">by hobbyful</em></span></li>
+						<li class="thumb-slide"><a href="view-magazine.html?id=53" class="thumb-slide-link" title="초보라면, 프랑스자수 준비물 4"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/magazine/815777f0-87d0-11e7-b6a5-5d2c992718a2-resize.png" class="thumb-slide-img" alt="초보라면, 프랑스자수 준비물 4"><span class="thumb-slide-play">재생</span></a><span class="thumb-slide-link-type">프랑스자수 초보라면 이것부터!</span><span class="thumb-slide-link-tit">초보라면, 프랑스자수 준비물 4</span><span class="thumb-slide-link-info">2017.08.23 수요일 <em class="thumb-slide-link-nick">by hobbyful</em></span></li>
+						<li class="thumb-slide"><a href="view-magazine.html?id=47" class="thumb-slide-link" title="프랑스자수 기초 스티치 소개"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/magazine/07060cf0-6c50-11e7-8f3b-db2d2c8c1ffe-resize.png" class="thumb-slide-img" alt="프랑스자수 기초 스티치 소개"><span class="thumb-slide-play">재생</span></a><span class="thumb-slide-link-type">금손이 아니어도 쉽게 따라할 수 있는</span><span class="thumb-slide-link-tit">프랑스자수 기초 스티치 소개</span><span class="thumb-slide-link-info">2017.07.19 수요일 <em class="thumb-slide-link-nick">by hobbyful</em></span></li>
+						<li class="thumb-slide"><a href="view-magazine.html?id=32" class="thumb-slide-link" title="초보라면? 라인 프랑스자수!"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/magazine/abcb0150-3f6e-11e7-ab18-f1db694a0960-resize.png" class="thumb-slide-img" alt="초보라면? 라인 프랑스자수!"><span class="thumb-slide-play">재생</span></a><span class="thumb-slide-link-type">프랑스자수 초보라면 이것부터!</span><span class="thumb-slide-link-tit">초보라면? 라인 프랑스자수!</span><span class="thumb-slide-link-info">2017.05.23 화요일 <em class="thumb-slide-link-nick">by hobbyful</em></span></li>
+						<li class="thumb-slide"><a href="view-magazine.html?id=18" class="thumb-slide-link" title="초보를 위한 프랑스자수 책 3"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/magazine/b549d980-82ef-11e7-93aa-bda96c9ca100-resize.png" class="thumb-slide-img" alt="초보를 위한 프랑스자수 책 3"><span class="thumb-slide-play">재생</span></a><span class="thumb-slide-link-type">프랑스자수의 매력에 빠져보아요!</span><span class="thumb-slide-link-tit">초보를 위한 프랑스자수 책 3</span><span class="thumb-slide-link-info">2017.05.16 화요일 <em class="thumb-slide-link-nick">by hobbyful</em></span></li>
+					</ul>
 				</div>
 				<div class="search-result-cont">
-					<ul class="class-list-wrap search-class-list"></ul>
+					<ul class="class-list-wrap search-list search-class-list" style="">
+						<li class="class-list"><a href="/product/DSYQOHl1ho" title="하비풀 프랑스자수 샘플러"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/415e4600-4183-11ea-a325-edad35d6d413-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">undefined</p><p class="class-list-info">하비풀 프랑스자수 샘플러</p></div></a></li>
+						<li class="class-list"><a href="/product/N9krdsRc3R" title="진주조개 티코스터 프랑스자수 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/010f34b0-efdf-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">실버스노우</p><p class="class-list-info">진주조개 티코스터 프랑스자수 키트</p></div></a></li>
+						<li class="class-list"><a href="/product/2U8lWSqLvm" title="블루밍 클래식 액자 프랑스자수 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/003c37a0-efbb-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">실버스노우</p><p class="class-list-info">블루밍 클래식 액자 프랑스자수 키트</p></div></a></li>
+						<li class="class-list"><a href="/product/Uft1JmLhNG" title="프랑스자수 스타터키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/5fa6ce20-efe4-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">자수 도구</p><p class="class-list-info">프랑스자수 스타터키트</p></div></a></li>
+						<li class="class-list"><a href="/product/FTFFV5W7SV" title="프랑스자수 달력 키트(2020년)"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/3b47b4f0-eb10-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">실버스노우</p><p class="class-list-info">프랑스자수 달력 키트(2020년)</p></div></a></li>
+						<li class="class-list"><a href="/product/CByPbo7Rmv" title="포근포근 스웨터 프랑스자수 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/220667c0-eb10-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">솜씨</p><p class="class-list-info">포근포근 스웨터 프랑스자수 키트</p></div></a></li>
+						<li class="class-list"><a href="/product/WSCngj2pJI" title="몬스테라가 있는 오후 프랑스자수 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/10574670-eb10-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">솜씨</p><p class="class-list-info">몬스테라가 있는 오후 프랑스자수 키트</p></div></a></li>
+						<li class="class-list"><a href="/product/WdRnlbtDNm" title="프랑스자수 스티치 200 비기닝 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/fcf45aa0-eb0f-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">한 수 한 수 놓는</p><p class="class-list-info">프랑스자수 스티치 200 비기닝 키트</p></div></a></li>
+						<li class="class-list"><a href="/product/UcjLFMFAyc" title="나의 달콤한 프랑스자수 비기닝 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/f12e2200-eb0f-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">집안 가득 퍼지는</p><p class="class-list-info">나의 달콤한 프랑스자수 비기닝 키트</p></div></a></li>
+						<li class="class-list"><a href="/product/dZS3OFmpbk" title="나의 첫 스누피 향기 프랑스자수 키트"><div class="class-list-thumb"><img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/e73a8680-eb0f-11e9-ac24-737b6e1628bf-resize.jpg" alt="" class="thumb-class-list"></div><div class="class-list-cont"><p class="class-list-txt">귀여운 내친구</p><p class="class-list-info">나의 첫 스누피 향기 프랑스자수 키트</p></div></a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</header>
-
+	
+	
+<!-- 로그인,회원가입 모달 -->
+	<div class="modal login"></div>
+	<div class="modal join"></div>
+	<div class="modal userEntry"></div>
+	
+	
 	<decorator:body />
-
 	<footer class="footer-wrap">
 		<div class="f-menu-wrap">
 			<ul class="f-menu">
@@ -189,223 +217,8 @@
 	<div class="layer-wrap popup-wrap" id="popup-wrap">
 		<div class="bg-layer-wrap" onclick="Popup.hide();"></div>
 	</div>
-	
-	<!-- 팝업 모달창 -->
-<div class="layer-wrap popup-wrap" id="popup-wrap" style="display:none">
-	<div class="popup-layer"></div>
-	<div class="popup-cont" style="top:50%; margin-top:-137px;">
-		<h2 class="layer-tit">구독 신청 실패</h2>
-		<div class="popup-txt" style="min-height:78px; width:100%; text-align:center; display:table;">
-			<span style="display:table-cell; vertical-align:middle;">수령자명을 입력해주세요.</span>
-		</div>
-		<div class="popup-btn"><button class="btn-popup alert_btn_1">확인</button></div>
-	</div>
-	<a href="javascript:;" title="닫기" class="btn-layer-close" onclick="Popup.hide();">닫기</a>
+
 </div>
 
-	
-<!-- !!!!!!!!!!!!!!!로그인 모달창!!!!!!!!!!!!!!!!! -->
-<div class="layer-wrap login-wrap" id="login-wrap">
-	<div class="bg-layer-wrap a-close"></div>
-	<div class="join-cont">
-		<h2 class="layer-tit">로그인 하기</h2>
-		<div class="join-type-wrap">
-			<div class="float-wrap">
-				<div class="join-type-cont">
-					<button title="네이버로 로그인" class="btn-join-type btn-join-naver">
-					<span class="ico-join-type ico-join-naver"></span>네이버로 로그인</button>
-					<button title="카카오톡으로 로그인" class="btn-join-type btn-join-kakaotalk">
-					<span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 로그인</button></div>
-				<div class="join-type-txt-wrap"><span class="join-type-txt">또는</span></div>
-		<form:form modelAttribute="user" method="post" action="../user/login.shop"><!-- submit보내면 가는곳 -->     
-				<div class="join-type-cont">
-					<ul class="login-email-wrap">
-						<li class="login-email">
-                     <input type="email" id="emailid" name="emailid" class="login-input" placeholder="아이디 (이메일)">
-                  </li>
-                  <li class="login-email">
-                     <input type="password" id="pass" name="pass" class="login-input" placeholder="비밀번호">
-                  </li>
-						<li class="login-keep">
-		                    <button title="로그인" class="btn-login login_user" type="submit">로그인</button>
-		                </li>
-					</ul>
-				</div>
-		</form:form>
-			</div>
-			<div class="float-wrap">
-				<div class="login-find-wrap">
-					<ul class="login-find-list">
-						<li class="login-find">
-							<a href="#findid" title="아이디 찾기" class="btn-login-find btn-find-id">아이디 찾기</a></li>
-						<li class="login-find">
-							<a href="#findpassword" title="비밀번호 찾기" class="btn-login-find btn-find-pw">비밀번호 찾기</a></li>
-					</ul>
-				</div>
-				<div class="login-bottom-wrap" data-gtm-vis-recent-on-screen-6759522_106="4107" data-gtm-vis-first-on-screen-6759522_106="4107" data-gtm-vis-total-visible-time-6759522_106="100" data-gtm-vis-has-fired-6759522_106="1">아직 하비풀 회원이 아니신가요?
-					<a href="javascript:dojoin()" title="회원가입" class="link-join a-join">회원가입</a></div>
-			</div>
-		</div>
-		<a href="#close" title="닫기" class="btn-layer-close a-close">닫기</a></div>
-</div>
-
-<!-- 회원가입 모달창!!!!!!!!!!!!!!!!! --> 
-	<div class="layer-wrap join-wrap" id="join-wrap" width="100%">
-		<div class="bg-layer-wrap a-close"></div>
-		<div class="join-cont join-select" data-gtm-vis-recent-on-screen-6759522_8="3190" data-gtm-vis-first-on-screen-6759522_8="3190" data-gtm-vis-total-visible-time-6759522_8="100" data-gtm-vis-has-fired-6759522_8="1">
-			<h2 class="layer-tit">회원가입</h2>
-			<div class="join-type-wrap">
-				<div class="join-type-cont">
-					<button title="네이버로 가입" class="a-naver btn-join-type btn-join-naver"><span class="ico-join-type ico-join-naver"></span>네이버로 가입</button>
-					<button title="카카오톡으로 가입" class="a-kakao btn-join-type btn-join-kakaotalk"><span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 가입</button>
-				</div>
-				<div class="join-type-txt-wrap"><span class="join-type-txt">또는</span></div>
-				<div class="join-type-cont">
-						<button title="이메일로 가입" class="a-email btn-join-type btn-join-email">
-							<span class="ico-join-type ico-join-email"></span>이메일로 가입
-						</button>
-					<div class="join-info">
-					본인은 만 14세 이상이며, 회원 가입하면 하빌리티의 <a href="/term-provision.html" title="서비스 이용약관" class="link-info" target="_blank">서비스 이용약관</a>, 
-					<a href="/term-privacy.html" title="개인정보 취급방침" class="link-info" target="_blank">개인정보 취급방침</a>에 동의하는 것입니다.
-					</div>
-				</div>
-				<div class="join-login">
-					이미 회원이신가요? <a href="javascript:dologin()" title="로그인" class="link-login a-login">로그인</a>
-				</div>
-			</div>
-			<button title="닫기" class="btn-layer-close a-close">닫기</button>
-		</div>
-	</div>
-	
-<!-- 이메일로 가입하기 -->
-	<div class="layer-wrap join-wrap" id="join-write" width="100%">
-		<div class="bg-layer-wrap a-close"></div>
-		<form:form modelAttribute="user" method="post" action="userEntry.shop"><!-- submit보내면 가는곳 -->
-   <div class="join-cont">
-      <h2 class="layer-tit">회원가입</h2>
-      <div class="join-thumb-wrap">
-         <div class="join-thumb"
-            data-gtm-vis-recent-on-screen-6759522_100="268748"
-            data-gtm-vis-first-on-screen-6759522_100="268748"
-            data-gtm-vis-total-visible-time-6759522_100="100"
-            data-gtm-vis-has-fired-6759522_100="1">
-            <label for="btn-add-thumb" class="label-add-thumb2"></label>
-            <input name="userimg" type="file" class="btn-add-thumb"
-            id="btn-add-thumb" accept="file_extension|audio/*|video/*|image/*|media_type">
-         </div>
-      </div>
-      <div class="join-type-email">
-         <div class="join-txt-wrap">
-            <div class="join-txt-cont mb10">
-               <label class="join-txt-label" for="join-txt-email">이메일</label>
-               <div class="awesomplete">
-                  <input name="emailid" type="email" value="" placeholder="이메일 주소를 입력해 주세요."
-                     class="join-txt-input email-join-txt-input" id="join-txt-email"
-                     autocomplete="off" aria-expanded="false"
-                     aria-owns="awesomplete_list_1" role="combobox">
-                  <font color="black"><form:errors path="emailid" /></font>
-                  <ul hidden="" role="listbox" id="awesomplete_list_1"></ul>
-                  <span class="visually-hidden" role="status" aria-live="assertive"
-                     aria-atomic="true">Type 2 or more characters for results.</span>
-               </div>
-               <ul class="auto-complete-list">
-               </ul>
-            </div>
-         </div>
-         <div class="join-txt-wrap join-txt-wrap-password">
-            <div class="join-txt-cont">
-               <label class="join-txt-label" for="join-txt-pw">비밀번호</label> <input
-                  name="pass" required="" type="password"
-                  placeholder="비밀번호는 6~16자 영문, 숫자를 사용해주세요." class="join-txt-input"
-                  id="join-txt-pw">
-                  <font color="black"><form:errors path="pass" /></font>
-            </div>
-            <div class="join-txt-cont">
-               <label class="join-txt-label" for="join-txt-confirm">비밀번호 확인</label>
-               <input name="passck" required="" type="password"
-                  placeholder="비밀번호는 6~16자 영문, 숫자를 사용해주세요." class="join-txt-input">
-                  <font color="black"><form:errors path="passck" /></font>
-            </div>
-         </div>
-         <div class="join-txt-wrap">
-            <div class="join-txt-cont join-name-input">
-               <label class="join-txt-label" for="join-txt-name">이름</label> <input
-                  name="name" value="" required="" type="text"
-                  placeholder="이름을 입력해 주세요." maxlength="5" class="join-txt-input">
-                  <font color="black"><form:errors path="name" /></font>
-            </div>
-         </div>
-         <div class="join-txt-wrap">
-            <div class="join-txt-cont">
-               <label class="join-txt-label" for="join-txt-nick">닉네임</label> <input
-                  name="nickname" required="" type="text" value=""
-                  placeholder="닉네임은 2~12글자로 입력해주세요." maxlength="12"
-                  class="join-txt-input">
-                  <font color="black"><form:errors path="nickname" /></font>
-            </div>
-         </div>
-         <div class="join-txt-wrap">
-            <div class="join-txt-cont">
-               <label class="join-txt-label" for="join-txt-birth">생년월일</label> <input
-                  name="birth" type="text" value="" placeholder="예) 19840411"
-                  class="join-txt-input" maxlength="8">
-                  <font color="black"><form:errors path="birth" /></font>
-               <div class="join-txt-warning join-birth-warning">생년월일을 다시
-                  확인해주세요.</div>
-            </div>
-         </div>
-         <div class="join-txt-wrap">
-            <div class="join-txt-cont">
-               <label class="join-txt-label" for="join-txt-phone">휴대폰번호</label> <input
-                  name="phone" type="tel" value="" placeholder="예) 01099849078"
-                  class="join-txt-input" maxlength="11">
-                  <font color="black"><form:errors path="phone" /></font>
-            </div>
-            <div class="join-txt-info">* 휴대폰 번호로 비밀번호 찾기 및 재설정을 하실 수 있습니다.</div>
-         </div>
-      </div>
-      <div class="join-btn-wrap">
-         <button title="가입하기" class="btn-join a-submit">가입하기</button>
-      </div>
-      <button title="닫기" class="btn-layer-close a-close">닫기</button>
-   </div>
-</form:form>
-	</div>
-	
-</div>
-
-	<!-- <div id="ch-plugin">
-		<div id="ch-plugin-script" style="display: none">
-			<iframe id="ch-plugin-script-iframe"
-				style="position: relative !important; height: 100% !important; width: 100% !important; border: none !important;"></iframe>
-		</div>
-		<div id="ch-plugin-core">
-
-		<div class="sc-eNNmBn cXBieY">
-			<div name="push-exit" width="45" height="45" size="24" class="sc-dnqmqq sc-cBrjTV iByMcc"></div>
-			<div class="sc-jUpvKA ccOxya">
-				<div size="34" class="sc-kGXeez kGMzSU"></div>
-				<div class="sc-fkyLDJ epSaPl">(알 수 없음)</div>
-				<div class="sc-iCwjlJ hRSOFL">9:00am</div>
-			</div>
-			<div class="sc-eopZyb bYeAnX">
-				<div class="sc-jRuhRL coGTKb">
-					<span class=""></span>
-				</div>
-			</div>
-		</div>
-		</div>
-		<div class="sc-eNNmBn cXBieY">
-		<div name="push-exit" width="45" height="45" size="24" class="sc-dnqmqq sc-cBrjTV iByMcc"></div>
-		<div class="sc-jUpvKA ccOxya"><div size="34" class="sc-kGXeez kGMzSU"></div>
-		<div class="sc-fkyLDJ epSaPl">(알 수 없음)</div>
-		<div class="sc-iCwjlJ hRSOFL">9:00am</div>
-		</div>
-		<div class="sc-eopZyb bYeAnX">
-		<div class="sc-jRuhRL coGTKb">
-		<span class=""></span>
-		</div>
-		</div></div></div> 
-</div>-->
 </body>
 </html>

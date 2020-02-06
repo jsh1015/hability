@@ -33,22 +33,21 @@ public class ListController {
       mav.addObject("classList",classList);
       return mav;
    }
-   
    @RequestMapping("detail")
-   public ModelAndView detail(int cl_num) {
-      ModelAndView mav = new ModelAndView();
-            
-      // 세부정보 넘겨줌
-      Class classDetail = service.classDetail(cl_num);
-      
-      // 옵션값 넘겨줌
-      List<Kit> kitList = service.kitList(cl_num);
-      // 옵션 개수
-      mav.addObject("kitcnt", kitList.size());      
-      mav.addObject("classDetail",classDetail);
-      mav.addObject("kitList", kitList);
-      return mav;
-   }
+	public ModelAndView detail(int cl_num) {
+		ModelAndView mav = new ModelAndView();
+
+		// 세부정보 넘겨줌
+		Class classDetail = service.classDetail(cl_num);
+
+		// 옵션값 넘겨줌
+		List<Kit> kitList = service.kitList(cl_num);
+		// 옵션 개수
+		mav.addObject("kitcnt", kitList.size());
+		mav.addObject("classDetail", classDetail);
+		mav.addObject("kitList", kitList);
+		return mav;
+	}
    
    @RequestMapping("magazine")
    public String magazine() {
