@@ -137,7 +137,7 @@
 					<li class="mymenu"><a href="javascript:mymenu('myinfo')" title="내 정보 관리" data-submenu="mymenu-myinfo" class="btn-mymenu myinfo">내 정보 관리</a></li>
 				</ul>
 			</div>
-			<a href="javascript:favorite('favorite')" title="취미 보관함" class="btn-favorite favorite">취미 보관함</a>
+			<a href="javascript:favorite()" title="취미 보관함" class="btn-favorite favorite">취미 보관함</a>
 		</div>
 		<!-- MyMenuSubMenu -->
 		<div class="mymenu-sub-wrap">
@@ -192,7 +192,7 @@
 					<a href="javascript:submymenu('favorite')" title="취미 클래스" data-submenu="class" class="btn-mymenu-sub mymenu-favorite sub-menu-class">취미 클래스</a>
 					</li>
 					<li class="mymenu-sub mymenu-sub-favorite" style="display: none;">
-					<a href="javascript:submymenu('magazine')" title="매거진" data-submenu="magazine" class="btn-mymenu-sub mymenu-magazine sub-menu-magazine">매거진</a>
+					<a href="javascript:submymenu('magazine')" title="매거진" data-submenu="magazine" class="btn-mymenu-sub mymenu-magazint sub-menu-magazine btn-mymenu-sub-on">매거진</a>
 					</li>
 				</ul>
 			</div>

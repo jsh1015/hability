@@ -14,9 +14,9 @@ function mymenu(str){
 	$(".mymenu-"+str).addClass("btn-mymenu-sub-on") //작은 메뉴나타내기(스타일적용)
 	$(".list-order,.list-address,.list-newaddress,.list-history,.list-review," +
 			".list-qna,.list-mileage,.list-coupon,.list-myinfo,.list-password," +
-			".list-exit,.list-favorite,.list-magazine,.list-favorite").hide()
+			".list-exit,.list-favorite,.list-magazine").hide()
 	$(".list-"+str).show()
-	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-favorite").css("display","none")
+	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-class").css("display","none")
 	$(".mymenu-sub-"+str).css("display","list-item")
 }
 function favorite(){
@@ -73,7 +73,6 @@ function submymenu(str){
 	$(".direct-ask-wrap").hide() //1:1문의
 	$(".edit-membership-wrap").hide()
 	$(".change-pw-wrap").hide()
-	$(".list-favorite").hide()
 	$(".quit-membership-wrap").hide()
 	$(".list-"+str).show()
 }

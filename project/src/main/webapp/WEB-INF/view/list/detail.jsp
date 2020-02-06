@@ -1,6 +1,7 @@
    <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,7 +109,7 @@
       </div>
       <div class="class-detail-wrap block" id="detail-explain">
          <div class="detail-explain-wrap c-editor s-classintro">
-            <p style="text-align: center;"><img src="${path}/img/${list.cl_info}"></p>
+            <p style="text-align: center;">${list.cl_info}</p>
             <p style="text-align: center;">&nbsp;</p>
 
             <p style="text-align: center;">&nbsp;</p>
@@ -118,7 +119,10 @@
       <div class="class-detail-wrap block" id="detail-intro">
          <div class="detail-explain-lecture-wrap">
             <p style="text-align: center">
-                 <img src="${path}/img/${list.cl_story}" style="max-width: 750px; width: 100%;" alt=""> 
+<!--                <img style="max-width: 750px; width: 100%;"
+                  src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/contents/52d5e3c0-dce9-11e8-b590-238f99ca8336-resize.png"
+                  alt=""> -->
+                  ${list.cl_story }
             </p>
          </div>
       </div>

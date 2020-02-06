@@ -113,7 +113,7 @@ function DaumPostcode() {
 					if ( rsp.success ) {
 						$.ajax({
 							type:'post',
-							url:'/project/order/order_success.shop',
+							url:'/hability_project/order/order_success.shop',
 							data:JSON.stringify({order_id : rsp.merchant_uid,
 								order_name:rsp.name,
 								order_price:rsp.paid_amount,
@@ -128,7 +128,7 @@ function DaumPostcode() {
 				    			msg += '카드 승인번호 : ' + rsp.apply_num;
 				    			alert(msg);
 				    			console.log(rsp.name+"/"+rsp.email)
-				    			location.href="/project/order/order_success.shop"
+				    			location.href="/hability_project/order/order_success.shop"
 							},
 							error: function(error){
 								console.log(error);

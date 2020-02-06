@@ -86,7 +86,7 @@ public class UserController {
 //					mav.setViewName("redirect:list/detail.shop");
 //				}
 				// /list/detail.shop?cl_num=1#login
-				return "<script>location.href=document.referrer;</script>";
+				return "<script>location.href=document.referrer; history.go(-1);</script>";
 			}
 		}catch(EmptyResultDataAccessException e) {
 			//e.printStackTrace();
