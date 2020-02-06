@@ -101,7 +101,7 @@
 					</c:if>
 					<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.emailid ne 'admin@naver.com'}">
 						<li class="gnb gnb-logout" style="display: list-item;">
-							<a href="logout.shop" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
+							<a href="${path}/user/logout.shop" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
 						</li>
 						<li class="gnb gnb-favorite" style="display: list-item;">
 							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}&m=hobby" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
