@@ -24,6 +24,23 @@ $(document).ready(function(){
 		})
 	})
 	
+	// 리뷰 작성 전 혜택 안내 시작
+	$(".showreview").click(function() {
+		$('.review').show()
+		$(".wrap").addClass('layer-on2 popup-on')
+		$.ajax({
+			url : "../user/review.shop",
+			success : function(data) {
+				$(".review").html(data);
+			}
+		})
+	}) 
+
+	// 리뷰 작성 전 취소
+	$('.review').on('click', '.reviewclose', function() {
+		$(".wrap").removeClass('layer-on2 popup-on')
+	})
+	
 	//모달 닫기
 	$('.modal').on('click','.a-close',function(){
 		$("body").css("overflow","auto")
@@ -56,6 +73,18 @@ $(document).ready(function(){
 			url:"../user/userEntry.shop",
 			success:function(data){
 				$(".userEntry").html(data);
+			}
+		})
+	}).on('click', '.showreviewWrite', function() {
+		$(".wrap").removeClass('layer-on2 popup-on')
+		$('body').addClass('on-popup')
+		$(".wrap").addClass('layer-on write-reply-on')
+		$('.modal').hide()
+		$(".reviewWrite").show()
+		$.ajax({
+			url : "../user/reviewWrite.shop",
+			success : function(data) {
+				$(".reviewWrite").html(data);
 			}
 		})
 	})

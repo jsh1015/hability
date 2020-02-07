@@ -13,6 +13,8 @@
 		<pattern>/user/userEntry*</pattern>
 		<pattern>/user/login*</pattern>
 		<pattern>/user/join*</pattern>
+		<pattern>/user/review*</pattern>
+		<pattern>/user/reviewWrite*</pattern>
 		<pattern>/ajax/*</pattern>
 	</excludes>
 </decorators>

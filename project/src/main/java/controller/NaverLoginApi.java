@@ -1,4 +1,4 @@
-package com.test.tst;
+package controller;
 import com.github.scribejava.core.builder.api.DefaultApi20;
 public class NaverLoginApi extends DefaultApi20{
 protected NaverLoginApi(){
@@ -18,4 +18,3 @@ protected String getAuthorizationBaseUrl() {
 return "https://nid.naver.com/oauth2.0/authorize";
 }
 }
-

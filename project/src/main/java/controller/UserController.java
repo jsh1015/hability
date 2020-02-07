@@ -1,11 +1,15 @@
 package controller;
 
+import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonNode;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -15,10 +19,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
 import exception.LoginException;
+import logic.Mileage;
 import logic.Postaddr;
 import logic.ShopService;
 import logic.ShopService_pr;
@@ -27,6 +36,10 @@ import logic.User;
 @Controller //@Component + Controller : 객체를 만들고 컨트롤러의 기능까지 같이 수행
 @RequestMapping("user") //user/xxx.shop
 public class UserController {
+	@Autowired
+	private NaverController naverController;
+
+	private String apiResult = null;
 	@Autowired
 	private ShopService service;
 	
@@ -38,64 +51,137 @@ public class UserController {
 		model.addAttribute(new User());
 		return null;
 	}
+	// 회원 등록
 	@PostMapping("userEntry")
-	public ModelAndView userEntry(@Valid User user, BindingResult bresult, HttpSession session) throws Exception{
+	public ModelAndView userEntry(@Valid User user, BindingResult bresult, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		if(bresult.hasErrors()) {
+		if (bresult.hasErrors()) {
 			bresult.reject("error.input.user");
 			mav.getModel().putAll(bresult.getModel());
 			return mav;
 		}
-		//useraccount 테이블에 내용 등록. 뷰단은 login.jsp로 이동
+		// useraccount 테이블에 내용 등록. 뷰단은 login.jsp로 이동
 		try {
 			service.userInsert(user);
-			service.mileageInsert(user.getEmailid(), "회원가입 포인트", 1000);
+			// 회원 가입 적립금 지급(아이디, 내역, 포인트, 타입(1: 적립, 2: 사용)
+			service.mileageInsert(user.getEmailid(), "회원가입 포인트", 1000, 1);
+			// 회원 적립금 내역 업데이트
 			service.mileageupdate(user.getEmailid());
 			User dbUser = service.getUser(user.getEmailid());
-			session.setAttribute("loginUser",dbUser);
+
+			// 회원 가입 성공 후 자동 로그인 처리
+			session.setAttribute("loginUser", dbUser);
 			mav.setViewName("redirect:main.shop");
 			// mav.setViewName("user/login"); //redirect 를 사용하면 아이디값이 들어가지 않음
-		}catch(DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
 			bresult.reject("error.duplicate.user");
 		}
 		return mav;
 	}
-	@PostMapping("login")
-	@ResponseBody //리턴값을 view를 통해서 출력하지 않고 body에 사용
-	public String login(@Valid User user,BindingResult bresult, HttpServletRequest request, HttpSession session) throws Exception{
+
+	@RequestMapping("reviewWrite")
+	public ModelAndView reviewWrite(User user, BindingResult bresult, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		try {
-			if(user.getEmailid() == null || user.getEmailid().isEmpty())
-			{
-				throw new LoginException("아이디를 확인해주세요","");				
-			}
-			User dbUser = service.getUser(user.getEmailid());
-			if(user.getPass() == null || user.getPass().isEmpty())
-			{
-				throw new LoginException("비밀번호를 확인해주세요","");				
-			}
-			else if(!dbUser.getEmailid().equals(user.getEmailid()) || !dbUser.getPass().equals(user.getPass())) {
-				throw new LoginException("아이디/비밀번호를 확인해주세요","");
-			}
-			else {
-				session.setAttribute("loginUser",dbUser);
-//				int cl_num = Integer.parseInt(request.getParameter("cl_num"));
-//				System.out.println("list에서 로그인하면"+cl_num);
-//				if(cl_num >= 1) {
-//					mav.setViewName("redirect:list/detail.shop");
-//				}
-				// /list/detail.shop?cl_num=1#login
-				return "<script>location.href=document.referrer;</script>";
-			}
-		}catch(EmptyResultDataAccessException e) {
-			//e.printStackTrace();
-			bresult.reject("error.login.emailid");
-		}
+		return mav;
+	}
+
+	@RequestMapping(value = { "login.shop", "join.shop" }, method = RequestMethod.GET)
+	public String login(HttpSession session) {
+		String naverAuthUrl = NaverController.getAuthorizationUrl(session);
+		String kakaoUrl = KakaoController.getAuthorizationUrl(session);
+		session.setAttribute("naver_url", naverAuthUrl);
+		session.setAttribute("kakao_url", kakaoUrl);
 		return null;
 	}
 
-	
+	@RequestMapping("kakao_callback")
+	public String kakao_callback(@RequestParam String code, HttpSession session) throws IOException, ParseException
+	{
+		ModelAndView mav = new ModelAndView();
+		// 결과값을 node에 담아줌
+		JsonNode node = KakaoController.getAccessToken(code);
+		// accessToken에 사용자의 로그인한 모든 정보가 들어있음
+		JsonNode accessToken = node.get("access_token");
+		// 사용자의 정보
+		JsonNode userInfo = KakaoController.getKakaoUserInfo(accessToken);
+		String emailid = null;
+		String nickname = null;
+		String userimg = null;
+		// 유저정보 카카오에서 가져오기 Get properties
+		JsonNode properties = userInfo.path("properties");
+		JsonNode kakao_account = userInfo.path("kakao_account");
+		emailid = kakao_account.path("email").asText();
+		nickname = properties.path("nickname").asText();
+		userimg = properties.path("profile_image").asText();
+		mav.addObject("result", apiResult);
+		if (service.getUser(emailid) == null) {
+			service.kakaoInsert(emailid, nickname, userimg);
+			// 회원 가입 적립금 지급
+			service.mileageInsert(emailid, "회원가입 포인트", 1000, 1);
+			// 회원 적립금 내역 업데이트
+			service.mileageupdate(emailid);
+		}
+		User dbUser = service.getUser(emailid);
+
+		// 회원 가입 성공 후 자동 로그인 처리
+		session.setAttribute("loginUser", dbUser);
+		mav.setViewName("redirect:main.shop");
+		return "/user/main";
+	}
+
+	@RequestMapping("naver_callback")
+	public String naver_callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("여기는 callback");
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverController.getAccessToken(session, code, state);
+		apiResult = naverController.getUserProfile(oauthToken);
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+		String nickname = (String) response_obj.get("nickname");
+		String emailid = (String) response_obj.get("email");
+		String name = (String) response_obj.get("name");
+		String profile_image = (String) response_obj.get("profile_image");
+		session.setAttribute("nickname", nickname);
+		mav.addObject("result", apiResult);
+		if (service.getUser(emailid) == null) {
+			service.naver_insert(emailid, name, nickname, profile_image);
+			// 회원 가입 적립금 지급
+			service.mileageInsert(emailid, "회원가입 포인트", 1000, 1);
+			// 회원 적립금 내역 업데이트
+			service.mileageupdate(emailid);
+		}
+		User dbUser = service.getUser(emailid);
+
+		// 회원 가입 성공 후 자동 로그인 처리
+		session.setAttribute("loginUser", dbUser);
+		mav.setViewName("redirect:main.shop");
+		return "/user/main";
+	}
+
+	@PostMapping("login")
+	   @ResponseBody //리턴값을 view를 통해서 출력하지 않고 body에 사용
+	   public String login(@Valid User user,BindingResult bresult, HttpSession session) throws Exception{
+	      try {
+				User dbUser = service.getUser(user.getEmailid());
+	         if(!dbUser.getEmailid().equals(user.getEmailid()) || !dbUser.getPass().equals(user.getPass())) {
+	            throw new LoginException("아이디/비밀번호를 확인해주세요","");
+	         }
+	         else {
+	            session.setAttribute("loginUser",dbUser);
+	            return "<script>location.href=document.referrer;</script>";
+	         }
+	      }catch(EmptyResultDataAccessException e) {
+	         //e.printStackTrace();
+	         bresult.reject("error.login.emailid");
+	      }
+	      return null;
+	   }
+
+	// 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -113,7 +199,17 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		
 		User user = service.getUser(emailid);
+		
+		int total_point = service.total_point(emailid);
+		int use_point = service.use_point(emailid);
+		int now_point = total_point - use_point;
+		List<Mileage> mileagelist = service.mileagelist(emailid);
+
 		mav.addObject("user", user);
+		mav.addObject("total_point", total_point);
+		mav.addObject("use_point", use_point);
+		mav.addObject("now_point", now_point);
+		mav.addObject("mileagelist", mileagelist);
 		mav.addObject(new Postaddr()); // 빈 객체를 전달
 
 		// 등록한 배송지 목록 조회

@@ -214,10 +214,10 @@
 			</div>
 		</div>
 	</footer>
-	<div class="layer-wrap popup-wrap" id="popup-wrap">
+<!-- 	<div class="layer-wrap popup-wrap" id="popup-wrap">
 		<div class="bg-layer-wrap" onclick="Popup.hide();"></div>
 	</div>
-
+ -->
 </div>
 
 </body>

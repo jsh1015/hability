@@ -151,18 +151,39 @@
 		<!-- 인사 박스 -->
 		<div class="hf-info-wrap">
 			<div class="hf-info-cont">
-				<div class="hf-info-txt">
-					<a href="/mypage.html">
+				<c:if test="${!empty sessionScope.loginUser}">
+				<div class="hf-info-txt">				
+					<a href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}">
 						<div class="photo-thumb block">
+						<!-- DB에 저장된 userimg 없는 경우 -->
+						<c:if test="${empty sessionScope.loginUser.userimg}">						
 							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6152530793205171" onerror="this.src='../static/img/ico-profile.svg'">
+						</c:if>
+						
+						<!-- DB에 저장된 userimg -->
+						<c:if test="${!empty sessionScope.loginUser.userimg}">
+							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6152530793205171" onerror="this.src='../static/img/ico-profile.svg'">
+						</c:if>
 						</div>
 					</a>
-					안녕하세요 
-					<a class="bold underline" style="color: #11447B" href="/mypage.html">${sessionScope.loginUser.nickname}</a>님,
+					안녕하세요
+					<a class="bold underline" style="color: #11447b" href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}">${sessionScope.loginUser.nickname}</a>님,
 					<br>아직 구독중인 취미가 없으시군요!
-					<br>하비풀과 함께 원하는 취미를 찾아보세요.
+					<br>하빌리티와 함께 원하는 취미를 찾아보세요.
 				</div>
-				<a href="/class.html" class="btn-hf-info" title="취미 클래스 둘러보기">취미 클래스 둘러보기</a>
+				<a href="${path}/list/hobbyClass.shop" class="btn-hf-info" title="취미 클래스 둘러보기">취미 클래스 둘러보기</a>
+				</c:if>
+				<c:if test="${empty sessionScope.loginUser}">
+				<div class="hf-info-txt">	
+					<div class="photo-thumb block">
+						<img src="${path}/img/basic.png">
+					</div>
+					안녕하세요!
+					<br>일상에서 취미를 만나는 가장 쉬운 방법 하빌리티!
+					<br>지금 함께 알아볼까요?
+				</div>
+				<a href="${path}/list/service.shop" class="btn-hf-info" title="하비풀 소개">서비스 이용안내</a>
+				</c:if>
 			</div>
 		</div>
 	</div>

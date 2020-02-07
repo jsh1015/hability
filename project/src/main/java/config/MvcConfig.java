@@ -20,10 +20,12 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.test.tst.NaverLoginBO;
+import controller.KakaoController;
+import controller.NaverController;
+
 
 @Configuration	//스프링 환경설정 클래스. xml 대체하는 클래스
-@ComponentScan(basePackages= {"controller","logic","dao","aop", "com.test.tst"}) 
+@ComponentScan(basePackages= {"controller","logic","dao","aop"}) 
 @EnableAspectJAutoProxy //AOP설정
 @EnableWebMvc //유효성검증
 public class MvcConfig implements WebMvcConfigurer{
@@ -65,10 +67,16 @@ public class MvcConfig implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public NaverLoginBO naverLoginBO()
+	public NaverController naverController()
 	{
-		NaverLoginBO nbo = new NaverLoginBO();
-		return nbo;
-		
+		NaverController nc = new NaverController();
+		return nc;
 	}
+	@Bean
+	public KakaoController kakaoController()
+	{
+		KakaoController kc = new KakaoController();
+		return kc;
+	}
+
 }

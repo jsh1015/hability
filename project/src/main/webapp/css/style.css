@@ -556,10 +556,9 @@ z-index 정리
 	.join-txt-cont:first-child { border-top:1px solid #EAEAEA; }
 	.join-txt-cont .awesomplete { display:block; }
 	.join-thumb-wrap { position:relative; padding:20px 0; }
-	.join-thumb { width:58px; height:58px; margin:0 auto; background:#DFDFDF url('../img/bg-add-thumb.png') center center no-repeat; background-size:58px 58px; border-radius:58px 58px; overflow:hidden; }
+	.join-thumb { width:58px; height:58px; margin:0 auto; background:#DFDFDF url('https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6152530793205171') center center no-repeat; background-size:58px 58px; border-radius:58px 58px; overflow:hidden; }
 	.thumb-join { display:block; width:100%; }
-	.label-add-thumb2 { display:block; position:absolute; top:20px; left:50%; width:58px; height:58px; margin-left:-29px; font-size:0; background:url('../img/btn-add-thumb.png') right bottom no-repeat; background-size:18px 18px; text-indent:-9999em; overflow:hidden; }
-	.btn-add-thumb { display:block; height:0; overflow:hidden; }
+.label-add-thumb2 { display:block; position:absolute; top:20px; left:50%; width:58px; height:58px; margin-left:-29px; font-size:0; background:url('../img/puls.png') right bottom no-repeat; background-size:18px 18px; text-indent:-9999em; overflow:hidden; }	.btn-add-thumb { display:block; height:0; overflow:hidden; }
 	.join-txt-label { display:block; position:absolute; top:10px; left:14px; width:73px; color:#BABABA; font-size:12px; vertical-align:middle; letter-spacing:-0.1px; }
 	.join-txt-input { display:block; width:100%; color:#2f3338; font-size:12px; letter-spacing:-0.3px; vertical-align:middle; }
 	.join-txt-warning { display:none; color:#11447B; font-size:12px; letter-spacing:-0.1px; }
