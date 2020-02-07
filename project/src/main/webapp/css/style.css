@@ -1710,10 +1710,10 @@ ul.list-product.s-vertical li.row > ul.columns { position:relative; height:70px;
 ul.list-product.s-vertical li.row > ul.columns > li { position:absolute; }
 ul.list-product.s-vertical .c-thumb { top:0; left:0; }
 ul.list-product.s-vertical .c-thumb img { width:70px; height:70px; }
-ul.list-product.s-vertical .c-name { top:0; left:81px; font-size:14px; color:#4a4a4a; font-weight:600; }
-ul.list-product.s-vertical .c-options { top:20px; left:81px; font-size:11px; color:#999; }
+ul.list-product.s-vertical .c-name { top:0; left:81px; font-size:16px; color:#4a4a4a; font-weight:600; }
+ul.list-product.s-vertical .c-options { top:20px; left:81px; font-size:13px; color:#999; }
 ul.list-product.s-vertical .c-status { top:38px; left:81px; font-size:11px; color:#11447B; }
-ul.list-product.s-vertical .c-quantity { bottom:0; left:81px; font-size:10px; color:#a1a4a8; }
+ul.list-product.s-vertical .c-quantity { bottom:0; left:81px; font-size:11px; color:#a1a4a8; }
 ul.list-product.s-vertical .c-price { bottom:0; right:0; font-weight:900; font-size:18px; color:#4a4a4a; }
 ul.list-product.s-vertical .c-price .i-won { font-size:14px; }
 ul.list-product.s-vertical .c-price s { color: #afafaf; font-size:11px; font-weight:normal; }
@@ -1873,10 +1873,10 @@ ul.list-product.s-vertical li.row.s-soldout .c-name { text-decoration:line-throu
 .hfc-modal .hfe-orderinfo .i-price-sale .i-price-installment { font-size:12px; color:#2a2c34; font-weight:900; }
 .hfc-modal .hfe-orderinfo .i-price-sale .i-price-installment .i-num { color:#2a2c34; font-size:18px; }
 .hfc-modal .hfe-orderinfo .i-price-sale .i-price-installment .i-installment { color : #949494; font-weight: normal; }
-.hfc-modal .hfe-orderinfo .i-price-sale .i-num { color:#ff5b57; font-size:16px; }
-.hfc-modal .hfe-btn-group { display:flex; -ms-display:flexbox; border-top:1px #ff5b57 solid; }
-.hfc-modal .hfe-btn-group button { height:54px; font-size:14px; background:#fff; color:#ff5b57; }
-.hfc-modal .hfe-btn-group button.s-active { background:#ff5b57; color:#fff; }
+.hfc-modal .hfe-orderinfo .i-price-sale .i-num { color:#11447B; font-size:16px; }
+.hfc-modal .hfe-btn-group { display:flex; -ms-display:flexbox; border-top:1px #11447B solid; }
+.hfc-modal .hfe-btn-group button { height:54px; font-size:14px; background:#fff; color:#11447B; }
+.hfc-modal .hfe-btn-group button.s-active { background:#11447B; color:#fff; }
 .hfc-modal .hfe-btn-group button.s-w3 { flex:0.3; -ms-flex:0.3; }
 .hfc-modal .hfe-btn-group button.s-w4 { flex:0.4; -ms-flex:0.4; }
 .hfc-modal .hfe-btn-group button.s-w45 { flex:0.45; -ms-flex:0.5; }
@@ -1900,7 +1900,7 @@ ul.list-product.s-vertical li.row.s-soldout .c-name { text-decoration:line-throu
 .hfb-categorySlideList li a .i-img img { width:100%; transition:transform 1s; }
 .hfb-categorySlideList li:hover a .i-img img { transform:scale(1.06); }
 .hfb-categorySlideList li a .i-desc { margin:10px 0 4px 0; font-size:12px; }
-.hfb-categorySlideList li a .i-desc .i-type { color:#ff6561; }
+.hfb-categorySlideList li a .i-desc .i-type { color:#11447B; }
 .hfb-categorySlideList li a .i-desc .i-seller { color:#999; }
 .hfb-categorySlideList li a .i-name { height:50px; font-size:16px; color:#222; }
 .hfb-categorySlideList .f-nav { display:none; outline: none; }

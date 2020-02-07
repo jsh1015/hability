@@ -14,7 +14,7 @@ function mymenu(str){
 	$(".mymenu-"+str).addClass("btn-mymenu-sub-on") //작은 메뉴나타내기(스타일적용)
 	$(".list-order,.list-address,.list-newaddress,.list-history,.list-review," +
 			".list-qna,.list-mileage,.list-coupon,.list-myinfo,.list-password," +
-			".list-exit,.list-favorite,.list-magazine").hide()
+			".list-exit,.list-favorite,.list-magazine, .list-addrupdate").hide()
 	$(".list-"+str).show()
 	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-favorite").css("display","none")
 	$(".mymenu-sub-"+str).css("display","list-item")
@@ -26,7 +26,7 @@ function favorite(){
 	$(".mymenu-sub-favorite").css("display","list-item") //세부탭 보여지게하는 부분
 	$(".list-order,.list-address,.list-newaddress,.list-history,.list-review," +
 			".list-qna,.list-mileage,.list-coupon,.list-myinfo,.list-password," +
-			".list-exit,.list-favorite,.list-magazine").hide()
+			".list-exit,.list-favorite,.list-magazine, .list-addrupdate").hide()
 	$(".list-favorite").show()
 }
 function submymenu(str){
@@ -57,6 +57,7 @@ function submymenu(str){
 		$(".sub-tab-wrap-review").removeClass("block")
 		$(".sub-tab-wrap-history").removeClass("block")
 		$(".cont-review").css("display","none")
+		$('.postList').css('display', 'block')
 	}
 	$(".btn-mymenu-sub-on").removeClass("btn-mymenu-sub-on")
 	$(".mymenu-"+str).addClass("btn-mymenu-sub-on")

@@ -32,11 +32,87 @@
 			submymenu('newaddress');
 		}
 	})
- </script>
+	
+	function fnpo_addr() {
+		f = document.po_addr;
+		if(f.po_name.value =="") {
+			document.getElementById("po_name_check").innerHTML = "배송지명을 입력해주세요";
+			document.getElementById("po_name_check").style.color = "#11447B";
+			f.po_name.focus();
+			return false;
+		}
+		if(f.po_client.value =="") {
+			document.getElementById("po_client_check").innerHTML = "수령인을 입력해주세요";
+			document.getElementById("po_client_check").style.color = "#11447B";
+			f.po_client.focus();
+			return false;
+		}
+		var phone = $(".po_phone").val();
+		if(f.po_phone.value =="" || isNaN(phone)) {
+			document.getElementById("po_phone_check").innerHTML = "(-) 제외, 숫자만 입력해주세요";
+			document.getElementById("po_phone_check").style.color = "#11447B";
+			f.po_phone.focus();
+			return false;
+		}
+		var phone2 = $(".po_phone2").val();
+		if(isNaN(phone2)) {
+			document.getElementById("po_phone2_check").innerHTML = "(-) 제외, 숫자만 입력해주세요";
+			document.getElementById("po_phone2_check").style.color = "#11447B";
+			f.po_phone2.focus();
+			return false;
+		}
+		if(f.po_postcode.value =="") {
+			document.getElementById("po_postcode_check").innerHTML = "우편번호를 입력해주세요";
+			document.getElementById("po_postcode_check").style.color = "#11447B";
+			f.po_postcode.focus();
+			return false;
+		}
+		if(f.po_addr_main.value =="") {
+			document.getElementById("po_addr_main_check").innerHTML = "주소를 입력해주세요";
+			document.getElementById("po_addr_main_check").style.color = "#11447B";
+			f.po_addr_main.focus();
+			return false;
+		}
+		if(f.po_addr_sub.value =="") {
+			document.getElementById("po_addr_sub_check").innerHTML = "상세주소를 입력해주세요";
+			document.getElementById("po_addr_sub_check").style.color = "#11447B";
+			f.po_addr_sub.focus();
+			return false;
+		}
+		f.submit();
+	}
+  	
+	function fnpo_addr_update(po_num, f) {
+		var phone = $(".po_phone"+po_num).val();
+		if(f.po_phone.value =="" || isNaN(phone)) {
+			document.getElementById("po_phone_check"+po_num).innerHTML = "(-) 제외, 숫자만 입력해주세요";
+			document.getElementById("po_phone_check"+po_num).style.color = "#11447B";
+			f.po_phone.focus();
+			return false;
+		}
+		f.submit();
+	}
+  
+	function addrDeletemodal(po_num) {
+		$(".addrDeleteModal").show();
+		
+		$.ajax({
+			type : "POST",
+			// 요청한 url
+			url : "../ajax/addrDeleteModal.shop", // shop이니까 controller작동하고
+			data : {
+				"po_num" : po_num // request로 요청하면 넘어갈 값
+				},
+			success : function(data) {
+				$(".addrDeleteModal").html(data);
+			}
+		})
+	}
+</script>
  <!-- 우편번호 > 주소 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function DaumPostcode() {
+    function DaumPostcode(type) {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -52,7 +128,6 @@
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }
-
                 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
                 if(data.userSelectedType === 'R'){
                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -69,17 +144,16 @@
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
+                    document.getElementById("extraAddress"+type).value = extraAddr;
                 
                 } else {
-                    document.getElementById("extraAddress").value = '';
+                    document.getElementById("extraAddress"+type).value = '';
                 }
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('po_postcode').value = data.zonecode;
-                document.getElementById("po_addr_main").value = addr;
+                document.getElementById('po_postcode'+type).value = data.zonecode;
+                document.getElementById("po_addr_main"+type).value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("po_addr_sub").focus();
+                document.getElementById("po_addr_sub"+type).focus();
             }
         }).open();
     }
@@ -120,7 +194,7 @@
 				</li>
 				<li class="my-info">
 				<span class="my-info-tit">마일리지</span>
-				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point">${sessionScope.loginUser.mileage}p</strong></a>
+				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point"><fmt:formatNumber value="${sessionScope.loginUser.mileage}" pattern="##,###" />p</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -291,29 +365,23 @@
 			</div>
 	<!-- 배송지관리 -->
 			<!-- 배송지목록 -->
-			<div class="delivery-list-wrap list-address">
 			<script>
-				function addrDelete(po_num) {
-					alert("반응하니?");
-					$(".addrDeleteModal").show();
-					
-					$.ajax({
-						type : "POST",
-						// 요청한 url
-						url : "../ajax/addrDeleteModal.shop", // shop이니까 controller작동하고
-						data : {
-							// request로 요청하면 넘어갈 값
-							"po_num" : po_num
-							},
-						success : function(data) {
-							$(".addrDeleteModal").html(data);
+				var postListCnt = '<c:out value="${postListCnt}" />';
+				
+				function addrupdate(po_num) {
+					//alert("반응해?");
+ 					for(var i=1; i<=10000000; i++) {
+						if(po_num == i) {
+							$('#post'+i).css('display', 'block');
+							$('.postList').css('display', 'none');
 						}
-					})
+ 					}
 				}
 			</script>
+			<div class="delivery-list-wrap list-address">
 			<c:if test="${postListCnt >0}">
 				<c:forEach items="${postList}" var="post" varStatus="stat">
-				<div class="delivery-list-cont">
+				<div class="postList delivery-list-cont">
 					<div class="delivery-list-title">${post.po_name}</div>
 					<div class="delivery-list-area delivery-list-name">
 						<div class="delivery-list-tit">수령인</div>
@@ -328,13 +396,97 @@
 						<div class="delivery-list-txt">(${post.po_postcode}) ${post.po_addr_main} ${post.po_addr_sub}</div>
 					</div>
 					<div class="delivery-list-btn">
-						<a href="javascript:submymenu('addrupdate'+${post.po_num})" title="수정" data-arr-idx="0" class="btn-delivery-list edit-address-btn">수정</a>
-						<a href="javascript:addrDelete(${post.po_num})" title="삭제" data-address-id="12843" class="btn-delivery-list delete-address-btn">삭제</a>
+						<a href="javascript:addrupdate(${post.po_num})" title="수정" class="btn-delivery-list edit-address-btn">수정</a>
+						<a href="javascript:addrDeletemodal(${post.po_num})" title="삭제" class="btn-delivery-list delete-address-btn">삭제</a>
 					</div>
 				</div>
-				</c:forEach>
-				<div class="modal fade addrDeleteModal" id="addrDeleteModal" role="dialog" style="display:none">
+		<!-- 배송지 수정 -->
+		<form action="po_addr_update.shop" method="post">
+			<input type="hidden" value="${post.po_num}" name="po_num">
+			<input type="hidden" value="click_addr_update" name="click_addr_update">
+			<div id="post${post.po_num}" class="edit-delivery-wrap list-newaddress" style="display:none">
+				<div class="edit-delivery-cont">
+					<table class="edit-delivery-table" summary="배송지 입력 테이블">
+						<tbody>
+							<tr><th class="th-edit-delivery">배송지명</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<input type="text" class="input delivery address-name" name="po_name" value="${post.po_name}" autocomplete="off">
+										</span>
+									</div>
+									<div id="po_name_check2"></div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">수령자명</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<input type="text" name="po_client" class="input" size="40" value="${post.po_client}" autocomplete="off"/>
+										</span>
+									</div>
+									<div id="po_client_check${post.po_num}"></div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">휴대전화</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<input type="text" name="po_phone" class="input po_phone${post.po_num}" value="${post.po_phone}" autocomplete="off"/>
+										</span>
+									</div>
+									<div id="po_phone_check${post.po_num}"></div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type02">
+											<input type="text" name="po_phone2" class="input po_phone2${post.po_num}" value="${post.po_phone2}" autocomplete="off" />
+										</span>
+									</div>
+									<div id="po_phone2_check${post.po_num}"></div>
+								</td>
+							</tr>
+							<tr><th class="th-edit-delivery">주소</th>
+								<td class="td-edit-delivery">
+									<div class="edit-delivery-area">
+										<span class="input-wrap input-type04">
+											<input type="text" name="po_postcode" id="po_postcode${post.po_num}" class="input new-address-zipcode" value="${post.po_postcode}" autocomplete="off"/>
+ 										</span>
+										<input type="button" onclick="DaumPostcode(${post.po_num})" class="btn-post-num get-zipcode" value="우편번호"><br>
+										<div id="po_postcode_check2"></div>
+									</div>
+									<div class="edit-delivery-area inline-45">
+										<span class="input-wrap">
+											<input type="text" name="po_addr_main" id="po_addr_main${post.po_num}" class="input new-address" value="${post.po_addr_main}" autocomplete="off"/>
+	 									</span>
+	 									<div id="po_addr_main_check${post.po_num}"></div>
+									</div>
+									<div class="edit-delivery-area inline-45">
+										<span class="input-wrap">
+											<input type="text" name="po_addr_sub" id="po_addr_sub${post.po_num}" class="input new-address" value="${post.po_addr_sub}" autocomplete="off"/>
+		 									<div id="po_addr_sub_check${post.po_num}"></div>
+		 								</span>
+									</div>
+									<div class="edit-delivery-area">
+										<!-- <input type="checkbox" id="basic-delivery" class="btn-join-agree">
+										<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label> -->
+									</div>
+									<input type="hidden" id="extraAddress${post.po_num}">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="edit-delivery-btn">
+						
+						<button class="btn-edit-delivery register-address" type="button" onclick="fnpo_addr_update(${post.po_num},this.form)">배송지 수정하기</button>
+					</div>
 				</div>
+			</div>
+			</form>
+				</c:forEach>
+				<div class="modal fade addrDeleteModal" id="addrDeleteModal" role="dialog" style="display:none"></div>
 			</c:if>
 			<c:if test="${postListCnt ==0}">
 			<div class="no-view-wrap">
@@ -345,87 +497,71 @@
 			</c:if>
 			</div>
 		<!-- 새배송지 추가 -->
-			<form:form modelAttribute="postaddr" action="po_addr.shop" method="post">
+			<form name="po_addr" action="po_addr.shop" method="post">
 			<input type="hidden" name="addrclick" value="addrclick" >
-			<%-- <input type="hidden" value="${param.emailid}" name="emailid"> --%>
 			<div class="edit-delivery-wrap list-newaddress" style="display:none">
 				<div class="edit-delivery-cont">
 					<table class="edit-delivery-table" summary="배송지 입력 테이블">
-						<!-- <colgroup>
-							<col class="th-edit-delivery">
-							<col class="td-edit-delivery">
-						</colgroup> -->
 						<tbody>
 							<tr><th class="th-edit-delivery">배송지명</th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type02">
-											<!-- <input type="text" class="input delivery address-name" value=""> -->
-											<form:input path="po_name" class="input delivery address-name" />
-											<font color="red">
-												<form:errors path="po_name" />
-											</font>
-											<!-- <script>
-											   if ('<form:errors path='po_name' />' != '') {
-											    	alert('<form:errors path='po_name' />');
-											   }
-											</script> -->
+											<input type="text" class="input delivery address-name" name="po_name" value="" autocomplete="off">
 										</span>
 									</div>
+									<div id="po_name_check"></div>
 								</td>
 							</tr>
 							<tr><th class="th-edit-delivery">수령자명</th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type02">
-											<form:input path="po_client" class="input" size="40" />
-											<font color="red">
-												<form:errors path="po_client" />
-											</font>
+											<input type="text" name="po_client" class="input" size="40" autocomplete="off" />
 										</span>
 									</div>
+									<div id="po_client_check"></div>
 								</td>
 							</tr>
 							<tr><th class="th-edit-delivery">휴대전화</th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type02">
-											<form:input path="po_phone" class="input" />
-											<font color="red">
-												<form:errors path="po_phone" />
-											</font>
+											<input type="text" name="po_phone" class="input po_phone"autocomplete="off" />
 										</span>
 									</div>
+									<div id="po_phone_check"></div>
 								</td>
 							</tr>
 							<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type02">
-											<form:input path="po_phone2" class="input" />
-										 	<font color="red">
-												<form:errors path="po_phone2" />
-											</font>
+											<input type="text" name="po_phone2" class="input po_phone2" autocomplete="off" />
 										</span>
 									</div>
+									<div id="po_phone2_check"></div>
 								</td>
 							</tr>
 							<tr><th class="th-edit-delivery">주소</th>
 								<td class="td-edit-delivery">
 									<div class="edit-delivery-area">
 										<span class="input-wrap input-type04">
-											<form:input path="po_postcode" id="po_postcode" class="input new-address-zipcode" value="" placeholder="우편번호" />
+											<input type="text" name="po_postcode" id="po_postcode" class="input new-address-zipcode" value="" placeholder="우편번호" autocomplete="off" />
  										</span>
-										<input type="button" onclick="DaumPostcode()" class="btn-post-num get-zipcode" value="우편번호"><br>
+										<input type="button" onclick="DaumPostcode('')" class="btn-post-num get-zipcode" value="우편번호"><br>
+										<div id="po_postcode_check"></div>
 									</div>
 									<div class="edit-delivery-area inline-45">
 										<span class="input-wrap">
-											<form:input path="po_addr_main" id="po_addr_main" class="input new-address" value="" placeholder="주소" />
+											<input type="text" name="po_addr_main" id="po_addr_main" class="input new-address" value="" placeholder="주소" autocomplete="off" />
 	 									</span>
+	 									<div id="po_addr_main_check"></div>
 									</div>
 									<div class="edit-delivery-area inline-45">
 										<span class="input-wrap">
-											<form:input path="po_addr_sub" id="po_addr_sub" class="input new-address" value="" placeholder="상세주소" />
+											<input type="text" name="po_addr_sub" id="po_addr_sub" class="input new-address" value="" placeholder="상세주소" autocomplete="off" />
+		 									<div id="po_addr_sub_check"></div>
 		 								</span>
 									</div>
 									<div class="edit-delivery-area">
@@ -438,112 +574,12 @@
 						</tbody>
 					</table>
 					<div class="edit-delivery-btn">
-						<!-- <a href="#link" title="배송지 추가하기" class="btn-edit-delivery register-address">배송지 추가하기</a> -->
-						<!-- <button onclick="submit" class="btn-edit-delivery register-address">배송지 추가하기</button> -->
-						<input type="submit" class="btn-edit-delivery register-address" value="배송지 추가하기">
+						
+						<button class="btn-edit-delivery register-address" type="button" onclick="fnpo_addr()">배송지 추가하기</button>
 					</div>
 				</div>
 			</div>
-			</form:form>
-		<!-- 배송지 수정 -->
-			<form:form modelAttribute="postaddr" action="po_addr.shop" method="post">
-			<%-- <input type="hidden" value="${param.emailid}" name="emailid"> --%>
-			<div class="edit-delivery-wrap list-addrupdate" style="display:none">
-				<div class="edit-delivery-cont">
-					<table class="edit-delivery-table" summary="배송지 입력 테이블">
-						<!-- <colgroup>
-							<col class="th-edit-delivery">
-							<col class="td-edit-delivery">
-						</colgroup> -->
-						<tbody>
-							<tr><th class="th-edit-delivery">배송지명</th>
-								<td class="td-edit-delivery">
-									<div class="edit-delivery-area">
-										<span class="input-wrap input-type02">
-											<!-- <input type="text" class="input delivery address-name" value=""> -->
-											<form:input path="po_name" class="input delivery address-name" />
-											<font color="red">
-												<form:errors path="po_name" />
-											</font>
-											<!-- <script>
-											   if ('<form:errors path='po_name' />' != '') {
-											    	alert('<form:errors path='po_name' />');
-											   }
-											</script> -->
-										</span>
-									</div>
-								</td>
-							</tr>
-							<tr><th class="th-edit-delivery">수령자명</th>
-								<td class="td-edit-delivery">
-									<div class="edit-delivery-area">
-										<span class="input-wrap input-type02">
-											<form:input path="po_client" class="input" size="40" />
-											<font color="red">
-												<form:errors path="po_client" />
-											</font>
-										</span>
-									</div>
-								</td>
-							</tr>
-							<tr><th class="th-edit-delivery">휴대전화</th>
-								<td class="td-edit-delivery">
-									<div class="edit-delivery-area">
-										<span class="input-wrap input-type02">
-											<form:input path="po_phone" class="input" />
-											<font color="red">
-												<form:errors path="po_phone" />
-											</font>
-										</span>
-									</div>
-								</td>
-							</tr>
-							<tr><th class="th-edit-delivery">추가번호<div class="txt-sub">(선택)</div></th>
-								<td class="td-edit-delivery">
-									<div class="edit-delivery-area">
-										<span class="input-wrap input-type02">
-											<form:input path="po_phone2" class="input" />
-										 	<font color="red">
-												<form:errors path="po_phone2" />
-											</font>
-										</span>
-									</div>
-								</td>
-							</tr>
-							<tr><th class="th-edit-delivery">주소</th>
-								<td class="td-edit-delivery">
-									<div class="edit-delivery-area">
-										<span class="input-wrap input-type04">
-											<form:input path="po_postcode" id="po_postcode" class="input new-address-zipcode" value="" placeholder="우편번호" />
- 										</span>
-										<input type="button" onclick="DaumPostcode()" class="btn-post-num get-zipcode" value="우편번호"><br>
-									</div>
-									<div class="edit-delivery-area inline-45">
-										<span class="input-wrap">
-											<form:input path="po_addr_main" id="po_addr_main" class="input new-address" value="" placeholder="주소" />
-	 									</span>
-									</div>
-									<div class="edit-delivery-area inline-45">
-										<span class="input-wrap">
-											<form:input path="po_addr_sub" id="po_addr_sub" class="input new-address" value="" placeholder="상세주소" />
-		 								</span>
-									</div>
-									<div class="edit-delivery-area">
-										<!-- <input type="checkbox" id="basic-delivery" class="btn-join-agree">
-										<label for="basic-delivery" class="label-basic-delivery join-agree-label">기본 배송지로 저장</label> -->
-									</div>
-									<input type="hidden" id="extraAddress">
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="edit-delivery-btn">
-						<button onclick="submit" type="button" class="btn-edit-delivery register-address">배송지 수정하기</button>
-						<!-- <input type="submit" class="btn-edit-delivery register-address" value="배송지 수정하기"> -->
-					</div>
-				</div>
-			</div>
-			</form:form>
+			</form>
 	<!-- 나의 활동내역 -->
 		<!-- 내가쓴 댓글 -->
 			<div class="view-reply-wrap list-history">
@@ -607,7 +643,7 @@
 					<div class="reply-info-area reply-info-area-type02">
 						<div class="mileage-info">
 							<div class="mileage-info-tit">현재 마일리지</div>
-							<div class="mileage-info-p">${sessionScope.loginUser.mileage}P</div>
+							<div class="mileage-info-p"><fmt:formatNumber value="${sessionScope.loginUser.mileage}" pattern="##,###" />P</div>
 						</div>
 						<div class="mileage-info">
 							<div class="mileage-info-tit">총 적립 마일리지</div>

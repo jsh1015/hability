@@ -27,29 +27,29 @@
 <input type="hidden" id="cl_num" name="cl_num" value="${classDetail.cl_num}" >
 <input type="hidden" id="kit_num" name="kit_num" value="${kitDetail.kit_num}" >
 <input type="hidden" id="count" name="lastcount" value="${count}" >
-			<div class="float-wrap">
-				<div class="write-regular-area i-cart">
-<!-- 주문정보 -->
+		<div class="float-wrap">
+			<div class="write-regular-area i-cart">
+				<!-- 주문정보 -->
 					<div class="title">주문 정보</div>
-					<ul id="cartList" class="list-product s-vertical">
-					<%-- <c:forEach items="${classList}" var="list"> --%>
-						<li class="row">
-							<ul class="columns">
-								<li class="c-thumb">
-									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
-								</li>
-								<li class="c-name">${classDetail.cl_title}</li>
-								<li class="c-options">${kitDetail.kit_name}</li>
-								<li class="c-quantity">수량 : ${count}개</li>
-								<li class="c-price">
-									<fmt:formatNumber value="${count * kitDetail.kit_price}" pattern="##,###" /><span class="i-won">원</span>
-								</li>
+						<ul id="cartList" class="list-product s-vertical">
+								<c:forEach var="blist" items="${blist}">
+									<li class="row">
+										<ul class="columns">
+											<li class="c-thumb">
+												<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
+											</li>
+											<li class="c-name">${blist.cls.cl_title}</li>
+											<li class="c-options">${blist.kit.kit_name}</li>
+											<li class="c-quantity">수량 : ${blist.count}개</li>
+											<li class="c-price">
+												<fmt:formatNumber value="${blist.count * blist.kit.kit_price}" pattern="##,###" /><span class="i-won">원</span>
+											</li>
+										</ul>
+									</li>
+								</c:forEach>
 							</ul>
-						</li>
-					<%-- </c:forEach> --%>
-					</ul>
-				</div>
-				<div class="write-regular-area i-sender">
+						</div>
+						<div class="write-regular-area i-sender">
 <!-- 주문자정보 -->
 					<div class="title">주문자 정보</div>
 					<colgoup></colgoup>
@@ -214,7 +214,7 @@
 				<ul>
 				<li>
 				<span class="i-title">상품금액</span>
-				<span class="i-value">362,000원</span>
+				<span class="i-value"><fmt:formatNumber value="${lastsum}" pattern="##,###" />원</span>
 				</li>
 				<!-- <li>
 				<span class="i-title">할인금액</span>
@@ -228,7 +228,7 @@
 				</ul>
 				<div class="area-result">
 				<span class="i-title">전체 주문금액</span>
-				<span class="i-value">328,600<span class="i-won">원</span></span>
+				<span class="i-value"><fmt:formatNumber value="${lastsum}" pattern="##,###" /><span class="i-won">원</span></span>
 				</div>
 				</div>
 				

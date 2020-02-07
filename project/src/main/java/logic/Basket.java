@@ -5,6 +5,27 @@ public class Basket {
 	private int cl_num;
 	private int kit_num;
 	private int count;
+	
+	// db에서는 필요없음
+	private Kit kit;
+	private Class cls;
+	
+	// total price?
+	private long total;
+	
+	public long getTotal() {
+		return total;
+	}
+	public void setTotal(long total) {
+		this.total = total;
+	}
+	
+	public Kit getKit() {
+		return kit;
+	}
+	public void setKit(Kit kit) {
+		this.kit = kit;
+	}
 	public String getEmailid() {
 		return emailid;
 	}
@@ -28,6 +49,14 @@ public class Basket {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public Class getCls() {
+		return cls;
+	}
+
+	public void setCls(Class cls) {
+		this.cls = cls;
 	}
 
 	@Override

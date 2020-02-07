@@ -158,7 +158,7 @@
 						</div>
 					</a>
 					안녕하세요 
-					<a class="bold underline" style="color: #f1645d" href="/mypage.html">서현-</a>님,
+					<a class="bold underline" style="color: #11447B" href="/mypage.html">${sessionScope.loginUser.nickname}</a>님,
 					<br>아직 구독중인 취미가 없으시군요!
 					<br>하비풀과 함께 원하는 취미를 찾아보세요.
 				</div>
