@@ -104,10 +104,10 @@
 							<a href="${path}/user/logout.shop" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
 						</li>
 						<li class="gnb gnb-favorite" style="display: list-item;">
-							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}&m=hobby" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
+							<a href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}&m=hobby" title="취미 보관함" class="btn-gnb header_favorite">취미 보관함</a>
 						</li>
 						<li class="gnb gnb-mypage">
-							<a href="${path}/user/mypage.shop?id=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
+							<a href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
 							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>

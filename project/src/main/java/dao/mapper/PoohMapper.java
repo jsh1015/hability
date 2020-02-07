@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import logic.Basket;
 import logic.Kit;
 import logic.Postaddr;
 import logic.User;
@@ -15,10 +18,6 @@ public interface PoohMapper {
 
 	@Select("select ifnull(max(po_num),0) from postaddr")
 	int max_po_num();
-
-//	@Insert("insert into postaddr (po_num, emailid,po_name,po_client,po_phone,po_phone2,po_postcode,po_addr_main,po_addr_sub)"
-//			+ " values (#{postaddr.po_num},#{postaddr.emailid},#{po_name},#{po_client},#{po_phone},#{po_phone2},#{po_postcode},#{po_addr_main},#{po_addr_sub})")
-//	void po_addr_insert(Map<String, Object> param);
 
 	@Insert("insert into postaddr (po_num, emailid,po_name,po_client,po_phone,po_phone2,po_postcode,po_addr_main,po_addr_sub)"
 			+ " values (#{po_num},#{emailid},#{po_name},#{po_client},#{po_phone},#{po_phone2},#{po_postcode},#{po_addr_main},#{po_addr_sub})")
@@ -38,12 +37,30 @@ public interface PoohMapper {
 
 	@Select("select * from kit where cl_num=#{cl_num} and kit_num=#{kit_num} ")
 	Kit kitInfo(Map<String, Object> param);
-
-	@Insert("insert into basket () values ()")
-	void basketAdd(Kit kit);
 	
 	@Delete("delete from postaddr where po_num=#{po_num}")
 	void addrDelete(int po_num);
+	
+	@Update("update postaddr set "
+			+ " po_name=#{po_name}, po_client=#{po_client}, po_phone=#{po_phone}, po_phone2=#{po_phone2}, "
+			+ " po_postcode=#{po_postcode}, po_addr_main=#{po_addr_main}, po_addr_sub=#{po_addr_sub} "
+			+ " where po_num=#{po_num} ")
+	void addrUpdate(Postaddr postaddr);
 
+	@Insert("insert into basket "
+			+ "(emailid, cl_num, count, kit_num) "
+			+ " values (#{emailid}, #{cl_num}, #{lastcount}, #{kit_num}) ")
+	void basketAdd(@Param("kit_num") int kit_num, @Param("cl_num") int cl_num, @Param("lastcount") int lastcount, @Param("emailid") String emailid);
+	
+	@Select({"<script>",
+				" select * from basket ",
+					" <if test='emailid !=null'> where emailid = #{emailid} </if>",
+			 "</script>"})
+	List<Basket> basketList(Map<String, Object> param);
+	
+	@Select("select count(*) from basket where emailid = #{emailid}")
+	Integer basketListCnt(Map<String, Object> param);
 
+	@Delete("delete from basket where cl_num=#{bindex}")
+	void basketDelete(int bindex);
 }

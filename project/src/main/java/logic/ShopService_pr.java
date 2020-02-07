@@ -26,24 +26,38 @@ public class ShopService_pr {
 	}
 
 	public int postListCnt(String id) {
-		System.out.println(id);
 		return poohDao.postListCnt(id);
 	}
 	
 	// 클래스의 옵션정보
-	public Kit kitInfo(String kit_num, int cl_num) {
+	public Kit kitInfo(int kit_num, int cl_num) {
 		return poohDao.kitInfo(kit_num, cl_num);
-	}
-
-	public void basketAdd(Kit kit) {
-		poohDao.basketAdd(kit);
-		
 	}
 
 	public void addrDelete(int po_num) {
 		poohDao.addrDelete(po_num);
+	}
+
+	public void addrUpdate(Postaddr postaddr) {
+		poohDao.addrUpdate(postaddr);
+	}
+
+	public void basketAdd(int kit_num, int cl_num, int lastcount, String emailid) {
+		poohDao.basketAdd(kit_num, cl_num, lastcount, emailid);
 		
 	}
 
+	public List<Basket> basketList(String emailid) {
+		List<Basket> list = poohDao.basketList(emailid);
+		return list;
+	}
+
+	public int basketListCnt(String emailid) {
+		return poohDao.basketListCnt(emailid);
+	}
+
+	public void basketDelete(int bindex) {
+		poohDao.basketDelete(bindex);
+	}
 
 }

@@ -1,8 +1,10 @@
 package logic;
 
+import java.io.Serializable;
+
 import org.springframework.web.multipart.MultipartFile;
 
-public class Kit {
+public class Kit implements Serializable {
 	private int kit_num;
 	private int cl_num;
 	private String kit_name;

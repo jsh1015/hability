@@ -1,25 +1,14 @@
 package logic;
 
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class Postaddr {
 	private int po_num;
 	private String emailid;
-	@NotEmpty(message="배송지 명을 입력해주세요.")
 	private String po_name;
-	@NotEmpty(message="수령자 명을 입력해주세요.")
 	private String po_client;
-	@NotEmpty(message="휴대전화 번호를 입력해주세요.")
-//	@Size(min=1, max=11)
 	private String po_phone;
 	private String po_phone2;
-	@NotEmpty(message="정확한 주소를 입력해주세요.")
 	private String po_postcode;
-	@NotEmpty(message="정확한 주소를 입력해주세요.")
 	private String po_addr_main;
-	@NotEmpty(message="정확한 주소를 입력해주세요.")
 	private String po_addr_sub;
 	
 	public int getPo_num() {
