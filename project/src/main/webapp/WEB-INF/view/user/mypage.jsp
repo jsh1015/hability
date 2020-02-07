@@ -164,11 +164,19 @@
 		<div class="my-summary-wrap">
 		<div class="profile-wrap">
 			<div class="profile-thumb-wrap">
-				<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6160473008019505" onerror="this.src='../static/img/bg-add-thumb.png'" class="thumb-profile" alt="프로필사진">
+			<!-- 프로필 사진없는 경우 -->
+			<c:if test="${empty sessionScope.loginUser.userimg}">
+				<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6160473008019505"class="thumb-profile" alt="프로필사진">
+			</c:if>
+
+			<!-- 프로필 사진있는 경우 -> 현재 error 발생 -->
+			<c:if test="${!empty sessionScope.loginUser.userimg}">
+				<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6160473008019505"class="thumb-profile" alt="프로필사진">
+			</c:if>
 			</div>
 			<div class="profile-info-wrap">
 				안녕하세요.
-				<div class="profile-name cut-txt">${sessionScope.loginUser.nickname}-님</div>
+				<div class="profile-name cut-txt">${sessionScope.loginUser.nickname}님</div>
 				<!--a href="javascript:;" title="프로필 사진 편집" class="btn-profile-thumb">프로필 사진 편집</a-->
 				<label for="upload" class="btn-profile-thumb">프로필 사진 편집</label>
 			</div>
@@ -194,7 +202,7 @@
 				</li>
 				<li class="my-info">
 				<span class="my-info-tit">마일리지</span>
-				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point"><fmt:formatNumber value="${sessionScope.loginUser.mileage}" pattern="##,###" />p</strong></a>
+				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point">${sessionScope.loginUser.mileage}p</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -637,26 +645,23 @@
 					친절하고 빠르게 문제 해결을 도와드리겠습니다.</div><!--a href="/mypage.html?m=action-history&s=qna&action=write" title="1:1 문의 신청하기" class="btn-no-view no-view-write-qna">1:1 문의 신청하기</a-->
 				</div>
 			</div>
+			
 		<!-- 마일리지 현황  -->
 			<div class="mileage-wrap list-mileage">
 				<div class="reply-info-cont">
 					<div class="reply-info-area reply-info-area-type02">
 						<div class="mileage-info">
 							<div class="mileage-info-tit">현재 마일리지</div>
-							<div class="mileage-info-p"><fmt:formatNumber value="${sessionScope.loginUser.mileage}" pattern="##,###" />P</div>
+							<div class="mileage-info-p">${now_point}P</div>
 						</div>
 						<div class="mileage-info">
 							<div class="mileage-info-tit">총 적립 마일리지</div>
-							<div class="mileage-info-p">1000P</div>
+							<div class="mileage-info-p">${total_point}P</div>
 						</div>
 						<div class="mileage-info">
 							<div class="mileage-info-tit">사용한 마일리지</div>
-							<div class="mileage-info-p">0P</div>
-						</div>
-						<div class="mileage-info">
-							<div class="mileage-info-tit">이번 달 소멸 예정 마일리지</div>
-							<div class="mileage-info-p">0P</div>
-						</div>
+							<div class="mileage-info-p">${use_point}P</div>
+						</div> 
 					</div>
 				</div>
 				<div class="mileage-info-txt">•  마일리지는 적립(충전)된 달로부터 12개월 이내에 사용하셔야 합니다.<br></div>
@@ -673,17 +678,31 @@
 							<tr><th class="mileage-th">적립날짜</th><th class="mileage-th">내역</th><th class="mileage-th">마일리지</th><th class="mileage-th">소멸예정</th></tr>
 							</thead>
 							<tbody class="mileage_list_wrap">
+							<c:forEach items="${mileagelist}" var="m">
 								<tr>
-									<td class="mileage-td">2019.12.23</td>
-									<td class="mileage-td">회원가입 포인트</td>
-									<td class="mileage-td txt-color-r">+1,000p</td>
-									<td class="mileage-td">2020.12.22</td>
+									<td class="mileage-td">
+									<fmt:formatDate value="${m.mi_date}" pattern="yyyy.MM.dd"/>
+									</td>
+									<td class="mileage-td">${m.mi_content}</td>
+									<c:if test="${m.mi_type == 1}">
+									<td class="mileage-td" style="color: #f1645d !important">+${m.mi_point}p</td>
+									</c:if>
+									<c:if test="${m.mi_type == 2}">
+									<td class="mileage-td" style="color: #2f3338 !important">-${m.mi_point}p</td>
+									</c:if>
+									<c:if test="${m.mi_type == 1}">
+									<td class="mileage-td"><fmt:formatDate value="${m.mi_end}" pattern="yyyy.MM.dd"/></td>
+									</c:if>
+									<c:if test="${m.mi_type == 2}">
+									<td class="mileage-td"></td>
+									</c:if>
 								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
-			</div>
+			</div>			
 			
 			
 	<!-- 내정보 관리 -->
@@ -823,7 +842,7 @@
 				</div>
 				<div class="quit-membership-cont">
 					<div class="edit-membership-tit">회원탈퇴 안내</div>
-					<div class="info-quit-membership">• 회원 탈퇴 시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 hobbyful 고객정보 보호정책에 따라 관리 됩니다.<br>
+					<div class="info-quit-membership">• 회원 탈퇴 시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 hability 고객정보 보호정책에 따라 관리 됩니다.<br>
 					• 탈퇴 시 보유하고있던 마일리지, 쿠폰은 모두 영구 삭제됩니다.<br>• 정기구독이 진행 중인 경우에는 탈퇴가 불가능하며, 취소/반품이 완료된 이후 가능합니다.<br>
 					• 탈퇴 후 24시간 동안 기존에 사용하신 이메일과 휴대폰 번호로는 재가입이 불가능합니다.
 					</div>
@@ -1014,7 +1033,7 @@
 		</li>
 		<li class="popup3-list popup3-list06">
 		<div class="popup3-grade">
-		<strong>hobbyful</strong>
+		<strong>hability</strong>
 		진정한 하비풀 매니아!
 		</div>
 		<div class="popup3-txt">

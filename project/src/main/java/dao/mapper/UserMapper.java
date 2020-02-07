@@ -16,16 +16,26 @@ public interface UserMapper {
 	@Insert("insert into user (emailid, userimg, pass, name, nickname, birth, phone, grade) "
 			+ " values (#{emailid}, #{userimg}, #{pass}, #{name}, #{nickname}, #{birth}, #{phone}," + 1 + ")")
 	void insert(User user);
+	
+	
+	@Insert("insert into user (emailid, userimg, name, nickname, grade) "
+			+ " values (#{emailid}, #{userimg}, #{name}, #{nickname}, " + 1 + ")")
+	void naver_insert(Map<Object, Object> param);
+
+	@Insert("insert into user (emailid, userimg, name, nickname, grade) "
+			+ " values (#{emailid}, #{userimg}, #{nickname}, #{nickname}, " + 1 + ")")
+	void kakao_insert(Map<Object, Object> param);
+
 
 	@Insert("insert into mileage (mi_num, emailid, mi_type, mi_date, mi_content, mi_point, mi_end) "
-			+ " values (${mi_num}, '${emailid}', "+ 1 +", now(), '${mi_content}', ${mi_point}, date_add(now(), interval 1 year))")
+			+ " values (${mi_num}, '${emailid}', ${mi_type}, now(), '${mi_content}', ${mi_point}, date_add(now(), interval 1 year))")
 	void mileageinsert(Map<Object, Object> param);
 
 	@Select({"<script>"
 			+ "select * from user"
 			+ "<if test='emailid!=null'> where emailid=#{emailid} </if>"
 			+ "</script>"})
-	List<User> select(Map<Object, Object> param);
+	User select(Map<Object, Object> param);
 
 	@Update("update userbackup set username=#{username},"
 				+"phoneno=#{phoneno},postcode=#{postcode},address=#{address},email=#{email},birthday=#{birthday}"
@@ -38,17 +48,29 @@ public interface UserMapper {
 	@Update("update userbackup set password=#{chgpass} where emailid=#{emailid}")
 	void passupdate(Map<Object, Object> param);
 
-	@Select("select ifnull(max(mi_num),1) from mileage")
+	@Select("select ifnull(max(mi_num),0) from mileage where emailid=#{emailid}")
 	int maxnum(Object object);
 
 	@Select("select sum(mi_point) from mileage where mi_type = 1 and emailid = #{emailid} ")
 	int total_point(Object object);
 
 	@Select("select ifnull(sum(mi_point),0) from mileage where mi_type = 2 and emailid = #{emailid} ")
-	int use_point(Object object);	
+	int use_point(Object object);
 	
 	@Update("update user set mileage=${mileage} where emailid=#{emailid}")
 	void mileageupdate(Map<Object, Object> param);
+
+	@Select("select * from mileage where emailid = #{emailid}")
+	List<Mileage> mileagelist(String emailid);
+
+	@Select({"<script>"
+			+ "select * from user"
+			+ "<if test='emailid!=null'> where emailid=#{emailid} </if>"
+			+ "</script>"})
+	List<User> selectlist(Map<Object, Object> param);
+
+
+
 
 
 }

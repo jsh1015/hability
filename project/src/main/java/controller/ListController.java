@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import logic.Class;
 import logic.Kit;
 import logic.ShopService;
-import logic.User;
 
 @Controller
 @RequestMapping("list")

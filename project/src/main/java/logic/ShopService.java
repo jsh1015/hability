@@ -21,14 +21,31 @@ public class ShopService {
 	private ListDao listDao;
 
 
+	// 회원 등록
 	public void userInsert(User user) {
 		userDao.insert(user);
 	}
-
-	public void mileageInsert(String emailid, String mi_content, int mi_point) {
-		int max = userDao.maxnum();
-		userDao.mileageinsert(emailid, mi_content, mi_point, ++max);
+	
+	// naver api 회원 등록
+	public void naver_insert(String emailid, String name, String nickname, String profile_image) 
+	{
+		userDao.naver_insert(emailid, name, nickname, profile_image);
 	}
+
+	// kakao api 회원 등록
+	public void kakaoInsert(String emailid, String nickname, String userimg) 
+	{
+		userDao.kakaoinsert(emailid, nickname, userimg);
+		
+	}
+
+	// 마일리지 적립, 사용 등 마일리지 테이블에 등록
+	public void mileageInsert(String emailid, String mi_content, int mi_point, int type) {
+		int max = userDao.maxnum(emailid);
+		userDao.mileageinsert(emailid, mi_content, mi_point, type, ++max);
+	}
+
+	// 회원 마일리지 정보 갱신(마일리지 내역 변경시 마다 사용해야 함)
 	public void mileageupdate(String emailid) {
 		int sum = userDao.total_point(emailid);
 		int use = userDao.use_point(emailid);
@@ -163,7 +180,21 @@ public class ShopService {
 		public List<Kit> kitList(int cl_num) {
 			return listDao.kitList(cl_num);
 		}
-		
+
+		// 마일리지 적립 내역 합계
+		public int total_point(String emailid) {
+			return userDao.total_point(emailid);
+		}
+
+		// 마일리지 사용 내역 합계
+		public int use_point(String emailid) {
+			return userDao.use_point(emailid);
+		}
+
+		// 해당 회원의 마일리지 내역
+		public List<Mileage> mileagelist(String emailid) {
+			return userDao.mileagelist(emailid);
+		}
 		
 
 }

@@ -11,10 +11,15 @@
 		<div class="join-cont join-select" data-gtm-vis-recent-on-screen-6759522_8="3190" data-gtm-vis-first-on-screen-6759522_8="3190" data-gtm-vis-total-visible-time-6759522_8="100" data-gtm-vis-has-fired-6759522_8="1">
 			<h2 class="layer-tit">회원가입</h2>
 			<div class="join-type-wrap">
-				<div class="join-type-cont">
-					<button title="네이버로 가입" class="a-naver btn-join-type btn-join-naver"><span class="ico-join-type ico-join-naver"></span>네이버로 가입</button>
-					<button title="카카오톡으로 가입" class="a-kakao btn-join-type btn-join-kakaotalk"><span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 가입</button>
-				</div>
+	            <div class="join-type-cont">
+	            <a href="${naver_url}">
+	               <button title="네이버로 가입" class="a-naver btn-join-type btn-join-naver"><span class="ico-join-type ico-join-naver"></span>네이버로 가입</button>
+	            </a>
+	            <a href="${kakao_url}">
+	               <button title="카카오톡으로 가입" class="a-kakao btn-join-type btn-join-kakaotalk"><span class="ico-join-type ico-join-kakaotalk"></span>카카오톡으로 가입</button>
+	            </a>
+            </div>
+
 				<div class="join-type-txt-wrap"><span class="join-type-txt">또는</span></div>
 				<div class="join-type-cont">
 						<button title="이메일로 가입" class="a-email btn-join-type btn-join-email showuserEntry">
