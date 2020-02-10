@@ -27,10 +27,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import exception.LoginException;
+import logic.Class;
+import logic.Kit;
 import logic.Mileage;
+import logic.Orderlist;
 import logic.Postaddr;
 import logic.ShopService;
 import logic.ShopService_pr;
+import logic.Uorder;
 import logic.User;
 
 @Controller //@Component + Controller : 객체를 만들고 컨트롤러의 기능까지 같이 수행
@@ -221,7 +225,36 @@ public class UserController {
 		int postListCnt = service_pr.postListCnt(user.getEmailid());
 		System.out.println("배송지 개수 = "+postListCnt);
 		mav.addObject("postListCnt", postListCnt);
-
+		
+		// 주문 목록 조회
+		// 관리자일 경우 모든 내역 조회 가능
+		List<Uorder> orderList = service_pr.orderList(emailid);
+		for(Uorder oneorder : orderList) {
+			// 주문리스트 1개에서 주문번호를 가지고 상품 리스트를 만들어
+			List<Orderlist> itemList = service_pr.orderClassList(oneorder.getOd_num());
+			for(Orderlist oneitem : itemList) {
+				// 주문내역 1개에 해당하는 class 조회
+				Class cls = service.classDetail(oneitem.getCl_num());
+				Kit kit = service_pr.kitInfo(oneitem.getKit_num(), oneitem.getCl_num());
+				oneitem.setCls(cls);
+				oneitem.setKit(kit);
+			}
+			oneorder.setOrderlist(itemList);
+			// Sale에 있는 User에 사용자정보(값) 넣어주기
+			try {
+				User username = service.getUser(oneorder.getEmailid());
+				oneorder.setUser(username);
+			} catch (LoginException e) {
+				// 탈퇴한 회원이 있을 경우
+			}
+		}
+		mav.addObject("orderList", orderList);
+		
+		// 주문 개수
+		int orderListCnt = service_pr.orderListCnt(user.getEmailid());
+		System.out.println("주문 개수 = " +orderListCnt);
+		mav.addObject("orderListCnt", orderListCnt);
+		
 		return mav;
 	}
 	

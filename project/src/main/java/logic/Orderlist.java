@@ -5,6 +5,23 @@ public class Orderlist {
 	private int cl_num;
 	private int kit_num;
 	private int count;
+	
+	// db에서는 필요없고 정보를 주기 위해서
+	private Kit kit;
+	private Class cls;
+	
+	public Kit getKit() {
+		return kit;
+	}
+	public void setKit(Kit kit) {
+		this.kit = kit;
+	}
+	public Class getCls() {
+		return cls;
+	}
+	public void setCls(Class cls) {
+		this.cls = cls;
+	}
 	public int getOd_num() {
 		return od_num;
 	}

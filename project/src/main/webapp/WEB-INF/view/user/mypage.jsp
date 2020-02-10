@@ -108,6 +108,22 @@
 			}
 		})
 	}
+	
+	function changeaddressmodal(od_num) {
+		$(".changeaddressmodal").show();
+		
+		$.ajax({
+			type : "POST",
+			// 요청한 url
+			url : "../ajax/changeaddressmodal.shop", // shop이니까 controller작동하고
+			data : {
+				"od_num" : od_num // request로 요청하면 넘어갈 값
+				},
+			success : function(data) {
+				$(".changeaddressmodal").html(data);
+			}
+		})
+	}
 </script>
  <!-- 우편번호 > 주소 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -202,7 +218,7 @@
 				</li>
 				<li class="my-info">
 				<span class="my-info-tit">마일리지</span>
-				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point">${sessionScope.loginUser.mileage}p</strong></a>
+				<a href="javascript:mymenu('history'); javascript:submymenu('mileage');"><strong class="my-info-txt cut-txt my-point"><fmt:formatNumber value="${sessionScope.loginUser.mileage}" pattern="##,###" />p</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -323,59 +339,217 @@
 		
 		
 		<!-- MyMenu Content -->
-<!-- 탭 내용 -->		
-		
+<!-- 탭 내용 -->
 		<article class="mymenu-content">
 	<!-- 주문/배송관리 -->
-			<div class="order-list-wrap list-order">
-				<!-- 주문했을시 -->
+		<div class="order-list-wrap list-order">
+			<!-- 주문 목록 -->
+			<script>
+				function orderDetail(od_num) {
+ 					for(var i=1; i<=10000000; i++) {
+						if(od_num == i) {
+							$('#order'+i).css('display', 'block');
+							$('.order-list').css('display', 'none');
+						}
+ 					}
+				}
+				
+				function gobacklist() {
+					$('.order-detail-wrap').css('display', 'none');
+					$('.order-list').css('display', 'block');
+				}
+			</script>
+			<c:if test="${orderListCnt >0}">
+				<c:forEach items="${orderList}" var="order" varStatus="stat">
 				<section class="order-list">
 					<article>
 						<header>
 							<ul>
-							<li><span class="i-title">주문번호</span> <span class="i-value">20011513-46048R3258</span></li>
-							<li><span class="i-title">신청일</span> <span class="i-value">2020. 1. 15</span></li>
-							<li class="a-btn"><a href="/mypage.html?m=order&amp;s=orderDetail&amp;order_id=35215">주문상세보기</a></li>
+							<li><span class="i-title">주문번호</span> <span class="i-value">${order.od_num}</span></li>
+							<li><span class="i-title">신청일</span>
+								<span class="i-value"><fmt:formatDate value="${order.od_date}" pattern="yyyy. MM. dd" /></span>
+							</li>
+							<li class="a-btn"><a href="javascript:orderDetail(${order.od_num})">주문상세보기</a></li>
 							</ul>
 						</header>
 						<div class="area-content">
 							<ul>
+								<c:forEach items="${order.orderlist}" var="item">
 								<li class="i-product">
 									<ul>
 										<li class="i-thumbnail">
 											<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d7424e70-feb6-11e8-b1bc-afe65c7c2522-square.png" alt="">
 										</li>
 										<li class="i-name">
-											반려동물 장난감 뜨개질 클래스
+											${item.cls.cl_title}
 										</li>
 										<li class="i-option">
-											베이직 패키지
-										</li>
-										<li class="i-status">
-											취소
+											${item.kit.kit_name}
 										</li>
 										<li class="i-qty">
-											수량 : 1
+											수량 : ${item.count}
 										</li>
 									</ul>
+								</li>
+								</c:forEach>
+								<li class="i-status">
+									${order.od_deliver ==1? "상품 준비 중":order.od_deliver ==2? "배송 중":order.od_deliver ==3? "배송 완료":order.od_deliver ==4? "교환":order.od_deliver ==5? "반품":"환불"}
 								</li>
 							</ul>
 						</div>
 					</article>
 				</section>
-				<!-- 
+		<!-- 주문 상세 내역 -->
+				<article class="mymenu-content">
+					<div class="order-list-wrap" style="display: none;"></div>
+					<div id="order${order.od_num}" class="order-detail-wrap" style="display: none;">
+						<div class="order-detail-tit">주문 상세 내역</div>
+						<div class="order-detail-tit-sub">
+							<span>주문번호</span><span class="order-num">${order.od_num}</span>
+						</div>
+						<div class="order-detail-cont">
+							<!-- 주문내역 -->
+							<div class="order-detail-area">
+								<div class="order-detail-info">
+								<div class="order-detail-info-tit">주문 내역</div>
+								<div class="order-detail-info-btn s-CANCEL"></div>
+								<div class="order-detail-thumb">
+									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d7424e70-feb6-11e8-b1bc-afe65c7c2522-square.png" class="thumb-order-detail" alt="">
+								</div>
+								<div class="order-detail-info-cont">
+									<table summary="주문내역 테이블" class="table-order-detail-info">
+										<colgroup>
+											<col class="order-detail-th-width"><col class="order-detail-td-width">
+										</colgroup>
+										<tbody>
+											<tr>
+												<th class="th-order-detail-info">클래스명</th>
+												<td class="td-order-detail-info">반려동물 장난감 뜨개질 클래스</td>
+											</tr>
+											<tr>
+												<th class="th-order-detail-info">옵션</th>
+												<td class="td-order-detail-info">베이직 패키지</td>
+											</tr>
+											<tr>
+												<th class="th-order-detail-info">주문수량</th>
+												<td class="td-order-detail-info">1개</td>
+											</tr>
+											<tr>
+												<th class="th-order-detail-info">주문일시</th>
+												<td class="td-order-detail-info"><fmt:formatDate value="${order.od_date}" pattern="yyyy. MM. dd hh:mm" /></td>
+											</tr>
+											<tr>
+												<th class="th-order-detail-info">주문상태</th>
+												<td class="td-order-detail-info">${order.od_deliver ==1? "상품 준비 중":order.od_deliver ==2? "배송 중":order.od_deliver ==3? "배송 완료":order.od_deliver ==4? "교환":order.od_deliver ==5? "반품":"환불"}</td>
+											</tr>
+											<tr>
+												<th class="th-order-detail-info">구매가</th>
+												<td class="td-order-detail-info">30,000원</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								</div>
+							</div>
+							<!-- 결제 정보 -->
+							<div class="order-detail-area">
+							<div class="order-detail-info">
+							<div class="order-detail-info-tit">결제 정보</div>
+							<div class="order-detail-info-cont">
+								<table summary="결제정보 테이블" class="table-order-detail-info">
+									<colgroup>
+										<col class="order-detail-th-width"><col class="order-detail-td-width">
+									</colgroup>
+									<tfoot>
+										<tr>
+											<th class="th-order-detail-info">결제 금액</th>
+											<td class="td-order-detail-info">30,000원</td>
+										</tr>
+									</tfoot>
+									<tbody>
+										<tr>
+											<th class="th-order-detail-info">결제방법</th>
+											<td class="td-order-detail-info">카카오페이</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">주문일</th>
+											<td class="td-order-detail-info"><fmt:formatDate value="${order.od_date}" pattern="yyyy. MM. dd hh:mm" /></td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">신청한 금액 합계</th>
+											<td class="td-order-detail-info">30,000원</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">마일리지 할인</th>
+											<td class="td-order-detail-info">0p</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">배송비</th>
+											<td class="td-order-detail-info">0원</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">최종 금액</th>
+											<td class="td-order-detail-info">30,000원</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							</div>
+							</div>
+						<!-- 배송지 정보 -->
+							<div class="order-detail-area">
+							<div class="order-detail-info">
+							<div class="order-detail-info-tit">배송지 정보</div>
+							<div class="order-detail-info-btn">
+								<a href="javascript:changeaddressmodal(${order.od_num})" data-order-idx="35215" title="배송지 변경" class="btn-order-detail-info change-address">배송지 변경</a>
+							</div>
+							<div class="order-detail-info-cont">
+								<table summary="배송지 정보 테이블" class="table-order-detail-info">
+									<colgroup><col class="order-detail-th-width"><col class="order-detail-td-width"></colgroup>
+									<tbody>
+										<tr>
+											<th class="th-order-detail-info">받는사람</th>
+											<td class="td-order-detail-info order-address-receivename">${order.od_client}</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">휴대폰번호</th>
+											<td class="td-order-detail-info order-address-receivephone">${order.od_phone}</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">주소</th>
+											<td class="td-order-detail-info order-address-receiveaddress">${order.od_addr_main} ${order.od_addr_sub}</td>
+										</tr>
+										<tr>
+											<th class="th-order-detail-info">배송 요청사항</th>
+											<td class="td-order-detail-info">${order.od_comment }</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							</div>
+							</div>
+						</div>
+							<!--  하단 버튼 -->
+						<div class="order-detail-btn">
+							<a href="#link" title="주문 확인서 인쇄하기" class="btn-back-list btn-print-order">주문 확인서 인쇄하기</a>
+							<a href="javascript:gobacklist()" class="btn-back-list btn-back-order-list">주문 목록으로 돌아가기</a>
+						</div>
+					</div>
+				</article>
+				</c:forEach>
+				<div class="modal fade changeaddressmodal" id="changeaddressmodal" role="dialog" style="display:none"></div>
+			</c:if>
+			<c:if test="${orderListCnt ==0}">
 				<div class="no-view-wrap">
 					<div class="no-view-tit">아직 주문하신 클래스가 없습니다.</div>
 					<div class="no-view-txt">하비풀에서 새로운 취미를 가져보세요!</div>
-					<a href="/class.html" title="클래스 보러가기" class="btn-no-view">클래스 보러가기</a>
+					<a href="${path}/list/hobbyClass.shop" title="클래스 보러가기" class="btn-no-view">클래스 보러가기</a>
 				</div>
-				 -->
-			</div>
+			</c:if>
+		</div>
 	<!-- 배송지관리 -->
 			<!-- 배송지목록 -->
 			<script>
-				var postListCnt = '<c:out value="${postListCnt}" />';
-				
 				function addrupdate(po_num) {
 					//alert("반응해?");
  					for(var i=1; i<=10000000; i++) {

@@ -46,7 +46,7 @@ a{text-decoration: none;}
     </li>
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">배송관리</a>
         <ul class="hide">
-    		<li><a href="#">배송 목록</a></li>
+    		<li><a href="${path}/admin/orderList.shop">배송 목록</a></li>
     	</ul>
     </li>
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">게시판관리</a>

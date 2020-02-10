@@ -1,6 +1,8 @@
 package logic;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -16,12 +18,42 @@ public class Uorder {
 	private String od_client;
 	private String od_phone;
 	private String od_phone2;
-	private String od_addr;
+	private String od_addr_main;
+	private String od_addr_sub;
 	private String od_comment;
 	private String od_deliver;
 	private Date od_date;
 	
+	// db에 필요없음
+	private List<Orderlist> orderlist = new ArrayList<Orderlist>();
+	private User user;
+	private Kit kit;
+	private Class cls;
 	
+	public Kit getKit() {
+		return kit;
+	}
+	public void setKit(Kit kit) {
+		this.kit = kit;
+	}
+	public Class getCls() {
+		return cls;
+	}
+	public void setCls(Class cls) {
+		this.cls = cls;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public List<Orderlist> getOrderlist() {
+		return orderlist;
+	}
+	public void setOrderlist(List<Orderlist> orderlist) {
+		this.orderlist = orderlist;
+	}
 	public Date getOd_date() {
 		return od_date;
 	}
@@ -76,11 +108,18 @@ public class Uorder {
 	public void setOd_phone2(String od_phone2) {
 		this.od_phone2 = od_phone2;
 	}
-	public String getOd_addr() {
-		return od_addr;
+	
+	public String getOd_addr_main() {
+		return od_addr_main;
 	}
-	public void setOd_addr(String od_addr) {
-		this.od_addr = od_addr;
+	public void setOd_addr_main(String od_addr_main) {
+		this.od_addr_main = od_addr_main;
+	}
+	public String getOd_addr_sub() {
+		return od_addr_sub;
+	}
+	public void setOd_addr_sub(String od_addr_sub) {
+		this.od_addr_sub = od_addr_sub;
 	}
 	public String getOd_comment() {
 		return od_comment;
@@ -98,9 +137,9 @@ public class Uorder {
 	public String toString() {
 		return "Uorder [od_num=" + od_num + ", emailid=" + emailid + ", name=" + name + ", phone=" + phone
 				+ ", od_name=" + od_name + ", od_client=" + od_client + ", od_phone=" + od_phone + ", od_phone2="
-				+ od_phone2 + ", od_addr=" + od_addr + ", od_comment=" + od_comment + ", od_deliver=" + od_deliver
-				+ ", od_date=" + od_date + "]";
+				+ od_phone2 + ", od_addr_main=" + od_addr_main + ", od_addr_sub=" + od_addr_sub + ", od_comment="
+				+ od_comment + ", od_deliver=" + od_deliver + ", od_date=" + od_date + ", orderlist=" + orderlist
+				+ ", user=" + user + ", kit=" + kit + ", cls=" + cls + "]";
 	}
-	
 	
 }

@@ -774,7 +774,7 @@ z-index 정리
 .order-list .area-content li.i-name { }
 .order-list .area-content li.i-option { color: #b6b6b6; font-size:11px; }
 .order-list .area-content li.i-status { color:#d67061; }
-.order-list .area-content li.i-status { position:absolute; bottom:5px; right:0; color:#d67061; }
+.order-list .area-content li.i-status { position:absolute; bottom:5px; right:0; color:#11447B; }
 .order-list .area-content li.i-qty { position:absolute; bottom:5px; left:70px; color: #b6b6b6; font-size:11px; }
 
 

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 import dao.mapper.PoohMapper;
 import logic.Basket;
 import logic.Kit;
+import logic.Orderlist;
 import logic.Postaddr;
+import logic.Uorder;
 import logic.User;
 import exception.LoginException;
 
@@ -91,6 +93,32 @@ public class PoohDao {
 
 	public void basketDelete(int bindex) {
 		sqlSession.getMapper(PoohMapper.class).basketDelete(bindex);		
+	}
+
+	public int orderListCnt(String emailid) {
+		param.clear();
+		param.put("emailid", emailid);
+		Integer orderListCnt = sqlSession.getMapper(PoohMapper.class).orderListCnt(param);
+		return orderListCnt;
+	}
+
+	public List<Uorder> orderList(String emailid) {
+		param.clear();
+		param.put("emailid", emailid);
+		return sqlSession.getMapper(PoohMapper.class).orderList(param);
+	}
+
+	public List<Orderlist> orderClassList(int od_num) {
+		param.clear();
+		param.put("od_num", od_num);
+		return sqlSession.getMapper(PoohMapper.class).orderClassList(param);
+	}
+
+	public void updateDelivery(int od_num, int deli_val) {
+		param.clear();
+		param.put("od_num", od_num);
+		param.put("deli_val", deli_val);
+		sqlSession.getMapper(PoohMapper.class).updateDelivery(param);
 	}
 
 

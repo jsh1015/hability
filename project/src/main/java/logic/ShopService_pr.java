@@ -60,4 +60,21 @@ public class ShopService_pr {
 		poohDao.basketDelete(bindex);
 	}
 
+	public int orderListCnt(String emailid) {
+		return poohDao.orderListCnt(emailid);
+	}
+
+	public List<Uorder> orderList(String emailid) {
+		return poohDao.orderList(emailid);
+	}
+	
+	// 1개의 주문목록에 대한 클래스 리스트
+	public List<Orderlist> orderClassList(int od_num) {
+		return poohDao.orderClassList(od_num);
+	}
+
+	public void updateDelivery(int od_num, int deli_val) {
+		poohDao.updateDelivery(od_num, deli_val);
+	}
+
 }
