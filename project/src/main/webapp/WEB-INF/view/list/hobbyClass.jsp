@@ -162,7 +162,7 @@
  				<!--정규 클래스-->
  				<c:forEach items="${classList}" var="list">
 				<li class="class-list">
-					<a href="detail.shop?cl_num=${list.cl_num}">
+					<a href="detail.shop?cl_num=${list.cl_num}&emailid=${emailid}">
 						<div class="class-list-thumb">
 							<img src="${path}/img/${list.cl_img}" alt="" class="thumb-class-list">
 						</div>

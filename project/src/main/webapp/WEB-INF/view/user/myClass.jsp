@@ -366,12 +366,15 @@ transform
 .fb_iframe_widget_fluid span {
 	width: 100%
 }
+
+.async-hide {
+	opacity: 0 !important
+}
 </style>
 </head>
 <body>
-
 	<div class="wrap" id="wrap">
-
+		<input type="hidden" name="cl_num" value="${i.cl_num}">
 		<div class="container">
 			<div class="myclass-wrap">
 				<div class="myclass-tit-wrap">
@@ -381,63 +384,37 @@ transform
 						부담갖지 마시고 하루에 조금씩 차근차근 완성해보세요.<br> 클래스 영상은 배송 시작과 함께 오픈됩니다.
 					</div>
 				</div>
+				<c:forEach var="i" items="${odlist}" >
 				<div class="myclass-cont">
 					<div class="myclass-area ">
-						<a href="${path}/user/myClass1.shop"><div
-								class="myclass-img-wrap">
-								<img
-									src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/564c6d90-3b60-11ea-9dc0-5182fd3b8405-resize.jpg"
-									class="img-myclass" alt=""><span class="view-class"><em
-									class="btn-view-class">클래스보기</em></span>
-							</div>
+						<a href="mycdetail.shop?cl_num=${i.cl_num}">
+						<div class="myclass-img-wrap">
+							<img src="${path}/img/${c.cl_img}"class="img-myclass" alt=""><span class="view-class">
+							<em class="btn-view-class">클래스보기</em></span>
+						</div>
 							<div class="myclass-caption">
-								<span class="caption-txt">기타</span>
+								<span class="caption-txt">${c.cl_category}</span>
 							</div>
-							<div class="myclass-area-tit">밤 반짝임 드림캐처 클래스</div>
-							<div class="myclass-info-wrap">
-								<div class="myclass-info">
-									<div class="myclass-info-tit">소요시간</div>
-									<div class="myclass-info-txt">3~4시간</div>
-								</div>
-								<div class="myclass-info">
-									<div class="myclass-info-tit">난이도</div>
-									<div class="myclass-info-txt">VERYEASY</div>
-								</div>
-								<div class="myclass-info">
-									<div class="myclass-info-tit">클래스 시간</div>
-									<div class="myclass-info-txt">분</div>
-								</div>
-							</div>
+							<div class="myclass-area-tit">${c.cl_title}</div>
 							<div class="myclass-summary">
 								<div class="myclass-summary-tit">
-									<div class="myclass-summary-sub">클래스 25% 진행중</div>
+									<div class="myclass-summary-sub">클래스  진행중</div>
 									<div class="myclass-summary-txt">시작이 반이라고 했었던가요?</div>
-								</div>
-								<div class="myclass-bar">
-									<div class="myclass-bar-on" style="width: 25%;"></div>
 								</div>
 							</div>
 							<div class="myclass-yet-wrap">
 								<div class="myclass-yet"></div>
-							</div></a>
+							</div>
+						</a>
 					</div>
 				</div>
+				</c:forEach>
 			</div>
-
 		</div>
 
 		<div class="layer-wrap popup-wrap" id="popup-wrap">
 			<div class="bg-layer-wrap" onclick="Popup.hide();"></div>
 		</div>
 	</div>
-
-
-
-<style>
-.async-hide {
-	opacity: 0 !important
-}
-</style>
-
 </body>
 </html>

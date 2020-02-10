@@ -36,6 +36,7 @@ import logic.ShopService;
 import logic.ShopService_pr;
 import logic.Uorder;
 import logic.User;
+import logic.Video;
 
 @Controller //@Component + Controller : 객체를 만들고 컨트롤러의 기능까지 같이 수행
 @RequestMapping("user") //user/xxx.shop
@@ -318,5 +319,36 @@ public class UserController {
 			throw new LoginException("회원 탈퇴시 오류가 발생했습니다. 전산부 연락 요망","delete.shop?id="+user.getEmailid());
 		}
 		return mav;
+	}
+	
+	//내 클래스 목록
+	@RequestMapping("myClass")
+	public ModelAndView myclass(User user,Integer cl_num,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User)session.getAttribute("loginUser");
+		List<Orderlist> odlist = service.orderlist(loginUser);
+		Class c = service.getclass(cl_num);
+		mav.addObject("odlist",odlist);
+		mav.addObject("c",c);
+		return mav;
+	}
+	
+	//내 클래스 상세보기
+	@RequestMapping("mycdetail")
+	public ModelAndView mycdetail(Integer cl_num,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		List<Video> vlist = service.vlist(cl_num);
+		Class c = service.getclass(cl_num);
+		mav.addObject("vlist",vlist);
+		mav.addObject("c",c);
+		return mav;
+	}
+	
+	@RequestMapping("clickvideo")
+	@ResponseBody
+	public String cvideo(Integer v_num) {
+		String v_file = service.cv(v_num);
+		System.out.println(v_file);
+		return v_file;
 	}
 }

@@ -10,6 +10,7 @@
 	
 	<excludes><!-- sitemesh를 사용하지 않게 -->
 		<pattern>/admin/kit*</pattern>
+		<pattern>/admin/video*</pattern>
 		<pattern>/user/userEntry*</pattern>
 		<pattern>/user/login*</pattern>
 		<pattern>/user/join*</pattern>

@@ -1771,6 +1771,27 @@ a {
 	height: 80%;
 }
 
+.kv{
+	background-color: #FFBC42;
+	color:#274555;
+}
 
+.kv2{
+	background-color: #fffff5;
+	color:#404146;
+}
 
+.kv3{
+	background-color: #fffff5;
+	color:#404146;
+}
 
+.ah{
+	background-color: #aacfd0;
+	color:#1f4e5f;
+}
+.ajax{
+	background-color: #aacfd0;
+	color:#79a8a9;
+	
+}

@@ -68,7 +68,19 @@
             </div>
          </div>
          <div class="vod-btn-wrap">
-            <a href="#like" title="좋아요" class="btn-like">좋아요</a>
+             			<c:if test="${empty sessionScope.loginUser}">
+               <a href="#login" class="btn-like btn-like-off showlogin">좋아요</a>
+            </c:if>
+            <c:if test="${!empty sessionScope.loginUser}">
+            <div id="h-btn">
+    	    <c:if test="${check eq null}">
+				<button class="btn-like btn-like-off" onclick="javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})">좋아요</button>
+			</c:if>
+			<c:if test="${check eq 1}">
+				<button class="btn-like" onclick="javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})">좋아요</button>
+			</c:if> 
+			</div>
+			</c:if>
             <c:if test="${empty sessionScope.loginUser}">
                <a href="#login" class="btn-get showlogin">클래스 신청하기</a>
             </c:if>
@@ -159,147 +171,6 @@
                         </ul>
                      </div>
                   </div>
-                  <div class="class-epilogue-area">
-                     <div class="magazine-reply-wrap">
-                        <div class="magazine-reply-tit">
-                           <div class="magazine-reply-nick">에스더</div>
-                           <div class="magazine-reply-star">
-                              <div class="reply-star-on reply-star-on0">this.cr_star</div>
-                           </div>
-                           <div class="magazine-reply-info">
-                              <span class="reply-date">2020.01.15</span><a href="#report"
-                                 data-cr-id="3137" title="신고"
-                                 class="btn-edit-reply btn-report-reply"
-                                 style="color: #f1645d;">신고</a>
-                           </div>
-                        </div>
-                        <div class="magazine-reply-cont">
-                           라탄 바구니 만들어보고 정규클래스 기다리고있어서 바로주문했는데요~ <br>바구니 만드는건 좀헷갈려서 잘
-                           못만든것같지만 재밌었어요 <br>정규클래스 또올려주세요^^
-                        </div>
-                        <ul class="reply-thumb-list">
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="0" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/41192b80-3763-11ea-b29a-ed074e6a0d91-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/41192b80-3763-11ea-b29a-ed074e6a0d91-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="1" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/411d2320-3763-11ea-b29a-ed074e6a0d91-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/411d2320-3763-11ea-b29a-ed074e6a0d91-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="2" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/41218ff0-3763-11ea-b29a-ed074e6a0d91-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/41218ff0-3763-11ea-b29a-ed074e6a0d91-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="class-epilogue-area">
-                     <div class="magazine-reply-wrap">
-                        <div class="magazine-reply-tit">
-                           <div class="magazine-reply-nick">데이지89</div>
-                           <div class="magazine-reply-star">
-                              <div class="reply-star-on reply-star-on0">this.cr_star</div>
-                           </div>
-                           <div class="magazine-reply-info">
-                              <span class="reply-date">2020.01.14</span><a href="#report"
-                                 data-cr-id="3132" title="신고"
-                                 class="btn-edit-reply btn-report-reply"
-                                 style="color: #f1645d;">신고</a>
-                           </div>
-                        </div>
-                        <div class="magazine-reply-cont">주문해놓고 키트오늘거 기다리는데 얼마나
-                           설렜는지몰라요ㅋ 제가 똥손이라 잘 따라할 수 있을까 걱정도 많이하구ㅋ 설명 상세히 잘해주셔서 나름 잘 따라했어요ㅋ
-                           소분하는거 화장실에서 하는데 길이가 생각보다 길어서 팔이 엄청 아팠어요 소분하고 바로 티코스터 만들기해서 팔이
-                           아팠던건지^^; 바구니도 얼른 만들어보려구요 근데 강의 속도 조절이있으면 더 좋을거같아요!!</div>
-                        <ul class="reply-thumb-list">
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="0" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0bbd4360-36a8-11ea-a5e9-c5ae5efa17c3-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0bbd4360-36a8-11ea-a5e9-c5ae5efa17c3-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="1" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0bc1b030-36a8-11ea-a5e9-c5ae5efa17c3-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0bc1b030-36a8-11ea-a5e9-c5ae5efa17c3-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="2" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0bc9ed90-36a8-11ea-a5e9-c5ae5efa17c3-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0bc9ed90-36a8-11ea-a5e9-c5ae5efa17c3-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="class-epilogue-area">
-                     <div class="magazine-reply-wrap">
-                        <div class="magazine-reply-tit">
-                           <div class="magazine-reply-nick">미선❤️</div>
-                           <div class="magazine-reply-star">
-                              <div class="reply-star-on reply-star-on10">this.cr_star</div>
-                           </div>
-                           <div class="magazine-reply-info">
-                              <span class="reply-date">2020.01.14</span><a href="#report"
-                                 data-cr-id="3131" title="신고"
-                                 class="btn-edit-reply btn-report-reply"
-                                 style="color: #f1645d;">신고</a>
-                           </div>
-                        </div>
-                        <div class="magazine-reply-cont">
-                           똥손이 저도 바구니 티코스터 완성했네요 <br>그리고 이불털기는 ㅠㅠ 꺾어져서 미흡하게됬지만 <br>그래도
-                           마음에 드네요 <br>아이들 잘때 해야되서 아직 뚜껑이랑 거울 램프 못했지만 <br>조만간 다
-                           완성해서 남은 환심으로 바구니 한번 더 만들어볼께요^^!!
-                        </div>
-                        <ul class="reply-thumb-list">
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="0" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0956da70-3697-11ea-89af-1b32783f24c4-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0956da70-3697-11ea-89af-1b32783f24c4-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="1" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0955c900-3697-11ea-89af-1b32783f24c4-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/0955c900-3697-11ea-89af-1b32783f24c4-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="class-epilogue-area">
-                     <div class="magazine-reply-wrap">
-                        <div class="magazine-reply-tit">
-                           <div class="magazine-reply-nick">NK</div>
-                           <div class="magazine-reply-star">
-                              <div class="reply-star-on reply-star-on0">this.cr_star</div>
-                           </div>
-                           <div class="magazine-reply-info">
-                              <span class="reply-date">2020.01.13</span><a href="#report"
-                                 data-cr-id="3130" title="신고"
-                                 class="btn-edit-reply btn-report-reply"
-                                 style="color: #f1645d;">신고</a>
-                           </div>
-                        </div>
-                        <div class="magazine-reply-cont">라탄공예 너무 해보고 싶었는데 인스타에 광고
-                           보고 시적했어요. 시작하기에 너무 좋은 키트인데 하나하나 만들어가는 재미가 있네요. 집안이 라탄으로 가득 채워지길
-                           바라며 후기 남겨용</div>
-                        <ul class="reply-thumb-list">
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="0" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/fcaadf80-3603-11ea-9957-f1478177ba51-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/fcaadf80-3603-11ea-9957-f1478177ba51-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="1" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/fcadc5b0-3603-11ea-9957-f1478177ba51-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/fcadc5b0-3603-11ea-9957-f1478177ba51-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                           <li class="reply-thumb2"><a href="#popupimg" title=""
-                              data-idx="2" class="show-photo-btn"><img
-                                 src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/fcb25990-3603-11ea-9957-f1478177ba51-square.jpg"
-                                 data-img="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/review/fcb25990-3603-11ea-9957-f1478177ba51-resize.jpg"
-                                 alt="" class="thumb-reply2"></a></li>
-                        </ul>
                      </div>
                   </div>
                </div>
@@ -618,6 +489,14 @@
 								}
 							})
 						}
+		             	function like_it(cl_num,emailid,board_type){
+		          			$.ajax("${path}/list/like.shop?cl_num="+cl_num+"&emailid="+emailid+"&board_type="+board_type,{
+		          				success:function(msg){
+		          					alert(msg);
+		          					$("#h-btn").html("<button class='btn-like "+msg+"' onclick=\"javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})\">좋아요</button>")
+		          				}
+		          			})
+		         		}
 					</script>
 					<input type="hidden" class="lastcount" name="lastcount"  value="1">
 					<input type="hidden" class="emailid" name="emailid" value="${sessionScope.loginUser.emailid}">

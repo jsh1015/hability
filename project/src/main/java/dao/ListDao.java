@@ -12,6 +12,8 @@ import dao.mapper.ListMapper;
 import logic.Class;
 import logic.Comment;
 import logic.Kit;
+import logic.Ulike;
+import logic.Video;
 
 @Repository
 public class ListDao {
@@ -83,6 +85,42 @@ public class ListDao {
 		param.clear();
 		param.put("cl_num",cl_num);
 		return sqlSession.getMapper(ListMapper.class).kitList(param);
+	}
+
+	//보관함확인
+	public String lselect(int cl_num,String emailid) {
+		param.clear();
+		param.put("cl_num",cl_num);
+		param.put("emailid",emailid);
+		return sqlSession.getMapper(ListMapper.class).lselect(param);
+	}
+	
+	//보관함등록
+	public void linsert(Ulike ul) {
+		sqlSession.getMapper(ListMapper.class).linsert(ul);
+	}
+	
+	//보관함삭제
+	public void ldelete(Ulike ul) {
+		sqlSession.getMapper(ListMapper.class).ldelete(ul);
+	}
+	
+	//영상 번호
+	public int videonum(Integer cl_num) {
+		return sqlSession.getMapper(ListMapper.class).videonum(cl_num);
+	}
+	
+	//영상등록
+	public void videoinsert(Video video) {
+		sqlSession.getMapper(ListMapper.class).vinsert(video);
+	}
+	//영상삭제
+	public void videodelete(Integer cl_num, Integer v_num) {
+		sqlSession.getMapper(ListMapper.class).vdelete(cl_num,v_num);
+	}
+
+	public Class getclass(Integer cl_num) {
+		return sqlSession.getMapper(ListMapper.class).getclass(cl_num);
 	}
 
 	public List<Comment> commentList(int cl_num) {

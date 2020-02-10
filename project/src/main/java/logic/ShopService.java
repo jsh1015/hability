@@ -163,11 +163,77 @@ public class ShopService {
 		listDao.delete(classes);
 	}
 
+	
+	//키트삭제
 	public void kitdelete(Integer cl_num, Integer kit_num) {
 		listDao.kitdelete(cl_num,kit_num);
 	}
+	//키트 목록
+	public List<Kit> kitList(Integer cl_num) {
+		return listDao.kitList(cl_num);
+	}
+	//보관함확인
+	public String likeselect(Integer cl_num,String emailid) {
+		return listDao.lselect(cl_num,emailid);
+	}
+    //보관함 등록
+	public void likeinsert(Ulike ul) {
+		listDao.linsert(ul);
+	}
+	//보관함 삭제
+	public void likedelete(Ulike ul) {
+		listDao.ldelete(ul);
+	}
 	
+	//영상 업로드
+	private void vuploadFileCreate(MultipartFile v_fileUrl,HttpServletRequest request, String path) {
+		//picture : 업로드된 파일의 내용
+		String orgFile = v_fileUrl.getOriginalFilename();
+		String uploadPath = "/project/" + path; //파일을 만들어줌
+		File fpath = new File(uploadPath);
+		if(!fpath.exists()) fpath.mkdirs(); //해당 path가없으면 생성
+		try {
+			//picture에 있는 것 파일로 생성
+			v_fileUrl.transferTo(new File(uploadPath + orgFile));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
+	//영상 추가
+	public void videoinsert(Video video, Integer cl_num, HttpServletRequest request) {
+		if(video.getV_fileUrl()!=null && !video.getV_fileUrl().isEmpty()) {
+			vuploadFileCreate(video.getV_fileUrl(), request, "img/");
+		//업로드될 파일 이름을 설정
+		video.setV_file(video.getV_fileUrl().getOriginalFilename());
+	}
+		int num = listDao.videonum(cl_num);
+		video.setV_num(++num);
+		video.setCl_num(cl_num);
+		listDao.videoinsert(video);
+	}
+	//영상삭제
+	public void vdelete(Integer cl_num, Integer v_num) {
+		listDao.videodelete(cl_num,v_num);
+	}
+	//내클래스 목록
+	public List<Orderlist> orderlist(User emailid) {
+		return userDao.odlist(emailid);
+	}
+	//해당비디오 목록
+	public List<Video> vlist(Integer cl_num) {
+		return userDao.vlist(cl_num);
+	}
+	//선택한 비디오 출력
+	public String cv(Integer v_num) {
+		return userDao.clickvideo(v_num);
+	}
+
+	public Class getclass(Integer cl_num) {
+		return listDao.getclass(cl_num);
+	}
+
+
 	//회원목록
 		public List<User> userList() {
 			return userDao.userlist();

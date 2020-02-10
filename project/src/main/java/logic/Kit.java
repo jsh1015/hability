@@ -1,16 +1,19 @@
 package logic;
 
-import java.io.Serializable;
-
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
-public class Kit implements Serializable {
+public class Kit {
 	private int kit_num;
 	private int cl_num;
+	@NotEmpty(message="키트 이름을 입력하세요")
 	private String kit_name;
+	@NotEmpty(message="키트구성을 입력하세요")
 	private String kit_box;
+	@NotEmpty(message="파일을 첨부하세요")
 	private String kit_img;
 	private MultipartFile kit_imgUrl;
+	@NotEmpty(message="가격을 입력하세요")
 	private int kit_price;
 	
 	public int getKit_num() {

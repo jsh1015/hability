@@ -63,8 +63,14 @@
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">
-								<a href="${path}/user/myClass.shop" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
+							<c:if test="${empty sessionScope.loginUser}">
+							<a href="#login" title="내 클래스" class="btn-func func-myclass showlogin">내 클래스</a>
 								<div class="txt-func03">내 클래스</div>
+							</c:if>	
+							<c:if test="${!empty sessionScope.loginUser}">
+								<a href="${path}/user/myClass.shop?emailid=${sessionScope.loginUser.emailid}" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
+								<div class="txt-func03">내 클래스</div>
+							</c:if>
 							</li>
 						</ul>
 					</div>
@@ -118,7 +124,7 @@
 							<a href="${path}/user/logout.shop" title="로그아웃" class="btn-gnb header_logout">로그아웃</a>
 						</li>
 						<li class="gnb gnb-admin" style="display: list-item;">
-							<a href="../admin/admain.shop" title="관리자 페이지" class="btn-gnb header_admin">관리자 페이지</a>
+							<a href="../admin/userlist.shop" title="관리자 페이지" class="btn-gnb header_admin">관리자 페이지</a>
 						</li>
 					</c:if>
 					</ul>
