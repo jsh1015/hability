@@ -11,7 +11,9 @@ import org.apache.ibatis.annotations.Update;
 
 import logic.Basket;
 import logic.Kit;
+import logic.Orderlist;
 import logic.Postaddr;
+import logic.Uorder;
 import logic.User;
 
 public interface PoohMapper {
@@ -63,4 +65,23 @@ public interface PoohMapper {
 
 	@Delete("delete from basket where cl_num=#{bindex}")
 	void basketDelete(int bindex);
+
+	@Select({"<script>",
+			 " select count(*) from uorder ",
+			 " <if test='emailid !=null'> where emailid = #{emailid} </if>",
+			 "</script>"})
+	Integer orderListCnt(Map<String, Object> param);
+
+	@Select({"<script>",
+				"select * from uorder ",
+				" <if test='emailid !=null'> where emailid = #{emailid} </if>",
+			 "</script>"})
+	List<Uorder> orderList(Map<String, Object> param);
+
+	@Select("select * from orderlist where od_num = #{od_num}")
+	List<Orderlist> orderClassList(Map<String, Object> param);
+	
+	@Update("update uorder set "
+			+ " od_deliver = #{deli_val} where od_num = #{od_num} ")
+	void updateDelivery(Map<String, Object> param);
 }

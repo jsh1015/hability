@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.LoginException;
 import logic.Basket;
 import logic.Class;
 import logic.Kit;
+import logic.Orderlist;
 import logic.Postaddr;
 import logic.ShopService;
 import logic.ShopService_pr;
+import logic.Uorder;
 import logic.User;
 
 @Controller
@@ -134,6 +137,16 @@ public class PoohController {
 		return mav;
 	}
 	
+	// ajax 주문 배송지 변경 확인 모달
+	@RequestMapping("ajax/changeaddressmodal")
+	public ModelAndView changeaddressmodal(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		int od_num = Integer.parseInt(request.getParameter("od_num")); // 넘어온 값
+		System.out.println("ajax od_num = " + od_num);
+		mav.addObject("po_num", od_num); // ajax으로 넘어감
+		return mav;
+	}
+	
 	// ajax 배송지 삭제 모달
 	@RequestMapping("ajax/addrDeleteModal")
 	public ModelAndView addrDeleteModal(HttpServletRequest request) {
@@ -167,4 +180,55 @@ public class PoohController {
 		mav.addObject("cl_num", cl_num); // ajax으로 넘어감
 		return mav;
 	}
+	
+	// 관리자 주문배송 조회
+	@RequestMapping("admin/orderList")
+	public ModelAndView adminOrderList() {
+		ModelAndView mav = new ModelAndView();
+		List<Uorder> orderList = service_pr.orderList(null);
+		for(Uorder oneorder : orderList) {
+			System.out.println("관리자 주문배송 조회 uorder = " + oneorder);
+			
+			// 주문리스트 1개에서 주문번호를 가지고 상품 리스트를 만들어
+			List<Orderlist> itemList = service_pr.orderClassList(oneorder.getOd_num());
+			for(Orderlist oneitem : itemList) {
+				// 주문내역 1개에 해당하는 class 조회
+				Class cls = service.classDetail(oneitem.getCl_num());
+				Kit kit = service_pr.kitInfo(oneitem.getKit_num(), oneitem.getCl_num());
+				oneitem.setCls(cls);
+				oneitem.setKit(kit);
+			}
+			oneorder.setOrderlist(itemList);
+			// Sale에 있는 User에 사용자정보(값) 넣어주기
+			try {
+				User username = service.getUser(oneorder.getEmailid());
+				oneorder.setUser(username);
+			} catch (LoginException e) {
+				// 탈퇴한 회원이 있을 경우
+			}
+		}
+		mav.addObject("orderList", orderList);
+		
+		// 주문 개수
+		int orderListCnt = service_pr.orderListCnt(null);
+		System.out.println("주문 개수 = " +orderListCnt);
+		mav.addObject("orderListCnt", orderListCnt);
+		
+		return mav;
+	}
+	
+	@RequestMapping("admin/changeDelivery")
+	public ModelAndView changeDelivery(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("admin/orderList");
+		
+		int od_num = Integer.parseInt(request.getParameter("od_num")); // 넘어온 값
+		int deli_val = Integer.parseInt(request.getParameter("deli_val")); // 넘어온 값
+		
+		System.out.println(od_num);
+		System.out.println("배송 상황 : "+deli_val);
+		
+		service_pr.updateDelivery(od_num, deli_val);		
+		return mav;
+	}
+	
 }
