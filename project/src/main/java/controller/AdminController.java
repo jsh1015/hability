@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import logic.Class;
 import logic.Kit;
 import logic.ShopService;
 import logic.User;
+import logic.Video;
 
 @Controller
 @RequestMapping("admin")
@@ -110,6 +113,39 @@ public class AdminController {
 		mav.setViewName("redirect:kit.shop?cl_num="+cl_num);
 		return mav;
 	}
+	
+	//비디오 등록
+	@GetMapping("video")
+	public ModelAndView getvideo(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("video",new Video());
+		return mav;
+	}
+	
+	@PostMapping("video") 
+	public ModelAndView video(@Valid Video video, Integer cl_num, BindingResult bresult, HttpServletRequest request,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		if(bresult.hasErrors()) {
+			mav.getModel().putAll(bresult.getModel());
+			return mav;
+		}
+		try {
+			service.videoinsert(video,cl_num,request);
+			mav.setViewName("redirect:video.shop?cl_num="+cl_num);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	//비디오삭제
+	@RequestMapping("videodelete")
+	public ModelAndView deletevideo(Integer cl_num, Integer v_num,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		service.vdelete(cl_num,v_num);
+		mav.setViewName("redirect:video.shop?cl_num="+cl_num);
+		return mav;
+	}
+	
 	
 	@RequestMapping("userlist") //회원 목록
 	public ModelAndView userlist() {

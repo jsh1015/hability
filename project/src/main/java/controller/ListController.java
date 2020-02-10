@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Class;
 import logic.Comment;
 import logic.Kit;
 import logic.ShopService;
+import logic.Ulike;
 
 @Controller
 @RequestMapping("list")
@@ -35,20 +37,49 @@ public class ListController {
    }
    
    @RequestMapping("detail")
-	public ModelAndView detail(int cl_num) {
+	public ModelAndView detail(Integer cl_num,String emailid) {
 		ModelAndView mav = new ModelAndView();
-
 		// 세부정보 넘겨줌
 		Class classDetail = service.classDetail(cl_num);
-
 		// 옵션값 넘겨줌
 		List<Kit> kitList = service.kitList(cl_num);
+		
+		//좋아요 확인하기
+		String check = service.likeselect(cl_num,emailid);
+		System.out.println(emailid);
 		// 옵션 개수
 		mav.addObject("kitcnt", kitList.size());
+		//게시물 내용
 		mav.addObject("classDetail", classDetail);
 		mav.addObject("kitList", kitList);
+		//좋아요 확인
+		mav.addObject("check",check);
+		
 		return mav;
 	}
+   
+   @RequestMapping("like")
+   @ResponseBody
+   public String like(int cl_num,String emailid,int board_type) {
+		Ulike ul = new Ulike();
+		ul.setCl_num(cl_num);
+		ul.setEmailid(emailid);	
+		ul.setLike_type(board_type);
+		
+		String check = service.likeselect(cl_num,emailid);
+		System.out.println(check);
+		String h = "";
+		
+		if(check == null) {
+			System.out.println("추가");
+			service.likeinsert(ul);
+		}else {			
+			System.out.println("삭제");
+			service.likedelete(ul);
+			h = "btn-like-off";
+		}
+		return h;
+   }
    
    //매거진 목록
 	@RequestMapping("magazine")

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
 import logic.Mileage;
+import logic.Orderlist;
 import logic.User;
+import logic.Video;
 
 @Repository
 public class UserDao {
@@ -123,6 +125,17 @@ public class UserDao {
 		param.put("emailid",emailid);
 		return sqlSession.getMapper(UserMapper.class).mileagelist(emailid);
 	}
-
+	//내클래스 목록
+	public List<Orderlist> odlist(User emailid) {
+		return sqlSession.getMapper(UserMapper.class).odlist(emailid);
+	}
+	//클래스 비디오 목록
+	public List<Video> vlist(Integer cl_num) {
+		return sqlSession.getMapper(UserMapper.class).vlist(cl_num);
+	}
+	//선택한 비디오 출력
+	public String clickvideo(Integer v_num) {
+		return sqlSession.getMapper(UserMapper.class).clickvideo(v_num);
+	}
 
 }

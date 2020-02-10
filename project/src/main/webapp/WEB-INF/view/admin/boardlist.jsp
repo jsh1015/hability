@@ -12,9 +12,10 @@
 	op = open("kit.shop?cl_num="+num,"kit::add","width=700,height=600,top=100,left=700");
  }
  
- function kitedit(num){
-	op = open("kitedit.shop?cl_num="+num,"kit::add","width=700,height=600,top=100,left=700");
+ function video(num){
+	op = open("video.shop?cl_num="+num,"video::add","width=700,height=600,top=100,left=700");
 }
+
 
 </script>
 </head>
@@ -80,8 +81,8 @@
   		</c:choose></td>
   		<td><fmt:formatNumber value="${b.cl_price}" type="CURRENCY" currencySymbol=""/>원</td>
   		<td><a href="boardedit.shop?cl_num=${b.cl_num}">수정</a>&nbsp;&nbsp;<a href="boarddel.shop?cl_num=${b.cl_num}">삭제</a></td>
-  		<td><button onclick="javascript:kitinsert('${b.cl_num}')">키트 등록</button></td>
-  		<td><button onclick="">영상 등록</button></td></tr>
+  		<td><a href="javascript:kitinsert('${b.cl_num}')">키트 등록</a></td>
+  		<td><a href="javascript:video('${b.cl_num}')">영상 등록</a></td></tr>
   	</c:forEach>
   	</table>
   </div>

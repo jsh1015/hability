@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Kit::등록</title>
+<link rel="stylesheet" href="${path}/css/admin.css">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="../ajax.js"></script>
-
 <script type="text/javascript">
 function loadkit(f){
 	var params= "cl_num=" + f.cl_num.value
@@ -28,29 +28,52 @@ function loadkit(f){
 }
 
 </script>
+<style>
+table{
+ 	border-radius: 10px;
+ 	border-color:#FFBC42;
+}
+.kv{
+	background-color: #fcbe32;
+	color:#FFFFFF;
+}
+
+.kv2{
+	background-color: #FFFFFF;
+	color:#404146;
+}
+
+.kv3{
+	background-color: #FFFFFF;
+	color:#404146;
+}
+
+</style>
 </head>
 <body>
 	<form:form modelAttribute="kit" action="kit.shop" enctype="multipart/form-data" name="f">
 	<input type="hidden" id="cl_num" name="cl_num" value="<%=request.getParameter("cl_num")%>">
-	<table border="1" style="width: 95%; text-align: center;">
+	<table style="width: 100%; height:40%; text-align: center;">
 				<!-- <tbody> -->
-					<tr>
+					<tr class="kv">
 						<th>키트명</th>
 						<th>키트구성</th>
 						<th>키트가격</th>
 					</tr>
-					<tr name="trStaff">
-						<td><form:input path="kit_name" id="kit_name" /></td>
-						<td><form:input path="kit_box" id="kit_box" /><input type="file" name="kit_imgUrl" id="kit_imgUrl"></td>
-						<td><form:input path="kit_price" id="kit_price" /></td>
+					<tr name="trStaff" class="kv2">
+						<td><form:input path="kit_name" id="kit_name" /><font color="red"><form:errors paht="kit_name" /></font></td>
+						<td><form:input path="kit_box" id="kit_box" /><font color="red"><form:errors paht="kit_box" /></font>
+						<input type="file" name="kit_imgUrl" id="kit_imgUrl"><font color="red"><form:errors paht="kit_imgUrl" /></font></td>
+						<td><form:input path="kit_price" id="kit_price" /><font color="red"><form:errors paht="kit_price" /></font></td>
 					</tr>
-					<tr>
+					<tr class="kv3">
 						<td colspan="3"><input type="submit" value="옵션 등록">
 						<input type="button" onclick="javascript:loadkit(f)" value="옵션 확인"></td>
 					</tr>
 				</tbody>
 			</table>
 		</form:form>
+		<br>
 		<div id="result"></div>
 <!-- 	
 	<script>

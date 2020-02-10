@@ -9,7 +9,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import logic.Mileage;
+import logic.Orderlist;
 import logic.User;
+import logic.Video;
 
 public interface UserMapper {
 	
@@ -69,8 +71,15 @@ public interface UserMapper {
 			+ "</script>"})
 	List<User> selectlist(Map<Object, Object> param);
 
+	@Select("select u.emailid, l.od_num,c.cl_num,c.cl_img,c.cl_title,cl_category from uorder u, orderlist l, class c where emailid=#{emailid} and u.od_num=l.od_num and c.cl_num=l.cl_num")
+	List<Orderlist> odlist(User emailid);
 
+	@Select("select v.v_num,v.v_file, v.v_title, c.cl_num, c.cl_category from video v ,class c where c.cl_num=v.cl_num and c.cl_num=#{cl_num}")
+	List<Video> vlist(Integer cl_num);
 
+	@Select("select v_file from video where v_num = #{v_num}")
+	String clickvideo(Integer v_num);
+	
 
 
 }

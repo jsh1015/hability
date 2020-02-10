@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Update;
 import logic.Class;
 import logic.Comment;
 import logic.Kit;
+import logic.Ulike;
+import logic.Video;
 
 public interface ListMapper {
 
@@ -44,6 +46,27 @@ public interface ListMapper {
 
 	@Delete("delete from kit where cl_num=#{cl_num} and kit_num=#{kit_num}")
 	void kdelete(@Param("cl_num") Integer cl_num, @Param("kit_num") Integer kit_num);
+
+	@Select("select * from ulike where cl_num = #{cl_num} and emailid = #{emailid}")
+	String lselect(Map<String, Object> param);
+
+	@Insert("insert into ulike (cl_num, emailid, like_type) values (#{cl_num},#{emailid},#{like_type})")
+	void linsert(Ulike ul);
+
+	@Delete("delete from ulike where cl_num = #{cl_num} and emailid = #{emailid}")
+	void ldelete(Ulike ul);
+
+	@Select("select ifnull(max(v_num),0) from video where cl_num=#{cl_num}")
+	int videonum(Integer cl_num);
+	
+	@Insert("insert into video (v_num, cl_num, v_title, v_file) values (#{v_num}, #{cl_num}, #{v_title}, #{v_file})")
+	void vinsert(Video video);
+
+	@Delete("delete from video where cl_num = ${cl_num} and v_num =${v_num}")
+	void vdelete(@Param("cl_num") Integer cl_num,@Param("v_num")  Integer v_num);
+
+	@Select("select cl_title, cl_category, cl_img from class where cl_num=#{cl_num}")
+	Class getclass(Integer cl_num);
 
 	@Select("select * from comment where cl_num = #{cl_num}")
 	List<Comment> commentList(int cl_num);

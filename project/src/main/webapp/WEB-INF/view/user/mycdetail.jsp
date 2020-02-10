@@ -503,69 +503,67 @@ keyframes rotateSpinner
 	width: 100%
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	function onair(num){
+		$.ajax({
+			type:"post",
+			url:"${path}/user/clickvideo.shop",
+			data:{
+				"v_num":num
+			},
+			success:function(msg){
+				alert(msg);
+				$(".play-on").html('<video src=\"${path}/img/'+msg+'\" id=\"vm-player\" width=\"100%\"'
+					+'height=\"400\" autoplay=\"autoplay\" controls></video>')
+				$(num).css({"background":"#11447B","color":"white"})
+			},
+			error: function(e){
+				alert("오류"+e.status);
+			}
+		})	
+	}
+</script>
 </head>
 <body>
 		<div class="container">
 			<div class="myclass-detail-wrap">
 				<div class="myclass-detail-tit-wrap">
-					<div class="myclass-detail-txt">기타</div>
+					<div class="myclass-detail-txt">${c.cl_category}</div>
 					<hr class="line-myclass-detil-tit">
-					<div class="myclass-detail-tit">밤 반짝임 드림캐처 클래스</div>
+					<div class="myclass-detail-tit">${c.cl_title}</div>
 				</div>
 				<div class="vod-wrap">
 					<div class="myclass-video play-on">
-						<!--<img src="" alt="" class="img-vod" />
-<span class="thumb-slide-play">재생</span>-->
-						<iframe id="vm-player"
-							src="https://player.vimeo.com/video/385889334" width="100%"
-							height="400" frameborder="0" allowfullscreen="" data-ready="true"></iframe>
+						<!-- <img src="" alt="" class="img-vod" /><span class="thumb-slide-play">재생</span> -->
+						<video src="${path}/img/${i.v_file}" id="vm-player" width="100%" 
+							height="400" autoplay="autoplay" controls></video>
 					</div>
 					<div class="lesson-wrap">
 						<div class="lesson-cont">
-							<ul class="lesson-list-wrap">
-								<li id="lesson-8401" class="lesson-list lesson-on"><a
+				<c:forEach var="i" items="${vlist}">
+							<ul class="lesson-list-wrap" style="padding:2%">
+								<li id="lesson-8401" class="lesson-list">
+								<a href="javascript:onair(${i.v_num})" class="lesson-select-btn">
+									<div class="lesson-tit">Step ${i.v_num}</div>
+										<div class="lesson-txt">${i.v_title}</div>
+										<div class="lesson-info">
+										</div></a>
+								</li>
+<%-- 		눌렸을때					<li id="lesson-8401" class="lesson-list lesson-on"><a
 									href="javascript:;" data-cv-idx="8401"
 									data-video-link="https://player.vimeo.com/video/385889334"
-									class="lesson-select-btn"><div class="lesson-tit">Step
-											1</div>
-										<div class="lesson-txt">구성품 확인하기</div>
+									class="lesson-select-btn">
+									<div class="lesson-tit">Step ${count}</div>
+										<div class="lesson-txt">${i.v_title}</div>
 										<div class="lesson-info">
-											<div class="lesson-time">01:07</div>
 											<div class="lesson-check lesson-check-on"></div>
-										</div></a></li>
-								<li class="lesson-list"><a href="javascript:;"
-									data-cv-idx="8402"
-									data-video-link="https://player.vimeo.com/video/385889370"
-									class="lesson-select-btn"><div class="lesson-tit">Step
-											2</div>
-										<div class="lesson-txt">달 드림필터 만들기</div>
-										<div class="lesson-info">
-											<div class="lesson-time">26:18</div>
-											<div class="lesson-check "></div>
-										</div></a></li>
-								<li class="lesson-list"><a href="javascript:;"
-									data-cv-idx="8403"
-									data-video-link="https://player.vimeo.com/video/385889720"
-									class="lesson-select-btn"><div class="lesson-tit">Step
-											3</div>
-										<div class="lesson-txt">별 드림필터 만들기</div>
-										<div class="lesson-info">
-											<div class="lesson-time">25:33</div>
-											<div class="lesson-check "></div>
-										</div></a></li>
-								<li class="lesson-list"><a href="javascript:;"
-									data-cv-idx="8404"
-									data-video-link="https://player.vimeo.com/video/385890175"
-									class="lesson-select-btn"><div class="lesson-tit">Step
-											4</div>
-										<div class="lesson-txt">좋은 꿈을 위한 깃털 장식하기</div>
-										<div class="lesson-info">
-											<div class="lesson-time">21:55</div>
-											<div class="lesson-check "></div>
-										</div></a></li>
+										</div>
+								</a></li> --%>
 							</ul>
+						</c:forEach>
 						</div>
-						<div class="myclass-summary">
+<!--  						<div class="myclass-summary">
 							<div class="myclass-summary-tit">
 								<div class="myclass-summary-sub">클래스 25% 진행중</div>
 								<div class="myclass-summary-txt">
@@ -575,7 +573,7 @@ keyframes rotateSpinner
 							<div class="myclass-bar">
 								<div class="myclass-bar-on" style="width: 25%;"></div>
 							</div>
-						</div>
+						</div>  -->
 					</div>
 				</div>
 				<div class="tab-detail-wrap">
@@ -687,6 +685,6 @@ keyframes rotateSpinner
 					onclick="hideWriteReply();">닫기</a>
 			</div>
 		</div>
-	</div>
+	</div>	
 </body>
 </html>
