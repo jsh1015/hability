@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.ListMapper;
 import logic.Class;
+import logic.Comment;
 import logic.Kit;
 
 @Repository
@@ -82,6 +83,30 @@ public class ListDao {
 		param.clear();
 		param.put("cl_num",cl_num);
 		return sqlSession.getMapper(ListMapper.class).kitList(param);
+	}
+
+	public List<Comment> commentList(int cl_num) {
+		param.clear();
+		param.put("cl_num",cl_num);
+		return sqlSession.getMapper(ListMapper.class).commentList(cl_num);
+	}
+
+	public int cm_num() {
+		return sqlSession.getMapper(ListMapper.class).cm_num();
+	}
+	public void commentinsert(int cl_num, int i, String cm_content, String emailid, int j) {
+		param.clear();
+		param.put("cl_num",cl_num);
+		param.put("cm_type",i);
+		param.put("cm_content",cm_content);
+		param.put("emailid",emailid);
+		param.put("cm_num",j);
+		sqlSession.getMapper(ListMapper.class).commentinsert(param);
+		
+	}
+
+	public int commentcount(int cl_num) {
+		return sqlSession.getMapper(ListMapper.class).commentcount(cl_num);
 	}
 	
 }

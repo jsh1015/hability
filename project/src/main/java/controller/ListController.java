@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Class;
+import logic.Comment;
 import logic.Kit;
 import logic.ShopService;
 
@@ -49,10 +50,29 @@ public class ListController {
 		return mav;
 	}
    
-   @RequestMapping("magazine")
-   public String magazine() {
-      return "list/magazine";
-   }
+   //매거진 목록
+	@RequestMapping("magazine")
+	public ModelAndView mlist(Integer board_type) 
+	{
+	    ModelAndView mav = new ModelAndView();
+	    List<Class> classList = service.classList(board_type);
+	    mav.addObject("classList",classList);
+	    return mav;
+	}
+   
+	//매거진 상세보기
+	@RequestMapping("mdetail")
+	public ModelAndView mdetail(int cl_num) 
+	{
+		ModelAndView mav = new ModelAndView();
+		Class classDetail = service.classDetail(cl_num);
+		List<Comment> commentList = service.commentList(cl_num);
+	    List<Class> classList = service.classList(3);
+	    mav.addObject("classList",classList);
+		mav.addObject("classDetail", classDetail);
+		mav.addObject("commentList", commentList);
+		return mav;
+	}
    
    @RequestMapping("service")
    public String service() {
@@ -64,4 +84,17 @@ public class ListController {
    {
       return "list/hobbyClass";
    }
+   
+   //cm_content
+   @RequestMapping("commentinsert")
+   public ModelAndView commentinsert(int cl_num,String cm_content, String emailid)
+   {
+	   ModelAndView mav = new ModelAndView();
+			service.commentinsert(cl_num, 2, cm_content, emailid);
+			int commentcount = service.commentcount(cl_num);
+			mav.addObject("commentcount", commentcount);
+			mav.setViewName("redirect:mdetail.shop?cl_num="+ cl_num);
+		return mav;
+   }
+
 }

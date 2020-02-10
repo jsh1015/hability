@@ -3,7 +3,63 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-<html class=""><head></head>
+<html class="">
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${path}/jquery/js/HF.js"></script>
+<script type="text/javascript" src="${path}/jquery/js/page/main.js"></script>
+	<meta name="description" content="취미로운 일상을 제안하는 온라인 취미 클래스. 취미 배달, 취미 정기구독">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<!-- 970px 미만에서만 적용-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=no, minimal-ui">
+	
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700|Roboto+Slab:400,700|Lato:400,700,900" rel="stylesheet" media="all" onload="this.media='all';">
+	<link rel="stylesheet" type="text/css" href="${path}/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="${path}/awesomplete/awesomplete.css">
+	<link type="text/css" rel="stylesheet" href="${path}/css/style_base.css">
+	<link type="text/css" rel="stylesheet" href="${path}/css/style.css">
+	<link type="text/css" rel="stylesheet" href="${path}/css/style_effect.css">
+	<link type="text/css" rel="stylesheet" href="${path}/css/style_responsible.css">
+	<link type="text/css" rel="stylesheet" href="${path}/css/style_nalrarang.css">
+	
+	<link rel="shortcut icon" href="${path}/img/favicon.png">
+	<link rel="apple-touch-icon" href="${path}/img/m_favicon.png">
+
+    <script type="text/javascript">
+        
+        var sel_file;
+ 
+        $(document).ready(function() {
+            $("#btn-add-thumb").on("change", handleImgFileSelect);
+        }); 
+ 
+        function handleImgFileSelect(e) {
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+ 
+            filesArr.forEach(function(f) {
+                if(!f.type.match("image.*")) {
+                    alert("확장자는 이미지 확장자만 가능합니다.");
+                    return;
+                }
+ 
+                sel_file = f;
+ 
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $(".img_wrap").css({'background-image':'url('+e.target.result+')'});
+                }
+                reader.readAsDataURL(f);
+            });
+        }
+ 
+    </script>
+
+</head>
 <body>
 <div class="layer-wrap join-wrap" id="join-write" style="display: block;">
 	<div class="bg-layer-wrap a-close"></div>
@@ -11,11 +67,13 @@
 	   <div class="join-cont">
 	      <h2 class="layer-tit">회원가입</h2>
 	      <div class="join-thumb-wrap">
-	         <div class="join-thumb"
+<!-- 	         <div class="join-thumb"
 	            data-gtm-vis-recent-on-screen-6759522_100="268748"
 	            data-gtm-vis-first-on-screen-6759522_100="268748"
 	            data-gtm-vis-total-visible-time-6759522_100="100"
 	            data-gtm-vis-has-fired-6759522_100="1">
+ -->
+				<div class="join-thumb img_wrap">
 	            <label for="btn-add-thumb" class="label-add-thumb2"></label>
 	            <input name="userimg" type="file" class="btn-add-thumb"
 	            id="btn-add-thumb" accept="file_extension|audio/*|video/*|image/*|media_type">

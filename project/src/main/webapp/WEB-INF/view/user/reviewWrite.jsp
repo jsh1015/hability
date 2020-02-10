@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			<div class="write-reply-btn">
-				<a href="#link" title="후기 등록" data-class-idx="147" class="btn-write-reply" type="submit">후기 등록</a>
+				<button title="후기 등록" class="btn-write-reply a-submit" type="submit">후기 등록</button>
 			</div>
 		</div>
 	</form:form>

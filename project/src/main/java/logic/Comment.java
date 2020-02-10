@@ -7,7 +7,7 @@ public class Comment {
 	private int cl_num;
 	private int cm_type;
 	private int cm_star;
-	private String content;
+	private String cm_content;
 	private String cm_img1;
 	private String cm_img2;
 	private String cm_img3;
@@ -37,11 +37,11 @@ public class Comment {
 	public void setCm_star(int cm_star) {
 		this.cm_star = cm_star;
 	}
-	public String getContent() {
-		return content;
+	public String getCm_content() {
+		return cm_content;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setCm_content(String cm_content) {
+		this.cm_content = cm_content;
 	}
 	public String getCm_img1() {
 		return cm_img1;
@@ -76,8 +76,8 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [cm_num=" + cm_num + ", cl_num=" + cl_num + ", cm_type=" + cm_type + ", cm_star=" + cm_star
-				+ ", content=" + content + ", cm_img1=" + cm_img1 + ", cm_img2=" + cm_img2 + ", cm_img3=" + cm_img3
-				+ ", cm_date=" + cm_date + ", emailid=" + emailid + "]";
+				+ ", cm_content=" + cm_content + ", cm_img1=" + cm_img1 + ", cm_img2=" + cm_img2 + ", cm_img3="
+				+ cm_img3 + ", cm_date=" + cm_date + ", emailid=" + emailid + "]";
 	}
 	
 	
