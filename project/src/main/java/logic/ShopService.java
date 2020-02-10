@@ -195,6 +195,19 @@ public class ShopService {
 		public List<Mileage> mileagelist(String emailid) {
 			return userDao.mileagelist(emailid);
 		}
+
+		public List<Comment> commentList(int cl_num) {
+			return listDao.commentList(cl_num);
+		}
+
+		public void commentinsert(int cl_num, int i, String cm_content, String emailid) {
+			int cm_num = listDao.cm_num();
+			listDao.commentinsert(cl_num, i, cm_content, emailid, ++cm_num);			
+		}
+
+		public int commentcount(int cl_num) {
+			return listDao.commentcount(cl_num);
+		}
 		
 
 }

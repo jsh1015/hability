@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import logic.Class;
+import logic.Comment;
 import logic.Kit;
 
 public interface ListMapper {
@@ -43,5 +44,18 @@ public interface ListMapper {
 
 	@Delete("delete from kit where cl_num=#{cl_num} and kit_num=#{kit_num}")
 	void kdelete(@Param("cl_num") Integer cl_num, @Param("kit_num") Integer kit_num);
+
+	@Select("select * from comment where cl_num = #{cl_num}")
+	List<Comment> commentList(int cl_num);
+
+	@Select("select ifnull(max(cm_num),0) from comment")
+	int cm_num();
+	
+	@Insert("insert into comment (cm_num, cl_num, cm_type, cm_date, cm_content, emailid) "
+			+ " values (${cm_num}, ${cl_num}, ${cm_type}, now(), '${cm_content}', '${emailid}')")
+	void commentinsert(Map<String, Object> param);
+
+	@Select("select count(*) from comment where cl_num = #{cl_num}")
+	int commentcount(int cl_num);
 
 }

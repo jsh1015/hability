@@ -89,68 +89,72 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="magazine-comment-wrap">
+		<form:form modelAttribute="comment" method="post" name="comment" action="../list/commentinsert.shop">
 			<div class="write-comment-wrap">
 				<div class="write-comment-tit">
-					댓글 <span class="reply-num"></span>개 <span
-						class="write-comment-sub">댓글은 로그인 후 작성이 가능합니다.</span>
+				<div> 댓글 ${commentcount}개 </div>
+				<c:if test="${empty sessionScope.loginUser.emailid}">
+					<span class="write-comment-sub">댓글은 로그인 후 작성이 가능합니다.</span>
+				</c:if>
 				</div>
 				<div class="write-comment">
 					<div class="input-wrap">
-						<textarea class="textarea comment-input" rows="" cols=""
-							placeholder="댓글을 작성하세요." maxlength="1000"></textarea>
+					<c:forEach items="${classList}" var="list">
+						<input type="hidden" name="cl_num" id="cl_num" value="${list.cl_num}">
+					</c:forEach>
+						<input type="hidden" name="emailid" id="emailid" value="${sessionScope.loginUser.emailid}">
+						<textarea class="textarea comment-input" name="cm_content" id="cm_content" rows="" cols="" placeholder="댓글을 작성하세요." maxlength="1000"></textarea>
 						<span class="change-reason-txt-count">0/1000</span>
 					</div>
 				</div>
 				<div class="write-comment-btn">
-					<a href="javascript:;" title="댓글 등록" class="btn-write-comment">댓글
-						등록</a>
+				<c:if test="${empty sessionScope.loginUser.emailid}">
+					<a href="#login" title="댓글 등록" class="btn-write-comment">댓글 등록</a>
+				</c:if>
+				<c:if test="${!empty sessionScope.loginUser.emailid}">
+					<button title="댓글 등록" class="btn-write-comment" type="submit">댓글 등록</button>
+				</c:if>
 				</div>
+				
 			</div>
+		</form:form>
+		<c:forEach items="${commentList}" var="cm">
 			<div class="comment-list-wrap">
+				<c:if test="${cm.cl_num eq null || cm.cl_num eq ''}">
+					<div class="no-data-comment">
+						아직 등록된 댓글이 없습니다. 악플보다 무서운 무플!<br>
+						첫 댓글의 주인공이 되어보세요.
+					</div>
+				</c:if>
+				<c:if test="${!empty cm.cl_num}">
 				<ul class="comment-list">
 					<li class="comment" id="commentGroup-1383"><div
 							class="comment-thumb">
-							<img
-								src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png"
-								alt="" class="thumb-comment">
+							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png"
+							alt="" class="thumb-comment">
 						</div>
 						<div class="comment-info">
 							<div class="comment-tit">
-								<div class="comment-nick">invuhot</div>
-								<div class="comment-date">2020.01.30</div>
-								<a href="javascript:;" title="대댓글 달기" data-comment-group="1383"
-									data-comment-id="1555" class="btn-reply btn-reply-comment">댓글달기</a><a
-									href="javascript:;" data-comment-id="1555" title="신고"
-									class="btn-report btn-report-comment">신고</a>
+								<div class="comment-nick">${cm.emailid}</div>
+								<div class="comment-date">${cm.cm_date}</div>
+								<c:if test="${cm.emailid eq sessionScope.loginUser.emailid}">
+									<a href="javascript:;" data-comment-id="1555" title="신고" class="btn-report btn-report-comment">신고</a>
+								</c:if>
+								<c:if test="${cm.emailid ne sessionScope.loginUser.emailid}">
+									<a href="javascript:;" data-comment-id="1555" title="삭제" class="btn-report btn-report-comment">삭제</a>
+								</c:if>
 							</div>
 							<div class="comment-txt">
-								우와! 정규 30프로 쿠폰까지요?👏🏻👏🏻 대박이예요!<br>혹시 30프로 쿠폰이 마카드로잉
-								업그레이드 이벤트중인 프리미엄패키지에도 적용되나요? (프리미엄패키지 세트가 현재 22만원인데 거기에 추가 쿠폰이
-								적용되는지 궁금해요!!)
+								${cm.cm_content}
 							</div>
 						</div>
-						<ul class="comment-list s-sub">
-							<li class="comment"><div class="comment-thumb">
-									<img
-										src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/hobby@hobbyful.co.kr-thumb1.jpg"
-										alt="" class="thumb-comment">
-								</div>
-								<div class="comment-info">
-									<div class="comment-tit">
-										<div class="comment-nick">하비가이드</div>
-										<div class="comment-date">2020.01.30</div>
-										<a href="javascript:;" data-comment-id="1556" title="신고"
-											class="btn-report btn-report-comment">신고</a>
-									</div>
-									<div class="comment-txt">
-										앗! 아쉽게도 업그레이드 패키지 이벤트는 내일 종료 예정이에요! <br>샘플러 쿠폰은 그보다 이후에
-										제공되기 때문에 아쉽게도 중복 적용은 불가하세요 :-)
-									</div>
-								</div></li>
-						</ul></li>
+					</li>
 				</ul>
+				</c:if>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 </body>
