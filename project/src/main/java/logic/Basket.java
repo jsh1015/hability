@@ -1,6 +1,7 @@
 package logic;
 
 public class Basket {
+	private int b_num;
 	private String emailid;
 	private int cl_num;
 	private int kit_num;
@@ -20,6 +21,13 @@ public class Basket {
 		this.total = total;
 	}
 	
+		
+	public int getB_num() {
+		return b_num;
+	}
+	public void setB_num(int b_num) {
+		this.b_num = b_num;
+	}
 	public Kit getKit() {
 		return kit;
 	}
@@ -58,10 +66,10 @@ public class Basket {
 	public void setCls(Class cls) {
 		this.cls = cls;
 	}
-
 	@Override
 	public String toString() {
-		return "Basket [emailid=" + emailid + ", cl_num=" + cl_num + ", kit_num=" + kit_num + ", count=" + count + "]";
+		return "Basket [b_num=" + b_num + ", emailid=" + emailid + ", cl_num=" + cl_num + ", kit_num=" + kit_num
+				+ ", count=" + count + ", kit=" + kit + ", cls=" + cls + ", total=" + total + "]";
 	}
 
 }

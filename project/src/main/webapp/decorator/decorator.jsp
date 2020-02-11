@@ -209,14 +209,14 @@
 		<div class="f-info-wrap">
 			<div class="logo-hobbyful">hability</div>
 			<div class="f-info-cont">
-				<p class="f-info "><strong class="f-info-tit f-info-title">㈜하비풀</strong></p>
-				<p class="f-info f-info-address">서울특별시 강남구 테헤란로84길 16 세풍빌딩 10층</p>
-				<p class="f-info">대표자: <span class="f-info-CEOname">양순모</span>ㅣ사업자등록증번호:<span class="f-info-companynumber">717-88-00289</span></p>
+				<p class="f-info "><strong class="f-info-tit f-info-title">㈜하빌리티</strong></p>
+				<p class="f-info f-info-address">서울특별시 금천구 가산디지털2로 115, 509호, 811호 (가산동, 대륭테크노타운 3차)</p>
+				<p class="f-info">대표자: <span class="f-info-CEOname">하빌리티</span>ㅣ사업자등록증번호:<span class="f-info-companynumber">123-23-1234</span></p>
 				<p class="f-info ">통신판매 신고번호: <span class="f-info-salenumber">2017-서울성동-0584호</span></p>
-				<p class="f-info ">호스팅서비스: <span class="f-info-hostingby">(주)하비풀</span></p>
+				<p class="f-info ">호스팅서비스: <span class="f-info-hostingby">(주)하빌리티</span></p>
 				<p class="f-info "><span class="f-info-contact">02-6214-0529</span> (문의시간 : <span class="f-info-opentime">10:00 ~ 17:00 / 점심시간 : 13:00 ~ 14:00</span>) </p>
-				<p class="f-info f-info-email">help@hobbyful.co.kr</p>
-				<p class="f-copyright">© hobbyful Inc. 2018 All Rights Reserved.</p>
+				<p class="f-info f-info-email">help@hability.co.kr</p>
+				<p class="f-copyright">© hability Inc. 2018 All Rights Reserved.</p>
 			</div>
 		</div>
 	</footer>

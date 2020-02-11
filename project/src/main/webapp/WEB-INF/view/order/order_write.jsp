@@ -13,9 +13,6 @@
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
-	   
-	</script>
 </head>
 <body>
 <div class="container">
@@ -24,32 +21,33 @@
 		<div class="write-regular-cont">
 <form:form name="order">
 <input type="hidden" id="emailid2" value="${loginUser.emailid}" >
-<input type="hidden" id="cl_num" name="cl_num" value="${classDetail.cl_num}" >
-<input type="hidden" id="kit_num" name="kit_num" value="${kitDetail.kit_num}" >
+<input type="hidden" id="cl_num" name="cl_num" value="${cl_num}" >
+<input type="hidden" id="kit_num" name="kit_num" value="${kit_num}" >
+<input type="hidden" id="kit_num" name="buyingtype" value="${buyingtype}" >
 <input type="hidden" id="count" name="lastcount" value="${count}" >
 		<div class="float-wrap">
 			<div class="write-regular-area i-cart">
 				<!-- 주문정보 -->
 					<div class="title">주문 정보</div>
 						<ul id="cartList" class="list-product s-vertical">
-								<c:forEach var="blist" items="${blist}">
-									<li class="row">
-										<ul class="columns">
-											<li class="c-thumb">
-												<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
-											</li>
-											<li class="c-name">${blist.cls.cl_title}</li>
-											<li class="c-options">${blist.kit.kit_name}</li>
-											<li class="c-quantity">수량 : ${blist.count}개</li>
-											<li class="c-price">
-												<fmt:formatNumber value="${blist.count * blist.kit.kit_price}" pattern="##,###" /><span class="i-won">원</span>
-											</li>
-										</ul>
-									</li>
-								</c:forEach>
-							</ul>
-						</div>
-						<div class="write-regular-area i-sender">
+							<c:forEach var="blist" items="${blist}">
+								<li class="row">
+									<ul class="columns">
+										<li class="c-thumb">
+											<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
+										</li>
+										<li class="c-name">${blist.cls.cl_title}</li>
+										<li class="c-options">${blist.kit.kit_name}</li>
+										<li class="c-quantity">수량 : ${blist.count}개</li>
+										<li class="c-price">
+											<fmt:formatNumber value="${blist.count * blist.kit.kit_price}" pattern="##,###" /><span class="i-won">원</span>
+										</li>
+									</ul>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+			<div class="write-regular-area i-sender">
 <!-- 주문자정보 -->
 					<div class="title">주문자 정보</div>
 					<colgoup></colgoup>
@@ -123,7 +121,7 @@
 						<th class="th">배송지명</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input name="od_name" type="text" class="input order_addressname" placeholder="" >
+						<input name="od_name" type="text" class="od_name input order_addressname" placeholder="" >
 						</div>
 						</td>
 						</tr>
@@ -131,7 +129,7 @@
 						<th class="th">수령자명</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input name="od_client" type="text" class="input order_receivename" placeholder="">
+						<input name="od_client" type="text" class="od_client input order_receivename" placeholder="">
 						</div>
 						</td>
 						</tr>
@@ -139,7 +137,7 @@
 						<th class="th">휴대전화</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input name="od_phone" type="text" class="input receive_phone" placeholder="">
+						<input name="od_phone" type="text" class="od_phone input receive_phone" placeholder="">
 						</div>
 						</td>
 						</tr>
@@ -147,7 +145,7 @@
 						<th class="th">추가번호(선택)</th>
 						<td class="td">
 						<div class="input-wrap">
-						<input name="od_phone2" type="text" class="input receive_phone2" placeholder="">
+						<input name="od_phone2" type="text" class="od_phone2 input receive_phone2" placeholder="">
 						</div>
 						</td>
 						</tr>
@@ -156,18 +154,18 @@
 						<td class="td">
 						<div class="td-br">
 						<div class="input-wrap input-post input-readonly">
-						<input name="od_postcode" type="text" readonly="readonly" id="po_postcode" class="input order_receivezipcode" placeholder="우편번호">
+						<input name="od_postcode" type="text" readonly="readonly" id="po_postcode" class="po_postcode input order_receivezipcode" placeholder="우편번호">
 						</div>
 						<a href="javascript:DaumPostcode()" title="우편번호" class="btn-td2 get-zipcode">우편번호</a>
 						</div>
 						<div class="td-br">
 						<div class="input-wrap input-readonly">
-						<input name="od_addr_main" type="text" readonly="readonly" id="po_addr_main" class="input order_receiveaddress" placeholder="주소">
+						<input name="od_addr_main" type="text" readonly="readonly" id="po_addr_main" class="po_addr_main input order_receiveaddress" placeholder="주소">
 						</div>
 						</div>
 						<div class="td-br">
 						<div class="input-wrap">
-						<input name="od_addr_sub" type="text" id="po_addr_sub" class="input order_receiveaddressdetail" placeholder="상세주소">
+						<input name="od_addr_sub" type="text" id="po_addr_sub" class="po_addr_sub input order_receiveaddressdetail" placeholder="상세주소">
 						</div>
 						</div>
 						<div class="td-br i-row-savebasic">
@@ -181,7 +179,7 @@
 						<th class="th">배송요청 사항</th>
 						<td class="td">
 						<div class="input-textarea">
-						<textarea name="od_comment" class="textarea order_receivecomment" rows="" cols="" placeholder="배송을 해주시는 택배기사님께 전달드리는 내용입니다." maxlength="300"></textarea>
+						<textarea name="od_comment" class="od_comment textarea order_receivecomment" rows="" cols="" placeholder="배송을 해주시는 택배기사님께 전달드리는 내용입니다." maxlength="300"></textarea>
 						</div>
 						</td>
 						</tr>
@@ -204,8 +202,10 @@
 					<div class="input-wrap w65">
 					<input type="text" class="input order_mileage" onkeypress="validate(event)" placeholder="" value="0">
 					</div>
-					<button type="button" class="btn-td2 w30 mileage_apply">적용</button>
-					<div class="table-txt">현재 보유 마일리지: <span class="txt-color-r mileage">1000p</span> (1p = 1원)</div>
+					<button type="button" class="btn-td2 w30 mileage_apply" onclick="maleagecnt(this.form)">적용</button>
+					<div class="table-txt">현재 보유 마일리지: <span class="txt-color-r mileage">${user.mileage}</span> (1p = 1원)<br>
+							전체 주문 금액은 1000원 이상이여야 합니다.
+					</div>
 					</td>
 					</tr>
 					</tbody>
@@ -216,10 +216,14 @@
 				<span class="i-title">상품금액</span>
 				<span class="i-value"><fmt:formatNumber value="${lastsum}" pattern="##,###" />원</span>
 				</li>
-				<!-- <li>
-				<span class="i-title">할인금액</span>
-				<span class="i-value">-33,400원</span>
-				</li> -->
+				<!-- 마일리지 있는경우만 나타남 -->
+				<c:if test="${user.mileage>0}">
+					<li style="">
+					<span class="i-title">마일리지</span>
+				<!-- 사용하는 마일리지 -->
+					<span class="i-value" id="v_usemileage">0원</span>
+					</li>
+				</c:if>
 				<li>
 				<span class="i-title">배송비</span>
 				<span class="i-value">무료</span>
@@ -228,6 +232,8 @@
 				</ul>
 				<div class="area-result">
 				<span class="i-title">전체 주문금액</span>
+				<!-- 원래 총 가격 -->
+				<input type="hidden" id="totalprice" value="${lastsum}" >
 				<span class="i-value"><fmt:formatNumber value="${lastsum}" pattern="##,###" /><span class="i-won">원</span></span>
 				</div>
 				</div>
@@ -238,6 +244,32 @@
 				<p class="desc">위 주문 내용을 확인 하였으며, 회원 본인은 결제에 동의합니다.</p>
 					<button id="orderBtn" class="btn-order-ask confirm-order">취미 주문하기</button>
 				</div>
+<!-- 마일리지 사용하는 -->
+<script type="text/javascript">
+		function addComma(num) {
+             var regexp = /\B(?=(\d{3})+(?!\d))/g;
+             return num.toString().replace(regexp, ',');
+        }
+         function maleagecnt(f) {
+			//마일리지
+			mileage = parseInt(f.m_mileage.value); //입력한 마일리지
+			usermileage = parseInt(f.usermileage.value) //사용자가 가지고 있는 마일리지
+			total = parseInt($("#totalprice").val()) //전체 주문금액
+			console.log(usermileage)
+			console.log(mileage)
+			if(usermileage < mileage){ 
+				mileage = usermileage
+			}else if(total - mileage < 1000){
+				mileage = 0
+			}
+	/* 		console.log(maleage)
+			console.log(total)
+			console.log(total-maleage) */
+			$("#tot-value").html(addComma(total-mileage) + '<span class="i-won"> 원</span>')
+			$("#v_usemileage").html('-'+addComma(mileage)+'원')
+			f.usemileage.value = mileage
+		}		
+</script>
 </form:form>
 
 <script type="text/javascript" src="${path}/jquery/js/page/order.js"></script>		
