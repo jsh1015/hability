@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.ListDao;
+import dao.OrderDao;
 import dao.UserDao;
 
 
@@ -19,6 +20,8 @@ public class ShopService {
 	private UserDao userDao;
 	@Autowired
 	private ListDao listDao;
+	@Autowired
+	private OrderDao orderDao;
 
 
 	// 회원 등록
@@ -67,11 +70,6 @@ public class ShopService {
 
 	public Class classDetail(int cl_num) {
 		return listDao.classDetail(cl_num);
-	}
-	
-	public void orderInsert(Uorder uorder) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	//게시물목록
@@ -274,6 +272,30 @@ public class ShopService {
 		public int commentcount(int cl_num) {
 			return listDao.commentcount(cl_num);
 		}
-		
+
+	//주문/배송 정보 입력
+		public void orderInsert(Uorder uorder) {
+			orderDao.orderinsert(uorder);
+		}
+	//주문번호 최대
+		public int ordermaxnum() {
+			return orderDao.maxnum();
+		}
+	//주문목록 등록
+		public void odlistInsert(Orderlist odlist) {
+			orderDao.odlistinsert(odlist);
+		}
+	//주문/배송 정보 select
+		public Uorder orderSelect(int od_num) {
+			return orderDao.orderselect(od_num);
+		}
+	//주문목록 select
+		public Orderlist odlistSelect(int od_num, int cl_num) {
+			return orderDao.odlistselect(od_num,cl_num);
+		}
+	//주문 클래스 정보 select
+		public Class orderclasslist(int cl_num) {
+			return orderDao.orderclasslist(cl_num);
+		}
 
 }

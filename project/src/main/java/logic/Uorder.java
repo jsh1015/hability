@@ -18,48 +18,43 @@ public class Uorder {
 	private String od_client;
 	private String od_phone;
 	private String od_phone2;
+	private String od_comment;
+	private Date od_date;
+	private int od_deliver;
+	private String od_postcode;
 	private String od_addr_main;
 	private String od_addr_sub;
-	private String od_comment;
-	private String od_deliver;
-	private Date od_date;
 	
 	// db에 필요없음
-	private List<Orderlist> orderlist = new ArrayList<Orderlist>();
-	private User user;
-	private Kit kit;
-	private Class cls;
-	
-	public Kit getKit() {
-		return kit;
-	}
-	public void setKit(Kit kit) {
-		this.kit = kit;
-	}
-	public Class getCls() {
-		return cls;
-	}
-	public void setCls(Class cls) {
-		this.cls = cls;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public List<Orderlist> getOrderlist() {
-		return orderlist;
-	}
-	public void setOrderlist(List<Orderlist> orderlist) {
-		this.orderlist = orderlist;
-	}
-	public Date getOd_date() {
-		return od_date;
-	}
-	public void setOd_date(Date od_date) {
-		this.od_date = od_date;
-	}
+		private List<Orderlist> orderlist = new ArrayList<Orderlist>();
+		private User user;
+		private Kit kit;
+		private Class cls;
+		
+		public Kit getKit() {
+			return kit;
+		}
+		public void setKit(Kit kit) {
+			this.kit = kit;
+		}
+		public Class getCls() {
+			return cls;
+		}
+		public void setCls(Class cls) {
+			this.cls = cls;
+		}
+		public User getUser() {
+			return user;
+		}
+		public void setUser(User user) {
+			this.user = user;
+		}
+		public List<Orderlist> getOrderlist() {
+			return orderlist;
+		}
+		public void setOrderlist(List<Orderlist> orderlist) {
+			this.orderlist = orderlist;
+		}
 	public int getOd_num() {
 		return od_num;
 	}
@@ -108,7 +103,30 @@ public class Uorder {
 	public void setOd_phone2(String od_phone2) {
 		this.od_phone2 = od_phone2;
 	}
-	
+	public String getOd_comment() {
+		return od_comment;
+	}
+	public void setOd_comment(String od_comment) {
+		this.od_comment = od_comment;
+	}
+	public Date getOd_date() {
+		return od_date;
+	}
+	public void setOd_date(Date od_date) {
+		this.od_date = od_date;
+	}
+	public int getOd_deliver() {
+		return od_deliver;
+	}
+	public void setOd_deliver(int od_deliver) {
+		this.od_deliver = od_deliver;
+	}
+	public String getOd_postcode() {
+		return od_postcode;
+	}
+	public void setOd_postcode(String od_postcode) {
+		this.od_postcode = od_postcode;
+	}
 	public String getOd_addr_main() {
 		return od_addr_main;
 	}
@@ -121,25 +139,13 @@ public class Uorder {
 	public void setOd_addr_sub(String od_addr_sub) {
 		this.od_addr_sub = od_addr_sub;
 	}
-	public String getOd_comment() {
-		return od_comment;
-	}
-	public void setOd_comment(String od_comment) {
-		this.od_comment = od_comment;
-	}
-	public String getOd_deliver() {
-		return od_deliver;
-	}
-	public void setOd_deliver(String od_deliver) {
-		this.od_deliver = od_deliver;
-	}
 	@Override
 	public String toString() {
 		return "Uorder [od_num=" + od_num + ", emailid=" + emailid + ", name=" + name + ", phone=" + phone
 				+ ", od_name=" + od_name + ", od_client=" + od_client + ", od_phone=" + od_phone + ", od_phone2="
-				+ od_phone2 + ", od_addr_main=" + od_addr_main + ", od_addr_sub=" + od_addr_sub + ", od_comment="
-				+ od_comment + ", od_deliver=" + od_deliver + ", od_date=" + od_date + ", orderlist=" + orderlist
-				+ ", user=" + user + ", kit=" + kit + ", cls=" + cls + "]";
+				+ od_phone2 + ", od_comment=" + od_comment + ", od_date=" + od_date + ", od_deliver=" + od_deliver
+				+ ", od_postcode=" + od_postcode + ", od_addr_main=" + od_addr_main + ", od_addr_sub=" + od_addr_sub
+				+ "]";
 	}
 	
 }

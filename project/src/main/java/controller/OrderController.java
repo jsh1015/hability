@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Basket;
 import logic.Class;
 import logic.Kit;
+import logic.Orderlist;
 import logic.Postaddr;
 import logic.ShopService;
 import logic.ShopService_pr;
@@ -50,12 +53,32 @@ public class OrderController {
 //		return mav;
 //	}
 
+//	// 옵션에서 바로 구매 //서현
+//		@RequestMapping("order_write")
+//		public ModelAndView order_write(String kit_num, @RequestParam("cl_num")int cl_num, @RequestParam("lastcount") Integer count,
+//				HttpSession session) {
+//			ModelAndView mav = new ModelAndView();
+//			User loginUser = (User) session.getAttribute("loginUser");
+//			mav.addObject("user", loginUser);
+//			
+//			// 선택된 상품 객체(옵션)
+//			Kit kitDetail = service_pr.kitInfo(kit_num, cl_num);
+//			System.out.println("kitDetail" + kitDetail);
+//			Class classDetail = service.classDetail(cl_num);
+//			System.out.println("classDetail" + classDetail);
+//			mav.addObject("kitDetail", kitDetail);
+//			mav.addObject("count", count);
+//			mav.addObject("classDetail", classDetail);
+////			mav.setViewName("redirect:../order/order_write.shop");
+//			return mav;
+//		}
+		
 	// 구매하기
 	@PostMapping("order_write")
 	public ModelAndView order_write(int buyingtype, int[] kit_num, int[] cl_num, @RequestParam("lastcount") Integer[] count, HttpSession session) {
 		ModelAndView mav = new ModelAndView("order/order_write");
 		User loginUser = (User)session.getAttribute("loginUser");
-		
+		mav.addObject("user", loginUser);
 		List<Basket> basketList = service_pr.basketList(loginUser.getEmailid());
 		int lastsum =0;
 		if(buyingtype ==0) { // 옵션
@@ -82,9 +105,14 @@ public class OrderController {
 				basketList.get(i).setKit(kitDetail);
 				basketList.get(i).setCount(count[i]);
 				
-				lastsum += count[i] * kitDetail.getKit_price();
+				lastsum += count[i] * kitDetail.getKit_price(); //가격합계
 			}
 		}
+		System.out.println(lastsum);
+		mav.addObject("buyingtype", buyingtype);
+		mav.addObject("kit_num", kit_num);
+		mav.addObject("cl_num", cl_num);
+		mav.addObject("count", count);
 		mav.addObject("blist", basketList);
 		mav.addObject("lastsum", lastsum);
 		return mav;
@@ -106,38 +134,49 @@ public class OrderController {
 		return mav;
 	}
 	
-//	@GetMapping("order_write")
-//	public ModelAndView order_write(@Valid Uorder uorder,BindingResult bresult){
+	//결제
+	@PostMapping("order")
+	@ResponseBody
+	public String order(@RequestParam Map<String,Object> map) throws Exception{
 //		ModelAndView mav = new ModelAndView();
-//		if(bresult.hasErrors()) {
-//			bresult.reject("error.input.user");
-//			mav.getModel().putAll(bresult.getModel());
-//		}
-//		try {
-//			service.orderInsert(uorder);
-//			mav.addObject("uorder",uorder);
-//		}catch(DataIntegrityViolationException e) {
-//			e.printStackTrace();
-//		}
+		
+		Uorder uorder = new Uorder();
+		int od_num = service.ordermaxnum();
+		uorder.setOd_num(++od_num);
+		uorder.setEmailid((String)map.get("emailid"));
+		uorder.setName((String)map.get("name")); //주문자명
+		uorder.setPhone((String)map.get("phone"));
+		uorder.setOd_name((String)map.get("od_name"));
+		uorder.setOd_client((String)map.get("od_client"));
+		uorder.setOd_phone((String)map.get("od_phone"));
+		uorder.setOd_phone2((String)map.get("od_phone2"));
+		uorder.setOd_comment((String)map.get("od_comment"));
+		uorder.setOd_postcode((String)map.get("od_postcode"));
+		uorder.setOd_addr_main((String)map.get("od_addr_main"));
+		uorder.setOd_addr_sub((String)map.get("od_addr_sub"));
+		//배송정보 등록
+		service.orderInsert(uorder);
+		
+		Orderlist odlist = new Orderlist();
+		odlist.setOd_num(uorder.getOd_num());
+		odlist.setCl_num(Integer.parseInt(map.get("cl_num").toString()));
+		odlist.setKit_num(Integer.parseInt(map.get("kit_num").toString()));
+		odlist.setCount(Integer.parseInt(map.get("count").toString()));
+		//주문목록 등록
+		service.odlistInsert(odlist);
+		
+		//사용마일리지
+		int mileage = Integer.parseInt(map.get("mileage").toString());
+		if(mileage>0) {
+			service.mileageInsert((String)map.get("emailid"),"결제 사용",mileage,2);
+			service.mileageupdate((String)map.get("emailid"));
+		}
+//		mav.setViewName("redirect:../order/order_success.shop");
+//		mav.addObject("odlist",odlist);
+//		mav.setViewName("order/order_success");
 //		return mav;
-//	}
-
-	//서현
-//	@PostMapping("order_write")
-//	public ModelAndView order_write(@Valid Uorder uorder,BindingResult bresult){
-//		ModelAndView mav = new ModelAndView();
-//		if(bresult.hasErrors()) {
-//			mav.getModel().putAll(bresult.getModel());
-//			return mav;
-//		}
-//		try {
-//			service.orderInsert(uorder);
-//			mav.addObject("uorder",uorder);
-//		}catch(DataIntegrityViolationException e) {
-//			e.printStackTrace();
-//		}
-//		return mav;
-//	}
+		return "?od_num="+odlist.getOd_num() +"&cl_num="+odlist.getCl_num();
+	}
 	
 	
 	@PostMapping("order_success")
