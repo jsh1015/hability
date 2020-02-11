@@ -10,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
+import logic.Basket;
 import logic.Mileage;
 import logic.Orderlist;
+import logic.Postaddr;
+import logic.Qna;
 import logic.Ulike;
+import logic.Uorder;
 import logic.User;
 import logic.Video;
 
@@ -49,7 +53,7 @@ public class UserDao {
 
 
 	// 마일리지 적립, 사용 등 마일리지 테이블에 등록
-	public void mileageinsert(String emailid, String mi_content, int mi_point, int type, int mi_num) 
+	public void mileageinsert(String emailid, String mi_content, int mi_point, int type, int mi_num, int od_num) 
 	{
 		param.clear();
 		param.put("mi_num",mi_num);
@@ -57,6 +61,7 @@ public class UserDao {
 		param.put("mi_content",mi_content);
 		param.put("mi_point",mi_point);
 		param.put("mi_type",type);
+		param.put("od_num",od_num);
 		sqlSession.getMapper(UserMapper.class).mileageinsert(param);
 	}
 	
@@ -151,4 +156,49 @@ public class UserDao {
 		return sqlSession.getMapper(UserMapper.class).myclasscnt(emailid);
 	}
 
+//강제탈퇴
+	//강제탈퇴 마일리지 삭제
+	public void usermileagedelete(String emailid) {
+		sqlSession.getMapper(UserMapper.class).usermileagedelete(emailid);
+	}
+	//강제탈퇴 마일리지 검색
+	public List<Mileage> mileageselect(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).mileagelist(emailid);
+	}
+	//강제탈퇴 배송지정보 검색
+	public List<Postaddr> postaddrselect(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).postaddrlist(emailid);
+	}
+	//강제탈퇴 배송지정보 삭제
+	public void userpostaddrdelete(String emailid) {
+		sqlSession.getMapper(UserMapper.class).postaddrdelete(emailid);
+	}
+
+	public List<Qna> qnaselect(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).qnaselect(emailid);
+	}
+	public void qnaselectdelete(String emailid) {
+		sqlSession.getMapper(UserMapper.class).qnaselectdelete(emailid);
+	}
+
+	public List<Basket> basketselect(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).basketselect(emailid);
+	}
+	public void basketselectdelete(String emailid) {
+		sqlSession.getMapper(UserMapper.class).basketselectdelete(emailid);
+	}
+
+	public List<Orderlist> odlistselect(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).odlistselect(emailid);
+	}
+	public void odlistdelete(int od_num) {
+		sqlSession.getMapper(UserMapper.class).odlistselectdelete(od_num);
+	}
+
+	public List<Uorder> orderselect(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).orderselect(emailid);
+	}
+	public void orderdelete(String emailid) {
+		sqlSession.getMapper(UserMapper.class).orderselectdelete(emailid);
+	}
 }

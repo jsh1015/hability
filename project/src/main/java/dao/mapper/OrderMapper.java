@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
@@ -30,6 +31,10 @@ public interface OrderMapper {
 	@Select("select * from orderlist where od_num=#{od_num} and cl_num=#{cl_num}")
 	Orderlist odlistselect(Map<Object, Object> param);
 
+	@Select("select * from orderlist where od_num=#{od_num}")
+	List<Orderlist> order_odlist(int od_num);
+
 	@Select("select * from class where cl_num=#{cl_num}")
 	Class orderclasslist(int cl_num);
+
 }

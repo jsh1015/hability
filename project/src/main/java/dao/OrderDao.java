@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,6 +41,9 @@ public class OrderDao {
 		param.put("od_num",od_num);
 		param.put("cl_num",cl_num);
 		return sqlSession.getMapper(OrderMapper.class).odlistselect(param);
+	}
+	public List<Orderlist> order_odlist(int od_num) {
+		return sqlSession.getMapper(OrderMapper.class).order_odlist(od_num);
 	}
 
 	public Class orderclasslist(int cl_num) {

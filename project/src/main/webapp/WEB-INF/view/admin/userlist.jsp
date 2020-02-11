@@ -24,7 +24,7 @@ a {text-decoration: none;}
   	<tr class="col"><th>아이디</th><th>이름</th><th>닉네임</th><th>휴대폰</th><th>등급</th><th>탈퇴</th></tr>
   	<c:forEach var="u" items="${userList}">
   		<tr class="col2"><td><a href="${path}/admin/userdetail.shop?emailid=${u.emailid}">${u.emailid}</a></td><td>${u.name}</td><td>${u.nickname}</td><td>${u.phone}</td><td>${u.grade}</td>
-  		<td><a href="#">강제탈퇴</a></td></tr>
+  		<td><a href="userdelete.shop?emailid=${u.emailid}">강제탈퇴</a></td></tr>
   	</c:forEach>
   	</table>
   </div>

@@ -10,6 +10,10 @@
 
 <script type="text/javascript">
  $(document).ready(function(){
+	 if('${type}'=='hobby'){
+		 var hobby = favorite();
+		 hobby();
+	 }	
 		$(".btn-mymenu-order").addClass("btn-mymenu-on") //주문/배송관리 선택 
 		$(".order-list-wrap").show()
 		$(".delivery-list-wrap").hide()
@@ -31,7 +35,7 @@
 			mymenu('address');
 			submymenu('newaddress');
 		}
-	})
+  })
 	
 	function fnpo_addr() {
 		f = document.po_addr;

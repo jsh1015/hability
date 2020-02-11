@@ -42,7 +42,7 @@ public class UserLoginAspect {
 	public Object userLoginCheck(ProceedingJoinPoint joinPoint, HttpSession session)throws Throwable{
 		User loginUser = (User)session.getAttribute("loginUser");
 		if(loginUser == null) {
-			throw new LoginException("로그인 후 거래하세요","login.shop");
+			throw new LoginException("로그인 후 거래하세요","../user/main.shop");
 		}
 		Object ret = joinPoint.proceed();
 		return ret;
@@ -54,10 +54,10 @@ public class UserLoginAspect {
 		User loginUser = (User)session.getAttribute("loginUser");
 		Mileage mileage = (Mileage)session.getAttribute("userMileage");
 		if(loginUser == null) {
-			throw new LoginException("2. 로그인 후 거래하세요","login.shop");
+			throw new LoginException("2. 로그인 후 거래하세요","../user/main.shop");
 		}
 		if(!loginUser.getEmailid().equals("admin") && !loginUser.getEmailid().equals(id)) {
-			throw new LoginException("본인의 계정만 조회가 가능합니다.","main.shop");
+			throw new LoginException("본인의 계정만 조회가 가능합니다.","../user/main.shop");
 		}
 		Object ret = joinPoint.proceed();
 		return ret;

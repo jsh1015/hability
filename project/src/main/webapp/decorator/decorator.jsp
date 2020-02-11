@@ -92,7 +92,7 @@
 							<a href="${path}/list/magazine.shop?board_type=3" class="btn-menu menu-magazine">매거진<em class="menu-txt -w">MAGAZINE</em></a>
 						</li>
 						<li class="menu">
-							<a href="${path}/list/service.shop" class="btn-menu menu-service">하비풀 소개<em class="menu-txt -w">ABOUT</em></a>
+							<a href="${path}/list/service.shop" class="btn-menu menu-service">하빌리티 소개<em class="menu-txt -w">ABOUT</em></a>
 						</li>
 					</ul>
 				</div>

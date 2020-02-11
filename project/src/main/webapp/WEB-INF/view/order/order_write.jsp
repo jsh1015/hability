@@ -30,7 +30,33 @@
 				<!-- 주문정보 -->
 					<div class="title">주문 정보</div>
 						<ul id="cartList" class="list-product s-vertical">
-							<c:forEach var="blist" items="${blist}">
+							<!-- 바로 신청하기 -->
+							<c:if test="${buyingtype==0}">
+								<input type="hidden" name="orderlist" class="cl_num_0" value="${classes.cl_num}">
+								<input type="hidden" name="orderlist" class="kit_num_0" value="${kit.kit_num}">
+								<input type="hidden" name="orderlist" class="count_0" value="${count}"><!-- 수량 -->
+								<li class="row">
+									<ul class="columns">
+										<li class="c-thumb"><img
+											src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg"
+											alt=""></li>
+										<li class="c-name">${classes.cl_title}</li>
+										<li class="c-options">${kit.kit_name}</li>
+										<li class="c-quantity">수량 : ${count}개</li>
+										<li class="c-price">
+											<fmt:formatNumber value="${lastsum}" pattern="##,###" />
+											<span class="i-won">원</span>
+										</li>
+									</ul>
+								</li>
+							</c:if>
+							<!-- 장바구니에서 신청하기 -->
+							<c:if test="${buyingtype==1}">
+								<!-- 장바구니 갯수 -->
+								<c:forEach var="blist" items="${blist}" varStatus="i">
+								<input type="hidden" name="orderlist" class="cl_num_${i}" value="${blist.cls.cl_num}">
+								<input type="hidden" name="orderlist" class="kit_num_${i}" value="${blist.cls.cl_num}">
+								<input type="hidden" name="orderlist" class="count_${i}" value="${blist.count}">
 								<li class="row">
 									<ul class="columns">
 										<li class="c-thumb">
@@ -44,7 +70,8 @@
 										</li>
 									</ul>
 								</li>
-							</c:forEach>
+								</c:forEach>
+							</c:if>
 						</ul>
 					</div>
 			<div class="write-regular-area i-sender">
@@ -106,10 +133,12 @@
 					<div class="title">배송지 정보</div>
 					<div class="select-radio-wrap">
 						<label class="label">
-							<input type="radio" name="isNewAddress" value="true" class="check" checked=""> 새로운 배송지</label>
+							<input type="radio" name="isNewAddress" value="true" class="check" checked="">새로운 배송지</label>
+					<c:if test="${!empty postList}">
 						<label class="label s-savedAddress">
 							<input type="radio" name="isNewAddress" value="false" class="check showaddresslist"> 저장된 배송지</label>
 							<a href="#addresslist" title="주소록 선택" class="btn-td2 btn-select-address showaddresslist">주소록 선택</a>
+					</c:if>
 					</div>
 					<table class="table-input" summary="배송지 입력 테이블">
 						<colgroup>
@@ -196,18 +225,23 @@
 					<col class="col02">
 					</colgroup>
 					<tbody>
-					<tr class="tr">
-					<th class="th">마일리지 사용</th>
-					<td class="td">
-					<div class="input-wrap w65">
-					<input type="text" class="input order_mileage" onkeypress="validate(event)" placeholder="" value="0">
-					</div>
-					<button type="button" class="btn-td2 w30 mileage_apply" onclick="maleagecnt(this.form)">적용</button>
-					<div class="table-txt">현재 보유 마일리지: <span class="txt-color-r mileage">${user.mileage}</span> (1p = 1원)<br>
+					<!-- 마일리지 있는경우만 나타남 -->
+				<c:if test="${user.mileage>0}">
+						<tr class="tr">
+							<th class="th">마일리지 사용</th>
+							<td class="td">
+							<div class="input-wrap w65">
+							<input type="text" name="m_mileage" class="input order_mileage" onkeypress="validate(event)" placeholder="" value="0">
+							</div>
+							<button type="button" class="btn-td2 w30 mileage_apply" onclick="maleagecnt(this.form)">적용</button>
+							<!-- 사용자가 가지고 있는 마일리지 -->
+							<input type="hidden" name="usermileage" value="${user.mileage}" >
+							<div class="table-txt">현재 보유 마일리지: <span class="txt-color-r mileage">${user.mileage}</span> (1p = 1원)<br>
 							전체 주문 금액은 1000원 이상이여야 합니다.
-					</div>
-					</td>
-					</tr>
+							</div>							
+							</td>
+						</tr>
+				</c:if>
 					</tbody>
 				</table>
 				<div id="payInfo" class="justify-list">
@@ -221,6 +255,7 @@
 					<li style="">
 					<span class="i-title">마일리지</span>
 				<!-- 사용하는 마일리지 -->
+					<input type="hidden" value="0" class="usemileage" name="usemileage">
 					<span class="i-value" id="v_usemileage">0원</span>
 					</li>
 				</c:if>
@@ -234,7 +269,7 @@
 				<span class="i-title">전체 주문금액</span>
 				<!-- 원래 총 가격 -->
 				<input type="hidden" id="totalprice" value="${lastsum}" >
-				<span class="i-value"><fmt:formatNumber value="${lastsum}" pattern="##,###" /><span class="i-won">원</span></span>
+				<span class="i-value" id="tot-value"><fmt:formatNumber value="${lastsum}" pattern="##,###" /><span class="i-won">원</span></span>
 				</div>
 				</div>
 				

@@ -43,9 +43,9 @@ public class ShopService {
 	}
 
 	// 마일리지 적립, 사용 등 마일리지 테이블에 등록
-	public void mileageInsert(String emailid, String mi_content, int mi_point, int type) {
+	public void mileageInsert(String emailid, String mi_content, int mi_point, int type, int od_num) {
 		int max = userDao.maxnum(emailid);
-		userDao.mileageinsert(emailid, mi_content, mi_point, type, ++max);
+		userDao.mileageinsert(emailid, mi_content, mi_point, type, ++max, od_num);
 	}
 
 	// 회원 마일리지 정보 갱신(마일리지 내역 변경시 마다 사용해야 함)
@@ -62,10 +62,6 @@ public class ShopService {
 	}
 	public void userupdate(User user) {
 		userDao.update(user);
-	}
-
-	public void userDelete(String userid) {
-		userDao.delete(userid);
 	}
 
 	public Class classDetail(int cl_num) {
@@ -293,9 +289,48 @@ public class ShopService {
 		public Orderlist odlistSelect(int od_num, int cl_num) {
 			return orderDao.odlistselect(od_num,cl_num);
 		}
+		public List<Orderlist> order_odlist(int od_num) {
+			return orderDao.order_odlist(od_num);
+		}
 	//주문 클래스 정보 select
 		public Class orderclasslist(int cl_num) {
 			return orderDao.orderclasslist(cl_num);
+		}
+
+	//회원삭제
+		public void userDelete(String emailid) {
+			userDao.delete(emailid);
+		}
+	//회원삭제전 확인
+		public void userinfo(String emailid) {
+			List<Mileage> mile = userDao.mileageselect(emailid);
+			List<Postaddr> post = userDao.postaddrselect(emailid);
+			List<Qna> qna = userDao.qnaselect(emailid);
+			List<Basket> basket = userDao.basketselect(emailid);
+//			List<Orderlist> odlist = userDao.odlistselect(emailid);
+			List<Uorder> order = userDao.orderselect(emailid);
+			if(mile!=null) {
+				userDao.usermileagedelete(emailid);
+			}
+			if(post!=null) {
+				userDao.userpostaddrdelete(emailid);
+			}
+			if(qna!=null) {
+				userDao.qnaselectdelete(emailid);
+			}
+			if(basket!=null) {
+				userDao.basketselectdelete(emailid);
+			}
+//			if(odlist!=null) {
+//				userDao.odlistdelete(emailid);
+//			}
+			if(order!=null) {
+				for(int i=0;i<order.size();i++) {
+					userDao.odlistdelete(order.get(i).getOd_num());
+				}
+				userDao.orderdelete(emailid);
+			}
+			
 		}
 		
 		//댓글,후기 삭제

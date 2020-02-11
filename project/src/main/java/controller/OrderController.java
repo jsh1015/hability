@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,70 +48,51 @@ public class OrderController {
 		model.addAttribute(new User());
 		return null;
 	}
-//	@RequestMapping("basketView")
-//	public ModelAndView basketView(HttpSession session) {
-//		ModelAndView mav = new ModelAndView("basketList");
-//		return mav;
-//	}
-
-//	// 옵션에서 바로 구매 //서현
-//		@RequestMapping("order_write")
-//		public ModelAndView order_write(String kit_num, @RequestParam("cl_num")int cl_num, @RequestParam("lastcount") Integer count,
-//				HttpSession session) {
-//			ModelAndView mav = new ModelAndView();
-//			User loginUser = (User) session.getAttribute("loginUser");
-//			mav.addObject("user", loginUser);
-//			
-//			// 선택된 상품 객체(옵션)
-//			Kit kitDetail = service_pr.kitInfo(kit_num, cl_num);
-//			System.out.println("kitDetail" + kitDetail);
-//			Class classDetail = service.classDetail(cl_num);
-//			System.out.println("classDetail" + classDetail);
-//			mav.addObject("kitDetail", kitDetail);
-//			mav.addObject("count", count);
-//			mav.addObject("classDetail", classDetail);
-////			mav.setViewName("redirect:../order/order_write.shop");
-//			return mav;
-//		}
-		
+	
 	// 구매하기
 	@PostMapping("order_write")
-	public ModelAndView order_write(int buyingtype, int[] kit_num, int[] cl_num,
-			@RequestParam("lastcount") Integer[] count, HttpSession session) {
+	public ModelAndView order_write(int buyingtype, int[] kit_num, int[] cl_num, @RequestParam("lastcount") Integer[] count, HttpSession session) {
 		ModelAndView mav = new ModelAndView("order/order_write");
-		User loginUser = (User) session.getAttribute("loginUser");
-
-		List<Basket> basketList = service_pr.basketList(loginUser.getEmailid());
-		int lastsum = 0;
-		if (buyingtype == 0) { // 옵션
-			for (int i = 0; i < 1; i++) {
-				// 우선 장바구니에 넣고
-				service_pr.basketAdd(kit_num[i], cl_num[i], count[i], loginUser.getEmailid());
+		User loginUser = (User)session.getAttribute("loginUser");
+		List<Postaddr> postList = service_pr.postList(loginUser.getEmailid());
+		mav.addObject("postList", postList);
+		mav.addObject("user", loginUser);
+		List<Basket> basketList = new ArrayList<Basket>();
+		int lastsum =0;
+		if(buyingtype ==0) { // 옵션 , 바로신청하기
+			for(int i=0; i<1; i++) {
+//				// 우선 장바구니에 넣고
+//				service_pr.basketAdd(kit_num[i], cl_num[i], count[i], loginUser.getEmailid());
 				// 읽어오자
-				basketList = service_pr.basketList(loginUser.getEmailid());
-
+//				basketList = service_pr.basketList(loginUser.getEmailid());
 				Kit kitDetail = service_pr.kitInfo(kit_num[i], cl_num[i]);
 				Class classDetail = service.classDetail(cl_num[i]);
-				basketList.get(i).setCls(classDetail);
-				basketList.get(i).setKit(kitDetail);
-
-				lastsum += count[i] * kitDetail.getKit_price();
+				lastsum += count[i] * kitDetail.getKit_price(); //가격합계
+				
+				mav.addObject("classes", classDetail);
+				mav.addObject("kit", kitDetail);
+				mav.addObject("count", count[i]);
+				
 			}
-		} else if (buyingtype == 1) { // 장바구니
-			for (int i = 0; i < cl_num.length; i++) {
-				System.out.println("장바구니 구매 class = " + cl_num[i]);
-				System.out.println("장바구니 구매 kit = " + kit_num[i]);
-				System.out.println("장바구니 구매 count = " + count[i]);
+			mav.addObject("b", lastsum);
+		} else if(buyingtype ==1) { // 장바구니
+			basketList = service_pr.basketList(loginUser.getEmailid());
+			for(int i=0; i<cl_num.length; i++) {
 				Kit kitDetail = service_pr.kitInfo(kit_num[i], cl_num[i]);
 				Class classDetail = service.classDetail(cl_num[i]);
 				basketList.get(i).setCls(classDetail);
 				basketList.get(i).setKit(kitDetail);
 				basketList.get(i).setCount(count[i]);
-
-				lastsum += count[i] * kitDetail.getKit_price();
+				
+				lastsum += count[i] * kitDetail.getKit_price(); //가격합계
 			}
+			mav.addObject("c", cl_num.length);
+			mav.addObject("blist", basketList);
+			mav.addObject("count", count);
 		}
-		mav.addObject("blist", basketList);
+		mav.addObject("buyingtype", buyingtype);
+		mav.addObject("kit_num", kit_num);
+		mav.addObject("cl_num", cl_num);
 		mav.addObject("lastsum", lastsum);
 		return mav;
 	}
@@ -119,14 +101,12 @@ public class OrderController {
 	@RequestMapping("addresslist")
 	public ModelAndView basketView(String emailid,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("아이디 = " + emailid);
 		User user = service.getUser(emailid);
 		List<Postaddr> postList = service_pr.postList(user.getEmailid());
 		mav.addObject("postList", postList);
 		
 		// 배송지 개수
 		int postListCnt = service_pr.postListCnt(user.getEmailid());
-		System.out.println("배송지 개수 = " + postListCnt);
 		mav.addObject("postListCnt", postListCnt);
 		return mav;
 	}
@@ -136,7 +116,6 @@ public class OrderController {
 	@ResponseBody
 	public String order(@RequestParam Map<String,Object> map) throws Exception{
 //		ModelAndView mav = new ModelAndView();
-		
 		Uorder uorder = new Uorder();
 		int od_num = service.ordermaxnum();
 		uorder.setOd_num(++od_num);
@@ -151,34 +130,57 @@ public class OrderController {
 		uorder.setOd_postcode((String)map.get("od_postcode"));
 		uorder.setOd_addr_main((String)map.get("od_addr_main"));
 		uorder.setOd_addr_sub((String)map.get("od_addr_sub"));
+		uorder.setOd_mileage(Integer.parseInt(map.get("od_mileage").toString()));
 		//배송정보 등록
+		System.out.println(map);
 		service.orderInsert(uorder);
 		
-		Orderlist odlist = new Orderlist();
-		odlist.setOd_num(uorder.getOd_num());
-		odlist.setCl_num(Integer.parseInt(map.get("cl_num").toString()));
-		odlist.setKit_num(Integer.parseInt(map.get("kit_num").toString()));
-		odlist.setCount(Integer.parseInt(map.get("count").toString()));
-		//주문목록 등록
-		service.odlistInsert(odlist);
+		String[] orderitem =  ((String)map.get("orderlist")).split(",");
+		//orderitem : 장바구니상품갯수/cl_num,kit_num,수량
+		for(int i=0;i<orderitem.length;i=i+3) {
+			System.out.println(i);
+			Orderlist odlist = new Orderlist();
+			odlist.setOd_num(uorder.getOd_num());
+			odlist.setCl_num(Integer.parseInt(orderitem[i]));
+			odlist.setKit_num(Integer.parseInt(orderitem[i+1]));
+			odlist.setCount(Integer.parseInt(orderitem[i+2]));
+			System.out.println(odlist);
+			//주문 목록 등록
+			service.odlistInsert(odlist);
+		}
 		
 		//사용마일리지
 		int mileage = Integer.parseInt(map.get("mileage").toString());
 		if(mileage>0) {
-			service.mileageInsert((String)map.get("emailid"),"결제 사용",mileage,2);
+			service.mileageInsert((String)map.get("emailid"),"결제 사용",mileage,2,uorder.getOd_num());
 			service.mileageupdate((String)map.get("emailid"));
 		}
-//		mav.setViewName("redirect:../order/order_success.shop");
-//		mav.addObject("odlist",odlist);
-//		mav.setViewName("order/order_success");
-//		return mav;
-		return "?od_num="+odlist.getOd_num() +"&cl_num="+odlist.getCl_num();
+		return "?od_num="+uorder.getOd_num();
 	}
 	
 	
-	@PostMapping("order_success")
-	public String order_success() 
-	{
-		return "order/order_success";
+	@RequestMapping("order_success")
+	public ModelAndView order_success(int od_num) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		Uorder order = service.orderSelect(od_num);
+		List<Orderlist> odlist = service.order_odlist(od_num); //orderlist 가져옴
+		List<Class> cls = new ArrayList<>(); //class 정보 담는 list
+		int aprice = 0;
+		for(int i=0;i<odlist.size();i++) {
+			//주문 목록
+			cls.add(service.getboard(odlist.get(i).getCl_num()));
+			//주문 목록(키트)
+			cls.get(i).setKit(service_pr.kitInfo(odlist.get(i).getKit_num(), odlist.get(i).getCl_num()));
+			aprice += odlist.get(i).getCount() * cls.get(i).getKit().getKit_price();
+		}
+		int pprice = aprice - order.getOd_mileage();
+		
+		mav.addObject("odlist",odlist);
+		mav.addObject("order",order);
+		mav.addObject("cls",cls);
+		mav.addObject("aprice",aprice);
+		mav.addObject("pprice",pprice);
+		
+		return mav;
 	}
 }
