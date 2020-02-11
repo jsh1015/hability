@@ -92,7 +92,7 @@
 				</div>
 				<div class="return-info-area">
 					<div class="return-info-tit">결제방법</div>
-					<div class="return-info-txt">신용카드</div>
+					<div class="return-info-txt">카카오페이</div>
 				</div>
 			</div>
 			<div class="return-info-cont">
