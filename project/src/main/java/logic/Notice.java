@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Notice {
 	private int no_num;
+	private String no_type;
+	private String no_category;
 	private String no_content;
 	private Date no_date;
 	public int getNo_num() {
@@ -11,6 +13,19 @@ public class Notice {
 	}
 	public void setNo_num(int no_num) {
 		this.no_num = no_num;
+	}
+	
+	public String getNo_type() {
+		return no_type;
+	}
+	public void setNo_type(String no_type) {
+		this.no_type = no_type;
+	}
+	public String getNo_category() {
+		return no_category;
+	}
+	public void setNo_category(String no_category) {
+		this.no_category = no_category;
 	}
 	public String getNo_content() {
 		return no_content;
@@ -27,6 +42,7 @@ public class Notice {
 	
 	@Override
 	public String toString() {
-		return "Notice [no_num=" + no_num + ", no_content=" + no_content + ", no_date=" + no_date + "]";
+		return "Notice [no_num=" + no_num + ", no_type=" + no_type + ", no_category=" + no_category + ", no_content="
+				+ no_content + ", no_date=" + no_date + "]";
 	}
 }
