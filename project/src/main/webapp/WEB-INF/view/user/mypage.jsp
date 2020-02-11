@@ -31,6 +31,16 @@
 			mymenu('address');
 			submymenu('newaddress');
 		}
+		
+		if('${param.click_addr_insert}' =='click_addr_insert') {
+			mymenu('address');
+			submymenu('address');
+		}
+		
+		if('${param.click_addr_update}' =='click_addr_update') {
+			mymenu('address');
+			submymenu('address');
+		}
 	})
 	
 	function fnpo_addr() {
@@ -121,6 +131,38 @@
 				},
 			success : function(data) {
 				$(".changeaddressmodal").html(data);
+			}
+		})
+	}
+	
+	// 주문 취소
+	function cancleModal(od_num) {
+		$(".cancleModal").show();
+		
+		$.ajax({
+			type : "POST",
+			// 요청한 url
+			url : "../ajax/cancleModal.shop", // shop이니까 controller작동하고
+			data : {
+				"od_num" : od_num // request로 요청하면 넘어갈 값
+			},
+			success : function(data) {
+				$(".cancleModal").html(data);
+			}
+		})
+	}
+	
+	function trackerAPI() {
+		$(".trackerAPI").show();
+		$.ajax({
+			type : "POST",
+			// 요청한 url
+			url : "../ajax/trackerAPI.shop",
+			data : {
+				// 송장번호를 넘겨주면 좋지만 ..
+				},
+			success : function(data) {
+				$(".trackerAPI").html(data);
 			}
 		})
 	}
@@ -358,6 +400,7 @@
 					$('.order-detail-wrap').css('display', 'none');
 					$('.order-list').css('display', 'block');
 				}
+				
 			</script>
 			<c:if test="${orderListCnt >0}">
 				<c:forEach items="${orderList}" var="order" varStatus="stat">
@@ -370,6 +413,9 @@
 								<span class="i-value"><fmt:formatDate value="${order.od_date}" pattern="yyyy. MM. dd" /></span>
 							</li>
 							<li class="a-btn"><a href="javascript:orderDetail(${order.od_num})">주문상세보기</a></li>
+							<c:if test="${order.od_deliver ==2}">
+							<li class="a-btn"><a href="javascript:trackerAPI()">배송조회</a></li>
+							</c:if>
 							</ul>
 						</header>
 						<div class="area-content">
@@ -393,7 +439,7 @@
 								</li>
 								</c:forEach>
 								<li class="i-status">
-									${order.od_deliver ==1? "상품 준비 중":order.od_deliver ==2? "배송 중":order.od_deliver ==3? "배송 완료":order.od_deliver ==4? "교환":order.od_deliver ==5? "반품":"환불"}
+									${order.od_deliver ==1? "상품 준비 중":order.od_deliver ==2? "배송 중":order.od_deliver ==3? "배송 완료":order.od_deliver ==4? "교환":order.od_deliver ==5? "반품":order.od_deliver ==6? "환불":"취소"}
 								</li>
 							</ul>
 						</div>
@@ -412,7 +458,12 @@
 							<div class="order-detail-area">
 								<div class="order-detail-info">
 								<div class="order-detail-info-tit">주문 내역</div>
-								<div class="order-detail-info-btn s-CANCEL"></div>
+								<c:if test="${order.od_deliver ==1}">
+									<div class="order-detail-info-btn s-PAYED">
+										<a href="javascript:cancleModal(${order.od_num})" title="전체" class="btn-order-detail-info order-cancel-btn">전체 주문취소</a>
+									</div>
+								</c:if>
+								<c:forEach items="${order.orderlist}" var="item">
 								<div class="order-detail-thumb">
 									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d7424e70-feb6-11e8-b1bc-afe65c7c2522-square.png" class="thumb-order-detail" alt="">
 								</div>
@@ -421,18 +472,19 @@
 										<colgroup>
 											<col class="order-detail-th-width"><col class="order-detail-td-width">
 										</colgroup>
+										
 										<tbody>
 											<tr>
 												<th class="th-order-detail-info">클래스명</th>
-												<td class="td-order-detail-info">반려동물 장난감 뜨개질 클래스</td>
+												<td class="td-order-detail-info">${item.cls.cl_title}</td>
 											</tr>
 											<tr>
 												<th class="th-order-detail-info">옵션</th>
-												<td class="td-order-detail-info">베이직 패키지</td>
+												<td class="td-order-detail-info">${item.kit.kit_name}</td>
 											</tr>
 											<tr>
 												<th class="th-order-detail-info">주문수량</th>
-												<td class="td-order-detail-info">1개</td>
+												<td class="td-order-detail-info">${item.count}개</td>
 											</tr>
 											<tr>
 												<th class="th-order-detail-info">주문일시</th>
@@ -440,15 +492,17 @@
 											</tr>
 											<tr>
 												<th class="th-order-detail-info">주문상태</th>
-												<td class="td-order-detail-info">${order.od_deliver ==1? "상품 준비 중":order.od_deliver ==2? "배송 중":order.od_deliver ==3? "배송 완료":order.od_deliver ==4? "교환":order.od_deliver ==5? "반품":"환불"}</td>
+												<td class="td-order-detail-info">${order.od_deliver ==1? "상품 준비 중":order.od_deliver ==2? "배송 중":order.od_deliver ==3? "배송 완료":order.od_deliver ==4? "교환":order.od_deliver ==5? "반품":order.od_deliver ==6? "환불":"취소"}</td>
 											</tr>
 											<tr>
 												<th class="th-order-detail-info">구매가</th>
-												<td class="td-order-detail-info">30,000원</td>
+												<td class="td-order-detail-info"><fmt:formatNumber value="${item.count * item.kit.kit_price}" pattern="##,###" />원</td>
 											</tr>
 										</tbody>
+										
 									</table>
 								</div>
+								</c:forEach>
 								</div>
 							</div>
 							<!-- 결제 정보 -->
@@ -463,7 +517,7 @@
 									<tfoot>
 										<tr>
 											<th class="th-order-detail-info">결제 금액</th>
-											<td class="td-order-detail-info">30,000원</td>
+											<td class="td-order-detail-info"><fmt:formatNumber value="${lastprice - order.od_mileage}" pattern="##,###" />원</td>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -477,11 +531,11 @@
 										</tr>
 										<tr>
 											<th class="th-order-detail-info">신청한 금액 합계</th>
-											<td class="td-order-detail-info">30,000원</td>
+											<td class="td-order-detail-info"><fmt:formatNumber value="${lastprice}" pattern="##,###" />원</td>
 										</tr>
 										<tr>
 											<th class="th-order-detail-info">마일리지 할인</th>
-											<td class="td-order-detail-info">0p</td>
+											<td class="td-order-detail-info">-<fmt:formatNumber value="${order.od_mileage}" pattern="##,###" />p</td>
 										</tr>
 										<tr>
 											<th class="th-order-detail-info">배송비</th>
@@ -489,7 +543,7 @@
 										</tr>
 										<tr>
 											<th class="th-order-detail-info">최종 금액</th>
-											<td class="td-order-detail-info">30,000원</td>
+											<td class="td-order-detail-info"><fmt:formatNumber value="${lastprice - order.od_mileage}" pattern="##,###" />원</td>
 										</tr>
 									</tbody>
 								</table>
@@ -501,7 +555,7 @@
 							<div class="order-detail-info">
 							<div class="order-detail-info-tit">배송지 정보</div>
 							<div class="order-detail-info-btn">
-								<a href="javascript:changeaddressmodal(${order.od_num})" data-order-idx="35215" title="배송지 변경" class="btn-order-detail-info change-address">배송지 변경</a>
+								<a href="javascript:changeaddressmodal(${order.od_num})" title="배송지 변경" class="btn-order-detail-info change-address">배송지 변경</a>
 							</div>
 							<div class="order-detail-info-cont">
 								<table summary="배송지 정보 테이블" class="table-order-detail-info">
@@ -521,7 +575,7 @@
 										</tr>
 										<tr>
 											<th class="th-order-detail-info">배송 요청사항</th>
-											<td class="td-order-detail-info">${order.od_comment }</td>
+											<td class="td-order-detail-info">${order.od_comment}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -538,6 +592,11 @@
 				</article>
 				</c:forEach>
 				<div class="modal fade changeaddressmodal" id="changeaddressmodal" role="dialog" style="display:none"></div>
+				<div class="modal fade cancleModal" id="cancleModal" role="dialog" style="display:none"></div>
+				<div class="modal fade realcancleModal" id="realcancleModal" role="dialog" style="display:none"></div>
+				<div class="modal fade cancleCheckModal" id="cancleCheckModal" role="dialog" style="display:none"></div>
+				<div class="modal fade trackerAPI" id="trackerAPI" role="dialog" style="display:none"></div>
+				
 			</c:if>
 			<c:if test="${orderListCnt ==0}">
 				<div class="no-view-wrap">
@@ -585,7 +644,6 @@
 		<!-- 배송지 수정 -->
 		<form action="po_addr_update.shop" method="post">
 			<input type="hidden" value="${post.po_num}" name="po_num">
-			<input type="hidden" value="click_addr_update" name="click_addr_update">
 			<div id="post${post.po_num}" class="edit-delivery-wrap list-newaddress" style="display:none">
 				<div class="edit-delivery-cont">
 					<table class="edit-delivery-table" summary="배송지 입력 테이블">

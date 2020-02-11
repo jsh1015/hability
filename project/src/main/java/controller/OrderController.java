@@ -75,44 +75,41 @@ public class OrderController {
 		
 	// 구매하기
 	@PostMapping("order_write")
-	public ModelAndView order_write(int buyingtype, int[] kit_num, int[] cl_num, @RequestParam("lastcount") Integer[] count, HttpSession session) {
+	public ModelAndView order_write(int buyingtype, int[] kit_num, int[] cl_num,
+			@RequestParam("lastcount") Integer[] count, HttpSession session) {
 		ModelAndView mav = new ModelAndView("order/order_write");
-		User loginUser = (User)session.getAttribute("loginUser");
-		mav.addObject("user", loginUser);
+		User loginUser = (User) session.getAttribute("loginUser");
+
 		List<Basket> basketList = service_pr.basketList(loginUser.getEmailid());
-		int lastsum =0;
-		if(buyingtype ==0) { // 옵션
-			for(int i=0; i<1; i++) {
+		int lastsum = 0;
+		if (buyingtype == 0) { // 옵션
+			for (int i = 0; i < 1; i++) {
 				// 우선 장바구니에 넣고
 				service_pr.basketAdd(kit_num[i], cl_num[i], count[i], loginUser.getEmailid());
 				// 읽어오자
 				basketList = service_pr.basketList(loginUser.getEmailid());
-				
+
 				Kit kitDetail = service_pr.kitInfo(kit_num[i], cl_num[i]);
 				Class classDetail = service.classDetail(cl_num[i]);
 				basketList.get(i).setCls(classDetail);
 				basketList.get(i).setKit(kitDetail);
+
+				lastsum += count[i] * kitDetail.getKit_price();
 			}
-		} else if(buyingtype ==1) { // 장바구니
-			
-			for(int i=0; i<cl_num.length; i++) {
-				System.out.println("장바구니 구매 class = "+cl_num[i]);
-				System.out.println("장바구니 구매 kit = "+kit_num[i]);
-				System.out.println("장바구니 구매 count = "+count[i]);
+		} else if (buyingtype == 1) { // 장바구니
+			for (int i = 0; i < cl_num.length; i++) {
+				System.out.println("장바구니 구매 class = " + cl_num[i]);
+				System.out.println("장바구니 구매 kit = " + kit_num[i]);
+				System.out.println("장바구니 구매 count = " + count[i]);
 				Kit kitDetail = service_pr.kitInfo(kit_num[i], cl_num[i]);
 				Class classDetail = service.classDetail(cl_num[i]);
 				basketList.get(i).setCls(classDetail);
 				basketList.get(i).setKit(kitDetail);
 				basketList.get(i).setCount(count[i]);
-				
-				lastsum += count[i] * kitDetail.getKit_price(); //가격합계
+
+				lastsum += count[i] * kitDetail.getKit_price();
 			}
 		}
-		System.out.println(lastsum);
-		mav.addObject("buyingtype", buyingtype);
-		mav.addObject("kit_num", kit_num);
-		mav.addObject("cl_num", cl_num);
-		mav.addObject("count", count);
 		mav.addObject("blist", basketList);
 		mav.addObject("lastsum", lastsum);
 		return mav;

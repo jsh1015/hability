@@ -64,8 +64,8 @@ public class ShopService_pr {
 		return poohDao.orderListCnt(emailid);
 	}
 
-	public List<Uorder> orderList(String emailid) {
-		return poohDao.orderList(emailid);
+	public List<Uorder> orderList(String emailid, int od_num) {
+		return poohDao.orderList(emailid, od_num);
 	}
 	
 	// 1개의 주문목록에 대한 클래스 리스트
@@ -75,6 +75,14 @@ public class ShopService_pr {
 
 	public void updateDelivery(int od_num, int deli_val) {
 		poohDao.updateDelivery(od_num, deli_val);
+	}
+
+	public void orderCancle_orderlist(int od_num) {
+		poohDao.orderCancle_orderlist(od_num);
+	}
+
+	public void orderCancle_uorder(int od_num) {
+		poohDao.orderCancle_uorder(od_num);
 	}
 
 }

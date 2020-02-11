@@ -27,8 +27,7 @@ public class PoohDao {
 	
 	public void po_addr_insert(Postaddr postaddr) {
 		int po_num = sqlSession.getMapper(PoohMapper.class).max_po_num();
-		System.out.println(po_num);
-
+		
 		param.clear();
 		postaddr.setPo_num(++po_num);
 		System.out.println("최종 postaddr : " + postaddr);
@@ -75,7 +74,10 @@ public class PoohDao {
 	}
 
 	public void basketAdd(int kit_num, int cl_num, int lastcount, String emailid) {
-		sqlSession.getMapper(PoohMapper.class).basketAdd(kit_num, cl_num, lastcount, emailid);	
+		int b_num = sqlSession.getMapper(PoohMapper.class).max_b_num();
+		int b_num2 = ++b_num;
+		// 매개변수는 순서에 맞춰서 들어가야함
+		sqlSession.getMapper(PoohMapper.class).basketAdd(b_num2, kit_num, cl_num, lastcount, emailid);	
 	}
 
 	public List<Basket> basketList(String emailid) {
@@ -102,9 +104,10 @@ public class PoohDao {
 		return orderListCnt;
 	}
 
-	public List<Uorder> orderList(String emailid) {
+	public List<Uorder> orderList(String emailid, int od_num) {
 		param.clear();
 		param.put("emailid", emailid);
+		param.put("od_num", od_num);
 		return sqlSession.getMapper(PoohMapper.class).orderList(param);
 	}
 
@@ -119,6 +122,18 @@ public class PoohDao {
 		param.put("od_num", od_num);
 		param.put("deli_val", deli_val);
 		sqlSession.getMapper(PoohMapper.class).updateDelivery(param);
+	}
+
+	public void orderCancle_orderlist(int od_num) {
+		param.clear();
+		param.put("od_num", od_num);
+		sqlSession.getMapper(PoohMapper.class).orderCancle_orderlist(param);
+	}
+
+	public void orderCancle_uorder(int od_num) {
+		param.clear();
+		param.put("od_num", od_num);
+		sqlSession.getMapper(PoohMapper.class).orderCancle_uorder(param);
 	}
 
 

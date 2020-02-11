@@ -50,9 +50,9 @@ public interface PoohMapper {
 	void addrUpdate(Postaddr postaddr);
 
 	@Insert("insert into basket "
-			+ "(emailid, cl_num, count, kit_num) "
-			+ " values (#{emailid}, #{cl_num}, #{lastcount}, #{kit_num}) ")
-	void basketAdd(@Param("kit_num") int kit_num, @Param("cl_num") int cl_num, @Param("lastcount") int lastcount, @Param("emailid") String emailid);
+			+ "(b_num, emailid, cl_num, count, kit_num) "
+			+ " values (#{b_num2}, #{emailid}, #{cl_num}, #{lastcount}, #{kit_num}) ")
+	void basketAdd(@Param("b_num2") int b_num2, @Param("kit_num") int kit_num, @Param("cl_num") int cl_num, @Param("lastcount") int lastcount, @Param("emailid") String emailid);
 	
 	@Select({"<script>",
 				" select * from basket ",
@@ -74,7 +74,12 @@ public interface PoohMapper {
 
 	@Select({"<script>",
 				"select * from uorder ",
-				" <if test='emailid !=null'> where emailid = #{emailid} </if>",
+//				" <if test='emailid !=null'>",
+				"   <choose> ",
+				"	   <when test='od_num !=0'> where od_num = #{od_num} </when> ",
+				"	   <when test='emailid !=null'> where emailid = #{emailid} </when> ",
+				"   </choose>",
+//				" </if>",
 			 "</script>"})
 	List<Uorder> orderList(Map<String, Object> param);
 
@@ -84,4 +89,14 @@ public interface PoohMapper {
 	@Update("update uorder set "
 			+ " od_deliver = #{deli_val} where od_num = #{od_num} ")
 	void updateDelivery(Map<String, Object> param);
+
+	@Delete("delete from orderlist where od_num=#{od_num}")
+	void orderCancle_orderlist(Map<String, Object> param);
+	
+	@Update("update uorder set "
+			+ " od_deliver =7 where od_num=#{od_num} ")
+	void orderCancle_uorder(Map<String, Object> param);
+	
+	@Select("select ifnull(max(b_num),0) from basket")
+	int max_b_num();
 }

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>주문/배송 관리 페이지입니다 ^_^</title>
 <style>
 a {text-decoration: none;}
@@ -17,13 +17,17 @@ a {text-decoration: none;}
 	cursor:pointer;
 	color:#11447B;
 	font-family:Arial;
-	font-size:16px;
-	padding:3px 3px;
+	font-size:14px;
+	padding:7px 5px;
 	text-decoration:none;
 }
 .save:hover {
 	background-color:transparent;
 	color:#11447B;
+}
+
+table {
+	width : 100%;
 }
 </style>
 <script>
@@ -85,11 +89,11 @@ function fnsubmit(index) {
 				${list.name}(${list.emailid})
 			</td>
 			<td align="center">
-				<fmt:formatDate value="${list.od_date}" pattern="yyyy.MM.dd hh:mm" />
+				<fmt:formatDate value="${list.od_date}" pattern="yyyy. MM. dd hh:mm" />
 			</td>
 			<!--  배송지 변경 -->
 			<td id="delivery">
-				${list.od_deliver ==1? "상품 준비 중":list.od_deliver ==2? "배송 중":list.od_deliver ==3? "배송 완료":list.od_deliver ==4? "교환":list.od_deliver ==5? "반품":"환불"}
+				${list.od_deliver ==1? "상품 준비 중":list.od_deliver ==2? "배송 중":list.od_deliver ==3? "배송 완료":list.od_deliver ==4? "교환":list.od_deliver ==5? "반품":list.od_deliver ==6? "환불":"취소"}
 			</td>
 			<td>
 				<input type="hidden" value="${list.od_num}" name="od_num" id="od_num${stat.index}">
@@ -100,13 +104,14 @@ function fnsubmit(index) {
 					<option value=4>교환</option>
 					<option value=5>반품</option>
 					<option value=6>환불</option>
+					<option value=7>취소</option>
 				</select>
 				<button type="button" onclick="fnsubmit('${stat.index}')" class="save">변경</button>
 			</td>
 		</tr>
 		<!-- 상품 상세 정보 toggle -->
 		<tr id="detail${stat.index}" class="detail" style="display:none">
-			<td colspan="4" align="center">
+			<td colspan="5" align="center">
 				<table>
 					<tr><th>상품명</th>
 						<th>옵션명</th>
