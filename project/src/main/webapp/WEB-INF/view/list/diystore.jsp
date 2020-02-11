@@ -71,6 +71,8 @@
                data-tracker-type="impression" data-tracker-id="/list/">
                <c:forEach items="${classList}" var="list">
                <li class="class-list hf-tracker-item" data-tracker-id="FE-M-0006">
+               	<input type="hidden" class="emailid" name="emailid" value="${sessionScope.loginUser.emailid}">
+				<c:set var="emailid" value="${sessionScope.loginUser.emailid}"/>
               	 <a href="detail.shop?cl_num=${list.cl_num}&emailid=${emailid}">
                   <div class="class-list-thumb">
 						<img src="${path}/img/${list.cl_img}" alt="" class="thumb-class-list">
