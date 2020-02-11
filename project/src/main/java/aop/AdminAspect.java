@@ -37,10 +37,10 @@ public class AdminAspect {
 			}
 		}
 		if(loginUser == null) {
-			throw new LoginException("로그인 후  가능합니다.","../user/login.shop");
+			throw new LoginException("로그인 후  가능합니다.","../user/main.shop");
 		}
 		if(!loginUser.getEmailid().equals("admin@naver.com")) {
-			throw new LoginException("관리자만 가능한 페이지입니다.", "../user/main.shop?id="+loginUser.getEmailid());
+			throw new LoginException("관리자만 가능한 페이지입니다.", "../user/main.shop");
 		}
 		Object ret = joinPoint.proceed();
 		return ret;

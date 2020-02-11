@@ -8,9 +8,13 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import logic.Basket;
 import logic.Mileage;
 import logic.Orderlist;
+import logic.Postaddr;
+import logic.Qna;
 import logic.Ulike;
+import logic.Uorder;
 import logic.User;
 import logic.Video;
 
@@ -30,8 +34,8 @@ public interface UserMapper {
 	void kakao_insert(Map<Object, Object> param);
 
 
-	@Insert("insert into mileage (mi_num, emailid, mi_type, mi_date, mi_content, mi_point, mi_end) "
-			+ " values (${mi_num}, '${emailid}', ${mi_type}, now(), '${mi_content}', ${mi_point}, date_add(now(), interval 1 year))")
+	@Insert("insert into mileage (mi_num, emailid, mi_type, mi_date, mi_content, mi_point, mi_end, od_num) "
+			+ " values (${mi_num}, '${emailid}', ${mi_type}, now(), '${mi_content}', ${mi_point}, date_add(now(), interval 1 year), ${od_num})")
 	void mileageinsert(Map<Object, Object> param);
 
 	@Select({"<script>"
@@ -45,7 +49,7 @@ public interface UserMapper {
 				+ " where emailid=#{emailid}")
 	void update(User user);
 
-	@Delete("delete from userbackup where emailid=#{emailid}")
+	@Delete("delete from user where emailid=#{emailid}")
 	void delete(String emailid);
 
 	@Update("update userbackup set password=#{chgpass} where emailid=#{emailid}")
@@ -89,5 +93,39 @@ public interface UserMapper {
 
 	@Select("select count(*) from uorder where emailid = #{emailid}")
 	int myclasscnt(User emailid);
+	
+//강제탈퇴 부분
+	@Delete("delete from mileage where emailid=#{emailid}")
+	void usermileagedelete(String emailid);
+
+	@Select("select * from postaddr where emailid = #{emailid}")
+	List<Postaddr> postaddrlist(String emailid);
+
+	@Delete("delete from postaddr where emailid=#{emailid}")
+	void postaddrdelete(String emailid);
+
+	@Select("select * from qna where emailid = #{emailid}")
+	List<Qna> qnaselect(String emailid);
+
+	@Select("select * from basket where emailid = #{emailid}")
+	List<Basket> basketselect(String emailid);
+
+	@Select("select * from orderlist where emailid=#{emailid}")
+	List<Orderlist> odlistselect(String emailid);
+
+	@Select("select * from uorder where emailid =#{emailid}")
+	List<Uorder> orderselect(String emailid);
+
+	@Delete("delete from qna where emailid=#{emailid}")
+	void qnaselectdelete(String emailid);
+
+	@Delete("delete from basket where emailid=#{emailid}")
+	void basketselectdelete(String emailid);
+
+	@Delete("delete from orderlist where od_num=#{od_num}")
+	void odlistselectdelete(int od_num);
+
+	@Delete("delete from uorder where emailid=#{emailid}")
+	void orderselectdelete(String emailid);
 
 }

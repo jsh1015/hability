@@ -70,7 +70,7 @@ public class UserController {
 		try {
 			service.userInsert(user);
 			// 회원 가입 적립금 지급(아이디, 내역, 포인트, 타입(1: 적립, 2: 사용)
-			service.mileageInsert(user.getEmailid(), "회원가입 포인트", 1000, 1);
+			service.mileageInsert(user.getEmailid(), "회원가입 포인트", 1000, 1,0);
 			// 회원 적립금 내역 업데이트
 			service.mileageupdate(user.getEmailid());
 			User dbUser = service.getUser(user.getEmailid());
@@ -124,7 +124,7 @@ public class UserController {
 		if (service.getUser(emailid) == null) {
 			service.kakaoInsert(emailid, nickname, userimg);
 			// 회원 가입 적립금 지급
-			service.mileageInsert(emailid, "회원가입 포인트", 1000, 1);
+			service.mileageInsert(emailid, "회원가입 포인트", 1000, 1,0);
 			// 회원 적립금 내역 업데이트
 			service.mileageupdate(emailid);
 		}
@@ -156,7 +156,7 @@ public class UserController {
 		if (service.getUser(emailid) == null) {
 			service.naver_insert(emailid, name, nickname, profile_image);
 			// 회원 가입 적립금 지급
-			service.mileageInsert(emailid, "회원가입 포인트", 1000, 1);
+			service.mileageInsert(emailid, "회원가입 포인트", 1000, 1,0);
 			// 회원 적립금 내역 업데이트
 			service.mileageupdate(emailid);
 		}
@@ -208,7 +208,7 @@ public class UserController {
 	
 	//로그인 검증, (로그인 정보 != 파라미터정보 접근 불가, admin은 가능)
 	   @GetMapping("mypage")
-	   public ModelAndView page(String emailid, HttpSession session) {
+	   public ModelAndView page(String emailid, String m, HttpSession session) {
 	      ModelAndView mav = new ModelAndView();
 	      
 	      User user = service.getUser(emailid);
@@ -217,7 +217,8 @@ public class UserController {
 	      int use_point = service.use_point(emailid);
 	      int now_point = total_point - use_point;
 	      List<Mileage> mileagelist = service.mileagelist(emailid);
-
+	      
+	      mav.addObject("type", m);
 	      mav.addObject("user", user);
 	      mav.addObject("total_point", total_point);
 	      mav.addObject("use_point", use_point);

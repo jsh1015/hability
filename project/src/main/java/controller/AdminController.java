@@ -196,5 +196,19 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
+	
+	//회원삭제
+	@RequestMapping("userdelete")
+	public ModelAndView userdelete(String emailid, HttpSession session) {
+		//user,basket,comment,mileage,postaddr,uorder,user
+		service.userinfo(emailid);
+		service.userDelete(emailid); //회원 삭제
+		ModelAndView mav = new ModelAndView();
+	    List<User> userList = service.userList();
+	    mav.addObject("userList",userList);
+		mav.setViewName("redirect:../admin/userlist.shop");
+		return mav;
+	}
+
 }
 

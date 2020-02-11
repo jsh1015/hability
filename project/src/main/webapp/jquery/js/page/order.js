@@ -49,14 +49,8 @@ function DaumPostcode() {
 	$(document).ready(function(){
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp11832569'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-	})
-	$("#orderBtn").click(function(data){
-		// 신청 리스트
-//		var participation_list = new Array();
-//		$("input[name=participation_seq]").each(function(index, item){
-//			participation_list.push($(item).val());
-//		});
-		
+	})	
+	$("#orderBtn").click(function(data){		
 		var od_name = $('.od_name').val()
 		var od_client = $('.od_client').val()
 		var od_phone = $('.od_phone').val()
@@ -67,9 +61,10 @@ function DaumPostcode() {
 		var od_addr_sub = $('.po_addr_sub').val()
 		var mileage = $('.usemileage').val()
 		
-		var cl_num = $('#cl_num').val()
-		var kit_num = $('#kit_num').val()
-		var count = $('#count').val()
+		var order_list = new Array();
+		$("input[name=orderlist]").each(function(index,item){
+			order_list.push($(item).val());
+		});//장바구니상품갯수,cl_num,kit_num,수량
 		
 		var email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		// 표준식
@@ -155,9 +150,8 @@ function DaumPostcode() {
 							od_addr_sub : od_addr_sub,
 							mileage : mileage,
 							price:rsp.paid_amount,
-							cl_num :cl_num,
-							kit_num : kit_num,
-							count : count},
+							orderlist : order_list.join(),
+							od_mileage : mileage},
 //						contentType :'application/json; charset=utf-8',
 						success : function(data){
 							/*var msg = '결제가 완료되었습니다.';

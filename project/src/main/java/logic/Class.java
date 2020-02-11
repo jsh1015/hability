@@ -28,6 +28,14 @@ public class Class {
 	private String cl_story;
 	private String cl_content;
 	private Date cl_date;
+	private Kit kit;
+	
+	public Kit getKit() {
+		return kit;
+	}
+	public void setKit(Kit kit) {
+		this.kit = kit;
+	}
 	public int getCl_num() {
 		return cl_num;
 	}
