@@ -34,16 +34,16 @@ public class PoohController {
 	private ShopService_pr service_pr;
 		
 	@PostMapping("user/po_addr")
-	public ModelAndView postaddr(Postaddr postaddr, BindingResult bresult, HttpSession session) throws Exception{
+	public ModelAndView postaddr(Postaddr postaddr, HttpSession session) throws Exception{
 		User loginUser = (User)session.getAttribute("loginUser");
 		ModelAndView mav = new ModelAndView("user/mypage"); // po_addr이 없으니까 지정해줘
-
+		String str = "click_addr_insert";
 		try {
 			System.out.println("po_addr emailid = "+loginUser.getEmailid());
 			postaddr.setEmailid(loginUser.getEmailid());
 			service_pr.po_addr_insert(postaddr);
 			
-			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
+			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid()+"&click_addr_insert="+str);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -57,12 +57,11 @@ public class PoohController {
 		
 		System.out.println("po_update po_num = " + po_num);
 		System.out.println("po_update postaddr = " + postaddr);
-
+		String str = "click_addr_update";
 		try {
-//			postaddr.setEmailid(loginUser.getEmailid());
-//			postaddr.setPo_num(po_num);
 			service_pr.addrUpdate(postaddr);
-			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
+//			mav.addObject("click_addr_update", str);
+			mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid()+"&click_addr_update="+str);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -170,22 +169,23 @@ public class PoohController {
 		mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
 		return mav;
 	}
-	// ajax 요청된 메서드
-	@RequestMapping("ajax/optionModal")
-	public ModelAndView optionModal(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		int cl_num = Integer.parseInt(request.getParameter("cl_num"));
-		System.out.println("ajax = "+cl_num);
-		
-		mav.addObject("cl_num", cl_num); // ajax으로 넘어감
-		return mav;
-	}
+
+	//	// ajax 요청된 메서드
+//	@RequestMapping("ajax/optionModal")
+//	public ModelAndView optionModal(HttpServletRequest request) {
+//		ModelAndView mav = new ModelAndView();
+//		int cl_num = Integer.parseInt(request.getParameter("cl_num"));
+//		System.out.println("ajax = "+cl_num);
+//		
+//		mav.addObject("cl_num", cl_num); // ajax으로 넘어감
+//		return mav;
+//	}
 	
 	// 관리자 주문배송 조회
 	@RequestMapping("admin/orderList")
 	public ModelAndView adminOrderList() {
 		ModelAndView mav = new ModelAndView();
-		List<Uorder> orderList = service_pr.orderList(null);
+		List<Uorder> orderList = service_pr.orderList(null,0);
 		for(Uorder oneorder : orderList) {
 			System.out.println("관리자 주문배송 조회 uorder = " + oneorder);
 			
@@ -228,6 +228,66 @@ public class PoohController {
 		System.out.println("배송 상황 : "+deli_val);
 		
 		service_pr.updateDelivery(od_num, deli_val);		
+		return mav;
+	}
+	
+	// ajax 주문 삭제 모달
+	@RequestMapping("ajax/cancleModal")
+	public ModelAndView cancleModal(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		int od_num = Integer.parseInt(request.getParameter("od_num")); // 넘어온 값
+		System.out.println("주문 삭제 모달 = " + od_num);
+		mav.addObject("od_num", od_num); // ajax으로 넘어감
+		return mav;
+	}
+
+	// 주문 삭제 form
+	@RequestMapping("ajax/realcancleModal")
+	public ModelAndView realcancleModal(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		int od_num = Integer.parseInt(request.getParameter("od_num")); // 넘어온 값
+		
+		int lastprice =0;
+		String str =null;
+		List<Uorder> orderList = service_pr.orderList(str, od_num);
+		for(Uorder oneorder : orderList) {
+			// 주문리스트 1개에서 주문번호를 가지고 상품 리스트를 만들어
+			List<Orderlist> itemList = service_pr.orderClassList(oneorder.getOd_num());
+			for(Orderlist oneitem : itemList) {
+				// 주문내역 1개에 해당하는 class 조회
+				Class cls = service.classDetail(oneitem.getCl_num());
+				Kit kit = service_pr.kitInfo(oneitem.getKit_num(), oneitem.getCl_num());
+				oneitem.setCls(cls);
+				oneitem.setKit(kit);
+				
+				lastprice += kit.getKit_price() * oneitem.getCount();
+			}
+			oneorder.setOrderlist(itemList);
+		}
+		mav.addObject("orderList", orderList);
+		mav.addObject("od_num", od_num);
+		mav.addObject("lastprice", lastprice);
+		return mav;
+	}
+	
+	@RequestMapping("ajax/cancleCheckModal")
+	public ModelAndView cancleCheckModal(HttpServletRequest request, HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		ModelAndView mav = new ModelAndView();
+		
+		int od_num = Integer.parseInt(request.getParameter("od_num")); // 넘어온 값
+		
+		System.out.println("주문취소하기 버튼 cancleCheckModal = " + od_num);
+
+//		service_pr.orderCancle_orderlist(od_num);
+		service_pr.orderCancle_uorder(od_num);
+//		mav.setViewName("redirect:mypage.shop?emailid="+loginUser.getEmailid());
+		return mav;
+	}
+	
+	@RequestMapping("ajax/trackerAPI")
+	public ModelAndView trackerAPI() {
+		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 	

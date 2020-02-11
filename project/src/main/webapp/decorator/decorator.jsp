@@ -57,21 +57,28 @@
 				<div class="menu-cont">
 					<div class="hf-func-wrap">
 						<ul class="hf-func-list">
+							<c:if test="${empty sessionScope.loginUser}">
+							<li class="hf-func s-empty">
+								<span class="i-count txt-cart-count"></span>
+								<a href="#login" title="취미바구니" class="btn-func func-box showlogin">취미바구니</a>
+								<div class="txt-func02">취미바구니</div>
+							</li>
+							<li class="hf-func s-empty">
+								<a href="#login" title="내 클래스" class="btn-func func-myclass showlogin">내 클래스</a>
+								<div class="txt-func03">내 클래스</div>
+							</li>
+							</c:if>
+							<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.emailid ne 'admin@naver.com'}">
 							<li class="hf-func s-empty">
 								<span class="i-count txt-cart-count"></span>
 								<a href="${path}/order/basketView.shop?emailid=${sessionScope.loginUser.emailid}" title="취미바구니" class="btn-func func-box">취미바구니</a>
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">
-							<c:if test="${empty sessionScope.loginUser}">
-							<a href="#login" title="내 클래스" class="btn-func func-myclass showlogin">내 클래스</a>
+								<a href="${path}/user/myClass.shop" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
 								<div class="txt-func03">내 클래스</div>
-							</c:if>	
-							<c:if test="${!empty sessionScope.loginUser}">
-								<a href="${path}/user/myClass.shop?emailid=${sessionScope.loginUser.emailid}" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
-								<div class="txt-func03">내 클래스</div>
-							</c:if>
 							</li>
+							</c:if>
 						</ul>
 					</div>
 					<ul class="menu-list">

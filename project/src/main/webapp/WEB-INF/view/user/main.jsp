@@ -270,7 +270,7 @@
 			</div>
 		</section>
 		
-		<!-- BEST 지금 가장 인기있는 취미  -->
+		<!-- 새로운 클래스 리스트 테스트  -->
 		<section id="content" class="hfb-categorySlideList hf-tracker-group swiper-container-initialized swiper-container-horizontal">
 			<header>
 				<h4>새로운 클래스 리스트 테스트</h4>
@@ -281,68 +281,36 @@
 				<span class="als-prev"><img src="${path}/recoSlide/thin_left_arrow_333.png" alt="prev" title="previous"/></span>
 			<div class="als-viewport">
 			<ul class="als-wrapper swiper-wrapper panel">
-				<!-- 1 -->
+				<c:forEach items="${classList}" var="cls" begin="0" end="8">
 				<li class="als-item swiper-slide" style="width: 220.25px; margin-right: 18px;">
 					<a href="/product/906965c18d">
 						<p class="i-img">
 							<img style="width:220.25px; height:132.15px;" src="temp_img.jpg" alt=""> <!-- 이미지 경로 : WEB-INF 바깥 -->
 						</p>
 						<p class="i-desc">
-							<span class="i-type">정규 클래스</span>
-							<span class="i-seller">by 메리진</span>
+							<span class="i-type">
+							<c:set var="type" value="${cls.cl_type}"/>
+								<c:choose>
+			  						<c:when test="${type eq 1}">
+			  							[정규클래스]
+			  						</c:when>
+			  						<c:when test="${type eq 2}">
+			  							[원데이클래스]
+			  						</c:when>
+			  						<c:when test="${type eq 3}">
+			  							[DIY]
+			  						</c:when>
+			  						<c:when test="${type eq 4}">
+			  							[도구]
+			  						</c:when>
+			  					</c:choose>
+							</span>
+							<span class="i-seller">by ${cls.teacher}</span>
 						</p>
-						<p class="i-name">메리진의 스마트폰 드로잉 클래스</p>
+						<p class="i-name">${cls.cl_title}</p>
 					</a>
 				</li>
-				<!-- 2 -->
-				<li class="als-item swiper-slide" style="width: 220.25px; margin-right: 18px;">
-					<a href="/product/traveldigital">
-						<p class="i-img">
-							<img style="width:220.25px; height:132.15px;" src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/42649440-218b-11ea-9cb3-c70fccd5674e-resize.jpg" alt="">
-						</p>
-						<p class="i-desc">
-							<span class="i-type">정규 클래스</span>
-							<span class="i-seller">by 유수빈</span>
-						</p>
-						<p class="i-name">유수빈의 올인원 여행 디지털 드로잉 클래스</p>
-					</a>
-				</li>
-				<li class="als-item swiper-slide" style="width: 220.25px; margin-right: 18px;">
-					<a href="/product/QMeAha5VgU">
-						<p class="i-img">
-							<img style="width:220.25px; height:132.15px;" src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/852ae460-09b6-11ea-952c-efccbb50f547-resize.jpg" alt="">
-						</p>
-						<p class="i-desc">
-							<span class="i-type">정규 클래스</span>
-							<span class="i-seller">by 메리데이</span>
-						</p>
-						<p class="i-name">메리데이의 채색 자수 클래스</p>
-					</a>
-				</li>
-				<li class="als-item swiper-slide" style="width: 220.25px; margin-right: 18px;">
-					<a href="/product/92LvaquM5a">
-						<p class="i-img">
-							<img style="width:220.25px; height:132.15px;" src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d914c600-1b12-11ea-add4-09214dce28ac-resize.jpg" alt="">
-						</p>
-						<p class="i-desc">
-							<span class="i-type">DIY 키트</span>
-							<span class="i-seller">by 부쉬아로마</span>
-						</p>
-						<p class="i-name">하트 곰돌이비누 DIY 키트</p>
-					</a>
-				</li>
-				<li class="als-item swiper-slide" style="width: 220.25px; margin-right: 18px;">
-					<a href="/product/Bo2uDp6tLZ">
-						<p class="i-img">
-							<img style="width:220.25px; height:132.15px;" src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c0605900-1be2-11ea-add4-09214dce28ac-resize.jpg" alt="">
-						</p>
-						<p class="i-desc">
-							<span class="i-type">원데이 클래스</span>
-							<span class="i-seller">by 하비풀</span>
-						</p>
-						<p class="i-name">반곰이의 추억여행 스킬자수 카펫매트 클래스</p>
-					</a>
-				</li>
+				</c:forEach>
 			</ul>
 			</div>
 			<!-- arrow -->

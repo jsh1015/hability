@@ -3,60 +3,69 @@ package logic;
 import java.util.Date;
 
 public class Mileage {
-	private int mi_num;
-	private String emailid;
-	private int mi_type;
-	private String mi_content;
-	private int mi_point;
-	private Date mi_date;
-	private Date mi_end;
-	public int getMi_num() {
-		return mi_num;
-	}
-	public void setMi_num(int mi_num) {
-		this.mi_num = mi_num;
-	}
-	public String getEmailid() {
-		return emailid;
-	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
-	}
-	public int getMi_type() {
-		return mi_type;
-	}
-	public void setMi_type(int mi_type) {
-		this.mi_type = mi_type;
-	}
-	public String getMi_content() {
-		return mi_content;
-	}
-	public void setMi_content(String mi_content) {
-		this.mi_content = mi_content;
-	}
-	public int getMi_point() {
-		return mi_point;
-	}
-	public void setMi_point(int mi_point) {
-		this.mi_point = mi_point;
-	}
-	public Date getMi_date() {
-		return mi_date;
-	}
-	public void setMi_date(Date mi_date) {
-		this.mi_date = mi_date;
-	}
-	public Date getMi_end() {
-		return mi_end;
-	}
-	public void setMi_end(Date mi_end) {
-		this.mi_end = mi_end;
-	}
-	@Override
-	public String toString() {
-		return "Mileage [mi_num=" + mi_num + ", emailid=" + emailid + ", mi_type=" + mi_type + ", mi_content="
-				+ mi_content + ", mi_point=" + mi_point + ", mi_date=" + mi_date + ", mi_end=" + mi_end + "]";
-	}
-	
-	
+   private int mi_num;
+   private String emailid;
+   private int mi_type;
+   private String mi_content;
+   private int mi_point;
+   private Date mi_date;
+   private Date mi_end;
+   private int od_num;
+   
+   public int getMi_num() {
+      return mi_num;
+   }
+   public void setMi_num(int mi_num) {
+      this.mi_num = mi_num;
+   }
+   public String getEmailid() {
+      return emailid;
+   }
+   public void setEmailid(String emailid) {
+      this.emailid = emailid;
+   }
+   public int getMi_type() {
+      return mi_type;
+   }
+   public void setMi_type(int mi_type) {
+      this.mi_type = mi_type;
+   }
+   public String getMi_content() {
+      return mi_content;
+   }
+   public void setMi_content(String mi_content) {
+      this.mi_content = mi_content;
+   }
+   public int getMi_point() {
+      return mi_point;
+   }
+   public void setMi_point(int mi_point) {
+      this.mi_point = mi_point;
+   }
+   public Date getMi_date() {
+      return mi_date;
+   }
+   public void setMi_date(Date mi_date) {
+      this.mi_date = mi_date;
+   }
+   public Date getMi_end() {
+      return mi_end;
+   }
+   public void setMi_end(Date mi_end) {
+      this.mi_end = mi_end;
+   }
+   public int getOd_num() {
+      return od_num;
+   }
+   public void setOd_num(int od_num) {
+      this.od_num = od_num;
+   }
+   @Override
+   public String toString() {
+      return "Mileage [mi_num=" + mi_num + ", emailid=" + emailid + ", mi_type=" + mi_type + ", mi_content="
+            + mi_content + ", mi_point=" + mi_point + ", mi_date=" + mi_date + ", mi_end=" + mi_end 
+            + "od_num=" + od_num + "]";
+   }
+   
+   
 }

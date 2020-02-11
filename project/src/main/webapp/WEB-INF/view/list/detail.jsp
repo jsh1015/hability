@@ -17,27 +17,14 @@
    var kitcnt = '<c:out value="${kitcnt}" />';
    
    function selectRadio(val) {
-      /* $("#"+i).toggle();
-      alert(val);
-      for(int i=1; i<=kitcnt; i++) {
-         if(val == i) {
-            $("#"+i).toggle();
-         } else $('#'+i).css('display', 'none');
-      } */
-       if(val == '1') {
-         $('#1').css('display', 'block');
-         $('#2').css('display', 'none');
-         $('#3').css('display', 'none');
-      } else if(val == '2') {
-         $('#1').css('display', 'none');
-         $('#2').css('display', 'block');
-         $('#3').css('display', 'none');
-      } else if(val == '3') {
-         $('#1').css('display', 'none');
-         $('#2').css('display', 'none');
-         $('#3').css('display', 'block');
-      }
-   }
+		for(var i=1; i<=10000000; i++) {
+			if(val == i) {
+				$('#'+i).css('display', 'block');
+				var sel_option = $('#'+i);
+				$('.option').not(sel_option).css('display', 'none');
+			}
+		}
+	}
 </script>
 </head>
 <body>
@@ -57,10 +44,8 @@
             <span class="i-lecturer">${classDetail.teacher}</span>
             ${classDetail.cl_title}
          </div>
-         <div class="vod-info-price-discount">
-             <span class="i-regularPrice view-class-discount-regularPrice">
-                <fmt:formatNumber value="${classDetail.cl_price}" pattern="##,###" />원
-             </span>
+         <div class="vod-info-price">
+         	<span class="vod-info-price-number view-class-price"><fmt:formatNumber value="${classDetail.cl_price}" pattern="##,###" /></span><span class="i-won">원</span>
          </div>
          <ul class="vod-info-list">
             <li class="vod-info">
