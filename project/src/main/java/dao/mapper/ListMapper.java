@@ -19,8 +19,10 @@ public interface ListMapper {
 
 	@Select({"<script>select * from class ",
 		"<if test='board_type != null'> where board_type=#{board_type} </if>",
-		"<if test='cl_num != null'> where cl_num=#{cl_num} </if></script>"})
+		"<if test='cl_num != null'> where cl_num=#{cl_num} </if>",
+		"<if test='cl_category != null'> and cl_category=#{cl_category} </if></script>"})
 	List<Class> list(Map<String,Object> param);
+
 
 	@Insert("insert into class (cl_num, board_type, cl_type, cl_category, cl_title, cl_img, teacher, cl_price, cl_info, cl_story, cl_content, cl_date) "
 			+"values (#{cl_num}, #{board_type}, #{cl_type}, #{cl_category}, #{cl_title}, #{cl_img}, #{teacher}, #{cl_price}, #{cl_info}, #{cl_story}, #{cl_content}, now())")
@@ -68,8 +70,10 @@ public interface ListMapper {
 	@Select("select cl_title, cl_category, cl_img from class where cl_num=#{cl_num}")
 	Class getclass(Integer cl_num);
 
-	@Select("select * from comment where cl_num = #{cl_num}")
-	List<Comment> commentList(int cl_num);
+	@Select({"<script>SELECT * FROM comment ",
+		"<if test='cl_num != null'> where cl_num=#{cl_num} </if>",
+		"<if test='cm_type != null'> where cm_type=#{cm_type} </if></script>"})
+	List<Comment> commentList(@Param("cl_num")Integer cl_num, @Param("cm_type")Integer cm_type);
 
 	@Select("select ifnull(max(cm_num),0) from comment")
 	int cm_num();
@@ -81,4 +85,6 @@ public interface ListMapper {
 	@Select("select count(*) from comment where cl_num = #{cl_num}")
 	int commentcount(int cl_num);
 
+	@Delete("delete from comment where cm_num=#{cm_num}")
+	void cmdelete(Integer cm_num);
 }

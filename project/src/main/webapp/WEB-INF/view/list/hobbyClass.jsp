@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>hobbyClass :)</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="${path}/jquery/js/responsiveslides.min.js"></script>
 <style>
 .rslides {
@@ -55,6 +56,20 @@
 			}
 		});
 	});
+	
+	function page(b,ct){
+		$.ajax({
+			type : "POST",
+			url : "${path}/list/hobbyClass.shop",
+			data : {
+				"board_type":b,
+				"cl_category":ct
+			},
+			success : function(data) {
+				location.href="${path}/list/hobbyClass.shop?board_type="+b+"&cl_category="+ct;
+			}
+		})
+	}
 </script>
 </head>
 <body>
@@ -63,7 +78,6 @@
 		<div class="layout-wrap">
 			<!-- 광고 슬라이드 3개 -->
 			<div class="img-slide-wrap img-slide-wrap01" id="img-slide-wrap">
-				
 				<ul class="rslides">
 					<!-- 1번 광고 -->
 					<li class="img-slide" inx="0">
@@ -98,57 +112,54 @@
 				</ul>
 			</div>
 		</div>
-		
+		<c:set var="j" value="1"/><c:set var="m" value="2"/><c:set var="w" value="3"/><c:set var="l" value="4"/>
+		<c:set var="n" value="5"/><c:set var="v" value="6"/><c:set var="f" value="7"/><c:set var="d" value="8"/>
+		<c:set var="board" value="1"/>
 		<!-- 작은 navigation -->
 		<div class="layout-wrap">
 			<ul class="tab-class-list">
 				<li class="tab-class">
-					<a href="/list/class" data-path="class" data-fullpath="class" title="전체" class="btn-tab-class btn-tab-on">
+					<a href="hobbyClass.shop?board_type=1" data-path="class" data-fullpath="class" title="전체" class="btn-tab-class btn-tab-on">
 						전체
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/regular" data-path="regular" data-fullpath="class/regular" class="btn-tab-class">
+					<a href="javascript:page(${board},${j})" data-path="regular" data-fullpath="class/regular" class="btn-tab-class">
 						전체 정규클래스
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/macrame" data-path="macrame" data-fullpath="class/macrame" class="btn-tab-class">
+					<a href="javascript:page(${board},${m})" data-path="macrame" data-fullpath="class/macrame" class="btn-tab-class">
 						마크라메
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/french-embroidery" data-path="french-embroidery" data-fullpath="class/french-embroidery" class="btn-tab-class">
+					<a href="javascript:page(${board},${f})" data-path="french-embroidery" data-fullpath="class/french-embroidery" class="btn-tab-class">
 						프랑스자수
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/drawing" data-path="drawing" data-fullpath="class/drawing" class="btn-tab-class">
+					<a href="javascript:page(${board},${d})" data-path="drawing" data-fullpath="class/drawing" class="btn-tab-class">
 						수채화/드로잉
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/knitting" data-path="knitting" data-fullpath="class/knitting" class="btn-tab-class">
+					<a href="javascript:page(${board},${w})" data-path="knitting" data-fullpath="class/knitting" class="btn-tab-class">
 						뜨개질/위빙
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/leather" data-path="leather" data-fullpath="class/leather" class="btn-tab-class">
+					<a href="javascript:page(${board},${l})" data-path="leather" data-fullpath="class/leather" class="btn-tab-class">
 						가죽공예
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/soap-candle" data-path="soap-candle" data-fullpath="class/soap-candle" class="btn-tab-class">
-						비누/캔들
-					</a>
-				</li>
-				<li class="tab-class">
-					<a href="/list/class/jewelry-neonsign" data-path="jewelry-neonsign" data-fullpath="class/jewelry-neonsign" class="btn-tab-class">
+					<a href="javascript:page(${board},${n})" data-path="jewelry-neonsign" data-fullpath="class/jewelry-neonsign" class="btn-tab-class">
 						쥬얼리/네온사인
 					</a>
 				</li>
 				<li class="tab-class">
-					<a href="/list/class/etc" data-path="etc" data-fullpath="class/etc" class="btn-tab-class">
+					<a href="javascript:page(${board},${v})" data-path="etc" data-fullpath="class/etc" class="btn-tab-class">
 						다양한 취미
 					</a>
 				</li>
@@ -219,6 +230,5 @@
 <div class="layer-wrap popup-wrap" id="popup-wrap">
 	<div class="bg-layer-wrap" onclick="Popup.hide();"></div>
 </div>
-
 </body>
 </html>

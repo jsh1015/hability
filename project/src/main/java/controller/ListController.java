@@ -21,17 +21,18 @@ public class ListController {
    private ShopService service;
    
    @RequestMapping("hobbyClass")
-   public ModelAndView hlist(Integer board_type) {
+   public ModelAndView hlist(Integer board_type,Integer cl_category) {
       ModelAndView mav = new ModelAndView();
-      List<Class> classList = service.classList(board_type);
+      List<Class> classList = service.classList(board_type,cl_category);
+      System.out.println(cl_category);
       mav.addObject("classList",classList);
       return mav;
    }
    
    @RequestMapping("diystore")
-   public ModelAndView dlist(Integer board_type) {
+   public ModelAndView dlist(Integer board_type,Integer cl_category) {
       ModelAndView mav = new ModelAndView();
-      List<Class> classList = service.classList(board_type);
+      List<Class> classList = service.classList(board_type,cl_category);
       mav.addObject("classList",classList);
       return mav;
    }
@@ -83,26 +84,54 @@ public class ListController {
    
    //매거진 목록
 	@RequestMapping("magazine")
-	public ModelAndView mlist(Integer board_type) 
+	public ModelAndView mlist(Integer board_type,Integer cl_category) 
 	{
 	    ModelAndView mav = new ModelAndView();
-	    List<Class> classList = service.classList(board_type);
+	    List<Class> classList = service.classList(board_type,cl_category);
 	    mav.addObject("classList",classList);
 	    return mav;
 	}
    
 	//매거진 상세보기
 	@RequestMapping("mdetail")
-	public ModelAndView mdetail(int cl_num) 
+	public ModelAndView mdetail(Integer cl_num,String emailid,Integer cl_category,Integer cm_type)
 	{
 		ModelAndView mav = new ModelAndView();
 		Class classDetail = service.classDetail(cl_num);
-		List<Comment> commentList = service.commentList(cl_num);
-	    List<Class> classList = service.classList(3);
+		List<Comment> commentList = service.commentList(cl_num,cm_type);
+	    List<Class> classList = service.classList(3,cl_category);
+	    
+		//좋아요 확인하기
+		String check = service.likeselect(cl_num,emailid);
+		
 	    mav.addObject("classList",classList);
 		mav.addObject("classDetail", classDetail);
 		mav.addObject("commentList", commentList);
+		mav.addObject("check",check);
 		return mav;
+	}
+   
+	@RequestMapping("mlike")
+	@ResponseBody
+	public String mlike(int cl_num,String emailid,int board_type) {
+		Ulike ul = new Ulike();
+		ul.setCl_num(cl_num);
+		ul.setEmailid(emailid);	
+		ul.setLike_type(board_type);
+		
+		String check = service.likeselect(cl_num,emailid);
+		System.out.println(check);
+		String h = "";
+		
+		if(check == null) {
+			System.out.println("추가");
+			service.likeinsert(ul);
+			h = "btn-magazine-like-on";
+		}else {			
+			System.out.println("삭제");
+			service.likedelete(ul);
+		}
+		return h;
 	}
    
    @RequestMapping("service")

@@ -38,7 +38,8 @@ div {display: inline; float:left;}
 	<form:radiobutton  path="cl_category" value="5" />쥬얼리/네온사인
 	<form:radiobutton  path="cl_category" value="6" />다양한 취미<br>
 	<form:radiobutton  path="cl_category" value="7" />프랑스자수
-	<form:radiobutton  path="cl_category" value="8" />수채화/드로잉<br></label>
+	<form:radiobutton  path="cl_category" value="8" />수채화/드로잉<br>
+	<form:radiobutton  path="cl_category" value="18" />비누/캔들</label>
 
 	<label id="on_d">
 	<h5>구분</h5>

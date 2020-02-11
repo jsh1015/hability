@@ -34,6 +34,7 @@ import logic.Orderlist;
 import logic.Postaddr;
 import logic.ShopService;
 import logic.ShopService_pr;
+import logic.Ulike;
 import logic.Uorder;
 import logic.User;
 import logic.Video;
@@ -196,81 +197,103 @@ public class UserController {
 	@RequestMapping("main")
 	public ModelAndView newClassList() {
 		ModelAndView mav = new ModelAndView();
-		
-		List<Class> classList = service.classList(1);
+		Integer cl_category=0;
+		List<Class> classList = service.classList(1,cl_category);
 		mav.addObject("classList",classList);
 		
-		List<Class> diyList = service.classList(2);
+		List<Class> diyList = service.classList(2,cl_category);
 		mav.addObject("diyList",diyList);
 		return mav;
 	}
 	
 	//로그인 검증, (로그인 정보 != 파라미터정보 접근 불가, admin은 가능)
-	@GetMapping("mypage")
-	public ModelAndView page(String emailid, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		
-		User user = service.getUser(emailid);
-		
-		int total_point = service.total_point(emailid);
-		int use_point = service.use_point(emailid);
-		int now_point = total_point - use_point;
-		List<Mileage> mileagelist = service.mileagelist(emailid);
+	   @GetMapping("mypage")
+	   public ModelAndView page(String emailid, HttpSession session) {
+	      ModelAndView mav = new ModelAndView();
+	      
+	      User user = service.getUser(emailid);
+	      
+	      int total_point = service.total_point(emailid);
+	      int use_point = service.use_point(emailid);
+	      int now_point = total_point - use_point;
+	      List<Mileage> mileagelist = service.mileagelist(emailid);
 
-		mav.addObject("user", user);
-		mav.addObject("total_point", total_point);
-		mav.addObject("use_point", use_point);
-		mav.addObject("now_point", now_point);
-		mav.addObject("mileagelist", mileagelist);
-		mav.addObject(new Postaddr()); // 빈 객체를 전달
+	      mav.addObject("user", user);
+	      mav.addObject("total_point", total_point);
+	      mav.addObject("use_point", use_point);
+	      mav.addObject("now_point", now_point);
+	      mav.addObject("mileagelist", mileagelist);
+	      mav.addObject(new Postaddr()); // 빈 객체를 전달
 
-		// 등록한 배송지 목록 조회
-		List<Postaddr> postList = service_pr.postList(user.getEmailid());
-		System.out.println("mypage emailid = " + user.getEmailid());
-		mav.addObject("postList", postList);
+	      // 등록한 배송지 목록 조회
+	      List<Postaddr> postList = service_pr.postList(user.getEmailid());
+	      System.out.println("mypage emailid = " + user.getEmailid());
+	      mav.addObject("postList", postList);
 
-		// 배송지 개수
-		int postListCnt = service_pr.postListCnt(user.getEmailid());
-		System.out.println("배송지 개수 = "+postListCnt);
-		mav.addObject("postListCnt", postListCnt);
-		
-		int lastprice =0;
-		
-		// 주문 목록 조회
-		// 관리자일 경우 모든 내역 조회 가능
-		int od_num =0;
-		List<Uorder> orderList = service_pr.orderList(emailid, od_num);
-		for(Uorder oneorder : orderList) {
-			// 주문리스트 1개에서 주문번호를 가지고 상품 리스트를 만들어
-			List<Orderlist> itemList = service_pr.orderClassList(oneorder.getOd_num());
-			for(Orderlist oneitem : itemList) {
-				// 주문내역 1개에 해당하는 class 조회
-				Class cls = service.classDetail(oneitem.getCl_num());
-				Kit kit = service_pr.kitInfo(oneitem.getKit_num(), oneitem.getCl_num());
-				oneitem.setCls(cls);
-				oneitem.setKit(kit);
-				
-				lastprice += kit.getKit_price() * oneitem.getCount();
+	      // 배송지 개수
+	      int postListCnt = service_pr.postListCnt(user.getEmailid());
+	      System.out.println("배송지 개수 = "+postListCnt);
+	      mav.addObject("postListCnt", postListCnt);
+	      
+	      int lastprice =0;
+	      
+	      // 주문 목록 조회
+	      // 관리자일 경우 모든 내역 조회 가능
+	      int od_num =0;
+	      List<Uorder> orderList = service_pr.orderList(emailid, od_num);
+	      for(Uorder oneorder : orderList) {
+	         // 주문리스트 1개에서 주문번호를 가지고 상품 리스트를 만들어
+	         List<Orderlist> itemList = service_pr.orderClassList(oneorder.getOd_num());
+	         for(Orderlist oneitem : itemList) {
+	            // 주문내역 1개에 해당하는 class 조회
+	            Class cls = service.classDetail(oneitem.getCl_num());
+	            Kit kit = service_pr.kitInfo(oneitem.getKit_num(), oneitem.getCl_num());
+	            oneitem.setCls(cls);
+	            oneitem.setKit(kit);
+	            
+	            lastprice += kit.getKit_price() * oneitem.getCount();
+	         }
+	         oneorder.setOrderlist(itemList);
+	         // Sale에 있는 User에 사용자정보(값) 넣어주기
+	         try {
+	            User username = service.getUser(oneorder.getEmailid());
+	            oneorder.setUser(username);
+	         } catch (LoginException e) {
+	            // 탈퇴한 회원이 있을 경우
+	         }
+	      }
+	      mav.addObject("orderList", orderList);
+	      mav.addObject("lastprice", lastprice);
+	      
+	      // 주문 개수
+	      int orderListCnt = service_pr.orderListCnt(user.getEmailid());
+	      System.out.println("주문 개수 = " +orderListCnt);
+	      mav.addObject("orderListCnt", orderListCnt);
+	      
+		 //취미보관함
+			List<Ulike> ul = service.likelist(emailid);
+			for(int i=0;i<ul.size();i++) {
+				Class cl = service.classDetail(ul.get(i).getCl_num());
+				ul.get(i).setCl_title(cl.getCl_title());
+				ul.get(i).setCl_img(cl.getCl_img());
+				ul.get(i).setTeacher(cl.getTeacher());
 			}
-			oneorder.setOrderlist(itemList);
-			// Sale에 있는 User에 사용자정보(값) 넣어주기
-			try {
-				User username = service.getUser(oneorder.getEmailid());
-				oneorder.setUser(username);
-			} catch (LoginException e) {
-				// 탈퇴한 회원이 있을 경우
+			mav.addObject("ul",ul);
+			
+			//매거진보관함
+			List<Ulike> mul = service.likemlist(emailid);
+			for(int i=0; i<mul.size(); i++) {
+				Class cla = service.classDetail(mul.get(i).getCl_num());
+				mul.get(i).setCl_title(cla.getCl_title());
+				mul.get(i).setCl_img(cla.getCl_img());
+				mul.get(i).setTeacher(cla.getTeacher());
+				mul.get(i).setCl_content(cla.getCl_content());
+				mul.get(i).setTime(cla.getCl_date());
 			}
-		}
-		mav.addObject("orderList", orderList);
-		mav.addObject("lastprice", lastprice);
-		
-		// 주문 개수
-		int orderListCnt = service_pr.orderListCnt(user.getEmailid());
-		System.out.println("주문 개수 = " +orderListCnt);
-		mav.addObject("orderListCnt", orderListCnt);
-		
-		return mav;
-	}
+			mav.addObject("mul",mul);
+
+	      return mav;
+	   }
 	
 	//delete.shop과 update.shop에서만 사용할 수 있게 수정 : * 는 상관없이 모두 사용
 	@GetMapping(value= {"update","delete"}) //회원정보수정화면,탈퇴확인화면

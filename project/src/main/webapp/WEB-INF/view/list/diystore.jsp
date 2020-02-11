@@ -5,6 +5,22 @@
 <html>
 <head lang="ko" id="hobbyful">
 <title>DIY :)</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+function page(b,ct){
+	$.ajax({
+		type : "POST",
+		url : "${path}/list/diystore.shop",
+		data : {
+			"board_type":b,
+			"cl_category":ct
+		},
+		success : function(data) {
+			location.href="${path}/list/diystore.shop?board_type="+b+"&cl_category="+ct;
+		}
+	})
+}
+</script>
 </head>
 <body class="">
    <div class="container">
@@ -40,30 +56,26 @@
                </div>
             </div>
          </div>
+        <c:set var="f" value="7"/><c:set var="d" value="8"/><c:set var="dd" value="9"/><c:set var="k" value="10"/>
+		<c:set var="s" value="11"/><c:set var="c" value="12"/><c:set var="vd" value="13"/><c:set var="board" value="2"/>
          <div class="layout-wrap">
             <ul class="tab-class-list">
-               <li class="tab-class"><a href="/list/diystore"
-                  data-path="diystore" data-fullpath="diystore" title="전체"
-                  class="btn-tab-class btn-tab-on">전체</a></li>
-               <li class="tab-class"><a
-                  href="/list/diystore/french-embroidery"
-                  data-path="french-embroidery"
-                  data-fullpath="diystore/french-embroidery" class="btn-tab-class">프랑스자수</a></li>
-               <li class="tab-class"><a href="/list/diystore/knitting"
-                  data-path="knitting" data-fullpath="diystore/knitting"
-                  class="btn-tab-class">뜨개질</a></li>
-               <li class="tab-class"><a href="/list/diystore/kids"
-                  data-path="kids" data-fullpath="diystore/kids"
-                  class="btn-tab-class">키즈</a></li>
-               <li class="tab-class"><a href="/list/diystore/drawing"
-                  data-path="drawing" data-fullpath="diystore/drawing"
-                  class="btn-tab-class">수채화/드로잉</a></li>
-               <li class="tab-class"><a href="/list/diystore/hobbysampler"
-                  data-path="hobbysampler" data-fullpath="diystore/hobbysampler"
-                  class="btn-tab-class">취미 샘플러</a></li>
-               <li class="tab-class"><a href="/list/diystore/soap-candle"
-                  data-path="soap-candle" data-fullpath="diystore/soap-candle"
-                  class="btn-tab-class">캔들/비누</a></li>
+               <li class="tab-class">
+             	  <a href="diystore.shop?board_type=2"data-path="diystore" data-fullpath="diystore" title="전체"class="btn-tab-class btn-tab-on">전체</a></li>
+               <li class="tab-class">
+            	   <a href="javascript:page(${board},${f})" data-path="french-embroidery" data-fullpath="diystore/french-embroidery" class="btn-tab-class">프랑스자수</a></li>
+               <li class="tab-class">
+           	  	  <a href="javascript:page(${board},${dd})" data-path="knitting" data-fullpath="diystore/knitting" class="btn-tab-class">뜨개질</a></li>
+               <li class="tab-class">
+              	  <a href="javascript:page(${board},${k})" data-path="kids" data-fullpath="diystore/kids" class="btn-tab-class">키즈</a></li>
+               <li class="tab-class"> 
+               	  <a href="javascript:page(${board},${d})"data-path="drawing" data-fullpath="diystore/drawing" class="btn-tab-class">수채화/드로잉</a></li>
+               <li class="tab-class">
+               	  <a href="javascript:page(${board},${s})" data-path="hobbysampler" data-fullpath="diystore/hobbysampler" class="btn-tab-class">취미 샘플러</a></li>
+               <li class="tab-class">
+               	  <a href="javascript:page(${board},${c})" data-path="soap-candle" data-fullpath="diystore/soap-candle" class="btn-tab-class">캔들/비누</a></li>
+           	   <li class="tab-class">
+               	  <a href="javascript:page(${board},${vd})" data-path="etc" data-fullpath="diystore/etc" class="btn-tab-class">다양한 DIY 키트</a></li>
             </ul>
          </div>
          <div class="layout-wrap">
@@ -78,7 +90,7 @@
 						<img src="${path}/img/${list.cl_img}" alt="" class="thumb-class-list">
                   </div>
                   <div class="class-list-cont">
-                     <p class="class-list-lecturer-name">[  		
+                     <p class="class-list-lecturer-name">		
                     <c:set var="type" value="${list.cl_type}"/>
 					<c:choose>
 			  			<c:when test="${type eq 1}"> <!-- 1 = 취미클래스 -->

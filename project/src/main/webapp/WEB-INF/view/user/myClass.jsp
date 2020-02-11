@@ -327,7 +327,11 @@ keyframes rotateSpinner { 0%{
 
 100%{
 transform
+
+
 :rotate(360deg)
+
+
 }
 }
 .fb_iframe_widget {
@@ -384,30 +388,46 @@ transform
 						부담갖지 마시고 하루에 조금씩 차근차근 완성해보세요.<br> 클래스 영상은 배송 시작과 함께 오픈됩니다.
 					</div>
 				</div>
-				<c:forEach var="i" items="${odlist}" >
-				<div class="myclass-cont">
-					<div class="myclass-area ">
-						<a href="mycdetail.shop?cl_num=${i.cl_num}">
-						<div class="myclass-img-wrap">
-							<img src="${path}/img/${c.cl_img}"class="img-myclass" alt=""><span class="view-class">
-							<em class="btn-view-class">클래스보기</em></span>
-						</div>
-							<div class="myclass-caption">
-								<span class="caption-txt">${c.cl_category}</span>
-							</div>
-							<div class="myclass-area-tit">${c.cl_title}</div>
-							<div class="myclass-summary">
-								<div class="myclass-summary-tit">
-									<div class="myclass-summary-sub">클래스  진행중</div>
-									<div class="myclass-summary-txt">시작이 반이라고 했었던가요?</div>
-								</div>
-							</div>
-							<div class="myclass-yet-wrap">
-								<div class="myclass-yet"></div>
-							</div>
-						</a>
+				<c:if test="${myclasscnt == 0}">
+				<div class="no-view-wrap">
+					<div class="no-view-tit">아직 진행중인 클래스가 없네요.</div>
+					<div class="no-view-txt">
+						취미가 있는 삶은 아름답습니다!<br>당신만의 취미를 시작해보세요.
 					</div>
+					<a href="${path}/list/hobbyClass.shop?board_type=1" title="취미 클래스로 이동" class="btn-no-view">취미
+						클래스로 이동</a>
 				</div>
+				</c:if>
+				<c:forEach var="i" items="${odlist}">
+					<div class="myclass-cont">
+						<div class="myclass-area ">
+							<a href="mycdetail.shop?cl_num=${i.cl_num}">
+								<div class="myclass-img-wrap">
+									<img src="${path}/img/${i.cl_img}" class="img-myclass" alt="">
+									<span class="view-class"> <em class="btn-view-class">클래스보기</em></span>
+								</div>
+								<div class="myclass-caption">
+									<span class="caption-txt">
+									<c:set var="ct" value="${i.cl_category}"/>
+							  		<c:choose>
+							  			<c:when test="${ct eq 1}">정규클래스</c:when><c:when test="${ct eq 2}">마크라메</c:when><c:when test="${ct eq 3}">뜨개질/위빙</c:when>
+							  			<c:when test="${ct eq 4}">가죽공예</c:when><c:when test="${ct eq 5}">쥬얼리/네온사인</c:when><c:when test="${ct eq 6}">다양한 취미</c:when>
+							  			<c:when test="${ct eq 7}">프랑스 자수</c:when><c:when test="${ct eq 8}">수채화/드로잉</c:when>
+							  		</c:choose></span>
+								</div>
+								<div class="myclass-area-tit">${i.cl_title}</div>
+								<div class="myclass-summary">
+									<div class="myclass-summary-tit">
+										<div class="myclass-summary-sub">클래스 진행중</div>
+										<div class="myclass-summary-txt">시작이 반이라고 했었던가요?</div>
+									</div>
+								</div>
+								<div class="myclass-yet-wrap">
+									<div class="myclass-yet"></div>
+								</div>
+							</a>
+						</div>
+					</div>
 				</c:forEach>
 			</div>
 		</div>

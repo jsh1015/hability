@@ -22,11 +22,13 @@ public class ListDao {
 	private Map<String, Object> param = new HashMap<>();
 
 	// 취미클래스,DIY,매거진 게시물 목록 => select
-	public List<Class> list(Integer board_type) {
+	public List<Class> list(Integer board_type,Integer cl_category) {
 		param.clear();
 		param.put("board_type",board_type);
+		param.put("cl_category",cl_category);
 		return sqlSession.getMapper(ListMapper.class).list(param);
 	}
+
 
 	// 각 게시물 detail=>select
 	public Class selectcl(Integer cl_num) {
@@ -123,10 +125,11 @@ public class ListDao {
 		return sqlSession.getMapper(ListMapper.class).getclass(cl_num);
 	}
 
-	public List<Comment> commentList(int cl_num) {
+	public List<Comment> commentList(Integer cl_num,Integer cm_type) {
 		param.clear();
 		param.put("cl_num",cl_num);
-		return sqlSession.getMapper(ListMapper.class).commentList(cl_num);
+		param.put("cm_type",cm_type);
+		return sqlSession.getMapper(ListMapper.class).commentList(cl_num,cm_type);
 	}
 
 	public int cm_num() {
@@ -145,6 +148,11 @@ public class ListDao {
 
 	public int commentcount(int cl_num) {
 		return sqlSession.getMapper(ListMapper.class).commentcount(cl_num);
+	}
+
+	//댓글,후기삭제
+	public void cmdelete(Integer cm_num) {
+		sqlSession.getMapper(ListMapper.class).cmdelete(cm_num);
 	}
 	
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import logic.Class;
+import logic.Comment;
 import logic.Kit;
 import logic.ShopService;
 import logic.User;
@@ -33,9 +34,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("boardlist") //게시물 목록
-	public ModelAndView list(Integer board_type,HttpSession session) {
+	public ModelAndView list(Integer board_type,Integer cl_category,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-	    List<Class> classList = service.classList(board_type);
+	    List<Class> classList = service.classList(board_type,cl_category);
 	    mav.addObject("classList",classList);
 		return mav;
 	}
@@ -168,6 +169,32 @@ public class AdminController {
 		mav.addObject("classes",classes);
 		return mav;
 	}
+	
+	@RequestMapping("comment")
+	public ModelAndView commentlist(Integer cl_num,Integer cm_type, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		List<Comment> clist = service.commentList(cl_num,cm_type);
+		for(int i=0;i<clist.size();i++) {
+			Class cl = service.classDetail(clist.get(i).getCl_num());
+			clist.get(i).setCl_title(cl.getCl_title());
+		}
+		mav.addObject("clist",clist);
+		return mav;
+	}
+	
+	@RequestMapping("cmdelete")
+	public ModelAndView cmdelete(Integer cm_num, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		service.cmdelete(cm_num);
+		mav.setViewName("redirect:comment.shop");
+		return mav;
+	}
 
+	//월별매출
+	@RequestMapping("monthsales")
+	public ModelAndView month(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 }
 

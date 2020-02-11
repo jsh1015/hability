@@ -52,7 +52,7 @@ a{text-decoration: none;}
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">게시판관리</a>
         <ul class="hide">
     		<li><a href="${path}/admin/boardlist.shop">게시물 관리</a></li>
-    		<li><a href="#">댓글/후기 관리</a></li>
+    		<li><a href="${path}/admin/comment.shop">댓글/후기 관리</a></li>
     	</ul>
     </li>	
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">고객센터관리</a>
@@ -64,8 +64,7 @@ a{text-decoration: none;}
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">매출관리</a>
     	<ul class="hide">
     	    <li><a href="#">클래스/스토어 매출</a></li>
-    		<li><a href="#">월별 매출</a></li>
-    		<li><a href="#">하빌리티 매출</a></li>
+    		<li><a href="${path}/admin/monthsales.shop">하빌리티 / 월별 매출</a></li>
     	</ul>
     </li>
     <li class="menu"><a href="../user/main.shop"  class="w3-bar-item ">관리자 모드 종료</a></li>

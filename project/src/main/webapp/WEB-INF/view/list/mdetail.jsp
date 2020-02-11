@@ -9,6 +9,8 @@
 <title>magazin-detail:)</title>
 </head>
 <body>
+<input type="hidden" class="emailid" name="emailid" value="${sessionScope.loginUser.emailid}">
+<c:set var="emailid" value="${sessionScope.loginUser.emailid}"/>
 	<div class="magazine-wrap">
 		<div class="magazine-content-wrap">
 			<div class="magazine-img magzgine-img-tit">
@@ -78,8 +80,20 @@
 					<a href="${path}/list/magazine.shop" title="목록"
 						class="btn-magazine-func btn-magazine-list">목록</a>
 					<div class="magazine-btn-cont">
-						<a href="#like" title="좋아요" class="btn-magazine-like">좋아요</a><a
-							href="#like" title="SNS" class="btn-magazine-sns">SNS</a>
+					<c:if test="${empty sessionScope.loginUser}">
+		               <a href="#login"  title="좋아요" class="btn-magazine-like showlogin">좋아요</a>
+		            </c:if>
+		            <c:if test="${!empty sessionScope.loginUser}">
+		            <div id="h-btn">
+		    	    <c:if test="${check eq null}">
+						<button class="btn-magazine-like" title="좋아요"  onclick="javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})">좋아요</button>
+					</c:if>
+					<c:if test="${check ne null}">
+						<button class="btn-magazine-like btn-magazine-like-on"  title="좋아요" onclick="javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})">좋아요</button>
+					</c:if> 
+					</div>
+					</c:if>
+						<a href="#like" title="SNS" class="btn-magazine-sns">SNS</a>
 						<div class="magazine-btn-sns-wrap">
 							<a href="#like" title="kakaotalk" class="btn-magazine-sns-cont btn-magazine-kakaotalk">카카오톡공유</a>
 							<a href="#like" title="url" data-clipboard-text="https://hobbyful.co.kr/view-magazine.html?id=257" class="btn-magazine-sns-cont btn-magazine-url">URL복사</a>
@@ -157,5 +171,15 @@
 			</c:forEach>
 		</div>
 	</div>
+<script>
+	function like_it(cl_num,emailid,board_type){
+			$.ajax("${path}/list/mlike.shop?cl_num="+cl_num+"&emailid="+emailid+"&board_type="+board_type,{
+				success:function(msg){
+					alert(msg);
+					$("#h-btn").html("<button class='btn-magazine-like "+msg+"' onclick=\"javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})\">좋아요</button>")
+				}
+			})
+		}
+</script>	
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.Date;
 public class Comment {
 	private int cm_num;
 	private int cl_num;
+	private String cl_title;
 	private int cm_type;
 	private int cm_star;
 	private String cm_content;
@@ -13,6 +14,14 @@ public class Comment {
 	private String cm_img3;
 	private Date cm_date;
 	private String emailid;
+	
+	
+	public String getCl_title() {
+		return cl_title;
+	}
+	public void setCl_title(String string) {
+		this.cl_title = string;
+	}
 	public int getCm_num() {
 		return cm_num;
 	}
@@ -73,12 +82,12 @@ public class Comment {
 	public void setEmailid(String emailid) {
 		this.emailid = emailid;
 	}
+	
 	@Override
 	public String toString() {
-		return "Comment [cm_num=" + cm_num + ", cl_num=" + cl_num + ", cm_type=" + cm_type + ", cm_star=" + cm_star
-				+ ", cm_content=" + cm_content + ", cm_img1=" + cm_img1 + ", cm_img2=" + cm_img2 + ", cm_img3="
-				+ cm_img3 + ", cm_date=" + cm_date + ", emailid=" + emailid + "]";
+		return "Comment [cm_num=" + cm_num + ", cl_num=" + cl_num + ", cl_title=" + cl_title + ", cm_type=" + cm_type
+				+ ", cm_star=" + cm_star + ", cm_content=" + cm_content + ", cm_img1=" + cm_img1 + ", cm_img2="
+				+ cm_img2 + ", cm_img3=" + cm_img3 + ", cm_date=" + cm_date + ", emailid=" + emailid + "]";
 	}
-	
-	
+
 }
