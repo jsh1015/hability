@@ -6,27 +6,47 @@
 <html>
 <head lang="ko" id="hobbyful">
 <title>Magazine:)</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+function page(b,ct){
+	$.ajax({
+		type : "POST",
+		url : "${path}/list/magazine.shop",
+		data : {
+			"board_type":b,
+			"cl_category":ct
+		},
+		success : function(data) {
+			location.href="${path}/list/magazine.shop?board_type="+b+"&cl_category="+ct;
+		}
+	})
+}
+</script>
 </head>
 <body>
 	<div class="container">
 		<div class="layout-wrap">
+		 <c:set var="d" value="14"/><c:set var="t" value="15"/><c:set var="r" value="16"/><c:set var="h" value="17"/>
+		 <c:set var="board" value="3"/>
 			<ul class="tab-class-list">
-				<li class="tab-class"><a href="#;" data-mc-idx="all" title="전체"
-					class="btn-tab-class btn-tab-on">전체</a></li>
-				<li class="tab-class"><a href="#;" data-mc-idx="1"
-					title="DIY RECIPE" class="btn-tab-class">DIY RECIPE</a></li>
-				<li class="tab-class"><a href="#;" data-mc-idx="2"
-					title="TREND" class="btn-tab-class">TREND</a></li>
-				<li class="tab-class"><a href="#;" data-mc-idx="3"
-					title="REVIEW" class="btn-tab-class">REVIEW</a></li>
-				<li class="tab-class"><a href="#;" data-mc-idx="6"
-					title="h-NEWS" class="btn-tab-class">h-NEWS</a></li>
+				<li class="tab-class">
+					<a href="magazine.shop?board_type=3" data-mc-idx="all" title="전체"class="btn-tab-class btn-tab-on">전체</a></li>
+				<li class="tab-class">
+					<a href="javascript:page(${board},${d})" data-mc-idx="1" title="DIY RECIPE" class="btn-tab-class">DIY RECIPE</a></li>
+				<li class="tab-class">
+					<a href="javascript:page(${board},${t})" data-mc-idx="2" title="TREND" class="btn-tab-class">TREND</a></li>
+				<li class="tab-class">
+					<a href="javascript:page(${board},${r})" data-mc-idx="3" title="REVIEW" class="btn-tab-class">REVIEW</a></li>
+				<li class="tab-class">
+					<a href="javascript:page(${board},${h})" data-mc-idx="6" title="h-NEWS" class="btn-tab-class">h-NEWS</a></li>
 			</ul>
 			<div class="magazine-wrap">
 				<ul class="class-list-wrap2">
 				<c:forEach items="${classList}" var="list">
 					<li class="class-list">
-					<a href="mdetail.shop?cl_num=${list.cl_num}">
+					<input type="hidden" class="emailid" name="emailid" value="${sessionScope.loginUser.emailid}">
+					<c:set var="emailid" value="${sessionScope.loginUser.emailid}"/>
+					<a href="mdetail.shop?cl_num=${list.cl_num}&emailid=${emailid}">
 						<div class="class-list-thumb">
 								<img src="${path}/img/${list.cl_img}" class="thumb-class-list" style="height: 100%;"><span class="thumb-slide-play">재생</span>
 							</div>

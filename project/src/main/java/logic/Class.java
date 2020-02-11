@@ -2,17 +2,25 @@ package logic;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Class {
 	private int cl_num;
 	private int board_type;
+	@Min(value=0,message="구분을 선택하세요.")
 	private int cl_type;
+	@NotEmpty(message="카테고리는 필수 선택입니다.")
 	private String cl_category;
+	@NotEmpty(message="제목은 필수 입력입니다.")
 	private String cl_title;
 	private MultipartFile cl_imgUrl; //업로드 파일내용
 	private String cl_img;
+	@NotEmpty(message="강사명을 기입하세요.")
 	private String teacher;
+	@Min(value=100,message="100원 이상 입력 가능합니다.")
 	private int cl_price;
 	private MultipartFile cl_infoUrl; //업로드 파일내용
 	private String cl_info;

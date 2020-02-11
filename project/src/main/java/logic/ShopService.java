@@ -73,8 +73,8 @@ public class ShopService {
 	}
 	
 	//게시물목록
-	public List<Class> classList(Integer board_type) {
-		return listDao.list(board_type);
+	public List<Class> classList(Integer board_type,Integer cl_category) {
+		return listDao.list(board_type,cl_category);
 	}
 	
 	//게시물 사진업로드
@@ -260,8 +260,8 @@ public class ShopService {
 			return userDao.mileagelist(emailid);
 		}
 
-		public List<Comment> commentList(int cl_num) {
-			return listDao.commentList(cl_num);
+		public List<Comment> commentList(Integer cl_num,Integer cm_type) {
+			return listDao.commentList(cl_num,cm_type);
 		}
 
 		public void commentinsert(int cl_num, int i, String cm_content, String emailid) {
@@ -296,6 +296,24 @@ public class ShopService {
 	//주문 클래스 정보 select
 		public Class orderclasslist(int cl_num) {
 			return orderDao.orderclasslist(cl_num);
+		}
+		
+		//댓글,후기 삭제
+		public void cmdelete(Integer cm_num) {
+			listDao.cmdelete(cm_num);
+		}
+		
+		//좋아요 취미,diy목록
+		public List<Ulike> likelist(String emailid) {
+			return userDao.likelist(emailid);
+		}
+		//좋아요 매거진 목록
+		public List<Ulike> likemlist(String emailid) {
+			return userDao.likemlist(emailid);
+		}
+
+		public int myclasscnt(User emailid) {
+			return userDao.myclasscnt(emailid);
 		}
 
 }

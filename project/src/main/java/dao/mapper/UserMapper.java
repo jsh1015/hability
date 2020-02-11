@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import logic.Mileage;
 import logic.Orderlist;
+import logic.Ulike;
 import logic.User;
 import logic.Video;
 
@@ -79,7 +80,14 @@ public interface UserMapper {
 
 	@Select("select v_file from video where v_num = #{v_num}")
 	String clickvideo(Integer v_num);
-	
 
+	@Select("select * from ulike where emailid = #{emailid} and not like_type=3")
+	List<Ulike> likelist(String emailid);
+
+	@Select("select * from ulike where emailid = #{emailid} and like_type=3")
+	List<Ulike> likemlist(String emailid);
+
+	@Select("select count(*) from uorder where emailid = #{emailid}")
+	int myclasscnt(User emailid);
 
 }

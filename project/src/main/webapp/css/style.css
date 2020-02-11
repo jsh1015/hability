@@ -220,11 +220,11 @@ z-index 정리
 	.txt-func02{ display: none; color:#11447B; }
 	.txt-func03{ display: none; color:#51c8c8; }
 	.btn-func { display:block; width:100px; height:100px; margin:0 auto; font-size:12px; font-weight:500; background-repeat:no-repeat; border-radius:100px; overflow:hidden; text-align:center; }
-	.func-box { padding: 55px 0 0; color:#11447B; border:1px solid #11447B; background:url('../img/ico-box.svg') center 25px no-repeat; }
+	.func-box { padding: 55px 0 0; color:#11447B; border:1px solid #11447B; background:url('../img/ico-box.png') center 25px no-repeat; }
 	.func-myclass { padding:55px 0 0; color:#51c8c8; border:1px solid #51c8c8; background:url('../img/ico-myclass.svg') center 25px no-repeat; }
 	.menu-list { padding:20px 0; text-align: left; }
 	.btn-menu { display:block; padding:10px 25px 10px 24px; color:#2f3338; font-size:14px; }
-	.menu-txt { float:right; color:#c4c4c4; font-size:10px; font-family:'Roboto Slab'; }
+	.menu-txt { float:right; color:#c4c4c4; font-size:10px; font-family:'Roboto Slab'; } 
 	.menu .menu-on { color:#11447B; }
 	.menu .menu-on .menu-txt { color:#11447B; }
 	.gnb-wrap { position:absolute; bottom:0; }
@@ -1248,7 +1248,7 @@ z-index 정리
 	.btn-sns-kakaotalk { background-image:url('../img/btn-sns-kakaotalk.png') }
 	.btn-sns-url { background-image:url('../img/btn-sns-url.png') }
 	.vod-btn-wrap { position:fixed; z-index:101; bottom:0; left:0; right:0; margin-top:10px; padding:0 0 0 50px; text-align:right; }
-	.vod-btn-wrap .btn-like { background-color:#fff; border-color:#f36359; border-width:1px 0 0 0;}
+	.vod-btn-wrap .btn-like { background-color:#fff; border-color:#11447B; border-width:1px 0 0 0;}
 	.vod-benefit-wrap { margin-top:15px; padding:15px 15px 12px 15px; background:#f4f4f4; }
 	.vod-benefit-wrap.i-pc { display:none; }
 	.vod-benefit-tit { font-size:12px; font-weight:bold; color:#3d4248; }
@@ -1258,7 +1258,7 @@ z-index 정리
 	.vod-benefit-detail li span { color:#11447B; font-weight:bold; }
 	.vod-benefit-desc { margin-top:5px; font-size:10px; color:#4a4a4a; }
 	.btn-like { display:block; position:absolute; top:0; left:0; width:50px; height:50px; background:url('../img/ico-class-heart.png') center center no-repeat; background-size:20px 16px; border:1px solid #f36359; text-indent:-9999em; overflow:hidden; text-align:left; }
-	.btn-get { display:inline-block; width:100%; height:50px; color:#FFFFFF; font-size:14px; background:#f36359; line-height:50px; text-align:center; }
+	.btn-get { display:inline-block; width:100%; height:50px; color:#FFFFFF; font-size:14px; background:#11447B; line-height:50px; text-align:center; }
 	.btn-get-soldout { cursor:not-allowed; display:inline-block; width:100%; height:50px; color:#FFFFFF; font-size:14px; background: #9c9c9c; line-height:50px; text-align:center; }
 	.tab-detail-wrap {}
 	.tab-detail-fixed { position:fixed; top:56px; left:0; width:100%; background:#FFFFFF; }

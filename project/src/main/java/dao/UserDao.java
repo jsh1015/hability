@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import dao.mapper.UserMapper;
 import logic.Mileage;
 import logic.Orderlist;
+import logic.Ulike;
 import logic.User;
 import logic.Video;
 
@@ -136,6 +137,18 @@ public class UserDao {
 	//선택한 비디오 출력
 	public String clickvideo(Integer v_num) {
 		return sqlSession.getMapper(UserMapper.class).clickvideo(v_num);
+	}
+	//좋아요 취미,diy
+	public List<Ulike> likelist(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).likelist(emailid);
+	}
+	//좋아요 매거진
+	public List<Ulike> likemlist(String emailid) {
+		return sqlSession.getMapper(UserMapper.class).likemlist(emailid);
+	}
+
+	public int myclasscnt(User emailid) {
+		return sqlSession.getMapper(UserMapper.class).myclasscnt(emailid);
 	}
 
 }
