@@ -57,7 +57,7 @@ a{text-decoration: none;}
     </li>	
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">고객센터관리</a>
         <ul class="hide">
-    		<li><a href="#">공지사항</a></li>
+    		<li><a href="${path}/admin/noticelist.shop">공지사항</a></li>
     		<li><a href="#">1:1 문의내역</a></li>
     	</ul>
     </li>

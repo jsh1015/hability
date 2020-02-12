@@ -265,10 +265,6 @@ public class ShopService {
 			listDao.commentinsert(cl_num, i, cm_content, emailid, ++cm_num);			
 		}
 
-		public int commentcount(int cl_num) {
-			return listDao.commentcount(cl_num);
-		}
-
 	//주문/배송 정보 입력
 		public void orderInsert(Uorder uorder) {
 			orderDao.orderinsert(uorder);
@@ -341,7 +337,7 @@ public class ShopService {
 		//좋아요 취미,diy목록
 		public List<Ulike> likelist(String emailid) {
 			return userDao.likelist(emailid);
-		}
+		} 
 		//좋아요 매거진 목록
 		public List<Ulike> likemlist(String emailid) {
 			return userDao.likemlist(emailid);
@@ -349,6 +345,35 @@ public class ShopService {
 
 		public int myclasscnt(User emailid) {
 			return userDao.myclasscnt(emailid);
+		}
+
+		//공지사항등록
+		public void noticewrite(Notice notice) {
+
+			int max = listDao.no_max();
+			notice.setNo_num(++max);
+			listDao.noticewrite(notice);
+		}
+		
+		// 공지 목록
+		public List<Notice> noticeList() {
+			return listDao.noticeList();	
+		}
+
+		public int commentcount(int cl_num) {
+			return listDao.commentcount(cl_num);
+		}
+		// 탈퇴
+	/*
+	 * public void uout(String emailid) { userDao.uout(emailid); }
+	 */
+
+		public List<Comment> colist(int cm_type) {
+			return listDao.colist(cm_type);
+		}
+
+		public List<Comment> magazinelist(int cl_num) {
+			return listDao.magazinelist(cl_num);
 		}
 
 }

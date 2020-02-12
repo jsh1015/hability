@@ -109,7 +109,7 @@
 							<a href="#login" title="마이페이지" class="btn-gnb header_mypage showlogin">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
-							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
+							<a href="${path}/user/customer.shop" title="고객센터" class="btn-gnb">고객센터</a>
 						</li>
 					</c:if>
 					<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.emailid ne 'admin@naver.com'}">
@@ -123,7 +123,7 @@
 							<a href="${path}/user/mypage.shop?emailid=${sessionScope.loginUser.emailid}" title="마이페이지" class="btn-gnb header_mypage">마이페이지</a>
 						</li>
 						<li class="gnb gnb-customer">
-							<a href="/customer.html" title="고객센터" class="btn-gnb">고객센터</a>
+							<a href="${path}/user/customer.shop" title="고객센터" class="btn-gnb">고객센터</a>
 						</li>
 					</c:if>
 					<c:if test="${!empty sessionScope.loginUser && sessionScope.loginUser.emailid eq 'admin@naver.com'}">

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
 import logic.Basket;
+import logic.Comment;
 import logic.Mileage;
 import logic.Orderlist;
 import logic.Postaddr;
@@ -83,7 +84,11 @@ public class UserDao {
 	}
 
 	public void update(User user) {
-		sqlSession.getMapper(UserMapper.class).update(user);
+		param.clear();
+		param.put("emailid",user.getEmailid());
+		param.put("nickname",user.getNickname());
+		param.put("name",user.getName());
+		sqlSession.getMapper(UserMapper.class).update(param);
 	}
 
 	public void delete(String emailid) {
@@ -201,4 +206,6 @@ public class UserDao {
 	public void orderdelete(String emailid) {
 		sqlSession.getMapper(UserMapper.class).orderselectdelete(emailid);
 	}
+
+
 }

@@ -5,6 +5,37 @@
 <!DOCTYPE html>
 <html class="">
 <head lang="ko" id="hobbyful">
+<style type="text/css">
+.starR1{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.starR2{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.starR1.on{background-position:0 0;}
+.starR2.on{background-position:-15px 0;}
+</style>
+
+<script type="text/javascript">
+$('.starRev span').click(function(){
+	  $(this).parent().children('span').removeClass('on');
+	  $(this).addClass('on').prevAll('span').addClass('on');
+	  return false;
+	});
+</script>
+</head>
 <body class="on-popup">
 <div class="layer-wrap write-reply-wrap" id="write-reply-wrap">
       <div class="bg-layer-wrap a-close"></div>
@@ -18,7 +49,7 @@
 					<div class="write-reply-tit">작성자</div>
 					<div class="write-reply-input">
 						<div class="input-wrap">
-							<input type="text" class="input reply-writer" placeholder="" value="${sessionScope.loginUser.nickname}" readonly="">
+							<input type="text" class="input reply-writer" name="nickname" placeholder="" value="${sessionScope.loginUser.nickname}" readonly="">
 						</div>
 					</div>
 				</div>
@@ -26,6 +57,7 @@
 					<div class="write-reply-tit">별점</div>
 					<div class="write-reply-input">
 						<!-- 별 3개 선택시 input-star-on6(별 5개를 반개 단위로 총 10점까지) ex) 별 5개면  class="input-star-wrap input-star-on10"-->
+						<!--  
 						<div class="input-star-wrap input-star-on6" id="input-star-wrap">
 							<a href="javascript:;" class="input-star10 input-star" data-star="10" title="10점">10점</a> 
 							<a href="javascript:;" class="input-star9 input-star" data-star="9" title="9점">9점</a>
@@ -38,6 +70,19 @@
 							<a href="javascript:;" class="input-star2 input-star" data-star="2" title="2점">2점</a> 
 							<a href="javascript:;" class="input-star1 input-star" data-star="1" title="1점">1점</a>
 						</div>
+						-->
+						<div class="starRev" id="input-star-wrap">
+							<span class="starR1 on">별1_왼쪽</span>
+							<span class="starR2">별1_오른쪽</span>
+							<span class="starR1">별2_왼쪽</span>
+							<span class="starR2">별2_오른쪽</span>
+							<span class="starR1">별3_왼쪽</span>
+							<span class="starR2">별3_오른쪽</span>
+							<span class="starR1">별4_왼쪽</span>
+							<span class="starR2">별4_오른쪽</span>
+							<span class="starR1">별5_왼쪽</span>
+							<span class="starR2">별5_오른쪽</span>
+						</div>						
 					</div>
 				</div>
 				<div class="write-reply reply-textarea">
@@ -57,7 +102,7 @@
 								<li class="write-reply-thumb add-photo-wrap">
 								<div class="thumb-add">
 									<label for="add-thumb" class="label-add-thumb">사진첨부하기</label>
-									<input type="file" class="input-add-thumb" id="add-thumb" multiple="" accept="image/*">
+									<input type="file" class="input-add-thumb" id="add-thumb input_imgs" multiple="" accept="image/*">
 								</div></li>
 							</ul>
 						</div>

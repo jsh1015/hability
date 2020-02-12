@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import logic.Class;
 import logic.Comment;
 import logic.Kit;
+import logic.Notice;
 import logic.ShopService;
 import logic.User;
 import logic.Video;
@@ -209,6 +210,29 @@ public class AdminController {
 		mav.setViewName("redirect:../admin/userlist.shop");
 		return mav;
 	}
+	
+	// 고객센터 등록
+	@PostMapping("noticewrite")
+	public ModelAndView noticewrite(Notice notice) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			service.noticewrite(notice);
+			mav.setViewName("redirect:noticelist.shop");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	// 고객센터 목록
+	@RequestMapping("noticelist")
+	public ModelAndView noticelist(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+	    List<Notice> noticeList = service.noticeList();
+	    mav.addObject("noticeList",noticeList);
+		return mav;
+	}
+
 
 }
 

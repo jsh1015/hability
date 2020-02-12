@@ -28,8 +28,10 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import exception.LoginException;
 import logic.Class;
+import logic.Comment;
 import logic.Kit;
 import logic.Mileage;
+import logic.Notice;
 import logic.Orderlist;
 import logic.Postaddr;
 import logic.ShopService;
@@ -205,9 +207,9 @@ public class UserController {
 		mav.addObject("diyList",diyList);
 		return mav;
 	}
-	
+
 	//로그인 검증, (로그인 정보 != 파라미터정보 접근 불가, admin은 가능)
-	   @GetMapping("mypage")
+	   @RequestMapping("mypage")
 	   public ModelAndView page(String emailid, String m, HttpSession session) {
 	      ModelAndView mav = new ModelAndView();
 	      
@@ -217,6 +219,8 @@ public class UserController {
 	      int use_point = service.use_point(emailid);
 	      int now_point = total_point - use_point;
 	      List<Mileage> mileagelist = service.mileagelist(emailid);
+	      List<Comment> colist = service.colist(2);
+	      List<Comment> magazinelist = service.magazinelist(4);
 	      
 	      mav.addObject("type", m);
 	      mav.addObject("user", user);
@@ -224,6 +228,8 @@ public class UserController {
 	      mav.addObject("use_point", use_point);
 	      mav.addObject("now_point", now_point);
 	      mav.addObject("mileagelist", mileagelist);
+	      mav.addObject("colist", colist);
+	      mav.addObject("magazinelist", magazinelist);
 	      mav.addObject(new Postaddr()); // 빈 객체를 전달
 
 	      // 등록한 배송지 목록 조회
@@ -306,33 +312,15 @@ public class UserController {
 	}
 	
 	@PostMapping("update")//회원정보 수정 눌렀을시
-	public ModelAndView checkupdate(@Valid User user, BindingResult bresult,HttpSession session) {
+	public ModelAndView checkupdate(String emailid, String nickname, String name) {
 		ModelAndView mav = new ModelAndView();
-		if(bresult.hasErrors()) {
-			bresult.reject("error.input.user");
-			return mav;
-		}
-		//비밀번호 검증 : 입력된 비밀번호 , db에 등록된 비밀번호 비교
-		// 일치:update
-		// 불일치:메세지를 유효성출력으로 화면에 출력
-		User loginUser = (User)session.getAttribute("loginUser");//admin인지 확인하기 위해
-		if(!user.getPass().equals(loginUser.getPass())){
-			bresult.reject("error.login.password");
-			return mav;
-		}
-		try{
-			service.userupdate(user);
-			mav.setViewName("redirect:mypage.shop?id="+user.getEmailid());
-			if(!loginUser.getEmailid().equals("admin")) {
-				session.setAttribute("loginUser", user); //업데이트 했을때 login정보도 바꿔줌
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			bresult.reject("error.user.update");
-		}
+		User user = service.getUser(emailid);
+		user.setNickname(nickname);
+		user.setName(name);
+		service.userupdate(user);
+		mav.setViewName("redirect:/user/mypage.shop?emailid="+ emailid);
 		return mav;
 	}
-	
 	//관리자도 강제탈퇴가능해야함, 유효성 검증 하지않았음
 	@PostMapping("delete")//		 user를 받아와도 되고, String id, String password로 받아와도 됨
 	public ModelAndView checkdelete(User user , HttpSession session) {
@@ -388,4 +376,13 @@ public class UserController {
 		System.out.println(v_file);
 		return v_file;
 	}
+	// 고객센터
+	@RequestMapping("customer") //게시물 목록
+	public ModelAndView customer() {
+		ModelAndView mav = new ModelAndView();
+	    List<Notice> noticeList = service.noticeList();
+	    mav.addObject("noticeList",noticeList);
+		return mav;
+	}
+
 }

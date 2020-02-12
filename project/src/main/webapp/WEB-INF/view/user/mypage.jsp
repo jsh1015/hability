@@ -768,32 +768,45 @@
 			</form>
 	<!-- 나의 활동내역 -->
 		<!-- 내가쓴 댓글 -->
-			<div class="view-reply-wrap list-history">
-				<div class="magazine-list-wrap">
-					<ul class="magazine-list">
-						<li class="magazine-list-cont">
-							<div class="magazine-list-area">
-							<div class="magazine-list-thumb">
+		<div class="view-reply-wrap list-history">
+		<c:forEach var="comment" items="${colist}">
+			<c:if test="${comment.emailid ne sessionScope.loginUser.emailid}">
+				<div class="no-view-wrap">
+					<div class="no-view-tit">아직 작성하신 댓글이 없어요.</div>
+					<div class="no-view-txt">첫 번째 댓글을 남겨 보세요!</div>
+					<a href="${path}/list/magazine.shop" title="매거진 둘러보기" class="btn-no-view">매거진
+						둘러보기</a>
+				</div>
+			</c:if>
+			<c:if test="${comment.emailid eq sessionScope.loginUser.emailid}">
+			<div class="magazine-list-wrap" >
+				<ul class="magazine-list">
+					<li class="magazine-list-cont">
+						<div class="magazine-list-area">
+						<div class="magazine-list-thumb">
 							<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/magazine/ba82f930-3374-11ea-9c9f-2b82c6d7ac25-resize.jpg" class="thumb-magazine-list" alt="">
 							<span class="thumb-slide-play">재생</span>
+						</div>
+						<a href="view-magazine.html?id=252#commentGroup-1304" title="하비풀 취미클래스를 함께 만들어요!">
+							<div class="magazine-list-info">
+								<span class="magazine-list-tit cut-txt">h-NEWS</span>
+								<strong class="magazine-list-txt">하비풀 취미클래스를 함께 만들어요!</strong>
 							</div>
-							<a href="view-magazine.html?id=252#commentGroup-1304" title="하비풀 취미클래스를 함께 만들어요!">
-								<div class="magazine-list-info">
-									<span class="magazine-list-tit cut-txt">h-NEWS</span>
-									<strong class="magazine-list-txt">하비풀 취미클래스를 함께 만들어요!</strong>
-								</div>
-							</a></div>
-							<div class="magazine-reply-wrap">
-							<div class="magazine-reply-tit"><div class="magazine-reply-nick">서현-</div>
-							<div class="magazine-reply-info"><span class="magazine-reply-date">2020.01.15 오후 2시09분</span>
-							<a href="#link" title="삭제" data-mz-idx="252" data-mct-idx="1446" class="btn-del-reply btn-del-magazine-comment">삭제</a>
-							</div>
-							</div>
-							<div class="magazine-reply-cont">dfsfsdfds</div>
-							</div>
-						</li>
+						</a>
+						</div>
+						<div class="magazine-reply-wrap">
+							<div class="magazine-reply-tit"><div class="magazine-reply-nick">${sessionScope.loginUser.nickname}</div>
+						<div class="magazine-reply-info"><span class="magazine-reply-date"><fmt:formatDate value="${comment.cm_date}" pattern="yyyy-MM-dd HH시 mm분"/> </span>
+						<a href="#link" title="삭제" data-mz-idx="252" data-mct-idx="1446" class="btn-del-reply btn-del-magazine-comment">삭제</a>
+						</div>
+						</div>
+						<div class="magazine-reply-cont">${comment.cm_content}</div>
+						</div>
+					</li>
 					</ul>
 				</div>
+				</c:if>
+			</c:forEach>
 			</div>
 		<!-- 구매후기 -->
 			<div class="reply-class-wrap list-review">
@@ -886,6 +899,7 @@
 	<!-- 내정보 관리 -->
 		<!-- 회원정보 수정 -->
 			<div class="edit-membership-wrap list-myinfo">
+				<form:form modelAttribute="user" action="update.shop" name="f">
 				<div class="edit-membership-tit">회원 정보 수정</div>
 				<div class="edit-membership-cont">
 					<div class="edit-membership">
@@ -896,17 +910,8 @@
 									<th class="edit-membership-th">닉네임</th>
 									<td class="edit-membership-td">
 									<div class="input-wrap">
-										<input type="text" class="input edit-nickname" value="서현-">
+										<input type="text" class="input edit-nickname" value="${user.nickname}" name="nickname">
 									</div>
-									</td>
-								</tr>
-								<tr>
-									<th class="edit-membership-th">간편로그인 연동</th>
-									<td class="edit-membership-td">
-										<a href="#link" title="페이스북" class="btn-quick-login btn-quick-facebook" id="fb_add_btn">페이스북</a>
-										<span href="javascript:;" title="네이버" class="btn-quick-login btn-quick-naver btn-quick-naver-on">네이버</span>
-										<a href="#link" title="카카오톡" class="btn-quick-login btn-quick-kakaotalk" id="ka_add_btn">카카오톡</a>
-										<div class="edit-membership-input-info">연동된 SNS계정으로 간편 로그인이 가능합니다.</div>
 									</td>
 								</tr>
 							</tbody>
@@ -918,39 +923,7 @@
 							<tbody>
 							<tr><th class="edit-membership-th2">이메일</th>
 								<td class="edit-membership-td"><div class="input-wrap">
-									<input type="email" value="junsor2003@naver.com" class="input edit-email" readonly=""></div></td></tr>
-							<tr><th class="edit-membership-th2">휴대폰번호</th>
-								<td class="edit-membership-td">
-									<div class="edit-membership-phone">
-										<div class="input-wrap"><input type="tel" class="input edit-prifle-phone1" value="010" maxlength="3"></div>
-										<div class="input-wrap"><input type="tel" class="input edit-prifle-phone2" value="9196" maxlength="4"></div>
-										<div class="input-wrap"><input type="tel" class="input edit-prifle-phone3" value="3064" maxlength="4"></div>
-										<a href="#link" title="인증" class="btn-edit-membership-phone phone-auth-btn">인증 완료</a>
-									</div>
-									<div class="edit-membership-confirm" style="display:none;">
-										<div class="input-wrap"><input type="text" class="input auth-number"></div>
-										<a href="#link" title="확인" class="btn-edit-membership-confirm" style="vertical-align:middle;">확인</a>
-										<span class="confirm-time auth-time"></span>
-										<div class="table-txt txt-color-r auth-error-msg"></div>
-									</div><div class="edit-membership-input-info">입력하신 이메일/ 휴대폰 번호로 비밀번호 찾기 및 재설정을 하실 수 있습니다.</div>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="edit-membership">
-						<table class="table-edit-membership">
-							<colgroup><col class="col-membership01"><col class="col-membership02"></colgroup>
-							<tbody>
-								<tr><th class="edit-membership-th2">이메일/SMS 수신동의</th>
-									<td class="edit-membership-td"><span class="tit">하비풀의 다양한 소식들을 받아 보시겠습니까?</span>
-										<div class="edit-membership-input-info">이벤트정보, 기타 다양한 정보를 빠르게 만나실 수 있습니다. (주문, 배송내역은 수신여부와 상관 없이 기본 발송됩니다)</div>
-										<div class="edit-membership-agree"><input type="checkbox" class="btn-join-agree" name="agree-email" id="agree-email">
-											<label class="join-agree-label" for="agree-email">이메일로 받아볼래요</label></div>
-										<div class="edit-membership-agree"><input type="checkbox" class="btn-join-agree" name="agree-sms" id="agree-sms">
-											<label class="join-agree-label" for="agree-sms">문자로 받아볼래요</label></div>
-									</td>
-								</tr>
+									<input type="email" value="${user.emailid}" class="input edit-email" readonly="readonly" name="emailid"></div></td></tr>
 							</tbody>
 						</table>
 					</div>
@@ -960,29 +933,18 @@
 							<tbody>
 							<tr><th class="edit-membership-th2">이름</th>
 								<td class="edit-membership-td">
-									<div class="input-wrap"><input type="text" class="input edit-profile-name" value="전서현"></div>
+									<div class="input-wrap"><input type="text" class="input edit-profile-name" value="${user.name}" name="name"></div>
 									<div class="edit-membership-input-info">한글 2~5자 사이로 입력해 주세요.</div>
 								</td></tr>
-							<tr><th class="edit-membership-th2">생년월일</th>
-								<td class="edit-membership-td">
-									<div class="edit-membership-bitrhday">
-										<div class="input-wrap"><input type="text" class="input edit-birth-year" value="1997"></div>년
-										<div class="input-wrap"><input type="text" class="input edit-birth-month" value="01"></div>월
-										<div class="input-wrap"><input type="text" class="input edit-birth-day" value=""></div>일
-									</div>
-									<div class="edit-membeship-radio">
-										<input type="radio" class="radio" id="solar" name="birthday" checked="">
-										<label for="solar" class="label-edit-membership-radio">양력</label>
-										<input type="radio" class="radio" id="lunar" name="birthday">
-										<label for="lunar" class="label-edit-membership-radio">음력</label>
-									</div>
-								</td>
-							</tr>
 							</tbody>
 						</table>
 					</div>
-					<div class="edit-membership-btn"><a href="#link" title="수정완료" class="btn-edit-membership edit-profile-btn">수정완료</a></div>
+					<div class="edit-membership-btn">
+						<a href="javascript:document.f.submit()" class="btn-edit-membership edit-profile-btn">수정완료</a>
+					
+					</div>
 				</div>
+				</form:form>
 			</div>
 		<!-- 비밀번호 변경 -->
 			<div class="change-pw-wrap list-password">

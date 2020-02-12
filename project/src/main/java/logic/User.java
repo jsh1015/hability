@@ -12,7 +12,6 @@ public class User {
 	@NotEmpty(message="이메일을 입력해주세요.")
 	private String emailid;
 	@NotEmpty(message="비밀번호 입력해주세요.")
-	@Size(min=6,max=16,message="비밀번호는 6~16자 영문, 숫자를 함께 입력해주세요")
 	private String pass;
 	@NotEmpty(message="필수 항목입니다.")
 	private String passck;

@@ -12,6 +12,8 @@ import dao.mapper.ListMapper;
 import logic.Class;
 import logic.Comment;
 import logic.Kit;
+import logic.Mileage;
+import logic.Notice;
 import logic.Ulike;
 import logic.Video;
 
@@ -154,5 +156,38 @@ public class ListDao {
 	public void cmdelete(Integer cm_num) {
 		sqlSession.getMapper(ListMapper.class).cmdelete(cm_num);
 	}
+
+
+	// 공지 번호
+	public int no_max() {
+		return sqlSession.getMapper(ListMapper.class).no_max();
+	}
+
+	// 공지 작성
+	public void noticewrite(Notice notice) {
+		sqlSession.getMapper(ListMapper.class).noticewrite(notice);
+		
+	}
+
+	// 공지 목록
+	public List<Notice> noticeList() {
+		return sqlSession.getMapper(ListMapper.class).noticeList(null);
+	}
+
+
+	public List<Comment> colist(int cm_type) {
+		param.clear();
+		param.put("cm_type",cm_type);
+		return sqlSession.getMapper(ListMapper.class).colist(cm_type);
+	}
+
+
+	public List<Comment> magazinelist(int cl_num) {
+		param.clear();
+		param.put("cl_num",cl_num);
+		return sqlSession.getMapper(ListMapper.class).magazinelist(cl_num);
+	}
+
+
 	
 }

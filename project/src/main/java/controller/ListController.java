@@ -13,6 +13,7 @@ import logic.Comment;
 import logic.Kit;
 import logic.ShopService;
 import logic.Ulike;
+import logic.User;
 
 @Controller
 @RequestMapping("list")

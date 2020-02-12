@@ -44,10 +44,8 @@ public interface UserMapper {
 			+ "</script>"})
 	User select(Map<Object, Object> param);
 
-	@Update("update userbackup set username=#{username},"
-				+"phoneno=#{phoneno},postcode=#{postcode},address=#{address},email=#{email},birthday=#{birthday}"
-				+ " where emailid=#{emailid}")
-	void update(User user);
+	@Update("update user set name=#{name},nickname=#{nickname} where emailid=#{emailid}")
+	void update(Map<Object, Object> param);
 
 	@Delete("delete from user where emailid=#{emailid}")
 	void delete(String emailid);
@@ -127,5 +125,6 @@ public interface UserMapper {
 
 	@Delete("delete from uorder where emailid=#{emailid}")
 	void orderselectdelete(String emailid);
+
 
 }
