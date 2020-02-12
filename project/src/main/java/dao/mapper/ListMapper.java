@@ -38,7 +38,7 @@ public interface ListMapper {
 	@Select("select ifnull(max(kit_num),0) from kit where cl_num=#{cl_num}")
 	int kitnum(Integer cl_num);
 
-	@Update("update class set board_type=#{board_type}, cl_type=#{cl_type}, cl_catetory=#{cl_category}, cl_title=#{cl_title}, cl_img=#{cl_img}, teacher=#{teacher}, cl_price=#{cl_price}, cl_info=#{cl_info}, cl_story=#{cl_story}, cl_content=#{cl_content} where cl_num=#{cl_num}")
+	@Update("update class set board_type=#{board_type}, cl_type=#{cl_type}, cl_category=#{cl_category}, cl_title=#{cl_title}, cl_img=#{cl_img}, teacher=#{teacher}, cl_price=#{cl_price}, cl_info=#{cl_info}, cl_story=#{cl_story}, cl_content=#{cl_content} where cl_num=#{cl_num}")
 	void update(Class classes);
 
 	@Delete("delete from class where cl_num=#{cl_num}")

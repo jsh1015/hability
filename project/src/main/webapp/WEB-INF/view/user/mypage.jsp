@@ -189,10 +189,10 @@
 				<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6160473008019505"class="thumb-profile" alt="프로필사진">
 			</c:if>
 
-			<!-- 프로필 사진있는 경우 -> 현재 error 발생 -->
+			<%-- <!-- 프로필 사진있는 경우 -> 현재 error 발생 -->
 			<c:if test="${!empty sessionScope.loginUser.userimg}">
-				<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/profile/basic.png?0.6160473008019505"class="thumb-profile" alt="프로필사진">
-			</c:if>
+				<img src="../img/${userimg}">
+			</c:if> --%>
 			</div>
 			<div class="profile-info-wrap">
 				안녕하세요.
@@ -382,7 +382,7 @@
 								<li class="i-product">
 									<ul>
 										<li class="i-thumbnail">
-											<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d7424e70-feb6-11e8-b1bc-afe65c7c2522-square.png" alt="">
+											<img src="${path}/img/${item.cls.cl_img}" alt="">
 										</li>
 										<li class="i-name">
 											${item.cls.cl_title}
@@ -418,7 +418,7 @@
 								<div class="order-detail-info-tit">주문 내역</div>
 								<div class="order-detail-info-btn s-CANCEL"></div>
 								<div class="order-detail-thumb">
-									<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d7424e70-feb6-11e8-b1bc-afe65c7c2522-square.png" class="thumb-order-detail" alt="">
+									<img src="${path}/img/${item.cls.cl_img}" class="thumb-order-detail" alt="">
 								</div>
 								<div class="order-detail-info-cont">
 									<table summary="주문내역 테이블" class="table-order-detail-info">

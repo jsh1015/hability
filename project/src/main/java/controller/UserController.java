@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -79,7 +80,7 @@ public class UserController {
 
 			// 회원 가입 성공 후 자동 로그인 처리
 			session.setAttribute("loginUser", dbUser);
-			mav.setViewName("redirect:main.shop");
+			mav.setViewName("redirect:../user/main.shop");
 			// mav.setViewName("user/login"); //redirect 를 사용하면 아이디값이 들어가지 않음
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
@@ -172,16 +173,22 @@ public class UserController {
 
 	@PostMapping("login")
 	   @ResponseBody //리턴값을 view를 통해서 출력하지 않고 body에 사용
-	   public String login(@Valid User user,BindingResult bresult, HttpSession session) throws Exception{
+	   public String login(@Valid User user, BindingResult bresult, HttpSession session) throws Exception{
 	      try {
 				User dbUser = service.getUser(user.getEmailid());
-	         if(!dbUser.getEmailid().equals(user.getEmailid()) || !dbUser.getPass().equals(user.getPass())) {
-	            throw new LoginException("아이디/비밀번호를 확인해주세요","");
-	         }
-	         else {
+			if(dbUser==null) {
+				throw new LoginException("등록된 정보가 없습니다.","../user/main.shop");
+			}else if(!dbUser.getEmailid().equals(user.getEmailid()) || !dbUser.getPass().equals(user.getPass())) {
+	            throw new LoginException("아이디/비밀번호가 틀렸습니다.","../user/main.shop");
+	        }else {
+	        	List<Uorder> order = service.userorderSelect(dbUser.getEmailid());
+				if(order!=null) {
+					session.setAttribute("order",order);
+				}
 	            session.setAttribute("loginUser",dbUser);
+	            session.setAttribute("userimg", dbUser.getUserimg());
 	            return "<script>location.href=document.referrer;</script>";
-	         }
+	        }
 	      }catch(EmptyResultDataAccessException e) {
 	         //e.printStackTrace();
 	         bresult.reject("error.login.emailid");
@@ -348,13 +355,15 @@ public class UserController {
 	
 	//내 클래스 목록
 	@RequestMapping("myClass")
-	public ModelAndView myclass(User user,Integer cl_num,HttpSession session) {
+	public ModelAndView myclass(User user,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("loginUser");
 		List<Orderlist> odlist = service.orderlist(loginUser);
-		Class c = service.getclass(cl_num);
-		mav.addObject("odlist",odlist);
-		mav.addObject("c",c);
+		List<Class> cls = new ArrayList<>();
+		for(int i=0;i<odlist.size();i++){
+			cls.add(service.getboard(odlist.get(i).getCl_num()));
+		}
+		mav.addObject("cls",cls);
 		return mav;
 	}
 	

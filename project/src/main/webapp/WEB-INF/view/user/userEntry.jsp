@@ -73,11 +73,11 @@
 	            data-gtm-vis-total-visible-time-6759522_100="100"
 	            data-gtm-vis-has-fired-6759522_100="1">
  -->
-				<div class="join-thumb img_wrap">
+				<!-- <div class="join-thumb img_wrap">
 	            <label for="btn-add-thumb" class="label-add-thumb2"></label>
 	            <input name="userimg" type="file" class="btn-add-thumb"
 	            id="btn-add-thumb" accept="file_extension|audio/*|video/*|image/*|media_type">
-	         </div>
+	         </div> -->
 	      </div>
 	      <div class="join-type-email">
 	         <div class="join-txt-wrap">

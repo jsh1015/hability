@@ -125,7 +125,7 @@
 				</div>
 				<div class="write-comment-btn">
 				<c:if test="${empty sessionScope.loginUser.emailid}">
-					<a href="#login" title="댓글 등록" class="btn-write-comment">댓글 등록</a>
+					<a href="#login" title="댓글 등록" class="btn-write-comment showlogin">댓글 등록</a>
 				</c:if>
 				<c:if test="${!empty sessionScope.loginUser.emailid}">
 					<button title="댓글 등록" class="btn-write-comment" type="submit">댓글 등록</button>
@@ -175,7 +175,7 @@
 	function like_it(cl_num,emailid,board_type){
 			$.ajax("${path}/list/mlike.shop?cl_num="+cl_num+"&emailid="+emailid+"&board_type="+board_type,{
 				success:function(msg){
-					alert(msg);
+					/* alert(msg); */
 					$("#h-btn").html("<button class='btn-magazine-like "+msg+"' onclick=\"javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})\">좋아요</button>")
 				}
 			})

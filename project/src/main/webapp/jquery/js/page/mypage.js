@@ -20,6 +20,7 @@ function mymenu(str){
 	$(".mymenu-sub-"+str).css("display","list-item")
 }
 function favorite(){
+	$(".reply-class-wrap").css("display","none") //댓글 세부탭 선택삭제
 	$(".btn-mymenu-sub-on").removeClass("btn-mymenu-sub-on")
 	$(".mymenu-favorite").addClass("btn-mymenu-sub-on")//빨간밑줄
 	$(".mymenu-sub-order,.mymenu-sub-address,.mymenu-sub-history,.mymenu-sub-myinfo,.mymenu-sub-favorite").css("display","none")

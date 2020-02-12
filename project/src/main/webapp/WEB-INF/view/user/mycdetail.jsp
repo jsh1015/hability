@@ -513,7 +513,7 @@ keyframes rotateSpinner
 				"v_num":num
 			},
 			success:function(msg){
-				alert(msg);
+				/* alert(msg); */
 				$(".play-on").html('<video src=\"${path}/img/'+msg+'\" id=\"vm-player\" width=\"100%\"'
 					+'height=\"400\" autoplay=\"autoplay\" controls></video>')
 				$(num).css({"background":"#11447B","color":"white"})
@@ -529,7 +529,14 @@ keyframes rotateSpinner
 		<div class="container">
 			<div class="myclass-detail-wrap">
 				<div class="myclass-detail-tit-wrap">
-					<div class="myclass-detail-txt">${c.cl_category}</div>
+					<div class="myclass-detail-txt">
+						<c:set var="ct" value="${c.cl_category}"/>
+                             <c:choose>
+                                <c:when test="${ct eq 1}">정규클래스</c:when><c:when test="${ct eq 2}">마크라메</c:when><c:when test="${ct eq 3}">뜨개질/위빙</c:when>
+                                <c:when test="${ct eq 4}">가죽공예</c:when><c:when test="${ct eq 5}">쥬얼리/네온사인</c:when><c:when test="${ct eq 6}">다양한 취미</c:when>
+                                <c:when test="${ct eq 7}">프랑스 자수</c:when><c:when test="${ct eq 8}">수채화/드로잉</c:when>
+                             </c:choose></span>
+					</div>
 					<hr class="line-myclass-detil-tit">
 					<div class="myclass-detail-tit">${c.cl_title}</div>
 				</div>

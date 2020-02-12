@@ -13,9 +13,9 @@ import logic.Uorder;
 public interface OrderMapper {
 
 	@Insert("insert into uorder (od_num, emailid, name, phone, od_name, od_client,"
-			+ "od_phone,od_phone2, od_comment, od_date, od_deliver, od_postcode, od_addr_main, od_addr_sub) "
+			+ "od_phone,od_phone2, od_comment, od_date, od_deliver, od_postcode, od_addr_main, od_addr_sub, od_mileage) "
 			+"values (#{od_num}, #{emailid}, #{name}, #{phone}, #{od_name}, #{od_client}, "
-			+ "#{od_phone}, #{od_phone2}, #{od_comment}, now(), 1, #{od_postcode},#{od_addr_main},#{od_addr_sub})")
+			+ "#{od_phone}, #{od_phone2}, #{od_comment}, now(), 1, #{od_postcode},#{od_addr_main},#{od_addr_sub},#{od_mileage})")
 	void orderinsert(Uorder uorder);
 
 	@Select("select ifnull(max(od_num),0) from uorder")

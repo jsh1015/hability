@@ -287,7 +287,7 @@
 													<span class="sale" id="price${kit.kit_num}"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</span>
 												</p>
 												<span class="desc">${kit.kit_box}</span>
-												<!-- <img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/product/146/b6f17010-3029-11ea-9134-2970db5a6784-resize.jpg"> -->
+												<img src="${path}/img/${kit.kit_img}">
 											</div>
 									</label></li>
 									</c:forEach>
@@ -363,7 +363,7 @@
 		             	function like_it(cl_num,emailid,board_type){
 		          			$.ajax("${path}/list/like.shop?cl_num="+cl_num+"&emailid="+emailid+"&board_type="+board_type,{
 		          				success:function(msg){
-		          					alert(msg);
+		          					/* alert(msg); */
 		          					$("#h-btn").html("<button class='btn-like "+msg+"' onclick=\"javascript:like_it(${classDetail.cl_num},'${emailid}',${classDetail.board_type})\">좋아요</button>")
 		          				}
 		          			})
