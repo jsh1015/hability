@@ -35,9 +35,9 @@
 <div class="container">
    <div class="vod-wrap">
       <div class="vod-cont vimeohelper-92950 vimeohelper"
-         data-vimeo-initialized="true">
+        data-vimeo-initialized="true" style="padding-bottom: 0px; padding-right: 0px;">
          <div class="vod-cont-wrap"></div>
-     	   <img src="${path}/img/${classDetail.cl_img}" alt="">
+     	   <img src="${path}/img/${classDetail.cl_img}" style="width:100%" alt="">
       </div>
       <div class="vod-info-wrap">
          <div class="vod-info-tit view-class-title">
@@ -382,7 +382,7 @@
 									<input type="number" id="count${kit.kit_num}" name="count" class="count hfc-i-num" min="1" max="99" value="1">
 								<button class="hfc-i-up" onclick="return form_btn(${kit.kit_num},${kit.kit_price},1)">늘리기</button>
 							</div>
-						</div>
+						</div> 
 						<div class="i-price-sale">
 							<span class="i-label">클래스 금액</span>
 							<div id="totalprice${kit.kit_num}" class="i-num"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</div>
