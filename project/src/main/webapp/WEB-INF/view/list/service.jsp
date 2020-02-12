@@ -30,7 +30,7 @@
 		<div class="service-area service-area03">
 		<div class="service-area03-txt">
 		<span class="ico-circle"></span>
-		<strong>늘:솜씨는 당신과 취미를 만나게 합니다.</strong>
+		<strong>하빌리티는 당신과 취미를 만나게 합니다.</strong>
 		<em>hability helps you to start a hobby</em>
 		</div>
 		</div>

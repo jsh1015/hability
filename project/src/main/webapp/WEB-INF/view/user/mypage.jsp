@@ -326,12 +326,12 @@
 					<li class="mymenu-sub mymenu-sub-myinfo" style="display: none;">
 					<a href="javascript:submymenu('myinfo')" title="회원정보 수정" data-submenu="profile" class="btn-mymenu-sub mymenu-myinfo sub-menu-profile">회원정보 수정</a>
 					</li>
-					<li class="mymenu-sub mymenu-sub-myinfo" style="display: none;">
+					<!-- <li class="mymenu-sub " style="display: none;">
 					<a href="javascript:submymenu('password')" title="비밀번호 변경" data-submenu="password" class="btn-mymenu-sub mymenu-password sub-menu-password">비밀번호 변경</a>
 					</li>
-					<li class="mymenu-sub mymenu-sub-myinfo" style="display: none;">
+					<li class="mymenu-sub " style="display: none;">
 					<a href="javascript:submymenu('exit')" title="회원탈퇴" data-submenu="exit" class="btn-mymenu-sub mymenu-exit sub-menu-exit">회원탈퇴</a>
-					</li>
+					</li> -->
 					<li class="mymenu-sub mymenu-sub-favorite" style="display: none;">
 					<a href="javascript:submymenu('favorite')" title="취미 클래스" data-submenu="class" class="btn-mymenu-sub mymenu-favorite sub-menu-class">취미 클래스</a>
 					</li>
@@ -826,14 +826,6 @@
 		<!-- 내가쓴 댓글 -->
 		<div class="view-reply-wrap list-history">
 		<c:forEach var="comment" items="${colist}">
-			<c:if test="${comment.emailid ne sessionScope.loginUser.emailid}">
-				<div class="no-view-wrap">
-					<div class="no-view-tit">아직 작성하신 댓글이 없어요.</div>
-					<div class="no-view-txt">첫 번째 댓글을 남겨 보세요!</div>
-					<a href="${path}/list/magazine.shop" title="매거진 둘러보기" class="btn-no-view">매거진
-						둘러보기</a>
-				</div>
-			</c:if>
 			<c:if test="${comment.emailid eq sessionScope.loginUser.emailid}">
 			<div class="magazine-list-wrap" >
 				<ul class="magazine-list">

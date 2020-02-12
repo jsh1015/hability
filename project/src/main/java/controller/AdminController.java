@@ -213,7 +213,7 @@ public class AdminController {
 	
 	// 고객센터 등록
 	@PostMapping("noticewrite")
-	public ModelAndView noticewrite(Notice notice) {
+	public ModelAndView noticewrite(Notice notice,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			service.noticewrite(notice);

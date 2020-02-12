@@ -58,12 +58,10 @@ a{text-decoration: none;}
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">고객센터관리</a>
         <ul class="hide">
     		<li><a href="${path}/admin/noticelist.shop">공지사항</a></li>
-    		<li><a href="#">1:1 문의내역</a></li>
     	</ul>
     </li>
     <li  class="menu"><a href="#" id="#spreadBtn" class="w3-bar-item ">매출관리</a>
     	<ul class="hide">
-    	    <li><a href="#">클래스/스토어 매출</a></li>
     		<li><a href="${path}/admin/monthsales.shop">하빌리티 / 월별 매출</a></li>
     	</ul>
     </li>

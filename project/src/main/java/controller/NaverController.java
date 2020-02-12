@@ -18,7 +18,7 @@ import java.net.URL;
 public class NaverController {
 	private final static String CLIENT_ID = "gESlIFs7nOGjY1T_J1_N";
 	private final static String CLIENT_SECRET = "PDmy8SNHgt";
-	private final static String REDIRECT_URI = "http://localhost:8080/project/user/naver_callback.shop";
+	private final static String REDIRECT_URI = "http://192.168.0.155:8080/project/user/naver_callback.shop";
 	private final static String SESSION_STATE = "oauth_state";
 
 	/* 네아로 인증 URL 생성 Method */
