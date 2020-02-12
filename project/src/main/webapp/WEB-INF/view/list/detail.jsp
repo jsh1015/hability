@@ -125,7 +125,13 @@
       <div class="class-detail-wrap block" id="detail-epilogue">
          <div class="class-epilogue-wrap">
             <div class="class-epilogue-tit">
-               구매 후기 <a href="#review" title="후기작성" class="btn-write-epilogue">후기작성</a>
+				구매 후기 
+	               <c:if test="${empty sessionScope.loginUser}">
+						<a href="#login" title="후기작성" class="btn-write-epilogue showlogin">후기작성</a>
+					</c:if>
+	               <c:if test="${!empty sessionScope.loginUser}">
+						<a href="#review" title="후기작성" class="btn-write-epilogue showreview">후기작성</a>
+					</c:if>
             </div>
             <div class="view-class-review-wrap">
                <div class="class-epilogue-cont">

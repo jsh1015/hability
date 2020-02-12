@@ -152,11 +152,11 @@
 						<div class="comment-info">
 							<div class="comment-tit">
 								<div class="comment-nick">${cm.emailid}</div>
-								<div class="comment-date">${cm.cm_date}</div>
-								<c:if test="${cm.emailid eq sessionScope.loginUser.emailid}">
+								<div class="comment-date"><fmt:formatDate value="${cm.cm_date}" pattern="yyyy.MM.dd"/></div>
+								<c:if test="${cm.emailid ne sessionScope.loginUser.emailid}">
 									<a href="javascript:;" data-comment-id="1555" title="신고" class="btn-report btn-report-comment">신고</a>
 								</c:if>
-								<c:if test="${cm.emailid ne sessionScope.loginUser.emailid}">
+								<c:if test="${cm.emailid eq sessionScope.loginUser.emailid}">
 									<a href="javascript:;" data-comment-id="1555" title="삭제" class="btn-report btn-report-comment">삭제</a>
 								</c:if>
 							</div>

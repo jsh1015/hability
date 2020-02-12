@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import logic.Class;
 import logic.Comment;
 import logic.Kit;
+import logic.Notice;
 import logic.Ulike;
 import logic.Video;
 
@@ -87,4 +88,24 @@ public interface ListMapper {
 
 	@Delete("delete from comment where cm_num=#{cm_num}")
 	void cmdelete(Integer cm_num);
+
+
+	@Select("select ifnull(max(no_num),0) from notice")
+	int no_max();
+
+	@Insert("insert into notice (no_num, no_type, no_title, no_content, no_date) "
+			+"values (#{no_num}, #{no_type}, #{no_title}, #{no_content}, now())")
+	void noticewrite(Notice notice);
+
+	@Select("select * from notice")
+	List<Notice> noticeList(Object object);
+
+	@Select("select * from comment where cm_type=#{cm_type}")
+	List<Comment> colist(int cm_type);
+
+
+	@Select("select * from class where cl_num=#{cl_num}")
+	List<Comment> magazinelist(int cl_num);
+
+
 }
