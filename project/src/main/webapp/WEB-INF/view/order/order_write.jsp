@@ -37,9 +37,7 @@
 								<input type="hidden" name="orderlist" class="count_0" value="${count}"><!-- 수량 -->
 								<li class="row">
 									<ul class="columns">
-										<li class="c-thumb"><img
-											src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg"
-											alt=""></li>
+										<li class="c-thumb"><img src="${path}/img/${classes.cl_img}"></li>
 										<li class="c-name">${classes.cl_title}</li>
 										<li class="c-options">${kit.kit_name}</li>
 										<li class="c-quantity">수량 : ${count}개</li>
@@ -60,7 +58,7 @@
 								<li class="row">
 									<ul class="columns">
 										<li class="c-thumb">
-											<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/c3988ac0-cd2c-11e9-a6c1-1379508efc05-square.jpg" alt="">
+											<img src="${path}/img/${blist.cls.cl_img}">
 										</li>
 										<li class="c-name">${blist.cls.cl_title}</li>
 										<li class="c-options">${blist.kit.kit_name}</li>

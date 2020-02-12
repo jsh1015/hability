@@ -116,7 +116,7 @@ public class OrderController {
 	//결제
 	@PostMapping("order")
 	@ResponseBody
-	public String order(@RequestParam Map<String,Object> map) throws Exception{
+	public String order(@RequestParam Map<String,Object> map,HttpSession session) throws Exception{
 //		ModelAndView mav = new ModelAndView();
 		Uorder uorder = new Uorder();
 		int od_num = service.ordermaxnum();
@@ -150,6 +150,9 @@ public class OrderController {
 			//주문 목록 등록
 			service.odlistInsert(odlist);
 		}
+		List<Uorder> order = service.userorderSelect((String)map.get("emailid"));
+		
+			session.setAttribute("order",order);
 		
 		//사용마일리지
 		int mileage = Integer.parseInt(map.get("mileage").toString());
