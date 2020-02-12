@@ -11,15 +11,11 @@
 	<div class="w3-container" style="margin-top: 50px">
 		<h1 class="w3-large">회원 상세보기</h1>
 	</div>
-	<div class="list">
+	<div class="list" style="width:100%; height:100%">
 		<table border="1" style="text-align: center; width: 90%; height: 80%;">
 			<tr>
 				<td>아이디</td>
 				<td>${user.emailid}</td>
-			</tr>
-			<tr>
-				<td>프로필 사진</td>
-				<td><img src="${user.userimg}"></td>
 			</tr>
 			<tr>
 				<td>휴대폰 번호</td>

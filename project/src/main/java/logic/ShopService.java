@@ -376,4 +376,8 @@ public class ShopService {
 			return listDao.magazinelist(cl_num);
 		}
 
+		public List<Uorder> userorderSelect(String emailid) {
+			return userDao.orderselect(emailid);
+		}
+
 }

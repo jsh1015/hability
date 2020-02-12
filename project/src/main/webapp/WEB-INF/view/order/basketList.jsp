@@ -67,7 +67,7 @@
 								<li class="row ">
 									<ul class="columns">
 										<li class="c-thumb">
-											<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/d7424e70-feb6-11e8-b1bc-afe65c7c2522-square.png"></li>
+											<img src="${path}/img/${blist.cls.cl_img}"></li>
 										<li class="c-name">${blist.cls.cl_title}</li>
 										<li class="c-options">${blist.kit.kit_name}</li>
 										<!-- 수량 -->

@@ -65,7 +65,7 @@ function DaumPostcode() {
 		$("input[name=orderlist]").each(function(index,item){
 			order_list.push($(item).val());
 		});//장바구니상품갯수,cl_num,kit_num,수량
-		
+		alert(order_list)
 		var email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		// 표준식
 		// a부터 z까지 문자 1개 이상일 경우 and 숫자 0,1,2일 경우에만 / [^a-z, 0,1,2] : ^ 붙이면 부정의 뜻 / 한글은 가-힣

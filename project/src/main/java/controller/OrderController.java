@@ -55,7 +55,9 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView("order/order_write");
 		User loginUser = (User)session.getAttribute("loginUser");
 		List<Postaddr> postList = service_pr.postList(loginUser.getEmailid());
-		mav.addObject("postList", postList);
+		if(postList!=null) {
+			mav.addObject("postList", postList);
+		}
 		mav.addObject("user", loginUser);
 		List<Basket> basketList = new ArrayList<Basket>();
 		int lastsum =0;
@@ -170,6 +172,7 @@ public class OrderController {
 			//주문 목록
 			cls.add(service.getboard(odlist.get(i).getCl_num()));
 			//주문 목록(키트)
+			System.out.println(odlist);
 			cls.get(i).setKit(service_pr.kitInfo(odlist.get(i).getKit_num(), odlist.get(i).getCl_num()));
 			aprice += odlist.get(i).getCount() * cls.get(i).getKit().getKit_price();
 		}

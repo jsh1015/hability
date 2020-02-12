@@ -22,7 +22,7 @@
 		당신에게 취미를 가지지 못할<br class="-w">
 		100가지 이유가 있었다면,
 		<div class="service-area02-tit">
-		하비풀이 취미를 만날 수 있는<br>
+		하빌리티가 취미를 만날 수 있는<br>
 		단 하나의 이유가 되어 드릴게요.
 		</div>
 		<!-- <div class="service-area02-info">* hability는 hobby + ability의 합성어입니다.</div> -->
@@ -31,7 +31,7 @@
 		<div class="service-area03-txt">
 		<span class="ico-circle"></span>
 		<strong>늘:솜씨는 당신과 취미를 만나게 합니다.</strong>
-		<em>hobbyful helps you to start a hobby</em>
+		<em>hability helps you to start a hobby</em>
 		</div>
 		</div>
 		<div class="service-area service-area04">
@@ -41,7 +41,7 @@
 		</div>
 		<div class="service-area04-02">
 		<strong>상자 하나로 준비 끝<br>클래스 키트</strong>
-		하비풀의 취미 클래스 키트 속에는 재료부터 도구까지, <br>필요한 모든 것이 완벽하게 갖춰져 있답니다.
+		하빌리티의 취미 클래스 키트 속에는 재료부터 도구까지, <br>필요한 모든 것이 완벽하게 갖춰져 있답니다.
 		</div>
 		<div class="service-area04-03">
 		<strong>전문가가 직접 알려주는<br>클래스 영상</strong>
@@ -51,35 +51,35 @@
 		<div class="service-area service-area05">
 		<div class="service-area05-txt">
 		<span class="ico-circle"></span>
-		<strong>하비풀은 취미로 아름다워질 세상을 기대합니다.</strong>
-		<em>hobbyful wishes more beautiful world through hobby</em>
+		<strong>하빌리티는 취미로 아름다워질 세상을 기대합니다.</strong>
+		<em>hability wishes more beautiful world through hobby</em>
 		</div>
 		</div>
 		<div class="service-area service-area06">
 		<div class="service-area06-tit">
-		하비풀의 클래스 키트는<br>
+		하빌리티의 클래스 키트는<br>
 		어르신들의 손길을 거쳐 여러분에게 전달됩니다.
 		</div>
-		하비풀은 도움이 필요한 어르신들에게<br>
+		하빌리티는 도움이 필요한 어르신들에게<br>
 		좋은 일자리를 드리려는 사회적 미션을 품고 있습니다.<br><br>
 		취미가 만드는 아름다운 세상을 위해<br>
-		하비풀이 내딛는 첫 걸음을 지켜봐 주세요.
+		하빌리티가 내딛는 첫 걸음을 지켜봐 주세요.
 		</div>
 		<div class="service-area service-area07">
 		<div class="service-area07-tit">
 		<span class="ico-circle"></span>
-		하비풀과 만나요!
+		하빌리티와 만나요!
 		<em>contact us</em>
 		</div>
 		<ul class="service-area07-list">
 		<li>
 		<strong>일반 및 제휴 문의</strong>
-		<p>contact@hobbyful.co.kr</p>
+		<p>contact@hability.co.kr</p>
 		<hr>
 		</li>
 		<li>
 		<strong>고객 문의</strong>
-		<p>help@hobbyful.co.kr</p>
+		<p>help@hability.co.kr</p>
 		</li>
 		</ul>
 		</div>
@@ -87,21 +87,4 @@
 		</div>
 		</div>
 	</div>
-	<script>
-		window.fbAsyncInit = function() {
-		FB.init({
-		appId      : '388145468250973',
-		xfbml      : true,
-		version    : 'v3.2'
-		});
-		FB.AppEvents.logPageView();
-		};
-		(function(d, s, id){
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement(s); js.id = id;
-		js.src = "https://connect.facebook.net/en_US/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
 </html>

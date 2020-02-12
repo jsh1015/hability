@@ -207,5 +207,4 @@ public class UserDao {
 		sqlSession.getMapper(UserMapper.class).orderselectdelete(emailid);
 	}
 
-
 }

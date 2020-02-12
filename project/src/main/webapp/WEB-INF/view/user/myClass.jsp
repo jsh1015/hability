@@ -398,24 +398,24 @@ transform
 						클래스로 이동</a>
 				</div>
 				</c:if>
-				<c:forEach var="i" items="${odlist}">
+				<c:forEach var="cls" items="${cls}">
 					<div class="myclass-cont">
 						<div class="myclass-area ">
-							<a href="mycdetail.shop?cl_num=${i.cl_num}">
+							<a href="mycdetail.shop?cl_num=${cls.cl_num}">
 								<div class="myclass-img-wrap">
-									<img src="${path}/img/${i.cl_img}" class="img-myclass" alt="">
+									<img src="${path}/img/${cls.cl_img}" class="img-myclass" alt="">
 									<span class="view-class"> <em class="btn-view-class">클래스보기</em></span>
 								</div>
 								<div class="myclass-caption">
 									<span class="caption-txt">
-									<c:set var="ct" value="${i.cl_category}"/>
+									<c:set var="ct" value="${cls.cl_category}"/>
 							  		<c:choose>
 							  			<c:when test="${ct eq 1}">정규클래스</c:when><c:when test="${ct eq 2}">마크라메</c:when><c:when test="${ct eq 3}">뜨개질/위빙</c:when>
 							  			<c:when test="${ct eq 4}">가죽공예</c:when><c:when test="${ct eq 5}">쥬얼리/네온사인</c:when><c:when test="${ct eq 6}">다양한 취미</c:when>
 							  			<c:when test="${ct eq 7}">프랑스 자수</c:when><c:when test="${ct eq 8}">수채화/드로잉</c:when>
 							  		</c:choose></span>
 								</div>
-								<div class="myclass-area-tit">${i.cl_title}</div>
+								<div class="myclass-area-tit">${cls.cl_title}</div>
 								<div class="myclass-summary">
 									<div class="myclass-summary-tit">
 										<div class="myclass-summary-sub">클래스 진행중</div>

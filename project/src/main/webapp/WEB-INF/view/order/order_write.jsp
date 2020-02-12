@@ -55,7 +55,7 @@
 								<!-- 장바구니 갯수 -->
 								<c:forEach var="blist" items="${blist}" varStatus="i">
 								<input type="hidden" name="orderlist" class="cl_num_${i}" value="${blist.cls.cl_num}">
-								<input type="hidden" name="orderlist" class="kit_num_${i}" value="${blist.cls.cl_num}">
+								<input type="hidden" name="orderlist" class="kit_num_${i}" value="${blist.kit.kit_num}">
 								<input type="hidden" name="orderlist" class="count_${i}" value="${blist.count}">
 								<li class="row">
 									<ul class="columns">
@@ -255,11 +255,11 @@
 					<li style="">
 					<span class="i-title">마일리지</span>
 				<!-- 사용하는 마일리지 -->
-					<input type="hidden" value="0" class="usemileage" name="usemileage">
 					<span class="i-value" id="v_usemileage">0원</span>
 					</li>
 				</c:if>
 				<li>
+				<input type="hidden" value="0" class="usemileage" name="usemileage">
 				<span class="i-title">배송비</span>
 				<span class="i-value">무료</span>
 				</li>

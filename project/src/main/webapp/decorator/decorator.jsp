@@ -75,7 +75,17 @@
 								<div class="txt-func02">취미바구니</div>
 							</li>
 							<li class="hf-func s-empty">
+							<c:if test="${!empty order}">
 								<a href="${path}/user/myClass.shop" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
+							</c:if>
+							<c:if test="${empty order}">
+								<a href="javascript:noorder()" title="내 클래스" class="btn-func func-myclass">내 클래스</a>
+								<script type="text/javascript">
+									function noorder(){
+										alert("주문하신 클래스가 없습니다.")
+									}
+								</script>
+							</c:if>
 								<div class="txt-func03">내 클래스</div>
 							</li>
 							</c:if>

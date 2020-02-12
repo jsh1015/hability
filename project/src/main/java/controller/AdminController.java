@@ -93,7 +93,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("kit") 
-	public ModelAndView kit(@Valid Kit kit, Integer cl_num, BindingResult bresult, HttpServletRequest request,HttpSession session) {
+	public ModelAndView kit(Kit kit, Integer cl_num, BindingResult bresult, HttpServletRequest request,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if(bresult.hasErrors()) {
 			mav.getModel().putAll(bresult.getModel());
@@ -125,7 +125,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("video") 
-	public ModelAndView video(@Valid Video video, Integer cl_num, BindingResult bresult, HttpServletRequest request,HttpSession session) {
+	public ModelAndView video(Video video, Integer cl_num, BindingResult bresult, HttpServletRequest request,HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		if(bresult.hasErrors()) {
 			mav.getModel().putAll(bresult.getModel());

@@ -127,4 +127,5 @@ public interface UserMapper {
 	void orderselectdelete(String emailid);
 
 
+
 }

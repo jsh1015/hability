@@ -57,7 +57,7 @@
 		<c:forEach items="${order.orderlist}" var="item">
 		<div class="cancel-class-cont">
 			<div class="cancel-class-thumb">
-				<img src="https://s3.ap-northeast-2.amazonaws.com/staticdev.hobbyful.co.kr/class/thumbs/019aefd0-0f21-11ea-83c9-99a92107598f-square.jpg" class="thumb-cancel-class" alt="책상 위 나만의 공간 색연필 클래스">
+				<img src="${path}/img/${item.cls.cl_img}" class="thumb-cancel-class" alt="">
 			</div>
 			<div class="cancel-class-tit">
 				<div class="cancel-class-tit01">클래스명</div>
