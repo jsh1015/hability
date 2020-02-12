@@ -319,12 +319,13 @@ public class UserController {
 	}
 	
 	@PostMapping("update")//회원정보 수정 눌렀을시
-	public ModelAndView checkupdate(String emailid, String nickname, String name) {
+	public ModelAndView checkupdate(String emailid, String nickname, String name , HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = service.getUser(emailid);
 		user.setNickname(nickname);
 		user.setName(name);
 		service.userupdate(user);
+		session.setAttribute("loginUser", user);
 		mav.setViewName("redirect:/user/mypage.shop?emailid="+ emailid);
 		return mav;
 	}

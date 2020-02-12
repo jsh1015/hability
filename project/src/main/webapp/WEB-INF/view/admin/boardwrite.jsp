@@ -11,11 +11,11 @@
 div {display: inline; float:left;}
 </style>
 <body>
-<div class="w3" style="margin-left: 250px; margin-top: 40px;">
+<div class="w3" style="margin-left: 150px; margin-top: 40px;">
 <form:form modelAttribute="class" action="boardwrite.shop" enctype="multipart/form-data" name="f">
-<table border="1">
+<table border="1" style="width:80%; text-align:center">
 	<tr><th colspan="2"><h3>게시물등록</h3></th></tr>
-	<tr><td>메뉴</td>
+	<tr style="height:50px; border-bottom:1px solid gray"><td>메뉴</td>
 	<td>
 <%-- 	<form:radiobutton  path="board_type" value="1" name="btn" id="btn" onclick="btn_onoff('on_h');" />취미 클래스
 	<form:radiobutton  path="board_type" value="2" name="btn" id="btn" onclick="btn_onoff('on_d');"/>DIY 스토어
@@ -26,7 +26,7 @@ div {display: inline; float:left;}
 	</td></tr>
 	
 	<!-- 취미클래스 -->
-	<tr id="table"><td colspan="2">
+	<tr id="table" style="height:100%"><td colspan="2">
 	<label id="on_h">
 	<h5>클래스 구분</h5>
 	<form:radiobutton  path="cl_type" value="1" />정규 클래스 <form:radiobutton  path="cl_type" value="2" />원데이 클래스<br>
