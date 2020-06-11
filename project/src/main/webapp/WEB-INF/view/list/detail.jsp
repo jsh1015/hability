@@ -287,7 +287,10 @@
 													<span class="sale" id="price${kit.kit_num}"><fmt:formatNumber value="${kit.kit_price}" pattern="##,###" />원</span>
 												</p>
 												<span class="desc">${kit.kit_box}</span>
-												<img src="${path}/img/${kit.kit_img}">
+												<c:if test="${kit.kit_img eq null}"></c:if>
+												<c:if test="${kit.kit_img ne null}">
+													<img src="${path}/img/${kit.kit_img}">
+												</c:if>
 											</div>
 									</label></li>
 									</c:forEach>
